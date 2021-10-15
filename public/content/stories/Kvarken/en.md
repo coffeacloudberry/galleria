@@ -1,0 +1,3 @@
+# Kvarken Archipelago
+
+Very first walk in the region. I have just moved from France to Finland. A local guy offered a trip to the unique natural Unesco World Heritage of Finland: Kvarken. This place was under the ice a long time ago, so much ice that the ground was compressed. The ice melt and the ground kept its compressed shape. Since then, the ground is decompressing, rising slowly a few millimetres every year. I did not feel like rising but I could feel the fresh air, smell the sea, spot snow patches, talk with locals, and go on top of a 20 m watching tower. It was a great first walk and I look forward to sharing more in the next months!

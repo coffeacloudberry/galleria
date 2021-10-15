@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <% if (prod) { %>
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'none'; script-src 'self' 'unsafe-eval' https://api.mapbox.com https://cdnjs.cloudflare.com https://js.sentry-cdn.com https://browser.sentry-cdn.com; connect-src 'self' https://*.sentry.io https://api.mapbox.com https://api.giphy.com; img-src 'self' https://media0.giphy.com data: blob:; style-src 'self' 'unsafe-inline' https://api.mapbox.com; font-src 'self' data:; worker-src blob:; child-src blob:"
+        />
+        <link rel="preconnect" href="https://api.mapbox.com" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <% } %>
+        <meta name="robots" content="noarchive, notranslate" />
+        <meta name="twitter:card" property="og:type" content="summary" />
+        <meta name="twitter:site" content="@ExploreWilder" />
+        <meta
+            name="twitter:title"
+            property="og:title"
+            content="Nature Photo Gallery &amp; Adventure Stories"
+        />
+        <link
+            rel="icon"
+            href="favicon.ico"
+            sizes="16x16 24x24 32x32 64x64"
+            type="image/vnd.microsoft.icon"
+        />
+        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+        <link rel="author" href="humans.txt" />
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            href="https://photog.social/@explorewilder.rss"
+            hreflang="en"
+            title="Mastodon Feed"
+        />
+        <style>
+            body {
+                overflow: hidden;
+            }
+            .loading-js {
+                width: 100%;
+                height: 90vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .loading-js .content {
+                vertical-align: middle;
+                text-align: center;
+                font-family: sans-serif;
+                font-size: 1.05rem;
+                color: #4d4d4d;
+            }
+            .loading-js .content noscript {
+                color: red;
+            }
+        </style>
+        <title>Nature Photo Gallery &amp; Adventure Stories</title>
+        <% if (prod) { %>
+        <script
+            src="https://js.sentry-cdn.com/43c7a02f9aab4d5a8e99d34e175d8951.min.js"
+            crossorigin="anonymous"
+            defer="defer"
+        ></script>
+        <% } %>
+    </head>
+
+    <body>
+        <div class="loading-js">
+            <div class="content">
+                <noscript>
+                    This website requires JavaScript to be enabled. Please
+                    activate it in the settings of your browser.
+                </noscript>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </body>
+</html>

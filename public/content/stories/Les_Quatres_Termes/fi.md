@@ -1,0 +1,3 @@
+# Les Quatre Termes
+
+Aloitin La Gardesta, jossa vaikuttavat kalliot saattavat houkutella kiipeilijöitä. Kävelin ylös Les Quatres Termesiin. Jos et ole koskaan lähtenyt reitiltä, suosittelen tätä osuutta - Les Quatres Termesistä Pensier Occidentaliin - koska suunnistaminen on helppoa: seuraa vain harjannetta! Olin siellä aikaisin keväällä, ja lunta satoi yön aikana. Ylikäytetty superkevyt (864 g) 3-vuodenajan teltta selviytyi lumisista olosuhteista yllättävän hyvin.

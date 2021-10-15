@@ -1,0 +1,3 @@
+# Esterel
+
+The Esterel area is easy access. The train is not just eco-friendly but also very scenic along the coast, I could focus on the horizon and the sunrise instead of the traffic jam. The early bird catches the worm, so I took the very first train to Saint-Raphaël. From there I walked almost non-stop all the way to Mandelieu-la-Napoule, and hitchhiked back to town to catch the train. I had the kind of weather I like: fast changing – from {patchy rain}="Irregular in quality, occurrence, intensity" to {fine spells}="Sun obscured by cloud, with more sun than cloud" – that makes nice pictures – with droplets, bright colours, and diffused light –, and I could finally dry before a dreamy night.

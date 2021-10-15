@@ -1,0 +1,7 @@
+# Aasi Hole
+
+Otin joitakin suosikkikuviani tällä reitillä, kun kuljin Saint-Étienne-de-Tinéestä Allosiin Trou de l'Ânen - eli Aaskaloukun - kautta! En panisi pahakseni tehdä täsmälleen samaa reittiä joka vuodenaika nähdäkseni muuttuvan luonnon. Sinä päivänä oli sininen taivas ja kirkkaan punertava syyslehtivihreä.
+
+Kysyin itseltäni, miksei täällä Donkey Holeissa ole mitään rataa. Perillä kysyin itseltäni, missä aasi on! Sää muuttui, ja paras tapa ylittää liukas ja jyrkkä satula - 2 700 m - oli Sanguineretten kautta - 2 855 m. Lac d'Allos on Euroopan suurin luonnollinen korkealla sijaitseva järvi (0,6 km² 2 230 m:n korkeudessa.) Se oli yön yli lumipeitteinen, kun olin siellä, hiljainen ja rentouttava kuitenkin.
+
+Minulla oli vain viikonloppu aikaa retkeillä, joten yritin kulkea mahdollisimman pitkän matkan. Jalkani oli hapoilla puolivälissä - tensor fasciae latae -jännetulehdus - mutta toivuin hyvin (metyylisalisylaattipohjaisella voiteella.) Olosuhteet olivat ihanteelliset testata talviretkitelttaani ennen *Whitish Dusk* -seikkailuani. Paluun ajaksi rankkasade peruutti kaikki junat ja bussit. Niinpä löysin itseni liftaamasta yön yli, suurkaupungissa, ihan märkänä, repun ja jännetuppitulehduksen kanssa. Kotona nukuin kuin vauva.

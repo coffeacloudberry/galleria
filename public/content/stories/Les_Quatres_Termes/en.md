@@ -1,0 +1,3 @@
+# Les Quatre Termes
+
+I started from La Garde, where impressive cliffs may attract climbers. I walked up to Les Quatres Termes. If you have never left track, I would advise you this section – from Les Quatres Termes to Pensier Occidental – because navigation is easy: just follow the ridge! I was there early spring, and snow fell overnight. My over-used super-lightweight (864g) 3-season tent handled the snowy conditions surprisingly well.

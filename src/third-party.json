@@ -1,0 +1,102 @@
+[
+    {
+        "project": {
+            "name": "Mithril",
+            "link": "https://mithril.js.org/"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/MithrilJS/mithril.js/blob/next/LICENSE"
+        }
+    },
+    {
+        "project": {
+            "name": "Tippy.js",
+            "link": "https://atomiks.github.io/tippyjs/"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/atomiks/tippyjs/blob/master/LICENSE"
+        }
+    },
+    {
+        "project": {
+            "name": "ress",
+            "link": "https://resset.surge.sh/"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/filipelinhares/ress/blob/master/LICENSE.md"
+        }
+    },
+    {
+        "project": {
+            "name": "Ionicons",
+            "link": "https://ionicons.com/"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/ionic-team/ionicons/blob/master/LICENSE"
+        }
+    },
+    {
+        "project": {
+            "name": "translate.js",
+            "link": "https://github.com/StephanHoyer/translate.js"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/StephanHoyer/translate.js/blob/master/LICENSE"
+        }
+    },
+    {
+        "project": {
+            "name": "Chart.js",
+            "link": "https://www.chartjs.org"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/chartjs/Chart.js/blob/master/LICENSE.md"
+        }
+    },
+    {
+        "project": {
+            "name": "Mapbox GL JS",
+            "link": "https://www.mapbox.com/"
+        },
+        "license": {
+            "name": "Copyright © 2020, Mapbox",
+            "link": "https://github.com/mapbox/mapbox-gl-js/blob/main/LICENSE.txt"
+        }
+    },
+    {
+        "project": {
+            "name": "Turf",
+            "link": "https://turfjs.org/"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/Turfjs/turf/blob/master/LICENSE"
+        }
+    },
+    {
+        "project": {
+            "name": "Snarkdown",
+            "link": "https://github.com/developit/snarkdown"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/developit/snarkdown/blob/master/LICENSE"
+        }
+    },
+    {
+        "project": {
+            "name": "font",
+            "link": null
+        },
+        "license": {
+            "name": "OFL",
+            "link": "https://scripts.sil.org/cms/scripts/page.php?item_id=OFL"
+        }
+    }
+]

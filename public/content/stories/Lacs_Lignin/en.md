@@ -1,0 +1,3 @@
+# Lignin Lakes
+
+The good point about this area is the access. The tourist train can stop upon request near the Peyresq hamlet, so your very first step is in the forest! Be aware that the train is off-service from time to time... One bad point for the French reputation of being lazy! I preferred hitchhiking for the return. The Lignin is scenic in winter. The lakes were snow covered. I found a few nice huts around here. I walked on 1 m-deep snow around the lakes and green grass only a couple of hundred metres down hill, more exposed to the sun.

@@ -1,0 +1,16 @@
+.env
+.git
+.gitignore
+.github
+.vercel
+.scannerwork
+.idea
+node_modules
+*~
+*.gpx
+*.NEF
+*.pp3
+*.tif
+*.xcf
+_*
+tests/end_to_end/results

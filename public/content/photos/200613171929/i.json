@@ -1,0 +1,24 @@
+{
+    "title": {
+        "en": "Green & Black",
+        "fi": "Vihreä & musta",
+        "fr": "Vert & noir"
+    },
+    "description": {
+        "en": "HDR picture made of 2 shots",
+        "fi": "HDR-kuva, joka on tehty 2 otoksesta",
+        "fr": "Photo HDR composée de 2 prises"
+    },
+    "position": {
+        "lat": 44.180631,
+        "lon": 6.830074
+    },
+    "story": "Estrop",
+    "dateTaken": "2020-06-13T17:19:29",
+    "focalLength35mm": 72,
+    "exposureTime": "1/800",
+    "fNumber": 9.0,
+    "iso": 100,
+    "prev": 191102150550,
+    "next": 200613180128
+}

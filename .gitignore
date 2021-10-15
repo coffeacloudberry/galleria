@@ -1,0 +1,15 @@
+node_modules/
+package-lock.json
+.vercel/
+.env
+*.gpx
+*.NEF
+*.pp3
+*.tif
+*.xcf
+_*
+tests/end_to_end/results
+.vercel
+.scannerwork/
+.idea
+*~

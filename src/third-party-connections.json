@@ -1,0 +1,42 @@
+[
+    {
+        "what": "host",
+        "who": "Vercel",
+        "link": "https://vercel.com/legal/privacy-policy"
+    },
+    {
+        "what": "db",
+        "who": "Upstash",
+        "link": "https://www.upstash.com/static/legal/privacy.html"
+    },
+    {
+        "what": "emails",
+        "who": "SendPulse",
+        "link": "https://sendpulse.com/legal/pp"
+    },
+    {
+        "what": "messages",
+        "who": "Tutao GmbH",
+        "link": "https://tutanota.com/privacy"
+    },
+    {
+        "what": "maps",
+        "who": "Mapbox",
+        "link": "https://www.mapbox.com/legal/privacy"
+    },
+    {
+        "what": "bugs",
+        "who": "Sentry",
+        "link": "https://sentry.io/privacy/"
+    },
+    {
+        "what": "cdn",
+        "who": "Cloudflare",
+        "link": "https://www.cloudflare.com/privacypolicy/"
+    },
+    {
+        "what": "gif",
+        "who": "GIPHY",
+        "link": "https://www.giphy.com/privacy"
+    }
+]

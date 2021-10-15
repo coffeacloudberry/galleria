@@ -1,0 +1,3 @@
+# Ligniinijärvet
+
+Tämän alueen hyvä puoli on pääsy. Turistijuna voi pysähtyä pyynnöstä Peyresqin kylän lähellä, joten ensimmäinen askeleesi on metsässä! Kannattaa huomioida, että juna on ajoittain pois käytöstä.... Yksi huono piste ranskalaisten laiskuuden maineelle! Paluumatka taittui mieluummin liftaamalla. Lignin on maisemallinen talvella. Järvet olivat lumen peitossa. Löysin täältä muutaman mukavan majan. Kävelin 1 metrin syvyisessä lumessa järvien ympärillä ja vihreällä ruoholla vain parisataa metriä alamäkeä pitkin, enemmän auringolle alttiina.

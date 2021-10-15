@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "slug": "en",
+        "name": "English"
+    },
+    {
+        "id": 2,
+        "slug": "fi",
+        "name": "Suomi"
+    },
+    {
+        "id": 3,
+        "slug": "fr",
+        "name": "Français"
+    }
+]

@@ -1,0 +1,3 @@
+# Dôme de Barrot
+
+Saviez-vous qu'étreindre les arbres est relaxant ? Mais les {chenilles}="lymantria dispar" aiment aussi le chêne. J'ai trouvé plus de faune à l'Ouest du chemin, j'ai repéré un cerf sur le chemin, et un {papillon}="zygaenidae" sur une knautia arvensis. L'Est était par contre plus pittoresque, et j'ai terminé la promenade avec une sympathique randonneuse rencontrée au sommet du Dôme.

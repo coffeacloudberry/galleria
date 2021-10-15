@@ -1,0 +1,3 @@
+# Merveilles
+
+Erittäin luonnonkaunis kävelymatka Boréonista Fontaniin. Polkuja on kaikkialla, ja siellä on joitakin vilkkaita majoja, kuten Pyreneillä. Tapasin matkalla muutaman vaeltajan ja kysyin itseltäni, miksi juosta, kun ei ole kiire - kuin etana unikossa! Onnistun joskus kävelemään yllättävänkin pitkän matkan, mutta en koskaan juoksemaan. Tälle vaellukselle saavuin Boréoniin myöhään perjantai-iltapäivällä, bongasin tulikärpäsiä ja pystytin teltan yöksi. Lauantaina aloitin vaelluksen ennen auringonnousua, jotta saisin uuden alun ja valokuvausmahdollisuuksia. Pysähdyin Fontanin lähelle liftaamaan sunnuntaiaamuna.

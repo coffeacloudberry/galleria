@@ -1,0 +1,52 @@
+{
+    "First Point": {
+        "source": "goal-outline",
+        "attributions": ["Freepik", "https://www.freepik.com"]
+    },
+    "house": {
+        "source": "house-outline",
+        "attributions": [
+            "Good Ware",
+            "https://www.flaticon.com/authors/good-ware"
+        ]
+    },
+    "camera": {
+        "source": "photo-camera-outline",
+        "attributions": [
+            "Good Ware",
+            "https://www.flaticon.com/authors/good-ware"
+        ]
+    },
+    "Campground": {
+        "source": "tent-outline",
+        "attributions": [
+            "Good Ware",
+            "https://www.flaticon.com/authors/good-ware"
+        ]
+    },
+    "Fishing Hot Spot Facility": {
+        "source": "wood-house-outline",
+        "attributions": [
+            "Good Ware",
+            "https://www.flaticon.com/authors/good-ware"
+        ]
+    },
+    "Last Point": {
+        "source": "mission-outline",
+        "attributions": [
+            "Pixel perfect",
+            "https://www.flaticon.com/authors/pixel-perfect"
+        ]
+    },
+    "hiker": {
+        "source": "backpacker-outline",
+        "attributions": ["surang", "https://www.flaticon.com/authors/surang"]
+    },
+    "helicopter": {
+        "source": "helicopter",
+        "attributions": [
+            "Pixel perfect",
+            "https://www.flaticon.com/authors/pixel-perfect"
+        ]
+    }
+}
