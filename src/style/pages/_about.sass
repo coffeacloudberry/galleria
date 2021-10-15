@@ -1,0 +1,61 @@
+@import "../base/variables"
+
+section#about
+    margin-top: #{$nav-bar-height}
+    overflow-y: auto
+    height: calc(100vh - #{$nav-bar-height})
+    .me
+        position: relative
+        margin-bottom: -.5rem
+        img
+            max-width: 100%
+            box-shadow: 0 0 3px rgba(114, 114, 114, 0.46)
+            border-radius: 0 $border-radius-lg 0 $border-radius-lg
+        p.credit
+            position: absolute
+            font-size: .8rem
+            margin: 0
+            padding: .1rem .3rem
+            bottom: 1rem
+            right: .5rem
+            background-color: rgba(255, 255, 255, .5)
+            border-radius: 0 $border-radius-lg 0 $border-radius-lg
+            a
+                color: black
+                text-decoration: none
+
+table.data
+    border-collapse: collapse
+    margin: 1rem 0
+    width: 100%
+    th
+        background: #efefef
+        text-align: left
+    td, th
+        border: .1px solid #a7a7a7 /* .1 instead of 1px to avoid thick borders on Chrome */
+        padding: .5rem
+    &.icons
+        th:first-child, td:first-child
+            text-align: center
+        img
+            vertical-align: middle
+            height: 32px
+
+/* some ads blocker block classes containing 'social', so let's put a random string instead */
+.yydchtxork
+    h1
+        @media (min-width: 1100px)
+            text-align: center
+            margin: auto
+            max-width: 30%
+    ul
+        text-align: center /* aligned to the visitor's book content */
+        li
+            list-style: none
+            display: inline-block
+            margin-top: $block-space
+            height: 2rem
+            &:not(:first-child)
+                margin-left: $block-space
+            img.icon
+                height: 2rem

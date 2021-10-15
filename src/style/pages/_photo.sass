@@ -1,0 +1,35 @@
+@import "../base/variables"
+
+#gallery
+    .goto-photo-screen-nav
+        position: absolute
+        z-index: 1
+        top: 0
+        width: 45vw
+        height: 100vh
+        &.goto-prev-photo
+            left: 0
+            cursor: w-resize
+        &.goto-next-photo
+            right: 0
+            cursor: e-resize
+    #current-photo
+        display: flex
+        justify-content: center
+        align-items: center
+        margin-top: calc(#{$nav-bar-height} * 3 / 2)
+        height: calc(100vh - 3 * #{$nav-bar-height} - 1px)
+        @media (max-width: 1024px)
+            margin-top: calc(#{$nav-bar-height} * 2.5 / 2)
+            height: calc(100vh - 2.5 * #{$nav-bar-height} - 1px)
+        @media (max-width: 1024px) and (orientation: landscape)
+            margin-top: calc(#{$nav-bar-height} / 8)
+            height: calc(100vh - 2 * #{$nav-bar-height} / 8)
+        img
+            max-width: calc(100vw - #{$nav-bar-height})
+            @media (max-width: 1024px)
+                max-width: calc(100vw - 2 * #{$nav-bar-height} / 8)
+            @media (max-width: 1024px) and (orientation: landscape)
+                max-width: calc(100vw - 2.5 * #{$nav-bar-height})
+            max-height: 100%
+            border-radius: $border-radius-sm

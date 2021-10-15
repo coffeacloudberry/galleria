@@ -1,0 +1,133 @@
+@import "../base/variables"
+
+header, footer
+    nav
+        box-shadow: 0 0 3px rgba(51, 51, 51, 0.46)
+        position: absolute
+        background-color: $nav-bg-color
+        z-index: 10
+        width: 100%
+        height: calc(#{$nav-bar-height} + 1px)
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        .flex-sides
+            flex: 1 1 0
+            width: 0
+        &.nav-photo
+            .photo-title
+                display: inline-block
+                margin-top: $nav-item-space
+                padding: $nav-item-space calc(#{$nav-item-space} * 3 / 2)
+            @media (max-width: 1024px)
+                .photo-title
+                    position: absolute
+                    background-color: rgb(255, 255, 255, .5)
+                    text-align: center
+                    color: black
+                    *
+                        display: inline-block
+                    .short-item a
+                        color: black !important
+                        text-decoration: rgba(0, 0, 0, 0.4) wavy underline
+                        &:hover, &:focus
+                            background-color: inherit
+                            text-decoration: black wavy underline
+                @media (orientation: landscape)
+                    top: 0
+                    width: calc(#{$nav-bar-height} + 1px)
+                    flex-direction: column
+                    height: 100vh
+                    .photo-title
+                        bottom: .3rem
+                        left: calc(#{$nav-bar-height} + 4px) /* 4px to keep distance from the shadow on the nav bar */
+                        width: calc(100vw - 2 * (#{$nav-bar-height} + 4px))
+                @media (orientation: portrait)
+                    .photo-title
+                        top: calc(#{$nav-bar-height} + 1px)
+                        left: 0
+                        width: 100vw
+            .flex-sides
+                @media (max-width: 1024px) and (orientation: landscape)
+                    flex: inherit
+        .flex-right
+            text-align: right
+        .long-item
+            display: inherit
+        .short-item
+            display: none
+        @media (max-width: 1024px)
+            .long-item
+                display: none
+            .short-item
+                display: inherit
+        .nav-item
+            margin: $nav-item-space
+            padding: $nav-item-space calc(#{$nav-item-space} * 3 / 2)
+            display: inline-block
+            font-size: $nav-font-size
+            &.branding
+                @media (max-width: 1024px)
+                    padding-top: 1rem
+                    margin: 0
+                    font-size: calc(#{$nav-font-size} / 1.25)
+            font-family: 'MyBoldFont', sans-serif
+            align-items: center
+            .icon
+                filter: $filter-body-color
+                height: $nav-icon-size
+                vertical-align: calc(#{$nav-font-size} - #{$nav-icon-size} + 1.5px)
+            &#language-selection
+                cursor: default
+                transition: all .2s ease-in
+                outline: 1px solid $nav-bg-color
+                border-radius: 0 $border-radius-lg 0 $border-radius-lg
+                &:focus
+                    outline: 1px solid $nav-hover-bg-color
+        a
+            text-decoration: none
+            color: $body-color !important
+            border-radius: 0 $border-radius-lg 0 $border-radius-lg
+            &:hover, &:focus
+                background-color: $nav-hover-bg-color
+        .applause-feedback
+            display: flex
+
+.tippy-box[data-theme~='dropdown-list']
+    ul
+        list-style: none
+        text-align: center
+        li
+            .lang-item
+                font-size: 1rem
+                padding: 5px 9px /* same as the tippy style */
+                margin: 5px 0
+                border-radius: 0 $border-radius-lg 0 $border-radius-lg
+                $mute-color: #6d6d6d
+                border: 1px solid $mute-color
+                color: $mute-color
+            a.lang-item
+                color: white !important
+                display: block
+                text-decoration: none
+                border: 1px solid $body-color
+                &:hover, &:focus
+                    background-color: $body-color
+                    border: 1px solid white
+
+header nav
+    border-bottom: 1px solid $strong-border-color
+    top: 0
+    &.nav-photo
+        @media (max-width: 1024px) and (orientation: landscape)
+            border-bottom: none
+            border-right: 1px solid $strong-border-color
+
+footer nav
+    border-top: 1px solid $strong-border-color
+    bottom: 0
+    &.nav-photo
+        @media (max-width: 1024px) and (orientation: landscape)
+            border-top: none
+            border-left: 1px solid $strong-border-color
+            right: 0

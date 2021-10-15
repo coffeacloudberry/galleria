@@ -1,0 +1,94 @@
+@import "../base/variables"
+
+button:not([class^='mapboxgl-ctrl-']):not(.light-icon-button), .button
+    background: $button-background
+    color: white !important
+    padding: 0.5rem 1rem
+    border-radius: 0 $border-radius-lg 0 $border-radius-lg
+    cursor: pointer
+    display: inline-block
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
+    transition: all .2s ease-in
+    &.critical
+        background: #973737
+    &[disabled]
+        background: #979797
+        cursor: no-drop
+    img.icon
+        filter: $filter-white
+        vertical-align: -.13rem
+        display: inline-block
+        margin-right: .5rem
+    &:not([disabled]):hover, &:not([disabled]):focus
+        background: $button-background-hover
+    &.critical:not([disabled]):hover, &.critical:not([disabled]):focus
+        background: #4f2323
+
+button.light-icon-button
+    img.icon
+        filter: $filter-button-background
+        transition: all .2s ease-in
+    &:hover, &:focus
+        img.icon
+            filter: $filter-button-background-hover
+
+a.button
+    text-decoration: none !important
+
+form
+    max-width: 500px
+
+input:not([type="radio"]), textarea
+    display: block
+    padding: 0.5rem
+    width: 100%
+    margin: 0.5rem 0
+    border: 1px solid #cdcdcd
+    border-radius: 0 $border-radius-lg 0 $border-radius-lg
+    box-shadow: 0 0 2px rgba(114, 114, 114, 0.46)
+    transition: all .2s ease-in
+    &.invalid
+        border: 1px solid #de2828
+        box-shadow: 0 0 2px rgba(255, 0, 0, 0.36)
+    &:not(.invalid):focus
+        border: 1px solid #636363
+        box-shadow: 0 0 2px rgba(83, 83, 83, 0.46)
+    &:focus
+        outline: none /* reset */
+
+input[type="radio"]
+    background-color: #ddd
+    border-radius: 8px
+    display: inline-block
+    height: 16px
+    position: relative
+    margin-bottom: -1px
+    width: 16px
+    -webkit-appearance: none
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4)
+    transition: all .2s ease-in
+    &:after
+        background-color: #ffffff
+        border-radius: 4px
+        border: 1px solid #7b7b7b
+        content: ''
+        display: block
+        position: relative
+        width: 8px
+        height: 8px
+        left: 4px
+        top: 4px
+    &:checked:after
+        background-color: $button-background
+    &:focus:after
+        border: 1px solid $button-background-hover
+
+textarea
+    min-height: 5rem
+
+label
+    display: block
+    color: #808080
+    &.radio
+        display: inline-block
+        margin: 0 0 0 .5rem

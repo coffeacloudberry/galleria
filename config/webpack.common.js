@@ -101,7 +101,7 @@ module.exports = {
                         path
                             .resolve(paths.src, "icons", "favicon")
                             .replace(/\\/g, "/"),
-                        "*.{ico,png}",
+                        "!(_)*.{ico,png}",
                     ),
                     to: "[name][ext]",
                     globOptions: {

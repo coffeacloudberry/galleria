@@ -1,0 +1,40 @@
+.giphy-finder
+    text-align: center
+    form
+        max-width: inherit
+        background-color: white
+        position: sticky
+        top: 0
+        z-index: 10
+        padding-bottom: .5rem
+        label
+            display: inline
+            input
+                display: inline
+                width: inherit
+                margin-right: 1rem
+
+ul.giphy-list
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    list-style: none
+    margin-bottom: 1rem
+    li
+        margin: .5rem !important /* also reset modal style */
+        img.giphy
+            border-radius: $border-radius-sm
+        .selectable
+            position: relative
+            img.giphy
+                opacity: 1
+                transition: 0.3s ease-in-out
+            button
+                transform: translate(0, calc(-100% - 1.5rem))
+                opacity: 0
+                transition: 0.3s ease-in-out
+            &:hover
+                button
+                    opacity: 1
+                img.giphy
+                    opacity: 0.6

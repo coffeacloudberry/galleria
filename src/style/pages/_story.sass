@@ -1,0 +1,80 @@
+@import "../base/variables"
+
+section#story
+    margin-top: #{$nav-bar-height}
+    overflow-y: auto
+    height: calc(100vh - #{$nav-bar-height})
+    h1
+        .period
+            font-size: .9rem
+            font-family: 'MyBodyFont', sans-serif
+            margin-top: .5rem
+    hr
+        max-width: 30%
+    .map-extra
+        margin-top: calc(#{$nav-bar-height} / 4)
+        #map
+            border-radius: 0 $border-radius-lg 0 $border-radius-lg
+            box-shadow: 0 0 3px rgba(114, 114, 114, 0.46)
+            canvas
+                /* force border radius */
+                border-radius: 0 $border-radius-lg 0 $border-radius-lg
+                box-shadow: 0 0 3px rgba(114, 114, 114, 0.46)
+            .mapboxgl-ctrl-group
+                border-radius: 0 $border-radius-lg 0 $border-radius-lg
+                button:disabled
+                    /* the 'important' is to overwrite the :active */
+                    cursor: not-allowed !important
+                button:focus
+                    box-shadow: none
+                    .mapboxgl-ctrl-icon
+                        filter: $filter-button-background
+            .mapboxgl-canvas-container
+                opacity: 0
+                transition: opacity .4s linear
+                &.full-opacity
+                    opacity: 1
+                &:not(.mapboxgl-interactive)
+                    cursor: not-allowed
+            .mapboxgl-ctrl-scale
+                font-family: 'MyBodyFont', sans-serif
+                font-size: .8rem
+            .mapboxgl-ctrl button.mapboxgl-ctrl-my-autopilot .mapboxgl-ctrl-icon
+                width: 80% !important
+                height: 80% !important
+                margin: auto
+                &.play-autopilot
+                    background-image: url("../icons/map/helicopter.svg")
+                &.pause-autopilot
+                    background-image: url("../icons/pause-outline.svg")
+                &.loading-autopilot
+                    background-image: url("../icons/hourglass-outline.svg")
+                    animation: hourglass 4s ease infinite
+                &.rewind-autopilot
+                    background-image: url("../icons/play-back-outline.svg")
+            .tooltip-inside-map
+                font-family: 'MyBoldFont', sans-serif
+                font-size: .9rem
+                .mapboxgl-popup-tip
+                    visibility: hidden /* hide unwanted arrow */
+                .mapboxgl-popup-content
+                    padding: .5rem
+            width: 100%
+            /* the map does not load if too small */
+            height: calc(max(60vh - #{$nav-bar-height} - #{$block-space}, 300px))
+            background: #eae8e6 /* for the user to know that something will appear (instead of just a big gap) */
+        p.attributions
+            font-size: .8rem
+            margin-top: .3rem
+            line-height: 1.2rem
+            text-align: right
+    .applause-story
+        text-align: center
+        height: 2rem
+        .icon
+            filter: $filter-body-color
+            height: $nav-icon-size
+    .chart-container
+        padding-top: 1rem /* the legend on the bottom adds space that needs to be compensated on the top */
+        width: 100%
+        height: calc(max(40vh - #{$nav-bar-height} - #{$block-space}, 200px))

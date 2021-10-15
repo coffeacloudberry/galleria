@@ -1,0 +1,25 @@
+.applause-feedback
+    align-items: center
+    .tippy-box
+        display: inline-block
+        background-color: tomato
+        color: yellow
+        font-size: 1rem
+        padding: .3rem .6rem
+    &.abs-bottom-center
+        position: absolute
+        bottom: 1rem
+        left: 50%
+        transform: translate(-50%, 0)
+
+@media (max-width: 1024px)
+    .applause-feedback
+        position: absolute !important
+        right: 0
+        @media (orientation: landscape)
+            top: .3rem
+        @media (orientation: portrait)
+            bottom: 4rem
+        width: 100vw
+        .tippy-box
+            margin: auto
