@@ -5,7 +5,12 @@
         "link": "https://vercel.com/legal/privacy-policy"
     },
     {
-        "what": "db",
+        "what": "permdb",
+        "who": "Microsoft Azure Ireland",
+        "link": "https://azure.microsoft.com/en-gb/resources/azure-global-compliance-map/"
+    },
+    {
+        "what": "tmpdb",
         "who": "Upstash",
         "link": "https://www.upstash.com/static/legal/privacy.html"
     },
