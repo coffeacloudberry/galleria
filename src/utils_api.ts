@@ -1,5 +1,6 @@
 import { VercelRequest } from "@vercel/node";
 import redis from "redis";
+import https from "https";
 
 /** Initialize the Redis connection. Remember to close it. */
 export function initClient(): redis.RedisClient {
@@ -56,4 +57,29 @@ export function isSameSite(request: VercelRequest): boolean {
     return (
         request.headers.referer.indexOf(request.headers.host.split(":")[0]) > -1
     );
+}
+
+/** Do a request with options provided. */
+export function doRequest(options: any, data: any) {
+    return new Promise((resolve, reject) => {
+        const req = https.request(options, (res) => {
+            res.setEncoding("utf8");
+            let responseBody = "";
+
+            res.on("data", (chunk) => {
+                responseBody += chunk;
+            });
+
+            res.on("end", () => {
+                resolve(JSON.parse(responseBody));
+            });
+        });
+
+        req.on("error", (err) => {
+            reject(err);
+        });
+
+        req.write(data);
+        req.end();
+    });
 }
