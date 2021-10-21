@@ -1,7 +1,6 @@
 import m from "mithril";
 import PrivacyPage from "./views/PrivacyPage";
 import NotFoundPage from "./views/NotFoundPage";
-import AdminPage from "./views/AdminPage";
 import AboutPage from "./views/AboutPage";
 import StoryPage from "./views/StoryPage";
 import PhotoPage from "./views/PhotoPage";
@@ -41,7 +40,6 @@ const plainRoutes: RoutedComponents = {
 // Build the complete routes tree for all the languages
 export const routes: RoutedResolvers = {
     "/:other": routeResolver(NotFoundPage),
-    "/en/admin": routeResolver(AdminPage),
 };
 for (const language of languages) {
     Object.keys(plainRoutes).forEach((route) => {
