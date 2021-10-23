@@ -2,9 +2,9 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import * as utils from "../src/utils_api";
 import { promisify } from "util";
 import { getClientIp } from "request-ip";
-import { createHash } from "crypto";
 import sendpulse from "sendpulse-api";
 import { tmpdir } from "os";
+import { anonymizeClient } from "../src/utils_api";
 
 /** Address book name as defined in the SendPulse admin panel. */
 export const newsletterAddressBookName = "Newsletter";
@@ -184,10 +184,7 @@ export async function checkVisitor(
     } catch {}
 
     const cTimestamp = Math.floor(Date.now() / 1000);
-    const cHashedIp = createHash("sha1")
-        .update(clientIp + process.env.SALT)
-        .digest("base64")
-        .slice(0, 24);
+    const cHashedIp = anonymizeClient(clientIp);
 
     // abort if the visitor has recently been recorded
     for (const historyItem of history) {

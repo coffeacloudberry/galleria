@@ -2,7 +2,7 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import * as utils from "../src/utils_api";
 import { promisify } from "util";
 import { getClientIp } from "request-ip";
-import { createHash } from "crypto";
+import { anonymizeClient } from "../src/utils_api";
 
 /** The same user cannot share twice within this time gap in seconds. */
 const minTimeGap = 180;
@@ -28,10 +28,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 response.status(400).json(undefined);
                 return;
             }
-            const hashedIp = createHash("sha1")
-                .update(clientIp + process.env.SALT)
-                .digest("base64")
-                .slice(0, 24);
+            const hashedIp = anonymizeClient(clientIp);
             const data = `${giphyId}:${currentTime}:${hashedIp}`;
             const listName = `${process.env.VERCEL_ENV}:giphy`;
             let client;
