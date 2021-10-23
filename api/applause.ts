@@ -1,8 +1,16 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import * as utils from "../src/utils_api";
-import { doRequest } from "../src/utils_api";
+import { anonymizeClient, doRequest } from "../src/utils_api";
 import { getClientIp } from "request-ip";
 
+/**
+ * Forward the like to the Azure API Manager. The APIM credentials are sent in
+ * the request alongside the client's IP address in anonymous form.
+ * NOTICE: The Privacy Badger plugin blacklist the endpoint, that is why
+ * forwarding the request is necessary. That also helps complying the Privacy
+ * and DNT Policies since the end user's IP address is unknown from the Azure
+ * API Manager.
+ */
 export default async (request: VercelRequest, response: VercelResponse) => {
     if (!utils.isSameSite(request)) {
         response.status(401).json(undefined);
@@ -20,7 +28,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Content-Length": data.length,
                 "X-Vercel-Pass": process.env.APIM_PASS,
-                "X-IP": getClientIp(request),
+                "X-Client-ID": anonymizeClient(getClientIp(request)),
             },
         };
 

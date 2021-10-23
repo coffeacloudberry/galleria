@@ -1,6 +1,7 @@
 import { VercelRequest } from "@vercel/node";
 import redis from "redis";
 import https from "https";
+import { createHash } from "crypto";
 
 /** Initialize the Redis connection. Remember to close it. */
 export function initClient(): redis.RedisClient {
@@ -60,4 +61,14 @@ export function doRequest(options: any, data: any) {
         req.write(data);
         req.end();
     });
+}
+
+export function anonymizeClient(clientIp: string | null): string {
+    if (clientIp === null) {
+        return "";
+    }
+    return createHash("sha1")
+        .update(clientIp + process.env.SALT)
+        .digest("base64")
+        .slice(0, 24);
 }
