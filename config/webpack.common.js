@@ -90,7 +90,11 @@ module.exports = {
 
         // Removes/cleans build folders and unused assets when rebuilding
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: ["**/*", "!content/**"],
+            cleanOnceBeforeBuildPatterns: [
+                "**/*",
+                "!content/**",
+                "!.well-known/**",
+            ],
         }),
 
         // Copies the favicons
