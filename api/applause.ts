@@ -27,6 +27,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Content-Length": data.length,
+                "Ocp-Apim-Subscription-Key": process.env.APIM_SUBSCRIPTION_KEY,
                 "X-Vercel-Pass": process.env.APIM_PASS,
                 "X-Client-ID": anonymizeClient(getClientIp(request)),
             },
