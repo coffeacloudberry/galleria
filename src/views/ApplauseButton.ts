@@ -2,7 +2,9 @@ import m from "mithril";
 import thumbsUpOutline from "@/icons/thumbs-up-outline.svg";
 import Icon from "./Icon";
 import { config } from "../config";
+import CustomLogging from "../CustomLogging";
 
+const info = new CustomLogging();
 const t = require("../translate");
 
 type FnPromiseErrorCode = () => Promise<(Error & { code: number }) | undefined>;
@@ -37,6 +39,7 @@ export default class ApplauseButton
     }
 
     clickButton(e: Event): void {
+        info.log(`Thanks for liking ${this.currentId}`);
         this.pressed = true;
         this.applausePromise()
             .then(() => {

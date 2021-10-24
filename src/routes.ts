@@ -2,6 +2,7 @@ import m from "mithril";
 import PrivacyPage from "./views/PrivacyPage";
 import NotFoundPage from "./views/NotFoundPage";
 import AboutPage from "./views/AboutPage";
+import StoriesOverviewPage from "./views/StoriesOverviewPage";
 import StoryPage from "./views/StoryPage";
 import PhotoPage from "./views/PhotoPage";
 import languages from "./languages.json";
@@ -30,6 +31,7 @@ function routeResolver(Component: Page): m.RouteResolver {
 const plainRoutes: RoutedComponents = {
     "/photo": PhotoPage /* will load the most recent photo */,
     "/photo/:title": PhotoPage,
+    "/stories": StoriesOverviewPage,
     "/story/:title": StoryPage /* also includes key parameters: origin photo */,
     "/about": AboutPage,
     "/privacy": PrivacyPage,

@@ -10,9 +10,7 @@ import ApplauseButton from "./ApplauseButton";
 import Icon from "./Icon";
 import { Header, HeaderAttrs } from "./Header";
 import { config } from "../config";
-import CustomLogging from "../CustomLogging";
 
-const info = new CustomLogging();
 const Photo = require("../models/Photo");
 const t = require("../translate");
 

@@ -2,6 +2,7 @@ import m from "mithril";
 import ApplauseButton from "./ApplauseButton";
 import { hideAllForce, transformExternalLinks } from "../utils";
 import tippy, { Instance as TippyInstance } from "tippy.js";
+import { EasyDate, SeasonStrings } from "../models/Story";
 import { Header } from "./Header";
 import Map from "./Map";
 
@@ -28,26 +29,42 @@ const Duration: m.Component<DurationAttrs> = {
     },
 };
 
+interface StorySubTitleAttrs {
+    start: EasyDate | null;
+    season: SeasonStrings | null;
+    duration: number | null;
+}
+
+export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
+    view({ attrs }: m.Vnode<StorySubTitleAttrs>): m.Vnode {
+        return m(".period", [
+            attrs.start &&
+                t("story.start") +
+                    t("date", attrs.start.month, {
+                        day: attrs.start.day,
+                        year: attrs.start.year,
+                    }) +
+                    " • " +
+                    t("seasons", attrs.season),
+            attrs.start && attrs.duration && " • ",
+            attrs.duration &&
+                m(Duration, {
+                    duration: attrs.duration,
+                }),
+        ]);
+    },
+};
+
 const StoryTitle: m.Component = {
     view(): m.Vnode {
         return m("h1", [
             Story.title,
             (Story.start || Story.duration) &&
-                m(".period", [
-                    Story.start &&
-                        t("story.start") +
-                            t("date", Story.start.month, {
-                                day: Story.start.day,
-                                year: Story.start.year,
-                            }) +
-                            " • " +
-                            t("seasons", Story.season),
-                    Story.start && Story.duration && " • ",
-                    Story.duration &&
-                        m(Duration, {
-                            duration: Story.duration,
-                        }),
-                ]),
+                m(StorySubTitle, {
+                    start: Story.start,
+                    season: Story.season,
+                    duration: Story.duration,
+                }),
         ]);
     },
 };

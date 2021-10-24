@@ -5,7 +5,7 @@ import { config } from "../config";
 
 const t = require("../translate");
 
-interface Date {
+export interface EasyDate {
     day: number;
     month: number;
     year: number;
@@ -18,10 +18,10 @@ enum Season {
     autumn,
 }
 
-type SeasonStrings = keyof typeof Season;
+export type SeasonStrings = keyof typeof Season;
 
 /** Structure of the JSON file. */
-interface StoryInfo {
+export interface StoryInfo {
     start?: string;
     duration?: number;
     season?: SeasonStrings;
@@ -30,7 +30,7 @@ interface StoryInfo {
 }
 
 /** Based on the Markdown file. */
-interface ProcessedStoryFile {
+export interface ProcessedStoryFile {
     title: string | null;
     content: string | null;
 }
@@ -88,7 +88,7 @@ const Story = {
     content: null as string | null,
 
     /** Start date retrieved from the JSON file. */
-    start: null as Date | null,
+    start: null as EasyDate | null,
 
     /** Total number of days, retrieved from the JSON file. */
     duration: null as number | null,
@@ -119,10 +119,61 @@ const Story = {
         return Story.gotContent && Story.gotStoryMeta;
     },
 
+    /** Static method converting a string date like 2020-10-25. */
+    strToEasyDate: (strDate: string): EasyDate | null => {
+        if (!strDate) {
+            return null;
+        }
+        try {
+            const [year, month, day] = strDate.split("-");
+            return {
+                day: parseInt(day),
+                month: parseInt(month),
+                year: parseInt(year),
+            };
+        } catch {
+            return null;
+        }
+    },
+
+    /** Static method fetching the story title and content. */
+    getStoryTitleContent: (folderName: string): Promise<ProcessedStoryFile> => {
+        return new Promise((resolve, reject) => {
+            m.request<ProcessedStoryFile>({
+                method: "GET",
+                url: "/content/stories/:folderName/:lang.md",
+                params: {
+                    folderName: folderName,
+                    lang: t.getLang(),
+                },
+                headers: {
+                    "Content-Type": "text/markdown; charset=utf-8",
+                    Accept: "text/*",
+                },
+                // use 'extract' because 'deserialize' gives a null string
+                extract: (xhr) => {
+                    if (xhr.status === 200) {
+                        return mdProcessor(xhr.responseText);
+                    } else {
+                        return { title: null, content: null };
+                    }
+                },
+            })
+                .then((result) => {
+                    if (!result.title || !result.content) {
+                        reject();
+                    }
+                    resolve(result);
+                })
+                .catch(reject);
+        });
+    },
+
     /**
+     * The origin photo ID is provided by the URL parameter. If not found, it
+     * would be the default photo of the story based on the metadata file.
      * Load the origin photo metadata to be asynchronously inserted in the
-     * story page (optional). The story metadata should be available in the
-     * URL does not contain the origin photo ID.
+     * story page.
      */
     loadOriginPhotoMeta: (): void => {
         let originPhotoId = getOriginPhotoId();
@@ -155,27 +206,13 @@ const Story = {
         Story.gotContent = false;
         Story.gotStoryMeta = false;
         Story.folderName = folderName;
-        m.request<ProcessedStoryFile>({
-            method: "GET",
-            url: "/content/stories/:folderName/:lang.md",
-            params: {
-                folderName: folderName,
-                lang: t.getLang(),
-            },
-            headers: {
-                "Content-Type": "text/markdown; charset=utf-8",
-                Accept: "text/*",
-            },
-            // use 'extract' because 'deserialize' gives a null string
-            extract: (xhr) => {
-                if (xhr.status === 200) {
-                    return mdProcessor(xhr.responseText);
-                } else {
-                    return { title: null, content: null };
-                }
-            },
-        }).then((result) => {
-            if (!result.title || !result.content) {
+        Story.getStoryTitleContent(folderName)
+            .then((result) => {
+                Story.title = result.title;
+                Story.content = result.content;
+                Story.gotContent = true;
+            })
+            .catch(() => {
                 m.route.set(
                     `/${t.getLang()}/lost`,
                     {},
@@ -183,11 +220,7 @@ const Story = {
                         replace: true,
                     },
                 );
-            }
-            Story.title = result.title;
-            Story.content = result.content;
-            Story.gotContent = true;
-        });
+            });
         m.request<StoryInfo>({
             method: "GET",
             url: "/content/stories/:folderName/i.json",
@@ -197,12 +230,7 @@ const Story = {
         })
             .then((result) => {
                 if (result.start) {
-                    const [year, month, day] = result.start.split("-");
-                    Story.start = {
-                        day: parseInt(day),
-                        month: parseInt(month),
-                        year: parseInt(year),
-                    };
+                    Story.start = Story.strToEasyDate(result.start);
                 } else {
                     Story.start = null;
                 }
