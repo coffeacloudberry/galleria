@@ -4,6 +4,7 @@ import languageOutline from "@/icons/language-outline.svg";
 import bookOutline from "@/icons/book-outline.svg";
 import ellipsisHorizontal from "@/icons/ellipsis-horizontal.svg";
 import arrowUndoOutline from "@/icons/arrow-undo-outline.svg";
+import listOutline from "@/icons/list-outline.svg";
 import imageOutline from "@/icons/image-outline.svg";
 import { Language } from "../translate";
 import { config } from "../config";
@@ -248,10 +249,27 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
             m("nav" + (attrs.refPage === "photo" ? ".nav-photo" : ""), [
                 m(
                     ".flex-sides",
-                    attrs.aboutButton ? m(AboutButton) : m(BackToContentButton),
+                    m("span", [
+                        attrs.aboutButton
+                            ? m(AboutButton)
+                            : m(BackToContentButton),
+                        attrs.refPage != "stories" &&
+                            m(
+                                m.route.Link,
+                                {
+                                    href: m.buildPathname("/:lang/stories", {
+                                        lang: t.getLang(),
+                                    }),
+                                    "data-tippy-content": t("stories-overview"),
+                                    class: "nav-item",
+                                },
+                                m(Icon, { src: listOutline }),
+                            ),
+                    ]),
                 ),
                 centeredNav,
-                m(".flex-sides.flex-right", [
+                m(
+                    ".flex-sides.flex-right",
                     m(
                         "span",
                         {
@@ -261,7 +279,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                         },
                         m("span", m(Icon, { src: languageOutline })),
                     ),
-                ]),
+                ),
             ]),
         );
     }

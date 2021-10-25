@@ -4,7 +4,7 @@ import Icon from "./Icon";
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
 
-const info = new CustomLogging();
+const err = new CustomLogging("error");
 const t = require("../translate");
 
 type FnPromiseErrorCode = () => Promise<(Error & { code: number }) | undefined>;
@@ -39,7 +39,6 @@ export default class ApplauseButton
     }
 
     clickButton(e: Event): void {
-        info.log(`Thanks for liking ${this.currentId}`);
         this.pressed = true;
         this.applausePromise()
             .then(() => {
@@ -55,6 +54,7 @@ export default class ApplauseButton
                             : ""),
                 );
                 this.displayMessageTempo();
+                err.log(`Failed to like ${this.currentId}`, error);
             });
         e.preventDefault();
     }

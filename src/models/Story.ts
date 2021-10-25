@@ -270,8 +270,11 @@ const Story = {
      * is received unless there is no request / no story defined at the time of
      * the request.
      */
-    applause: (): Promise<(Error & { code: number }) | undefined> => {
-        if (Story.folderName === null) {
+    applause: (
+        folderName?: string,
+    ): Promise<(Error & { code: number }) | undefined> => {
+        const actualFolderName = folderName || Story.folderName;
+        if (!actualFolderName) {
             return new Promise((resolve, reject) => {
                 const error: Error & { code: number } = Object.assign(
                     new Error("Story undefined"),
@@ -283,7 +286,7 @@ const Story = {
         return m.request<undefined>({
             method: "POST",
             url: "/api/applause",
-            body: { type: "story", id: Story.folderName },
+            body: { type: "story", id: actualFolderName },
         });
     },
 };

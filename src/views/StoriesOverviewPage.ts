@@ -53,7 +53,7 @@ function lazyLoadStories(): void {
 
 /** Keep only the first few words of a text. That is to reduce the DOM size. */
 function cutText(longText: string): string {
-    return longText.split(" ").slice(0, 40).join(" ");
+    return longText.split(" ").slice(0, 23).join(" ");
 }
 
 /**
@@ -113,50 +113,56 @@ class OneStoryComponent implements m.ClassComponent<OneStory> {
             ),
             m(
                 ".container-fluid.p-0",
-                m(".row", [
-                    m(".two-thirds.column.p-0", [
-                        m(StorySubTitle, {
-                            start: Story.strToEasyDate(
-                                "" + attrs.metadata.start,
-                            ),
-                            season: attrs.metadata.season || null,
-                            duration: attrs.metadata.duration || null,
-                        }),
-                        m(
-                            "p",
-                            attrs.content &&
-                                m("span.appetizer", cleanUpText(attrs.content)),
-                        ),
-                        m(
-                            ".applause-story",
-                            m(
-                                m.route.Link,
-                                {
-                                    href: storyLink,
-                                    "data-tippy-content": t(
-                                        "photo.open-story.tooltip",
-                                    ),
-                                },
-                                m(Icon, { src: bookOutline }),
-                            ),
-                            m("span.mr-3.ml-3"),
-                            m(ApplauseButton, {
-                                mediaType: "story",
-                                mediaIsLoading: false,
-                                getId: () => {
-                                    return attrs.id;
-                                },
-                                applausePromise: Story.applause,
+                attrs.title &&
+                    m(".row", [
+                        m(".two-thirds.column.p-0", [
+                            m(StorySubTitle, {
+                                start: Story.strToEasyDate(
+                                    "" + attrs.metadata.start,
+                                ),
+                                season: attrs.metadata.season || null,
+                                duration: attrs.metadata.duration || null,
                             }),
+                            m(
+                                "p",
+                                attrs.content &&
+                                    m(
+                                        "span.appetizer",
+                                        cleanUpText(attrs.content),
+                                    ),
+                            ),
+                            m(
+                                ".applause-story",
+                                m(
+                                    m.route.Link,
+                                    {
+                                        href: storyLink,
+                                        "data-tippy-content": t(
+                                            "photo.open-story.tooltip",
+                                        ),
+                                    },
+                                    m(Icon, { src: bookOutline }),
+                                ),
+                                m("span.mr-3.ml-3"),
+                                m(ApplauseButton, {
+                                    mediaType: "story",
+                                    mediaIsLoading: false,
+                                    getId: () => {
+                                        return attrs.id;
+                                    },
+                                    applausePromise: () => {
+                                        return Story.applause(attrs.id);
+                                    },
+                                }),
+                            ),
+                        ]),
+                        m(
+                            ".one-third.column.lazy-thumbnail-container.p-0",
+                            attrs.title &&
+                                attrs.metadata.mostRecentPhoto &&
+                                m(ThumbnailComponent, attrs),
                         ),
                     ]),
-                    m(
-                        ".one-third.column.lazy-thumbnail-container.p-0",
-                        attrs.title &&
-                            attrs.metadata.mostRecentPhoto &&
-                            m(ThumbnailComponent, attrs),
-                    ),
-                ]),
             ),
         ];
     }
@@ -193,7 +199,7 @@ export default function StoriesOverviewPage(): m.Component {
             AllStories.loadFullList();
         },
         oncreate(): void {
-            document.title = t("privacy.title");
+            document.title = t("stories.title");
             t.createTippies();
             const scrollingEl = document.getElementById("stories");
             if (scrollingEl) {
@@ -215,7 +221,7 @@ export default function StoriesOverviewPage(): m.Component {
             return [
                 m(Header, {
                     aboutButton: false,
-                    refPage: "about",
+                    refPage: "stories",
                 }),
                 m(AllStoriesComponent),
             ];
