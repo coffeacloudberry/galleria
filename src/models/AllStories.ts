@@ -39,6 +39,8 @@ const AllStories = {
      * with loadOneStory().
      */
     loadFullList: (): void => {
+        AllStories.fullList = [];
+        AllStories.noOneRequested = true;
         m.request<OneJsonStory[]>({
             method: "GET",
             url: "/all_stories.json",
@@ -76,9 +78,11 @@ const AllStories = {
                     oneStory.title = result.title;
                     oneStory.content = result.content;
                     oneStory.loaded = true;
+                    oneStory.loading = false;
                 })
                 .catch(() => {
                     oneStory.loaded = true;
+                    oneStory.loading = false;
                 });
             break;
         }
@@ -96,14 +100,18 @@ const AllStories = {
             }
             oneStory.loaded = false;
             oneStory.loading = true;
+            oneStory.title = null;
+            oneStory.content = null;
             Story.getStoryTitleContent(oneStory.id)
                 .then((result: ProcessedStoryFile) => {
                     oneStory.title = result.title;
                     oneStory.content = result.content;
                     oneStory.loaded = true;
+                    oneStory.loading = false;
                 })
                 .catch(() => {
                     oneStory.loaded = true;
+                    oneStory.loading = false;
                 });
         }
     },

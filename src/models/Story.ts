@@ -266,6 +266,8 @@ const Story = {
     },
 
     /**
+     * This method is pseudo-static. Static if the folder name is given,
+     * otherwise the folder name of the current story would be used.
      * POST request, 200 if okay, an error code otherwise, no detailed message
      * is received unless there is no request / no story defined at the time of
      * the request.
