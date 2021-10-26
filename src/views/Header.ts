@@ -8,11 +8,13 @@ import listOutline from "@/icons/list-outline.svg";
 import imageOutline from "@/icons/image-outline.svg";
 import { Language } from "../translate";
 import { config } from "../config";
+import CustomLogging from "../CustomLogging";
 import Icon from "./Icon";
 
 const languages = require("../languages.json");
 const Photo = require("../models/Photo");
 const Story = require("../models/Story");
+const info = new CustomLogging();
 const t = require("../translate");
 
 /** The link to the page before landing to the about page. */
@@ -137,15 +139,25 @@ const OpenStory: m.Component<OpenStoryAttrs> = {
     },
 };
 
+/**
+ * Remember the current path so that we could go back later one thanks to the
+ * "back to the photography or story" button.
+ */
+function rememberLastContent() {
+    const contentPath = m.route.get();
+    if (contentPath.includes("/story/") || contentPath.includes("/photo/")) {
+        prevHref = contentPath;
+        info.log(`Remember path ${contentPath}`);
+    }
+}
+
 const AboutButton: m.Component = {
     view(): m.Vnode<m.RouteLinkAttrs> {
         return m(
             m.route.Link,
             {
                 href: t.prependLang("/about"),
-                onclick: () => {
-                    prevHref = m.route.get();
-                },
+                onclick: rememberLastContent,
                 class: "nav-item",
                 "data-tippy-content": t("about.tooltip"),
             },
@@ -156,6 +168,23 @@ const AboutButton: m.Component = {
                 ]),
                 m("span.short-item", m("span.logo")),
             ],
+        );
+    },
+};
+
+const GoToStoriesButton: m.Component = {
+    view(): m.Vnode<m.RouteLinkAttrs> {
+        return m(
+            m.route.Link,
+            {
+                href: m.buildPathname("/:lang/stories", {
+                    lang: t.getLang(),
+                }),
+                onclick: rememberLastContent,
+                "data-tippy-content": t("stories-overview"),
+                class: "nav-item",
+            },
+            m(Icon, { src: listOutline }),
         );
     },
 };
@@ -253,18 +282,9 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                         attrs.aboutButton
                             ? m(AboutButton)
                             : m(BackToContentButton),
-                        attrs.refPage != "stories" &&
-                            m(
-                                m.route.Link,
-                                {
-                                    href: m.buildPathname("/:lang/stories", {
-                                        lang: t.getLang(),
-                                    }),
-                                    "data-tippy-content": t("stories-overview"),
-                                    class: "nav-item",
-                                },
-                                m(Icon, { src: listOutline }),
-                            ),
+                        attrs.refPage == "stories"
+                            ? m(BackToContentButton)
+                            : m(GoToStoriesButton),
                     ]),
                 ),
                 centeredNav,

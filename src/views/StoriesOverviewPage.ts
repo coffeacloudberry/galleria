@@ -51,9 +51,14 @@ function lazyLoadStories(): void {
     }
 }
 
-/** Keep only the first few words of a text. That is to reduce the DOM size. */
+/** Keep only the first few words of a text. */
 function cutText(longText: string): string {
-    return longText.split(" ").slice(0, 23).join(" ");
+    let cutPosition = 200;
+    // cut to the first 200 characters minus the last word, probably cut
+    while (longText[cutPosition] != " " && cutPosition) {
+        cutPosition--;
+    }
+    return longText.slice(0, cutPosition);
 }
 
 /**
@@ -70,8 +75,9 @@ function cleanUpText(longText: string): string {
     return result + ".".repeat(3 - countDots);
 }
 
+/** Clickable thumbnail. */
 const ThumbnailComponent: m.Component<OneStory> = {
-    view({ attrs }: m.Vnode<OneStory>) {
+    view({ attrs }: m.Vnode<OneStory>): m.Vnode<m.RouteLinkAttrs> {
         return m(
             m.route.Link,
             {
@@ -220,7 +226,7 @@ export default function StoriesOverviewPage(): m.Component {
         view(): m.Vnode<HeaderAttrs>[] {
             return [
                 m(Header, {
-                    aboutButton: false,
+                    aboutButton: true,
                     refPage: "stories",
                 }),
                 m(AllStoriesComponent),

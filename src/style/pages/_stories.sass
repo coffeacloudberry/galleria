@@ -4,10 +4,15 @@
     margin-top: #{$nav-bar-height}
     overflow-y: auto
     height: calc(100vh - #{$nav-bar-height})
+    .applause-story
+        text-align: center
+        @media (min-width: 1400px)
+            text-align: inherit
     .lazy-thumbnail-container
         img
             border-radius: 0 $border-radius-lg 0 $border-radius-lg
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
+            margin-top: calc(#{$p-vertical-margin} / 2)
         text-align: center
         @media (min-width: 1400px)
             text-align: right
