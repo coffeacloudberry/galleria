@@ -1,4 +1,4 @@
-# Galleria [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![CodeQL](https://github.com/coffeacloudberry/galleria/workflows/CodeQL/badge.svg)](https://github.com/coffeacloudberry/galleria/actions/workflows/codeql-analysis.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=coffeacloudberry_galleria&metric=alert_status)](https://sonarcloud.io/dashboard?id=coffeacloudberry_galleria)
+# Galleria [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![CodeQL](https://github.com/coffeacloudberry/galleria/workflows/CodeQL/badge.svg)](https://github.com/coffeacloudberry/galleria/actions/workflows/codeql-analysis.yml)
 
 <div align="center">
     <a href="https://www.explorewilder.com">
