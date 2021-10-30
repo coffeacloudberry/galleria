@@ -154,8 +154,9 @@ export function sendEmail(
 }
 
 /**
- * Clean up the record, look for the visitor and throw an error if the visitor
- * has been recently recorded, record the visit otherwise.
+ * Check if the visitor has recently done the same action in a specific time
+ * laps. If that is the case, an error is thrown, otherwise a new volatile entry
+ * is created.
  */
 export async function checkVisitor(
     listName: string,
@@ -169,41 +170,23 @@ export async function checkVisitor(
         throw new Error("Failed to init client");
     }
 
-    listName = process.env.VERCEL_ENV + ":" + listName;
-
-    // clean up first
-    const ltrimAsync = promisify(client.ltrim).bind(client);
-    try {
-        await ltrimAsync(listName, 0, 100);
-    } catch {}
-
-    let history: string[] = [];
-    const lrangeAsync = promisify(client.lrange).bind(client);
-    try {
-        history = await lrangeAsync(listName, 0, -1);
-    } catch {}
-
-    const cTimestamp = Math.floor(Date.now() / 1000);
     const cHashedIp = anonymizeClient(clientIp);
+    const userKey = process.env.VERCEL_ENV + listName + cHashedIp;
+    const existsAsync = promisify(client.exists).bind(client);
+    const setAsync = promisify(client.set).bind(client);
+    const expireAsync = promisify(client.expire).bind(client);
 
     // abort if the visitor has recently been recorded
-    for (const historyItem of history) {
-        const [hTimestamp, hHashedIp] = historyItem.split(":");
-        if (cTimestamp - parseInt(hTimestamp) < timeGap) {
-            if (hHashedIp === cHashedIp) {
-                client.quit();
-                throw new Error("Visitor recently recorded");
-            }
-        } else {
-            break;
-        }
+    // @ts-ignore
+    if (await existsAsync(userKey)) {
+        client.quit();
+        throw new Error("Visitor recently recorded");
     }
 
-    // otherwise, record the request
-    const lpushAsync = promisify(client.lpush).bind(client);
-    const data = `${cTimestamp}:${cHashedIp}`;
+    // the value is meaningless, what matters is the key existence
     // @ts-ignore
-    await lpushAsync(listName, data);
+    await setAsync(userKey, "");
+    await expireAsync(userKey, timeGap);
     client.quit();
 }
 

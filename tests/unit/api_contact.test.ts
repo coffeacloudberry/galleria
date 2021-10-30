@@ -72,7 +72,7 @@ describe("Contact Forms", () => {
     it("should record the same visitor after some time", (done) => {
         const visitorId = "" + Date.now();
         contact
-            .checkVisitor("sender", visitorId)
+            .checkVisitor("sender", visitorId, 1)
             .then(() => {
                 setTimeout(() => {
                     contact
