@@ -47,7 +47,7 @@
     "privacy.third-parties.policy": "Read the privacy policy",
     "privacy.third-parties.host": "This website is hosted by",
     "privacy.third-parties.permdb": "Your likes and anonymized IP address are stored by",
-    "privacy.third-parties.tmpdb": "Your anonymized IP address are temporarily stored by",
+    "privacy.third-parties.tmpdb": "Your anonymized IP address is temporarily stored by",
     "privacy.third-parties.emails": "Emails are handled by",
     "privacy.third-parties.messages": "Your messages are stored by",
     "privacy.third-parties.maps": "The map renderer and tiles are supplied by",
