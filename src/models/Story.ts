@@ -20,13 +20,62 @@ enum Season {
 
 export type SeasonStrings = keyof typeof Season;
 
+/** GPS model and configuration */
+interface GpsConfig {
+    /**
+     * Example: 'Garmin 64sc' or 'Garmin 66sr'
+     */
+    model: string;
+
+    /**
+     * Single-band: false, multi-band: true
+     */
+    multiBandEnabled: boolean;
+
+    /**
+     * GPS only: false, GPS+others: true
+     * Other constellations include:
+     * * GLONASS (64sc + 66sr)
+     * * GALILEO (64sc + 66sr)
+     * * QZSS (66sr)
+     * * IRNSS (66sr)
+     */
+    multiGNSSEnabled: boolean;
+}
+
+/** Default GPS configuration when no details are provided in the JSON file. */
+const defaultGpsConfig = {
+    model: "Garmin 64sc",
+    multiBandEnabled: false,
+    multiGNSSEnabled: true,
+};
+
 /** Structure of the JSON file. */
 export interface StoryInfo {
+    /** Start date in the YYYY-MM-DD format. */
     start?: string;
+
+    /** Trip duration in days. Can be half. */
     duration?: number;
+
+    /**
+     * The meteorological season, which depend not only on the start date,
+     * but also the hemisphere.
+     */
     season?: SeasonStrings;
+
+    /** True if there is a WebTrack to load. */
     hasGeodata?: boolean;
+
+    /** Photo folder name of the latest photo taken on that trip. */
     mostRecentPhoto?: string;
+
+    /**
+     * GPS model and configuration. Such information is not included in the
+     * GPX file, therefore not included in the WebTrack metadata.
+     * This config is skipped if hasGeodata is false.
+     */
+    gpsConfig?: GpsConfig;
 }
 
 /** Based on the Markdown file. */
@@ -101,6 +150,9 @@ const Story = {
 
     /** The most recent photo ID of the story, based on the JSON file. */
     mostRecentPhoto: null as string | null,
+
+    /** GPS model and configuration, based on the JSON file or default conf. */
+    gpsConfig: null as GpsConfig | null,
 
     /** Folder name of the story. */
     folderName: null as string | null,
@@ -238,6 +290,11 @@ const Story = {
                 Story.duration = result.duration || null;
                 Story.hasGeodata = result.hasGeodata || false;
                 Story.mostRecentPhoto = result.mostRecentPhoto || null;
+                if (Story.hasGeodata) {
+                    Story.gpsConfig = result.gpsConfig || defaultGpsConfig;
+                } else {
+                    Story.gpsConfig = null;
+                }
                 Story.gotStoryMeta = true;
                 Story.loadOriginPhotoMeta();
             })

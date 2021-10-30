@@ -135,7 +135,6 @@ export default function StoryPage(): m.Component {
                                         ".one.column",
                                         m(Map, {
                                             storyId: getStoryId(),
-                                            duration: Story.duration,
                                         }),
                                     ),
                                 m(

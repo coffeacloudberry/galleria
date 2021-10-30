@@ -15,6 +15,7 @@ declare const Chart: typeof import("chart.js");
 
 const warn = new CustomLogging("warning");
 const error = new CustomLogging("error");
+const Story = require("../models/Story");
 const t = require("../translate");
 
 /*
@@ -150,7 +151,18 @@ const StatsComponent: m.Component<StatsComponentAttrs> = {
             ]),
             m("p", m("strong", t("map.stats.source"))),
             m("ul.blabla", [
-                m("li", t("map.stats.source.pos")),
+                m(
+                    "li",
+                    `${t("map.stats.source.pos")} ${Story.gpsConfig.model} (${
+                        Story.gpsConfig.multiBandEnabled
+                            ? t("multi-band")
+                            : t("single-band")
+                    }, ${
+                        Story.gpsConfig.multiGNSSEnabled
+                            ? t("multi-gnss")
+                            : t("single-gnss")
+                    }) + ${t("topo-maps")}`,
+                ),
                 hasEle &&
                     m("li", [
                         t("map.stats.chart.ele.tooltip"),
@@ -172,7 +184,6 @@ type MouseEnterEvent = mapboxgl.MapMouseEvent & mapboxgl.EventData;
 
 interface MapAttrs {
     storyId: string;
-    duration: number | null;
 }
 
 /**
@@ -194,9 +205,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
     /** Story ID as specified in the path. */
     storyId: string | undefined;
-
-    /** Trip duration in days as floating point or null if not known. */
-    duration = null as number | null;
 
     /** Popup displayed on mouse hover containing makers data. */
     popup: mapboxgl.Popup | undefined;
@@ -416,7 +424,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     const turf = await import("@turf/turf");
                     if (this.map !== undefined) {
                         globalMapState.controls.autoPilot =
-                            new AutoPilotControl(data, this.duration);
+                            new AutoPilotControl(data, Story.duration);
                         this.map.addControl(globalMapState.controls.autoPilot);
                     }
                 })();
@@ -750,7 +758,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     oncreate({ attrs }: m.CVnode<MapAttrs>): void {
         const mapElement = document.getElementById("map");
         this.storyId = attrs.storyId;
-        this.duration = attrs.duration;
         if (mapElement === null) {
             return;
         }
