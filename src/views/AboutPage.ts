@@ -308,7 +308,9 @@ class VisitorsBook implements m.ClassComponent {
                             onclick: () => {
                                 modal({
                                     title: t("visitors-book.involve.title"),
-                                    content: this.contentGiphyFinder,
+                                    content: () => {
+                                        return this.contentGiphyFinder();
+                                    },
                                     size: ModalSize.Large,
                                     cancelable: true,
                                 });
