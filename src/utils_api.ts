@@ -63,6 +63,10 @@ export function doRequest(options: any, data: any) {
     });
 }
 
+/**
+ * Hash the client IP to anonymize the client and avoid disclosing the IP
+ * to the database.
+ */
 export function anonymizeClient(clientIp: string | null): string {
     if (clientIp === null) {
         return "";

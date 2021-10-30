@@ -1,11 +1,7 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import * as utils from "../src/utils_api";
 import { promisify } from "util";
-import { getClientIp } from "request-ip";
-import { anonymizeClient } from "../src/utils_api";
-
-/** The same user cannot share twice within this time gap in seconds. */
-const minTimeGap = 180;
+import redis from "redis";
 
 export default async (request: VercelRequest, response: VercelResponse) => {
     if (!utils.isSameSite(request)) {
@@ -22,16 +18,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 return;
             }
 
-            const currentTime = Math.floor(Date.now() / 1000);
-            const clientIp = getClientIp(request);
-            if (clientIp === null) {
-                response.status(400).json(undefined);
-                return;
-            }
-            const hashedIp = anonymizeClient(clientIp);
-            const data = `${giphyId}:${currentTime}:${hashedIp}`;
-            const listName = `${process.env.VERCEL_ENV}:giphy`;
-            let client;
+            let client: redis.RedisClient;
             try {
                 client = utils.initClient();
             } catch {
@@ -39,33 +26,16 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 return;
             }
 
-            // get the last element
-            const lindexAsync = promisify(client.lindex).bind(client);
-            try {
-                const res = await lindexAsync(listName, -1);
-                const [lastId, lastTimestamp, lastAddr] = res.split(":");
-                const diffTime = currentTime - parseInt(lastTimestamp);
-                if (
-                    lastAddr === hashedIp &&
-                    (lastId == giphyId || diffTime < minTimeGap)
-                ) {
-                    client.quit();
-                    // Too Many Requests
-                    response.status(429).json(undefined);
-                    return;
-                }
-            } catch {} // silent first entry or corrupted data errors
-
             // add the entry
             const rpushAsync = promisify(client.rpush).bind(client);
             // @ts-ignore
-            await rpushAsync(listName, data);
+            await rpushAsync(`${process.env.VERCEL_ENV}:giphy`, giphyId);
             client.quit();
             response.json(undefined);
             return;
         }
         case "GET": {
-            let client;
+            let client: redis.RedisClient;
             try {
                 client = utils.initClient();
             } catch {
@@ -73,9 +43,10 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 return;
             }
             const lrangeAsync = promisify(client.lrange).bind(client);
+            // get the last 8 entries
             let giphies = await lrangeAsync(
                 `${process.env.VERCEL_ENV}:giphy`,
-                0,
+                -8,
                 -1,
             );
             client.quit();
@@ -83,7 +54,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
             response.json(
                 giphies.map((entry: string) => {
                     return {
-                        id: entry.split(":")[0],
+                        id: entry,
                     };
                 }),
             );
