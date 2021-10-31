@@ -5,11 +5,9 @@ import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoRss from "@/icons/logo-rss.svg";
 import logoTwitter from "@/icons/logo-twitter.svg";
 import logoGitHub from "@/icons/logo-github.svg";
-import addOutline from "@/icons/add-outline.svg";
 import happyOutline from "@/icons/happy-outline.svg";
 import sunnyOutline from "@/icons/sunny-outline.svg";
 import logoPaypal from "@/icons/logo-paypal.svg";
-import { config } from "../config";
 import { transformExternalLinks } from "../utils";
 import Icon from "./Icon";
 import ThirdPartyLicenses from "./ThirdPartyLicenses";
@@ -66,7 +64,7 @@ class CopyrightNotice implements m.ClassComponent {
         {
             what: "source",
             short: "Apache-2.0",
-            href: "https://www.apache.org/licenses/LICENSE-2.0.html",
+            href: "https://github.com/coffeacloudberry/galleria/blob/master/LICENSE",
         },
     ];
 
@@ -175,7 +173,7 @@ const SocialNetworks: m.Component = {
                     m(
                         "a.button-icon",
                         {
-                            href: "https://github.com/ExploreWilder/",
+                            href: "https://github.com/coffeacloudberry/galleria",
                         },
                         m(Icon, { src: logoGitHub }),
                     ),
