@@ -1,10 +1,9 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import * as utils from "../src/utils_api";
 import { promisify } from "util";
 import { getClientIp } from "request-ip";
 import sendpulse from "sendpulse-api";
 import { tmpdir } from "os";
-import { anonymizeClient } from "../src/utils_api";
+import { initClient, isSameSite, anonymizeClient } from "../src/utils_api";
 
 /** Address book name as defined in the SendPulse admin panel. */
 export const newsletterAddressBookName = "Newsletter";
@@ -165,7 +164,7 @@ export async function checkVisitor(
 ) {
     let client;
     try {
-        client = utils.initClient();
+        client = initClient();
     } catch {
         throw new Error("Failed to init client");
     }
@@ -197,7 +196,7 @@ export function isEmail(emailAddress: string): boolean {
 }
 
 export default async (request: VercelRequest, response: VercelResponse) => {
-    if (!utils.isSameSite(request)) {
+    if (!isSameSite(request)) {
         response.status(401).json(undefined);
         return;
     }

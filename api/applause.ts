@@ -1,6 +1,5 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import * as utils from "../src/utils_api";
-import { anonymizeClient, doRequest } from "../src/utils_api";
+import { isSameSite, anonymizeClient, doRequest } from "../src/utils_api";
 import { getClientIp } from "request-ip";
 
 /**
@@ -12,7 +11,7 @@ import { getClientIp } from "request-ip";
  * API Manager.
  */
 export default async (request: VercelRequest, response: VercelResponse) => {
-    if (!utils.isSameSite(request)) {
+    if (!isSameSite(request)) {
         response.status(401).json(undefined);
         return;
     }
@@ -44,7 +43,6 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 }
             }
             response.json(undefined);
-            return;
         });
     } else {
         // Method Not Allowed

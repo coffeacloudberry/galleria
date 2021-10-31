@@ -58,6 +58,20 @@ const AllStories = {
         });
     },
 
+    /** When the story title and content has been successfully retrieved. */
+    _onPromiseThen: (result: ProcessedStoryFile, oneStory: OneStory): void => {
+        oneStory.title = result.title;
+        oneStory.content = result.content;
+        oneStory.loaded = true;
+        oneStory.loading = false;
+    },
+
+    /** When the story title and content has failed to be retrieved. */
+    _onPromiseCatch: (oneStory: OneStory): void => {
+        oneStory.loaded = true;
+        oneStory.loading = false;
+    },
+
     /**
      * Loop through all stories in the dataset and stop when the requested one
      * is found. Then start the title and content load flow.
@@ -75,14 +89,10 @@ const AllStories = {
             oneStory.loading = true;
             Story.getStoryTitleContent(id)
                 .then((result: ProcessedStoryFile) => {
-                    oneStory.title = result.title;
-                    oneStory.content = result.content;
-                    oneStory.loaded = true;
-                    oneStory.loading = false;
+                    AllStories._onPromiseThen(result, oneStory);
                 })
                 .catch(() => {
-                    oneStory.loaded = true;
-                    oneStory.loading = false;
+                    AllStories._onPromiseCatch(oneStory);
                 });
             break;
         }
@@ -104,14 +114,10 @@ const AllStories = {
             oneStory.content = null;
             Story.getStoryTitleContent(oneStory.id)
                 .then((result: ProcessedStoryFile) => {
-                    oneStory.title = result.title;
-                    oneStory.content = result.content;
-                    oneStory.loaded = true;
-                    oneStory.loading = false;
+                    AllStories._onPromiseThen(result, oneStory);
                 })
                 .catch(() => {
-                    oneStory.loaded = true;
-                    oneStory.loading = false;
+                    AllStories._onPromiseCatch(oneStory);
                 });
         }
     },

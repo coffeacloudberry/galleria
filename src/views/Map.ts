@@ -849,8 +849,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         });
         return [
             m("hr"),
-            // TODO: hide details on load
-            // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
             m(StatsComponent, {
                 webtrack: this.webtrack,
             }),
