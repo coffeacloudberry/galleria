@@ -214,11 +214,8 @@ const Support: m.Component = {
 
 /** Display the latest GIFs shared by visitors + interactive buttons. */
 class VisitorsBook implements m.ClassComponent {
-    /** All GIFs (actually more than what should be displayed). */
+    /** The most recent GIFs. */
     storedGiphies: GifMetadata[] = [];
-
-    /** Number of GIF currently visible. */
-    totalVisible = 0;
 
     /** True when fetching the stored giphies. Only on init. */
     isRequesting = true;
@@ -229,7 +226,6 @@ class VisitorsBook implements m.ClassComponent {
     /** Fetch the stored giphies. */
     initList(): void {
         this.storedGiphies = [];
-        this.totalVisible = 0;
         this.isRequesting = true;
         m.request<GifMetadata[]>({
             method: "GET",
@@ -237,7 +233,6 @@ class VisitorsBook implements m.ClassComponent {
         })
             .then((result) => {
                 this.storedGiphies = result;
-                this.totalVisible = config.giphy.gifPerDisplayRequest;
                 this.isRequesting = false;
             })
             .catch((err: Error) => {
@@ -266,9 +261,6 @@ class VisitorsBook implements m.ClassComponent {
     }
 
     view(): (boolean | m.Vnode<ListerAttrs>)[] {
-        const visibleGiphies = this.storedGiphies.slice(0, this.totalVisible);
-        const hideMore =
-            this.isRequesting || this.totalVisible >= this.storedGiphies.length;
         return [
             m("h1", t("visitors-book")),
             this.hasShared &&
@@ -288,20 +280,10 @@ class VisitorsBook implements m.ClassComponent {
                     ),
                     t("loading.tooltip") + "...",
                 ]),
-            m(Lister, { list: visibleGiphies }),
-            m("p.text-center", [
-                !hideMore &&
-                    m(
-                        "button.mr-3",
-                        {
-                            onclick: () => {
-                                this.totalVisible +=
-                                    config.giphy.gifPerDisplayRequest;
-                            },
-                        },
-                        [m(Icon, { src: addOutline }), t("load-more")],
-                    ),
-                !this.hasShared &&
+            m(Lister, { list: this.storedGiphies }),
+            !this.hasShared &&
+                m(
+                    "p.text-center",
                     m(
                         "button",
                         {
@@ -321,7 +303,7 @@ class VisitorsBook implements m.ClassComponent {
                             t("visitors-book.involve"),
                         ],
                     ),
-            ]),
+                ),
         ];
     }
 }

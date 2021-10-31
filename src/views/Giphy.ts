@@ -3,12 +3,13 @@ import Icon from "./Icon";
 import searchOutline from "@/icons/search-outline.svg";
 import addOutline from "@/icons/add-outline.svg";
 import happyOutline from "@/icons/happy-outline.svg";
-import CustomLogging from "../CustomLogging";
 import { config } from "../config";
 import { PrivacyButton } from "./Forms";
 
 const t = require("../translate");
-const error = new CustomLogging("error");
+
+/** True during the process of requesting a new GIF to be added. */
+let shareInProgress = false;
 
 export interface GifMetadata {
     id: string;
@@ -29,10 +30,8 @@ interface PlayerAttrs {
 }
 
 export class Player implements m.ClassComponent<PlayerAttrs> {
-    isRequesting = false;
-
     selectGif(attrs: PlayerAttrs): void {
-        this.isRequesting = true;
+        shareInProgress = true;
         m.request<undefined>({
             method: "POST",
             url: "/api/giphy",
@@ -42,7 +41,7 @@ export class Player implements m.ClassComponent<PlayerAttrs> {
                 if (attrs.onSuccess) {
                     attrs.onSuccess();
                 }
-                this.isRequesting = false;
+                shareInProgress = false;
             })
             .catch((err: Error & { code: number }) => {
                 const feedbackCodes = [429];
@@ -56,7 +55,7 @@ export class Player implements m.ClassComponent<PlayerAttrs> {
                         ),
                     );
                 }
-                this.isRequesting = false;
+                shareInProgress = false;
             });
     }
 
@@ -73,7 +72,7 @@ export class Player implements m.ClassComponent<PlayerAttrs> {
                     width: 200,
                     alt: "",
                 }),
-                !this.isRequesting &&
+                !shareInProgress && // status for all GIFs
                     attrs.onSuccess &&
                     m(
                         "button",
@@ -140,7 +139,10 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
         }).then((result) => {
             this.isLoading = false;
             if (result.meta.status >= 400) {
-                error.log(`Giphy error: ${result.meta.msg}.`);
+                this.messageFail = t("applause.feedback.fail");
+                throw new Error(`Giphy error: ${result.meta.msg}`);
+            } else if (result.data.length == 0) {
+                this.messageFail = t("no-result-try-sth-else");
             } else {
                 this.listResult.push(...result.data);
             }
@@ -156,6 +158,7 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
                     onsubmit: (e: Event): void => {
                         e.preventDefault();
                         this.listResult = [];
+                        this.messageFail = "";
                         this.requestGifs();
                     },
                 },
@@ -166,6 +169,7 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
                                 currentTarget: HTMLInputElement;
                             }): void => {
                                 this.userQuery = e.currentTarget.value;
+                                this.messageFail = "";
                             },
                             value: this.userQuery,
                         }),

@@ -85,9 +85,6 @@ export const config = {
         /** Number of requested gifs to the API. */
         gifPerSearchRequest: 10,
 
-        /** Number of gifs displayed in the Visitors' Book. */
-        gifPerDisplayRequest: 8,
-
         /** Public key for the GIPHY API. */
         apiKey: "41MqyMCPwDMFIgEX78l0YpoJMZ9ddCQR",
 

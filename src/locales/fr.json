@@ -79,6 +79,7 @@
     "applause.feedback.pass": "Merci de tes applaudissements ! 😊",
     "applause.feedback.fail": "Arf, quelque chose à mal tourné ! \uD83D\uDE15 Essaies à nouveau plus tard.",
     "applause.feedback.fail.429": "Désolé, c'est trop d'amour pour un seul homme ! 😱 Essaies plus tard.",
+    "no-result-try-sth-else": "Pas de bol, aucun résultat... essaye autre chose.",
     "back-to-photo.tooltip": "revenir à la photographie ou à l'aventure",
     "not-found.message": "Bah, t'es perdus ?",
     "not-found.action": "Visites la page principale",

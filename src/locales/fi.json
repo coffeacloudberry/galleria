@@ -79,6 +79,7 @@
     "applause.feedback.pass": "Kiitos paljon palautteestasi, arvostan! 😊",
     "applause.feedback.fail": "Anteeksi, jokin meni pieleen! \uD83D\uDE15 Kokeile myöhemmin uudelleen.",
     "applause.feedback.fail.429": "Anteeksi, en pystynyt käsittelemään niin paljon riemua! 😱 Kokeile myöhemmin uudelleen.",
+    "no-result-try-sth-else": "Ei tulosta, kokeile jotain muuta.",
     "back-to-photo.tooltip": "Takaisin valokuvaukseen tai tarinaan",
     "not-found.message": "Eksyitkö?",
     "not-found.action": "Käy pääsivulla",
