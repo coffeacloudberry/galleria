@@ -48,16 +48,39 @@ export function modal({
         scrollableBody(true);
     };
 
+    /** Close all modals on escape. */
+    const onKeyPressed = (e: KeyboardEvent) => {
+        if (e.code === "Escape") {
+            closeModal();
+        }
+    };
+
     hideAllForce(); // remove residual tippies (touchscreen fix)
     document.body.appendChild(modalContainer);
     m.mount(modalContainer, {
+        oncreate(): void {
+            document.addEventListener("keydown", onKeyPressed);
+        },
+        onremove(): void {
+            document.removeEventListener("keydown", onKeyPressed);
+        },
         view: () => {
             return m(
                 ".modal",
+                {
+                    // close the modal when clicking outside
+                    onclick: closeModal,
+                },
                 m(
                     ".modal-box" +
                         ".modal-box-" +
                         ModalSize[size].toLowerCase(),
+                    {
+                        onclick: (event: Event) => {
+                            // do not close the modal when clicking inside
+                            event.stopPropagation();
+                        },
+                    },
                     [
                         m("h1.modal-title", title),
                         m(".modal-content", m(content)),
