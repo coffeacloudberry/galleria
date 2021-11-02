@@ -1,5 +1,14 @@
 version = 1
 
+test_patterns = ["*/tests/**"]
+
+exclude_patterns = [
+    "public/**,"
+]
+
 [[analyzers]]
 name = "javascript"
 enabled = true
+
+  [analyzers.meta]
+  dialect = "typescript"
