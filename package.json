@@ -4,6 +4,7 @@
     "description": "Lightweight photo album with short stories and tracks on interactive maps",
     "scripts": {
         "start": "webpack serve --config config/webpack.dev.js",
+        "start-vercel": "vercel dev",
         "build": "webpack --config config/webpack.prod.js",
         "lint": "eslint . api/**/* src/**/* tests/**/* config --quiet --fix --no-error-on-unmatched-pattern",
         "test": "mocha -r ts-node/register tests/unit/*.test.ts --timeout 15000  --require tests/unit/mocha.env.js"
@@ -49,6 +50,7 @@
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
         "file-loader": "^6.2.0",
+        "friendly-challenge": "^0.9.0",
         "html-webpack-plugin": "^5.4.0",
         "jsdom": "^18.0.0",
         "jsdom-global": "^3.0.2",

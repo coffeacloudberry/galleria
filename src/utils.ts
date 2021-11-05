@@ -47,7 +47,11 @@ export function numberWithCommas(x: number): string {
 }
 
 /** Loads a file and returns a Promise for when it is loaded. */
-export function injectCode(path: { src: string; sri: string }): Promise<any> {
+export function injectCode(path: {
+    src: string;
+    sri: string;
+    isModule?: boolean;
+}): Promise<any> {
     return new Promise((resolve, reject) => {
         if (!path.sri.startsWith("sha512-")) {
             throw TypeError(
@@ -58,7 +62,7 @@ export function injectCode(path: { src: string; sri: string }): Promise<any> {
         switch (ext) {
             case "js":
                 const script = document.createElement("script");
-                script.type = "text/javascript";
+                script.type = path.isModule ? "module" : "text/javascript";
                 script.onload = resolve;
                 script.onerror = reject;
                 script.crossOrigin = "anonymous";

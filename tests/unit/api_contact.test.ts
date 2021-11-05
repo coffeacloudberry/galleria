@@ -25,15 +25,37 @@ describe("Contact Forms", () => {
         assert(!contact.isEmail("news+user@twen ty4.me"));
     });
 
+    it("should invalidate empty CAPTCHA", (done) => {
+        contact.checkCaptcha("").then((is_human) => {
+            if (is_human) {
+                done("Should not be considered human");
+            } else {
+                done();
+            }
+        });
+    });
+
+    it("should invalidate timed out or duplicated CAPTCHA", (done) => {
+        const solution =
+            "3a08aca851577f174e30ed347f20428b.YYQhnDH8BJdVJgFkAQwzggAAAAAAAAAA1DDSM8F3nGI=.AAAAAPwyAAABAAAAbU8DAAIAAACmcAIAAwAAAC8mAAAEAAAAOzsAAAUAAADvagAABgAAAG6fAgAHAAAA0BADAAgAAABvAQAACQAAACePAQAKAAAAhiMAAAsAAAD6twAADAAAADKdAAANAAAAN1wBAA4AAAC4zAAADwAAAE4WAAAQAAAA6kQBABEAAADJ5QAAEgAAAKFjAAATAAAAp4wAABQAAAB23AAAFQAAAFNdAAAWAAAAL3wDABcAAAB5dwQAGAAAAMpjAAAZAAAAWLIAABoAAACZGAAAGwAAANXeAQAcAAAAbVsCAB0AAAAn1wAAHgAAACExAQAfAAAAw2sAACAAAAB/gQAAIQAAAGNbAwAiAAAAYxIAACMAAABzWAAAJAAAADcTAAAlAAAA9Q0AACYAAADxAQAAJwAAAEE+AQAoAAAA7loAACkAAAD8FwEAKgAAAHOsAQArAAAA7JcBACwAAADlRQAALQAAAFCuAQAuAAAA7PAAAC8AAACyYgEAMAAAAIZuAQAxAAAAnWUBADIAAAACSgAA.AgAA";
+        contact.checkCaptcha(solution).then((is_human) => {
+            if (is_human) {
+                done("Should not be considered human");
+            } else {
+                done();
+            }
+        });
+    });
+
     it("should record new visitors", (done) => {
         contact
-            .checkVisitor("sender", "" + Date.now())
+            .checkVisitor("sender", "" + Date.now(), "")
             .then(() => {
                 contact
-                    .checkVisitor("sender", "" + Date.now())
+                    .checkVisitor("sender", "" + Date.now(), "")
                     .then(() => {
                         contact
-                            .checkVisitor("sender", "" + Date.now())
+                            .checkVisitor("sender", "" + Date.now(), "")
                             .then(() => {
                                 done();
                             })
@@ -53,10 +75,10 @@ describe("Contact Forms", () => {
     it("should not record the same visitor within a short time laps", (done) => {
         const visitorId = "" + Date.now();
         contact
-            .checkVisitor("sender", visitorId)
+            .checkVisitor("sender", visitorId, "")
             .then(() => {
                 contact
-                    .checkVisitor("sender", visitorId)
+                    .checkVisitor("sender", visitorId, "")
                     .then((result) => {
                         done(result);
                     })
@@ -72,11 +94,11 @@ describe("Contact Forms", () => {
     it("should record the same visitor after some time", (done) => {
         const visitorId = "" + Date.now();
         contact
-            .checkVisitor("sender", visitorId, 1)
+            .checkVisitor("sender", visitorId, "", 1)
             .then(() => {
                 setTimeout(() => {
                     contact
-                        .checkVisitor("sender", visitorId, 1)
+                        .checkVisitor("sender", visitorId, "", 1)
                         .then(() => {
                             done();
                         })

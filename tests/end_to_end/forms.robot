@@ -55,10 +55,6 @@ Check Contact Form Validation
     Element Should Not Contain       ${CONTACTFORM}  Say something!
     Element Should Not Be Visible    ${CONTACTFORM}//textarea[@class="invalid"]
 
-    Click Button                     ${CONTACTFORM}//button[@type="submit"]
-    Element Should Be Disabled       ${CONTACTFORM}//button[@type="submit"]
-    Element Should Contain           ${CONTACTFORM}//button[@type="submit"]  Wait a sec...
-
 Check Bug Report Generator
     Reload Page
     Input Text                       ${CONTACTFORM}//textarea    blabla
@@ -89,18 +85,10 @@ Check Newsletter Form
     Element Should Not Contain       ${NEWSLETTERFORM}  Check your email!
     Element Should Not Be Visible    ${NEWSLETTERFORM}//input[@type="text" and @class="invalid"]
 
-    Click Button                     ${NEWSLETTERFORM}//button[@type="submit"]
-    Element Should Be Disabled       ${NEWSLETTERFORM}//button[@type="submit"]
-    Element Should Contain           ${NEWSLETTERFORM}//button[@type="submit"]  Wait a sec...
-
     Reload Page
 
     Input Text                       ${NEWSLETTERFORM}//input[@type="text"]    robotframework@example.com
     Select Radio Button              subscription-action    form-unsubscribe
     Element Should Contain           ${NEWSLETTERFORM}//button[@type="submit"]  Unsubscribe
-
-    Click Button                     ${NEWSLETTERFORM}//button[@type="submit"]
-    Element Should Be Disabled       ${NEWSLETTERFORM}//button[@type="submit"]
-    Element Should Contain           ${NEWSLETTERFORM}//button[@type="submit"]  Wait a sec...
 
     [Teardown]    Close Browser

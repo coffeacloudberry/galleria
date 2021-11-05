@@ -7,6 +7,7 @@ import bugOutline from "@/icons/bug-outline.svg";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Icon from "./Icon";
 import { config } from "../config";
+import Captcha from "./Captcha";
 
 const t = require("../translate");
 
@@ -113,6 +114,9 @@ class BaseForm {
     /** True to highlight a detected bruteforce attempt. */
     tooManyRequests = false;
 
+    /** True if the CAPTCHA is missing/empty/invalid. */
+    isBot = false;
+
     /** True to set the form has successfully processed. */
     success = false;
 
@@ -124,6 +128,16 @@ class BaseForm {
 
     /** True to highlight a bad email format. */
     invalidEmailAddress = false;
+
+    /** True to have the CAPTCHA widget in the form. */
+    instantiateCaptcha = false;
+
+    /** Returns the frc-captcha-solution value. */
+    getCaptchaValue(formId: string): string {
+        const form = document.getElementById(formId) as HTMLFormElement;
+        const captchaInput = form.querySelector('input[name="frc"]');
+        return captchaInput ? "" + captchaInput.getAttribute("value") : "";
+    }
 
     /**
      * Send the request and change the current status.
@@ -139,17 +153,26 @@ class BaseForm {
             .then(() => {
                 this.processing = false;
                 this.success = true;
+                this.tooManyRequests = false;
+                this.isBot = false;
             })
             .catch((error) => {
-                if (error.code === 429) {
-                    this.tooManyRequests = true;
-                    this.processing = false;
-                    BaseForm.handleTooManyRequests().then(() => {
-                        this.tooManyRequests = false;
+                this.processing = false;
+                switch (error.code) {
+                    case 429:
+                        this.tooManyRequests = true;
+                        BaseForm.handleTooManyRequests().then(() => {
+                            this.tooManyRequests = false;
+                            this.success = false;
+                        });
+                        break;
+                    case 418:
                         this.success = false;
-                    });
-                } else {
-                    throw error;
+                        this.isBot = true;
+                        throw error;
+                    default:
+                        this.success = false;
+                        throw error;
                 }
             });
     }
@@ -182,6 +205,7 @@ class BaseForm {
      */
     onEmailInput(e: { currentTarget: HTMLInputElement }): void {
         this.email = e.currentTarget.value;
+        this.instantiateCaptcha = true;
         if (this.invalidEmailAddress && BaseForm.isEmail(this.email)) {
             this.invalidEmailAddress = false; // reset
         }
@@ -205,6 +229,7 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                 action: "send",
                 email: this.email,
                 message: this.message,
+                frc: this.getCaptchaValue("contact-form"),
             });
         }
     }
@@ -287,6 +312,7 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                             }),
                         ]),
                     ]),
+                    this.instantiateCaptcha && m("p", m(Captcha)),
                     m("p", m(PrivacyButton)),
                     m("p", [
                         m(SubmitButton, {
@@ -311,6 +337,9 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                                   t("too-many-requests"),
                               )
                             : "",
+                        this.isBot
+                            ? m("span.ml-3.critical-error", t("is-bot"))
+                            : "",
                     ]),
                 ],
             ),
@@ -328,6 +357,7 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
             this.processRequest({
                 action: this.subscribe ? "subscribe" : "unsubscribe",
                 email: this.email,
+                frc: this.getCaptchaValue("newsletter-form"),
             });
         } else {
             this.invalidEmailAddress = true;
@@ -391,6 +421,7 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
                             t("unsubscribe"),
                         ),
                     ]),
+                    this.instantiateCaptcha && m("p", m(Captcha)),
                     m("p", m(PrivacyButton)),
                     m("p", [
                         m(SubmitButton, {
@@ -412,6 +443,9 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
                                   "span.ml-3.critical-error",
                                   t("too-many-requests"),
                               )
+                            : "",
+                        this.isBot
+                            ? m("span.ml-3.critical-error", t("is-bot"))
                             : "",
                     ]),
                 ],

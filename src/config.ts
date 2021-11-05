@@ -81,6 +81,21 @@ export const config = {
         },
     },
 
+    /**
+     * Friendly Captcha.
+     * Check for new releases:
+     * https://docs.friendlycaptcha.com/#/installation?id=option-a-using-a-script-tag
+     */
+    captcha: {
+        js: {
+            src: "https://unpkg.com/friendly-challenge@0.9.0/widget.module.min.js",
+            sri: "sha512-TOjMX+X5yXszkKN5NLD98RlK8zGnbbkeHpj5coO1mpIiAsqrbMopkuoMI0hMiYTj2jQdX79001P71caSlbjqDA==",
+            isModule: true,
+        },
+
+        siteKey: "" + process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY,
+    },
+
     giphy: {
         /** Number of requested gifs to the API. */
         gifPerSearchRequest: 10,

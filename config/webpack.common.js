@@ -87,6 +87,9 @@ module.exports = {
             MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
 
             IS_PROD: process.env.VERCEL_ENV === "production",
+
+            FRIENDLY_CAPTCHA_PUBLIC_KEY:
+                process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY,
         }),
 
         // Removes/cleans build folders and unused assets when rebuilding
@@ -151,6 +154,7 @@ module.exports = {
         },
     },
 
+    // External variables and namespaces
     externals: {
         "mapbox-gl": "mapboxgl",
         "chart.js": "Chart",

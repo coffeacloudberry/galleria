@@ -1,0 +1,19 @@
+@import "../base/variables"
+
+.captcha
+    .frc-content
+        margin: 0
+        overflow-x: inherit
+    .frc-container
+        overflow-x: hidden
+    .frc-button
+        border: 0
+        font-weight: inherit
+        &:focus
+            border: none
+    .frc-banner /* there is already a link in the privacy policy */
+        display: none
+    .frc-text /* display only the first line, hide the detailed error */
+        font-size: $global-font-size
+        max-height: calc(#{$global-font-size} * #{$text-line-height})
+        overflow: hidden

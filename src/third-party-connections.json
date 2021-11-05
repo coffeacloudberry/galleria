@@ -25,6 +25,11 @@
         "link": "https://tutanota.com/privacy"
     },
     {
+        "what": "captcha",
+        "who": "Friendly Captcha GmbH",
+        "link": "https://friendlycaptcha.com/legal/privacy-end-users/"
+    },
+    {
         "what": "maps",
         "who": "Mapbox",
         "link": "https://www.mapbox.com/legal/privacy"

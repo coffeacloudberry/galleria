@@ -3,7 +3,12 @@ import { promisify } from "util";
 import { getClientIp } from "request-ip";
 import sendpulse from "sendpulse-api";
 import { tmpdir } from "os";
-import { initClient, isSameSite, anonymizeClient } from "../src/utils_api";
+import {
+    initClient,
+    isSameSite,
+    anonymizeClient,
+    doRequest,
+} from "../src/utils_api";
 
 /** Address book name as defined in the SendPulse admin panel. */
 export const newsletterAddressBookName = "Newsletter";
@@ -160,13 +165,23 @@ export function sendEmail(
 export async function checkVisitor(
     listName: string,
     clientIp: string,
+    solution: string,
     timeGap = minTimeGap,
-) {
+): Promise<void> {
+    // check CAPTCHA if not in testing mode
+    if (solution != "") {
+        await checkCaptcha(solution).then((is_human: boolean) => {
+            if (!is_human) {
+                throw 418;
+            }
+        });
+    }
+
     let client;
     try {
         client = initClient();
     } catch {
-        throw new Error("Failed to init client");
+        throw 500;
     }
 
     const cHashedIp = anonymizeClient(clientIp);
@@ -179,7 +194,7 @@ export async function checkVisitor(
     // @ts-ignore
     if (await existsAsync(userKey)) {
         client.quit();
-        throw new Error("Visitor recently recorded");
+        throw 429;
     }
 
     // the value is meaningless, what matters is the key existence
@@ -187,6 +202,52 @@ export async function checkVisitor(
     await setAsync(userKey, "");
     await expireAsync(userKey, timeGap);
     client.quit();
+}
+
+interface FriendlyCapthaResponse {
+    success: boolean;
+    details?: string;
+    errors?: string[];
+}
+
+/**
+ * Check the Friendly CAPTCHA.
+ *
+ * Verification Best practices:
+ * If you receive a response code other than 200 in production, you should
+ * probably accept the user's form despite not having been able to verify
+ * the CAPTCHA solution.
+ * Source:
+ * https://docs.friendlycaptcha.com/#/installation?id=verification-best-practices
+ *
+ * @param solution The solution value that the user submitted.
+ */
+export async function checkCaptcha(solution: string): Promise<boolean> {
+    const data = JSON.stringify({
+        solution: solution,
+        secret: process.env.FRIENDLY_CAPTCHA_SECRET_KEY,
+        sitekey: process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY,
+    });
+    const options = {
+        hostname: "api.friendlycaptcha.com",
+        port: 443,
+        path: "/api/v1/siteverify",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Content-Length": Buffer.byteLength(data, "utf8"),
+        },
+    };
+    return new Promise<boolean>((resolve) => {
+        doRequest(options, data)
+            .then((responseBody: unknown) => {
+                const payload = responseBody as FriendlyCapthaResponse;
+                resolve(payload["success"]);
+            })
+            .catch(() => {
+                resolve(true);
+            });
+    });
 }
 
 /** Email validation. */
@@ -202,6 +263,15 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     }
     if (request.method === "POST") {
         const { action, email, message } = request.body;
+        if (!request.body.hasOwnProperty("frc")) {
+            response.status(418).json("Missing CAPTCHA solution.");
+            return;
+        }
+        const captchaSolution = request.body["frc"];
+        if (!captchaSolution) {
+            response.status(418).json("Empty CAPTCHA solution.");
+            return;
+        }
         if (!email) {
             response.status(400).json("Missing email address.");
             return;
@@ -212,12 +282,12 @@ export default async (request: VercelRequest, response: VercelResponse) => {
         }
         const ip = getClientIp(request);
         if (ip === null) {
-            response.status(400).json(undefined);
+            response.status(418).json(undefined);
             return;
         }
         switch (action) {
             case "subscribe": {
-                await checkVisitor("subscriber", ip)
+                await checkVisitor("subscriber", ip, captchaSolution)
                     .then(async () => {
                         await manageEmail(email)
                             .then(() => {
@@ -227,13 +297,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                                 response.status(500).json(undefined);
                             });
                     })
-                    .catch(() => {
-                        response.status(429).json(undefined);
+                    .catch((status_code) => {
+                        response.status(status_code).json(undefined);
                     });
                 return;
             }
             case "unsubscribe": {
-                await checkVisitor("unsubscriber", ip)
+                await checkVisitor("unsubscriber", ip, captchaSolution)
                     .then(async () => {
                         await manageEmail(email, false)
                             .then(() => {
@@ -244,13 +314,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                                 response.status(200).json(undefined);
                             });
                     })
-                    .catch(() => {
-                        response.status(429).json(undefined);
+                    .catch((status_code) => {
+                        response.status(status_code).json(undefined);
                     });
                 return;
             }
             case "send": {
-                await checkVisitor("sender", ip)
+                await checkVisitor("sender", ip, captchaSolution)
                     .then(async () => {
                         await sendEmail(email, message)
                             .then(() => {
@@ -260,8 +330,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                                 response.status(500).json(undefined);
                             });
                     })
-                    .catch(() => {
-                        response.status(429).json(undefined);
+                    .catch((status_code) => {
+                        response.status(status_code).json(undefined);
                     });
                 return;
             }
