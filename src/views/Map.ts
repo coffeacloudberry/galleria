@@ -708,8 +708,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             },
         };
 
-        Chart.defaults.font.family = "MyBodyFont";
-        Chart.defaults.font.size = 14;
+        Chart.defaults.font = {
+            family: "MyBodyFont",
+            size: 14,
+        };
         try {
             // @ts-ignore
             new Chart.Chart(ctx, myChartConfig);
