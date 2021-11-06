@@ -68,7 +68,8 @@ header, footer
             font-size: $nav-font-size
             &.branding
                 @media (max-width: 1024px)
-                    padding-top: 1rem
+                    /* padding and margin to minimum to avoid flex wrap */
+                    padding: calc(#{$nav-item-space} * 2 * 1.25) 0 0 0
                     margin: 0
                     font-size: calc(#{$nav-font-size} / 1.25)
             font-family: 'MyBoldFont', sans-serif

@@ -29,7 +29,7 @@ module.exports = merge(common, {
         compress: false,
         hot: true,
         port: 8080,
-        https: true, // match https check on Access-Control-Allow-Origin
+        https: true, // fix CORS issue when connecting to 3rd parties
     },
 
     module: {
