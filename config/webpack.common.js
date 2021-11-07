@@ -156,8 +156,13 @@ module.exports = {
 
     // External variables and namespaces
     externals: {
+        // How to call: const { default: mapboxgl } = await import("mapbox-gl");
         "mapbox-gl": "mapboxgl",
+        // const Chart = await import("chart.js");
         "chart.js": "Chart",
+        // const turf = await import("@turf/turf");
         "@turf/turf": "turf",
+        // const friendlyChallenge = await import("friendly-challenge");
+        "friendly-challenge": "friendlyChallenge",
     },
 };

@@ -81,6 +81,16 @@
     },
     {
         "project": {
+            "name": "Friendly Captcha",
+            "link": "https://friendlycaptcha.com/"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/FriendlyCaptcha/friendly-challenge/blob/master/LICENSE.md"
+        }
+    },
+    {
+        "project": {
             "name": "Snarkdown",
             "link": "https://github.com/developit/snarkdown"
         },
