@@ -13,7 +13,8 @@
             }
         ],
         "no-nested-ternary": "error",
-        "no-unneeded-ternary": "error"
+        "no-unneeded-ternary": "error",
+        "no-throw-literal": "error"
     },
     "parserOptions": {
         "ecmaVersion": 2020,

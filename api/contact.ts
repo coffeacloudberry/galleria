@@ -172,7 +172,7 @@ export async function checkVisitor(
     if (solution != "") {
         await checkCaptcha(solution).then((is_human: boolean) => {
             if (!is_human) {
-                throw 418;
+                throw new Error("418");
             }
         });
     }
@@ -181,7 +181,7 @@ export async function checkVisitor(
     try {
         client = initClient();
     } catch {
-        throw 500;
+        throw new Error("500");
     }
 
     const cHashedIp = anonymizeClient(clientIp);
@@ -194,7 +194,7 @@ export async function checkVisitor(
     // @ts-ignore
     if (await existsAsync(userKey)) {
         client.quit();
-        throw 429;
+        throw new Error("429");
     }
 
     // the value is meaningless, what matters is the key existence
@@ -298,7 +298,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                             });
                     })
                     .catch((status_code) => {
-                        response.status(status_code).json(undefined);
+                        response.status(parseInt(status_code)).json(undefined);
                     });
                 return;
             }
@@ -315,7 +315,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                             });
                     })
                     .catch((status_code) => {
-                        response.status(status_code).json(undefined);
+                        response.status(parseInt(status_code)).json(undefined);
                     });
                 return;
             }
@@ -331,7 +331,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                             });
                     })
                     .catch((status_code) => {
-                        response.status(status_code).json(undefined);
+                        response.status(parseInt(status_code)).json(undefined);
                     });
                 return;
             }

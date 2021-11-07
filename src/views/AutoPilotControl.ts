@@ -307,7 +307,7 @@ class AutoPilotControlComponent
  * This is the custom Mapbox GL JS widget. The camera route is created in
  * the constructor, but the component and animation is handled in
  * AutoPilotControlComponent.
- * TODO: investigate the other auto pilot implementation:
+ * An other kind of auto pilot:
  * https://www.mapbox.com/blog/river-runner-how-i-built-it
  */
 export default class AutoPilotControl implements mapboxgl.IControl {
@@ -332,10 +332,27 @@ export default class AutoPilotControl implements mapboxgl.IControl {
     /** Angle from the ground in the range ]0;90] degrees. */
     readonly pitch: number;
 
-    /** Meters above the terrain. */
+    /**
+     * Meters above the terrain.
+     * This is the altitude of the camera above the terrain at the position
+     * where the camera is looking at. The elevation is acquired from the map,
+     * not from the elevation chart. Mapbox provides an API to query the
+     * elevation visible in the viewport. That is why the camera target is used
+     * instead of the camera position. Therefore, the camera can be low when
+     * going downhill, and high when going uphill.
+     */
     static readonly cameraAltitude = 1000;
 
-    /** Duration in ms of the animation for one hiking day. */
+    /**
+     * Duration in ms of the animation for one hiking day.
+     * This auto pilot is designed to go at true speed relative to the hiker's
+     * speed, but there is a difference between true speed and perceptual speed,
+     * impacted by the camera's elevation and pitch. If you're thousands of feet
+     * in the air and staring out at the horizon, you may barely notice how
+     * quickly you're moving. If you're just above the ground and staring
+     * directly downwards, it'll feel like you're moving quickly. However, the
+     * intention of this auto pilot is to be as realistic as possible.
+     */
     static readonly msPerDay = 90000;
 
     /**
