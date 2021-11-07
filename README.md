@@ -139,6 +139,9 @@ robot ..
 An HTML report should have been generated.
 
 </details>
+
+### Analysing
+
 <details>
   <summary>SonarQube analysis</summary>
 
@@ -156,6 +159,12 @@ An HTML report should have been generated.
   <summary>SonarLint analysis</summary>
 
 While SonarQube offers a great interface for project-wide analysis, [SonarLint](https://www.sonarlint.org/) offers realtime static code analysis. The installation depends on your IDE. For IntelliJ-based IDE, go to "File > Settings... > Plugins > Marketplace" and search for SonarLint.
+
+</details>
+<details>
+  <summary>Bundle size analysis</summary>
+
+Run `npm bundle-analysis` to generate the prod bundle and start a local server with a page displaying the bundle analysis, you can check that no extra libraries are bundled.
 
 </details>
 
