@@ -5,26 +5,26 @@ import CustomLogging from "../CustomLogging";
 import type { WidgetInstance } from "friendly-challenge";
 
 const t = require("../translate");
-const info = new CustomLogging();
 const error = new CustomLogging("error");
 
-export default class Captcha implements m.ClassComponent {
+export interface CaptchaAttrs {
+    doneCallback: (solution: string) => void;
+}
+
+export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
     widget: WidgetInstance | undefined;
 
-    doneCallback(solution: string): void {
-        info.log(
-            `Captcha successfully solved - solution '${solution.slice(
-                0,
-                5,
-            )}...'`,
-        );
-    }
-
+    /**
+     * Called when an internal error occurs. The error is passed as an object,
+     * the fields and values of this object are still to be documented and are
+     * changing frequently. Consider this experimental.
+     * @param err Exception.
+     */
     errorCallback(err: { error: Error }): void {
         error.log("Failed to solve the Captcha", err.error);
     }
 
-    oncreate({ dom }: m.CVnodeDOM): void {
+    oncreate({ dom, attrs }: m.CVnodeDOM<CaptchaAttrs>): void {
         injectCode(config.captcha.js)
             .then(() => {
                 (async () => {
@@ -35,15 +35,11 @@ export default class Captcha implements m.ClassComponent {
                         dom as HTMLElement,
                         {
                             startMode: "auto",
-                            // @ts-ignore
-                            solutionFieldName: "frc",
                             sitekey: config.captcha.siteKey,
                             language: t.getLang(),
-                            doneCallback: (solution) => {
-                                this.doneCallback(solution);
-                            },
-                            errorCallback: (error) => {
-                                this.errorCallback(error);
+                            doneCallback: attrs.doneCallback,
+                            errorCallback: (err) => {
+                                this.errorCallback(err);
                             },
                         },
                     );
@@ -61,6 +57,6 @@ export default class Captcha implements m.ClassComponent {
     }
 
     view(): m.Vnode {
-        return m(".captcha");
+        return m("p.captcha");
     }
 }

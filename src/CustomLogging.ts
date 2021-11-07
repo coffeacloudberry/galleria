@@ -10,6 +10,10 @@ export default class CustomLogging {
     private readonly color: string;
     private readonly fLog: typeof console.log;
 
+    /**
+     * Setup the logger style and type.
+     * @param type 'info' if not defined. 'error' is intended for exceptions.
+     */
     constructor(type?: LogTypeString) {
         switch (type) {
             case "warning":
@@ -31,6 +35,11 @@ export default class CustomLogging {
         }
     }
 
+    /**
+     * Actually log the message.
+     * @param what Message to print in the log.
+     * @param err If set, the error will be thrown, and caught by Sentry.
+     */
     log(what: string, err?: Error): void {
         this.fLog(
             `%cApplication ${this.type}: ${what}`,

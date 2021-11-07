@@ -8,8 +8,10 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import Icon from "./Icon";
 import { config } from "../config";
 import Captcha from "./Captcha";
+import CustomLogging from "../CustomLogging";
 
 const t = require("../translate");
+const info = new CustomLogging();
 
 type SubmitEvent = Event & { submitter: HTMLElement };
 
@@ -132,11 +134,21 @@ class BaseForm {
     /** True to have the CAPTCHA widget in the form. */
     instantiateCaptcha = false;
 
-    /** Returns the frc-captcha-solution value. */
-    getCaptchaValue(formId: string): string {
-        const form = document.getElementById(formId) as HTMLFormElement;
-        const captchaInput = form.querySelector('input[name="frc"]');
-        return captchaInput ? "" + captchaInput.getAttribute("value") : "";
+    /** The Friendly CAPTCHA solution. */
+    captchaSolution = "";
+
+    /**
+     * Callback updating the Friendly CAPTCHA solution.
+     * @param solution New solution.
+     */
+    doneCallback(solution: string): void {
+        info.log(
+            `Captcha successfully solved - solution '${solution.slice(
+                0,
+                5,
+            )}...'`,
+        );
+        this.captchaSolution = solution;
     }
 
     /**
@@ -229,7 +241,7 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                 action: "send",
                 email: this.email,
                 message: this.message,
-                frc: this.getCaptchaValue("contact-form"),
+                "frc-captcha-solution": this.captchaSolution,
             });
         }
     }
@@ -312,7 +324,12 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                             }),
                         ]),
                     ]),
-                    this.instantiateCaptcha && m("p", m(Captcha)),
+                    this.instantiateCaptcha &&
+                        m(Captcha, {
+                            doneCallback: (solution) => {
+                                this.doneCallback(solution);
+                            },
+                        }),
                     m("p", m(PrivacyButton)),
                     m("p", [
                         m(SubmitButton, {
@@ -357,7 +374,7 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
             this.processRequest({
                 action: this.subscribe ? "subscribe" : "unsubscribe",
                 email: this.email,
-                frc: this.getCaptchaValue("newsletter-form"),
+                "frc-captcha-solution": this.captchaSolution,
             });
         } else {
             this.invalidEmailAddress = true;
@@ -421,7 +438,12 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
                             t("unsubscribe"),
                         ),
                     ]),
-                    this.instantiateCaptcha && m("p", m(Captcha)),
+                    this.instantiateCaptcha &&
+                        m(Captcha, {
+                            doneCallback: (solution) => {
+                                this.doneCallback(solution);
+                            },
+                        }),
                     m("p", m(PrivacyButton)),
                     m("p", [
                         m(SubmitButton, {
