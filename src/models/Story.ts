@@ -166,6 +166,9 @@ const Story = {
     /** JSON file of the linked photo. */
     originPhotoMeta: null as PhotoInfo | null,
 
+    /** True if the user applauded and is waiting for a confirmation. */
+    isApplauding: false,
+
     /** True if a story is available. */
     isLoaded: (): boolean => {
         return Story.gotContent && Story.gotStoryMeta;
@@ -255,6 +258,7 @@ const Story = {
 
     /** Load a story from a specific folder (fields are null if not found). */
     load: (folderName: string): void => {
+        Story.isApplauding = false;
         Story.gotContent = false;
         Story.gotStoryMeta = false;
         Story.folderName = folderName;
@@ -329,9 +333,7 @@ const Story = {
      * is received unless there is no request / no story defined at the time of
      * the request.
      */
-    applause: (
-        folderName?: string,
-    ): Promise<(Error & { code: number }) | undefined> => {
+    applause: (folderName?: string): Promise<void> => {
         const actualFolderName = folderName || Story.folderName;
         if (!actualFolderName) {
             return new Promise((resolve, reject) => {
@@ -342,10 +344,21 @@ const Story = {
                 reject(error);
             });
         }
-        return m.request<undefined>({
-            method: "POST",
-            url: "/api/applause",
-            body: { type: "story", id: actualFolderName },
+        Story.isApplauding = true;
+        return new Promise((resolve, reject) => {
+            m.request<undefined>({
+                method: "POST",
+                url: "/api/applause",
+                body: { type: "story", id: actualFolderName },
+            })
+                .then(() => {
+                    Story.isApplauding = false;
+                    resolve();
+                })
+                .catch((error: Error & { code: number }) => {
+                    Story.isApplauding = false;
+                    reject(error);
+                });
         });
     },
 };

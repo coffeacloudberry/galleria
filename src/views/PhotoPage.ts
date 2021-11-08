@@ -144,7 +144,9 @@ const PrevButton: m.Component = {
 const AnimatedLoading: m.Component = {
     view(): m.Vnode {
         return m(
-            `span.loading-icon.nav-item${Photo.isLoading ? "" : ".hide"}`,
+            `span.loading-icon.nav-item${
+                Photo.isLoading || Photo.isApplauding ? "" : ".hide"
+            }`,
             {
                 "data-tippy-content": t("loading.tooltip") + "...",
             },

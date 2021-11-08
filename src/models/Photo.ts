@@ -55,6 +55,9 @@ const Photo = {
      */
     isLoading: true,
 
+    /** True if the user applauded and is waiting for a confirmation. */
+    isApplauding: false,
+
     /** Folder containing the photos and JSON file. */
     folderName: null as number | null,
 
@@ -187,6 +190,7 @@ const Photo = {
      * --files0-from - -c -h | sort -h`
      */
     load: (id: number): Promise<void> => {
+        Photo.isApplauding = false; // forget about any previous applause
         Photo.isLoading = true;
         return m
             .request<PhotoInfo>({
@@ -240,6 +244,7 @@ const Photo = {
      * or the first one if the previous one is not linked.
      */
     loadPrev: (): void => {
+        Photo.isApplauding = false;
         const prevFolderId =
             Photo.meta === null || Photo.meta.next === undefined
                 ? config.firstPhotoId
@@ -256,6 +261,7 @@ const Photo = {
      * or the first one if the next one is not linked.
      */
     loadNext: (replaceHistory = false): void => {
+        Photo.isApplauding = false;
         const nextFolderId =
             Photo.meta === null || Photo.meta.prev === undefined
                 ? config.firstPhotoId
@@ -295,7 +301,7 @@ const Photo = {
      * is received unless there is no request / no photo defined at the time of
      * the request.
      */
-    applause: (): Promise<(Error & { code: number }) | undefined> => {
+    applause: (): Promise<void> => {
         if (Photo.id === null) {
             return new Promise((resolve, reject) => {
                 const error: Error & { code: number } = Object.assign(
@@ -305,10 +311,21 @@ const Photo = {
                 reject(error);
             });
         }
-        return m.request<undefined>({
-            method: "POST",
-            url: "/api/applause",
-            body: { type: "photo", id: Photo.id },
+        Photo.isApplauding = true;
+        return new Promise((resolve, reject) => {
+            m.request<undefined>({
+                method: "POST",
+                url: "/api/applause",
+                body: { type: "photo", id: Photo.id },
+            })
+                .then(() => {
+                    Photo.isApplauding = false;
+                    resolve();
+                })
+                .catch((error: Error & { code: number }) => {
+                    Photo.isApplauding = false;
+                    reject(error);
+                });
         });
     },
 };

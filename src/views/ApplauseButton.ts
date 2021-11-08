@@ -25,20 +25,31 @@ export default class ApplauseButton
     applausePromise: FnPromiseErrorCode;
     message = "";
     displayMessage = false;
+    timeoutId = -1;
 
     constructor({ attrs }: m.CVnode<ApplauseButtonAttrs>) {
         this.applausePromise = attrs.applausePromise;
     }
 
+    /**
+     * Display a tomato tooltip as toast.
+     * One alternative would be to use:
+     * https://github.com/apvarun/toastify-js
+     */
     displayMessageTempo(): void {
         this.displayMessage = true;
-        setTimeout(() => {
+        if (this.timeoutId > 0) {
+            clearTimeout(this.timeoutId);
+        }
+        // @ts-ignore
+        this.timeoutId = setTimeout(() => {
             this.displayMessage = false;
             m.redraw();
         }, config.ephemeralDisplayTimeout * 1000);
     }
 
     clickButton(e: Event): void {
+        e.preventDefault();
         this.pressed = true;
         this.applausePromise()
             .then(() => {
@@ -56,7 +67,6 @@ export default class ApplauseButton
                 this.displayMessageTempo();
                 err.log(`Failed to like ${this.currentId}`, error);
             });
-        e.preventDefault();
     }
 
     view({ attrs }: m.CVnode<ApplauseButtonAttrs>): m.Vnode[] {

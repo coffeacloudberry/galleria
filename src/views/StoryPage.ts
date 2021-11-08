@@ -137,15 +137,16 @@ export default function StoryPage(): m.Component {
                                             storyId: getStoryId(),
                                         }),
                                     ),
-                                m(
-                                    ".one.column.applause-story",
+                                m(".one.column.applause-story", [
+                                    Story.isApplauding &&
+                                        t("loading.tooltip") + "...",
                                     m(ApplauseButton, {
                                         mediaType: "story",
                                         mediaIsLoading: !Story.isLoaded(),
                                         getId: getStoryId,
                                         applausePromise: Story.applause,
                                     }),
-                                ),
+                                ]),
                             ]),
                         ),
                     ),
