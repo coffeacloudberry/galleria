@@ -101,6 +101,16 @@
     },
     {
         "project": {
+            "name": "Toastify",
+            "link": "https://apvarun.github.io/toastify-js/"
+        },
+        "license": {
+            "name": "MIT",
+            "link": "https://github.com/apvarun/toastify-js/blob/master/LICENSE"
+        }
+    },
+    {
+        "project": {
             "name": "font",
             "link": null
         },

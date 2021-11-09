@@ -1,8 +1,8 @@
 import m from "mithril";
 import thumbsUpOutline from "@/icons/thumbs-up-outline.svg";
 import Icon from "./Icon";
-import { config } from "../config";
-import CustomLogging from "../CustomLogging";
+import CustomLogging, { LogType } from "../CustomLogging";
+import { toast } from "../utils";
 
 const err = new CustomLogging("error");
 const t = require("../translate");
@@ -23,29 +23,9 @@ export default class ApplauseButton
     pressed = false;
     currentId: number | string | null = null;
     applausePromise: FnPromiseErrorCode;
-    message = "";
-    displayMessage = false;
-    timeoutId = -1;
 
     constructor({ attrs }: m.CVnode<ApplauseButtonAttrs>) {
         this.applausePromise = attrs.applausePromise;
-    }
-
-    /**
-     * Display a tomato tooltip as toast.
-     * One alternative would be to use:
-     * https://github.com/apvarun/toastify-js
-     */
-    displayMessageTempo(): void {
-        this.displayMessage = true;
-        if (this.timeoutId > 0) {
-            clearTimeout(this.timeoutId);
-        }
-        // @ts-ignore
-        this.timeoutId = setTimeout(() => {
-            this.displayMessage = false;
-            m.redraw();
-        }, config.ephemeralDisplayTimeout * 1000);
     }
 
     clickButton(e: Event): void {
@@ -53,57 +33,37 @@ export default class ApplauseButton
         this.pressed = true;
         this.applausePromise()
             .then(() => {
-                this.message = t("applause.feedback.pass");
-                this.displayMessageTempo();
+                toast(t("applause.feedback.pass"));
             })
             .catch((error: Error & { code: number }) => {
-                const feedbackCodes = [429];
-                this.message = t(
-                    "applause.feedback.fail" +
-                        (feedbackCodes.indexOf(error.code) > -1
-                            ? "." + error.code
-                            : ""),
+                toast(
+                    t(
+                        "applause.feedback.fail" +
+                            (error.code == 429 ? "." + error.code : ""),
+                    ),
+                    LogType.error,
                 );
-                this.displayMessageTempo();
                 err.log(`Failed to like ${this.currentId}`, error);
             });
     }
 
-    view({ attrs }: m.CVnode<ApplauseButtonAttrs>): m.Vnode[] {
+    view({ attrs }: m.CVnode<ApplauseButtonAttrs>): m.Vnode {
         const newId = attrs.getId();
         if (newId !== null && newId !== this.currentId) {
             this.currentId = newId;
             // put the button back on new photo
             this.pressed = false;
         }
-        return [
-            m(
-                `a.nav-item${
-                    attrs.mediaIsLoading || this.pressed ? ".hide" : ""
-                }`,
-                {
-                    href: "#",
-                    onclick: (e: Event) => {
-                        this.clickButton(e);
-                    },
-                    "data-tippy-content": t(
-                        `applause.${attrs.mediaType}.tooltip`,
-                    ),
+        return m(
+            `a.nav-item${attrs.mediaIsLoading || this.pressed ? ".hide" : ""}`,
+            {
+                href: "#",
+                onclick: (e: Event) => {
+                    this.clickButton(e);
                 },
-                m(Icon, { src: thumbsUpOutline }),
-            ),
-            m(
-                ".applause-feedback",
-                {
-                    class:
-                        this.displayMessage &&
-                        !attrs.mediaIsLoading &&
-                        this.pressed
-                            ? ""
-                            : "hide",
-                },
-                m(".tippy-box", this.message),
-            ),
-        ];
+                "data-tippy-content": t(`applause.${attrs.mediaType}.tooltip`),
+            },
+            m(Icon, { src: thumbsUpOutline }),
+        );
     }
 }

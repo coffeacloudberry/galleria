@@ -5,6 +5,8 @@ import addOutline from "@/icons/add-outline.svg";
 import happyOutline from "@/icons/happy-outline.svg";
 import { config } from "../config";
 import { PrivacyButton } from "./Forms";
+import { toast } from "../utils";
+import { LogType } from "../CustomLogging";
 
 const t = require("../translate");
 
@@ -39,22 +41,19 @@ export class Player implements m.ClassComponent<PlayerAttrs> {
         })
             .then(() => {
                 if (attrs.onSuccess) {
+                    toast(t("applause.feedback.pass"));
                     attrs.onSuccess();
                 }
                 shareInProgress = false;
             })
             .catch((err: Error & { code: number }) => {
-                const feedbackCodes = [429];
-                if (attrs.onFail) {
-                    attrs.onFail(
-                        t(
-                            "applause.feedback.fail" +
-                                (feedbackCodes.indexOf(err.code) > -1
-                                    ? "." + err.code
-                                    : ""),
-                        ),
-                    );
-                }
+                toast(
+                    t(
+                        "applause.feedback.fail" +
+                            (err.code == 429 ? ".429" : ""),
+                    ),
+                    LogType.error,
+                );
                 shareInProgress = false;
             });
     }
@@ -91,7 +90,6 @@ export class Player implements m.ClassComponent<PlayerAttrs> {
 export interface ListerAttrs {
     list: GifMetadata[];
     onSuccess?: () => void;
-    onFail?: (err: string) => void;
 }
 
 export class Lister implements m.ClassComponent<ListerAttrs> {
@@ -104,7 +102,6 @@ export class Lister implements m.ClassComponent<ListerAttrs> {
                     m(Player, {
                         giphyId: gif.id,
                         onSuccess: attrs.onSuccess,
-                        onFail: attrs.onFail,
                     }),
                 );
             }),
@@ -120,7 +117,6 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
     userQuery = "";
     listResult: GifMetadata[] = [];
     isLoading = false;
-    messageFail = ""; // empty if not failed
 
     requestGifs(): void {
         this.isLoading = true;
@@ -139,10 +135,10 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
         }).then((result) => {
             this.isLoading = false;
             if (result.meta.status >= 400) {
-                this.messageFail = t("applause.feedback.fail");
+                toast(t("applause.feedback.fail"), LogType.error);
                 throw new Error(`Giphy error: ${result.meta.msg}`);
             } else if (result.data.length == 0) {
-                this.messageFail = t("no-result-try-sth-else");
+                toast(t("no-result-try-sth-else"), LogType.error);
             } else {
                 this.listResult.push(...result.data);
             }
@@ -158,7 +154,6 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
                     onsubmit: (e: Event): void => {
                         e.preventDefault();
                         this.listResult = [];
-                        this.messageFail = "";
                         this.requestGifs();
                     },
                 },
@@ -169,7 +164,6 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
                                 currentTarget: HTMLInputElement;
                             }): void => {
                                 this.userQuery = e.currentTarget.value;
-                                this.messageFail = "";
                             },
                             value: this.userQuery,
                         }),
@@ -188,13 +182,6 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
             m(Lister, {
                 list: this.listResult,
                 onSuccess: attrs.callbackSelection,
-                onFail: (err: string) => {
-                    this.messageFail = err;
-                    setTimeout(() => {
-                        this.messageFail = "";
-                        m.redraw();
-                    }, config.ephemeralDisplayTimeout * 1000);
-                },
             }),
             m(
                 "button.mt-3" + (this.listResult.length ? "" : ".hide"),
@@ -206,11 +193,6 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
                 },
                 [m(Icon, { src: addOutline }), t("load-more")],
             ),
-            this.messageFail &&
-                m(
-                    ".applause-feedback.abs-bottom-center",
-                    m(".tippy-box", this.messageFail),
-                ),
         ]);
     }
 }

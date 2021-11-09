@@ -1,5 +1,7 @@
 import m from "mithril";
 import { config } from "./config";
+import Toastify from "toastify-js";
+import { LogType } from "./CustomLogging";
 
 /** Deselect text. */
 export function clearSelection(): void {
@@ -104,4 +106,13 @@ export function transformExternalLinks(): void {
         node.setAttribute("rel", allRels.join(" "));
         node.setAttribute("target", "_blank");
     });
+}
+
+export function toast(message: string, type: LogType = LogType.info): void {
+    Toastify({
+        text: message,
+        duration: config.ephemeralDisplayTimeout * 1000,
+        close: true,
+        className: `custom-toast-${LogType[type]}`,
+    }).showToast();
 }

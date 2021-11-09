@@ -261,11 +261,6 @@ class VisitorsBook implements m.ClassComponent {
     view(): (boolean | m.Vnode<ListerAttrs>)[] {
         return [
             m("h1", t("visitors-book")),
-            this.hasShared &&
-                m(
-                    "p.text-center.applause-feedback",
-                    m(".tippy-box", t("applause.feedback.pass")),
-                ),
             m("p.text-center", t("visitors-book.what")),
             this.isRequesting &&
                 m(".loading-icon.text-center.m-30", [

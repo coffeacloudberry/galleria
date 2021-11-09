@@ -1,0 +1,18 @@
+@import "../base/variables"
+
+.toastify
+    max-width: calc(100% - 20px) !important /* override */
+    cursor: default !important /* override */
+
+.toast-close
+    cursor: pointer !important /* override */
+
+.custom-toast-error,
+.custom-toast-info
+    border-radius: 0 $border-radius-lg 0 $border-radius-lg
+
+.custom-toast-info
+    background: $button-background
+
+.custom-toast-error
+    background: #b54531 /* sun-dried tomato to have enough contrast with the white text */

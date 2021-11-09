@@ -1,4 +1,5 @@
-enum LogType {
+export enum LogType {
+    info,
     warning,
     error,
 }
