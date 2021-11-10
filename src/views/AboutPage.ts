@@ -106,7 +106,6 @@ class CopyrightNotice implements m.ClassComponent {
                                         },
                                     };
                                 },
-                                size: ModalSize.Large,
                             });
                         },
                     },
