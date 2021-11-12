@@ -2,7 +2,7 @@
 
 <div align="center">
     <a href="https://www.explorewilder.com">
-        <img src="src/icons/favicon/favicon.svg" height="128" width="128" alt="ExploreWilder logo" />
+        <img src="https://raw.githubusercontent.com/coffeacloudberry/galleria/master/src/icons/favicon/favicon.svg" height="128" width="128" alt="ExploreWilder logo" />
     </a>
     <h3 align="center">
         <a href="https://www.explorewilder.com">ExploreWilder</a>
