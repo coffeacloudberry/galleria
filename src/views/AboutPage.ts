@@ -1,20 +1,21 @@
-import m from "mithril";
-import { modal, ModalSize, closeAllModals } from "./Modal";
 import cafeSharp from "@/icons/cafe-sharp.svg";
+import happyOutline from "@/icons/happy-outline.svg";
+import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
+import logoPaypal from "@/icons/logo-paypal.svg";
 import logoRss from "@/icons/logo-rss.svg";
 import logoTwitter from "@/icons/logo-twitter.svg";
-import logoGitHub from "@/icons/logo-github.svg";
-import happyOutline from "@/icons/happy-outline.svg";
 import sunnyOutline from "@/icons/sunny-outline.svg";
-import logoPaypal from "@/icons/logo-paypal.svg";
-import { transformExternalLinks } from "../utils";
-import Icon from "./Icon";
-import ThirdPartyLicenses from "./ThirdPartyLicenses";
+import m from "mithril";
+
 import CustomLogging from "../CustomLogging";
-import { Header, HeaderAttrs } from "./Header";
+import { transformExternalLinks } from "../utils";
 import { ContactForm, NewsletterForm } from "./Forms";
-import { Lister, ListerAttrs, Finder, GifMetadata } from "./Giphy";
+import { Finder, GifMetadata, Lister, ListerAttrs } from "./Giphy";
+import { Header, HeaderAttrs } from "./Header";
+import Icon from "./Icon";
+import { ModalSize, closeAllModals, modal } from "./Modal";
+import ThirdPartyLicenses from "./ThirdPartyLicenses";
 
 const t = require("../translate");
 const error = new CustomLogging("error");

@@ -1,8 +1,9 @@
 import m from "mithril";
-import ApplauseButton from "./ApplauseButton";
-import { hideAllForce, transformExternalLinks } from "../utils";
 import tippy, { Instance as TippyInstance } from "tippy.js";
+
 import { EasyDate, SeasonStrings } from "../models/Story";
+import { hideAllForce, transformExternalLinks } from "../utils";
+import ApplauseButton from "./ApplauseButton";
 import { Header } from "./Header";
 import Map from "./Map";
 

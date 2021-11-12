@@ -1,8 +1,9 @@
+import type { WidgetInstance } from "friendly-challenge";
 import m from "mithril";
-import { injectCode } from "../utils";
+
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
-import type { WidgetInstance } from "friendly-challenge";
+import { injectCode } from "../utils";
 
 const t = require("../translate");
 const error = new CustomLogging("error");

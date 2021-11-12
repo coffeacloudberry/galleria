@@ -1,5 +1,6 @@
-import { StoryInfo, ProcessedStoryFile } from "./Story";
 import m from "mithril";
+
+import { ProcessedStoryFile, StoryInfo } from "./Story";
 
 const Story = require("../models/Story");
 

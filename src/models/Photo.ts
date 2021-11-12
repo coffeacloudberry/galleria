@@ -1,6 +1,7 @@
 import m from "mithril";
-import { clearSelection } from "../utils";
+
 import { config } from "../config";
+import { clearSelection } from "../utils";
 
 const t = require("../translate");
 

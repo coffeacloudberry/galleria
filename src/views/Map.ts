@@ -1,15 +1,17 @@
+import compassOutline from "@/icons/compass-outline.svg";
+import type { TooltipItem } from "chart.js";
+import type { Position } from "geojson";
 import m from "mithril";
-import { numberWithCommas, injectCode } from "../utils";
+
+import { config } from "../config";
+import CustomLogging from "../CustomLogging";
+import { injectCode, numberWithCommas } from "../utils";
 import WebTrack from "../webtrack";
 import type { WebTrackGeoJsonFeature } from "../webtrack";
-import type { Position } from "geojson";
-import type { TooltipItem } from "chart.js";
-import compassOutline from "@/icons/compass-outline.svg";
-import CustomLogging from "../CustomLogging";
 import AutoPilotControl from "./AutoPilotControl";
 import Icon from "./Icon";
-import { config } from "../config";
 import Controls, { ControlsType } from "./StandardControls";
+
 declare const mapboxgl: typeof import("mapbox-gl");
 declare const Chart: typeof import("chart.js");
 

@@ -1,5 +1,7 @@
 import m from "mithril";
+
 import { hideAllForce } from "../utils";
+
 const t = require("../translate");
 
 /** Default "404" landing page when none of the listed routes match the path. */

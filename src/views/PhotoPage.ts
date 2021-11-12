@@ -1,15 +1,16 @@
-import m from "mithril";
+import apertureOutline from "@/icons/aperture-outline.svg";
+import chevronBackOutline from "@/icons/chevron-back-outline.svg";
+import chevronForwardOutline from "@/icons/chevron-forward-outline.svg";
 import playBackOutline from "@/icons/play-back-outline.svg";
 import playForwardOutline from "@/icons/play-forward-outline.svg";
-import chevronBackOutline from "@/icons/chevron-back-outline.svg";
-import apertureOutline from "@/icons/aperture-outline.svg";
-import chevronForwardOutline from "@/icons/chevron-forward-outline.svg";
 import returnUpBackOutline from "@/icons/return-up-back-outline.svg";
-import { isMobile, getPhotoId, hideAllForce } from "../utils";
-import ApplauseButton from "./ApplauseButton";
-import Icon from "./Icon";
-import { Header, HeaderAttrs } from "./Header";
+import m from "mithril";
+
 import { config } from "../config";
+import { getPhotoId, hideAllForce, isMobile } from "../utils";
+import ApplauseButton from "./ApplauseButton";
+import { Header, HeaderAttrs } from "./Header";
+import Icon from "./Icon";
 
 const Photo = require("../models/Photo");
 const t = require("../translate");

@@ -1,14 +1,15 @@
-import m from "mithril";
-import { modal } from "./Modal";
+import bugOutline from "@/icons/bug-outline.svg";
 import newspaperOutline from "@/icons/newspaper-outline.svg";
 import paperPlaneOutline from "@/icons/paper-plane-outline.svg";
 import trashOutline from "@/icons/trash-outline.svg";
-import bugOutline from "@/icons/bug-outline.svg";
-import PrivacyPolicy from "./PrivacyPolicy";
-import Icon from "./Icon";
+import m from "mithril";
+
 import { config } from "../config";
-import Captcha from "./Captcha";
 import CustomLogging from "../CustomLogging";
+import Captcha from "./Captcha";
+import Icon from "./Icon";
+import { modal } from "./Modal";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const t = require("../translate");
 const info = new CustomLogging();

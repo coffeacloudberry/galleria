@@ -1,6 +1,6 @@
 import m from "mithril";
-import { default as tjs } from "translate.js";
 import tippy, { Instance as TippyInstance } from "tippy.js";
+import { default as tjs } from "translate.js";
 
 export interface Language {
     id: number;

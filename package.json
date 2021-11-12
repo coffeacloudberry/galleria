@@ -14,7 +14,12 @@
         "type": "git",
         "url": "git+https://github.com/coffeacloudberry/galleria.git"
     },
-    "keywords": [],
+    "keywords": [
+        "blog",
+        "mithril",
+        "spa",
+        "serverless"
+    ],
     "author": "Clément Fontaine",
     "private": true,
     "license": "Apache-2.0",
@@ -55,11 +60,13 @@
         "file-loader": "^6.2.0",
         "friendly-challenge": "^0.9.0",
         "html-webpack-plugin": "^5.5.0",
+        "import-sort-style-module": "^6.0.0",
         "jsdom": "^18.0.1",
         "jsdom-global": "^3.0.2",
         "mini-css-extract-plugin": "^2.4.4",
         "mocha": "^9.1.3",
         "prettier": "^2.4.1",
+        "prettier-plugin-import-sort": "^0.0.7",
         "prettier-webpack-plugin": "^1.2.0",
         "robotstxt-webpack-plugin": "^7.0.0",
         "sass": "^1.43.4",
@@ -78,5 +85,11 @@
     "engines": {
         "node": "^14.18.0",
         "npm": "^8.0.0"
+    },
+    "importSort": {
+        ".js, .jsx, .ts, .tsx": {
+            "style": "module",
+            "parser": "typescript"
+        }
     }
 }

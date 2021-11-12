@@ -3,6 +3,7 @@
 require("jsdom-global")();
 global.requestAnimationFrame = (cb: any) => cb(); // for Mithril
 const assert = require("assert");
+
 import { numberWithCommas } from "../../src/utils";
 
 describe("Utils", () => {

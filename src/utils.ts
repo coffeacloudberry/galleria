@@ -1,6 +1,7 @@
 import m from "mithril";
-import { config } from "./config";
 import Toastify from "toastify-js";
+
+import { config } from "./config";
 import { LogType } from "./CustomLogging";
 
 /** Deselect text. */

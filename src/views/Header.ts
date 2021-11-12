@@ -1,14 +1,15 @@
-import m from "mithril";
-import tippy, { Instance as TippyInstance } from "tippy.js";
-import languageOutline from "@/icons/language-outline.svg";
+import arrowUndoOutline from "@/icons/arrow-undo-outline.svg";
 import bookOutline from "@/icons/book-outline.svg";
 import ellipsisHorizontal from "@/icons/ellipsis-horizontal.svg";
-import arrowUndoOutline from "@/icons/arrow-undo-outline.svg";
-import listOutline from "@/icons/list-outline.svg";
 import imageOutline from "@/icons/image-outline.svg";
-import { Language } from "../translate";
+import languageOutline from "@/icons/language-outline.svg";
+import listOutline from "@/icons/list-outline.svg";
+import m from "mithril";
+import tippy, { Instance as TippyInstance } from "tippy.js";
+
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
+import { Language } from "../translate";
 import Icon from "./Icon";
 
 const languages = require("../languages.json");

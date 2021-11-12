@@ -1,7 +1,8 @@
-import m from "mithril";
 import close from "@/icons/close.svg";
-import Icon from "./Icon";
+import m from "mithril";
+
 import { hideAllForce } from "../utils";
+import Icon from "./Icon";
 
 const t = require("../translate");
 

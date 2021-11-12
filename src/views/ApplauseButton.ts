@@ -1,8 +1,9 @@
-import m from "mithril";
 import thumbsUpOutline from "@/icons/thumbs-up-outline.svg";
-import Icon from "./Icon";
+import m from "mithril";
+
 import CustomLogging, { LogType } from "../CustomLogging";
 import { toast } from "../utils";
+import Icon from "./Icon";
 
 const err = new CustomLogging("error");
 const t = require("../translate");

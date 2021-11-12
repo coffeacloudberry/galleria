@@ -1,11 +1,12 @@
 import m from "mithril";
-import PrivacyPage from "./views/PrivacyPage";
-import NotFoundPage from "./views/NotFoundPage";
+
+import languages from "./languages.json";
 import AboutPage from "./views/AboutPage";
+import NotFoundPage from "./views/NotFoundPage";
+import PhotoPage from "./views/PhotoPage";
+import PrivacyPage from "./views/PrivacyPage";
 import StoriesOverviewPage from "./views/StoriesOverviewPage";
 import StoryPage from "./views/StoryPage";
-import PhotoPage from "./views/PhotoPage";
-import languages from "./languages.json";
 
 type Page = () => m.Component;
 

@@ -1,12 +1,13 @@
-import m from "mithril";
-import Icon from "./Icon";
-import searchOutline from "@/icons/search-outline.svg";
 import addOutline from "@/icons/add-outline.svg";
 import happyOutline from "@/icons/happy-outline.svg";
+import searchOutline from "@/icons/search-outline.svg";
+import m from "mithril";
+
 import { config } from "../config";
-import { PrivacyButton } from "./Forms";
-import { toast } from "../utils";
 import { LogType } from "../CustomLogging";
+import { toast } from "../utils";
+import { PrivacyButton } from "./Forms";
+import Icon from "./Icon";
 
 const t = require("../translate");
 

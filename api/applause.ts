@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { isSameSite, anonymizeClient, doRequest } from "../src/utils_api";
 import { getClientIp } from "request-ip";
+
+import { anonymizeClient, doRequest, isSameSite } from "../src/utils_api";
 
 /**
  * Forward the like to the Azure API Manager. The APIM credentials are sent in

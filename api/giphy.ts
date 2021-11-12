@@ -1,7 +1,9 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
-import * as utils from "../src/utils_api";
 import { promisify } from "util";
+
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import redis from "redis";
+
+import * as utils from "../src/utils_api";
 
 export default async (request: VercelRequest, response: VercelResponse) => {
     if (!utils.isSameSite(request)) {

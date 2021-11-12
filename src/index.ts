@@ -1,10 +1,13 @@
-import m from "mithril";
 import "ress/dist/ress.min.css";
 import "toastify-js/src/toastify.css";
-import "./style/main.sass";
 import "tippy.js/dist/tippy.css";
-import { routes } from "./routes";
+
+import "./style/main.sass";
+
+import m from "mithril";
+
 import CustomLogging from "./CustomLogging";
+import { routes } from "./routes";
 
 const info = new CustomLogging();
 info.log(

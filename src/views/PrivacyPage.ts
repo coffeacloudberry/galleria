@@ -1,7 +1,8 @@
 import m from "mithril";
-import PrivacyPolicy from "./PrivacyPolicy";
+
 import { transformExternalLinks } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const t = require("../translate");
 

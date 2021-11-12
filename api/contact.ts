@@ -1,13 +1,15 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
+import { tmpdir } from "os";
 import { promisify } from "util";
+
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getClientIp } from "request-ip";
 import sendpulse from "sendpulse-api";
-import { tmpdir } from "os";
+
 import {
-    initClient,
-    isSameSite,
     anonymizeClient,
     doRequest,
+    initClient,
+    isSameSite,
 } from "../src/utils_api";
 
 /** Address book name as defined in the SendPulse admin panel. */

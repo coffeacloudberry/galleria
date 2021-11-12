@@ -1,7 +1,8 @@
 import m from "mithril";
 import snarkdown from "snarkdown";
-import { PhotoInfo } from "./Photo";
+
 import { config } from "../config";
+import { PhotoInfo } from "./Photo";
 
 const t = require("../translate");
 

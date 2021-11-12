@@ -1,7 +1,8 @@
+import { createHash } from "crypto";
+import https from "https";
+
 import { VercelRequest } from "@vercel/node";
 import redis from "redis";
-import https from "https";
-import { createHash } from "crypto";
 
 /** Initialize the Redis connection. Remember to close it. */
 export function initClient(): redis.RedisClient {

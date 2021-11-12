@@ -3,8 +3,11 @@
 require("jsdom-global")();
 global.requestAnimationFrame = (cb: any) => cb(); // for Mithril
 const assert = require("assert");
+
 import { readFile } from "fs";
+
 import WebTrack from "../../src/webtrack";
+
 let myWebTrack: WebTrack;
 const webTrackPath = "tests/unit/fixtures/t.webtrack";
 const geoJsonPath = "tests/unit/fixtures/t.geojson";

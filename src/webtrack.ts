@@ -1,4 +1,4 @@
-import type { Position, MultiLineString, Feature, Point } from "geojson";
+import type { Feature, MultiLineString, Point, Position } from "geojson";
 
 export interface FeaturePoint extends Feature<Point> {
     properties: {

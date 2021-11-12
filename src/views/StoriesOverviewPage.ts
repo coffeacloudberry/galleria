@@ -1,10 +1,11 @@
-import m from "mithril";
 import bookOutline from "@/icons/book-outline.svg";
-import { Header, HeaderAttrs } from "./Header";
+import m from "mithril";
+
 import { OneStory } from "../models/AllStories";
-import { StorySubTitle } from "./StoryPage";
 import ApplauseButton from "./ApplauseButton";
+import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
+import { StorySubTitle } from "./StoryPage";
 
 const Story = require("../models/Story");
 const AllStories = require("../models/AllStories");
