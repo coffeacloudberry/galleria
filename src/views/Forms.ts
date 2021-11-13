@@ -9,7 +9,7 @@ import CustomLogging from "../CustomLogging";
 import Captcha from "./Captcha";
 import Icon from "./Icon";
 import { modal } from "./Modal";
-import PrivacyPolicy from "./PrivacyPolicy";
+import { PrivacyPolicy } from "./PrivacyPolicy";
 
 const t = require("../translate");
 const info = new CustomLogging();
@@ -27,13 +27,7 @@ export const PrivacyButton: m.Component = {
                     e.preventDefault();
                     modal({
                         title: t("privacy.title"),
-                        content: function (): m.Component {
-                            return {
-                                view() {
-                                    return m(PrivacyPolicy);
-                                },
-                            };
-                        },
+                        content: PrivacyPolicy,
                     });
                 },
             },
@@ -266,13 +260,7 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                         if (e.submitter.id === "bug-report-button") {
                             modal({
                                 title: t("status.title"),
-                                content: function (): m.Component {
-                                    return {
-                                        view() {
-                                            return m(Status);
-                                        },
-                                    };
-                                },
+                                content: Status,
                             });
                             this.message +=
                                 "Hi!\n\n" +

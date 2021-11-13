@@ -36,20 +36,19 @@ const attributions = [
     ["Maxar", "https://www.mapbox.com/about/maps/"],
 ];
 
+export interface extraIconsInfo {
+    // file name in the assets
+    source: string;
+    attributions: [string, string];
+}
+
 /**
  * Additional icons.
+ * The key is "sym" in the GeoJSON properties and GPX file and translations.
  * Update ThirdPartyLicenses.ts if the icon supplier is not only
  * https://www.flaticon.com/
  */
-type extraIconsStruct = Record<
-    // "sym" in the GeoJSON properties and GPX file and translations
-    string,
-    {
-        // file name in the assets
-        source: string;
-        attributions: [string, string];
-    }
->;
+type extraIconsStruct = { [key: string]: extraIconsInfo };
 
 export const extraIcons: extraIconsStruct = require("../extra-icons");
 

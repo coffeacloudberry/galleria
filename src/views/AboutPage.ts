@@ -15,7 +15,7 @@ import { Finder, GifMetadata, Lister, ListerAttrs } from "./Giphy";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import { ModalSize, closeAllModals, modal } from "./Modal";
-import ThirdPartyLicenses from "./ThirdPartyLicenses";
+import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
 
 const t = require("../translate");
 const error = new CustomLogging("error");
@@ -100,13 +100,7 @@ class CopyrightNotice implements m.ClassComponent {
                             e.preventDefault();
                             modal({
                                 title: t("copyright.third-parties.title"),
-                                content: function (): m.Component {
-                                    return {
-                                        view() {
-                                            return m(ThirdPartyLicenses);
-                                        },
-                                    };
-                                },
+                                content: ThirdPartyLicenses,
                             });
                         },
                     },
@@ -221,6 +215,19 @@ class VisitorsBook implements m.ClassComponent {
     /** True when the current visitor shared its GIF. */
     hasShared = false;
 
+    /** Content of the modal for sharing a new GIF. */
+    contentGiphyFinder: m.Component = {
+        view: () => {
+            return m(Finder, {
+                callbackSelection: () => {
+                    this.initList();
+                    this.hasShared = true;
+                    closeAllModals();
+                },
+            });
+        },
+    };
+
     /** Fetch the stored giphies. */
     initList(): void {
         this.storedGiphies = [];
@@ -236,21 +243,6 @@ class VisitorsBook implements m.ClassComponent {
             .catch((err: Error) => {
                 error.log("Failed to load the Giphies.", err);
             });
-    }
-
-    /** Content of the modal for sharing a new GIF. */
-    contentGiphyFinder(): m.Component {
-        return {
-            view: () => {
-                return m(Finder, {
-                    callbackSelection: () => {
-                        this.initList();
-                        this.hasShared = true;
-                        closeAllModals();
-                    },
-                });
-            },
-        };
     }
 
     oninit(): void {
@@ -283,9 +275,7 @@ class VisitorsBook implements m.ClassComponent {
                             onclick: () => {
                                 modal({
                                     title: t("visitors-book.involve.title"),
-                                    content: () => {
-                                        return this.contentGiphyFinder();
-                                    },
+                                    content: this.contentGiphyFinder,
                                     size: ModalSize.Large,
                                     cancelable: true,
                                 });

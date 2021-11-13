@@ -23,7 +23,7 @@ export enum ModalSize {
 
 interface ModalOptions {
     title: string | m.Vnode;
-    content: () => m.Component;
+    content: m.Component;
     size?: ModalSize;
     cancelable?: boolean;
 }

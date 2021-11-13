@@ -1,47 +1,33 @@
 import m from "mithril";
-const { extraIcons } = require("./Map");
+
+import { extraIcons, extraIconsInfo } from "./Map";
+
 const t = require("../translate");
 
-export default class ThirdPartyLicenses implements m.ClassComponent {
-    mapIconsNodes: m.Vnode[] = [];
+const IconDetailComponent: m.Component<extraIconsInfo> = {
+    view({ attrs }: m.Vnode<extraIconsInfo>): m.Vnode {
+        return m("tr", [
+            m(
+                "td",
+                m("img", {
+                    src: `/assets/map/${attrs.source}.svg`,
+                    style: "width: 2rem;",
+                }),
+            ),
+            m("td", [
+                t("copyright.third-parties.icon.creator"),
+                " ",
+                m("a", { href: attrs.attributions[1] }, attrs.attributions[0]),
+                " ",
+                t("copyright.third-parties.icon.distributor"),
+                " ",
+                m("a", { href: "https://www.flaticon.com/" }, "Flaticon"),
+            ]),
+        ]);
+    },
+};
 
-    constructor() {
-        for (const key in extraIcons) {
-            if (!extraIcons.hasOwnProperty(key)) {
-                continue;
-            }
-            const info = extraIcons[key];
-            this.mapIconsNodes.push(
-                m("tr", [
-                    m(
-                        "td",
-                        m("img", {
-                            src: `/assets/map/${info.source}.svg`,
-                            style: "width: 2rem;",
-                        }),
-                    ),
-                    m("td", [
-                        t("copyright.third-parties.icon.creator"),
-                        " ",
-                        m(
-                            "a",
-                            { href: info.attributions[1] },
-                            info.attributions[0],
-                        ),
-                        " ",
-                        t("copyright.third-parties.icon.distributor"),
-                        " ",
-                        m(
-                            "a",
-                            { href: "https://www.flaticon.com/" },
-                            "Flaticon",
-                        ),
-                    ]),
-                ]),
-            );
-        }
-    }
-
+export const ThirdPartyLicenses: m.Component = {
     view(): m.Vnode[] {
         return [
             m("p.text-center", t("copyright.third-parties.details")),
@@ -56,11 +42,14 @@ export default class ThirdPartyLicenses implements m.ClassComponent {
                                 m("th", t("copyright.third-parties.icon")),
                                 m("th", t("copyright.third-parties.from")),
                             ]),
-                            ...this.mapIconsNodes,
+                            // @ts-ignore
+                            ...extraIcons.map((info: extraIconsInfo) => {
+                                return m(IconDetailComponent, info);
+                            }),
                         ]),
                     ),
                 ),
             ),
         ];
-    }
-}
+    },
+};

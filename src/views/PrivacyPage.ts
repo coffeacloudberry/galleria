@@ -2,7 +2,7 @@ import m from "mithril";
 
 import { transformExternalLinks } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
-import PrivacyPolicy from "./PrivacyPolicy";
+import { PrivacyPolicy } from "./PrivacyPolicy";
 
 const t = require("../translate");
 
