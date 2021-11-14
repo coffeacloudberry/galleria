@@ -1,6 +1,6 @@
 Todo:
 
-* Lint with `npm run lint`,
+* Lint with `npm run lint` and `npm run stylelint` (based on the [SASS guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines/blob/main/index.js)),
 * Test as detailed in the [README.md](README.md) file,
 * Check the code quality with Sonar.
 
