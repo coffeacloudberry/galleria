@@ -34,22 +34,24 @@ export const ThirdPartyLicenses: m.Component = {
         }
         return [
             m("p.text-center", t("copyright.third-parties.details")),
-            m(
-                ".container",
+            m("table.data.icons", [
+                m("tr", [
+                    m("th", t("copyright.third-parties.icon")),
+                    m("th", t("copyright.third-parties.from")),
+                ]),
+                ...iconNodes,
+            ]),
+            // link to Ionicons because not linked otherwise
+            m("p.text-center", [
+                t("copyright.third-parties.ionicons"),
                 m(
-                    ".row",
-                    m(
-                        ".one.column",
-                        m("table.data.icons", [
-                            m("tr", [
-                                m("th", t("copyright.third-parties.icon")),
-                                m("th", t("copyright.third-parties.from")),
-                            ]),
-                            ...iconNodes,
-                        ]),
-                    ),
+                    "a",
+                    {
+                        href: "https://ionic.io/ionicons",
+                    },
+                    "Ionicons",
                 ),
-            ),
+            ]),
         ];
     },
 };
