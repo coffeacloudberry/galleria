@@ -239,7 +239,8 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
         switch (attrs.refPage) {
             case "story":
                 centeredNav = m("span", [
-                    m("span", m("em.mr-3.long-item", story.title)),
+                    story.gotContent &&
+                        m("span", m("em.mr-3.long-item", story.title)),
                     m(OpenPhoto, {
                         title: "" + attrs.title,
                     }),

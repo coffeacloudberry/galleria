@@ -265,6 +265,7 @@ class Story {
         this.isApplauding = false;
         this.gotContent = false;
         this.gotStoryMeta = false;
+        this.originPhotoMeta = null;
         this.folderName = folderName;
         this.getStoryTitleContent(folderName)
             .then((result) => {
