@@ -10,21 +10,22 @@
         filter: $filter-body-color
         height: $nav-icon-size
 
-.story-content ul li
-    margin-top: 1rem
-    list-style: none
-    margin-bottom: 1rem
-    &::before
-        content: ''
-        display: block
-        height: 24px
-        margin: 1rem
-        background-image: url('icons/bonfire-outline.svg')
-        background-size: contain
-        background-repeat: no-repeat
-        background-position-x: center
-        @media (max-width: 1024px)
-            height: 16px
+.story-content
+    margin-bottom: $global-font-size
+    ul li
+        margin-top: 1rem
+        list-style: none
+        &::before
+            content: ''
+            display: block
+            height: 24px
+            margin: 1rem
+            background-image: url('icons/bonfire-outline.svg')
+            background-size: contain
+            background-repeat: no-repeat
+            background-position-x: center
+            @media (max-width: 1024px)
+                height: 16px
 
 section#story
     margin-top: #{$nav-bar-height}
