@@ -9,14 +9,13 @@ import tippy, { Instance as TippyInstance } from "tippy.js";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
-import { Language } from "../translate";
+import { photo } from "../models/Photo";
+import { story } from "../models/Story";
+import { Language, t } from "../translate";
 import Icon from "./Icon";
 
 const languages = require("../languages.json");
-const Photo = require("../models/Photo");
-const Story = require("../models/Story");
 const info = new CustomLogging();
-const t = require("../translate");
 
 /** The link to the page before landing to the about page. */
 let prevHref: string | undefined;
@@ -43,7 +42,7 @@ class LanguageSelectionComponent
                     href: t.replaceLang(attrs.language.slug),
                     onclick: () => {
                         t.init(attrs.language.slug);
-                        document.title = t(this.refPage + ".title");
+                        document.title = "" + t(this.refPage + ".title");
                         if (this.tippyInstances !== undefined) {
                             this.tippyInstances[0].hide();
                         }
@@ -91,7 +90,7 @@ interface OpenPhotoAttrs {
 
 const OpenPhoto: m.Component<OpenPhotoAttrs> = {
     view({ attrs }: m.Vnode<OpenPhotoAttrs>) {
-        const photoPath = Story.getPhotoPath();
+        const photoPath = story.getPhotoPath();
         return m(
             m.route.Link,
             {
@@ -118,7 +117,7 @@ interface OpenStoryAttrs {
 
 const OpenStory: m.Component<OpenStoryAttrs> = {
     view({ attrs }: m.Vnode<OpenStoryAttrs>) {
-        const storyPath = Photo.getStoryPath();
+        const storyPath = photo.getStoryPath();
         return (
             storyPath &&
             m(
@@ -240,7 +239,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
         switch (attrs.refPage) {
             case "story":
                 centeredNav = m("span", [
-                    m("span", m("em.mr-3.long-item", Story.title)),
+                    m("span", m("em.mr-3.long-item", story.title)),
                     m(OpenPhoto, {
                         title: "" + attrs.title,
                     }),
@@ -249,18 +248,19 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
             case "photo":
                 let photoTitle = null;
                 try {
-                    photoTitle = Photo.meta.title[t.getLang()];
+                    // @ts-ignore
+                    photoTitle = photo.meta.title[t.getLang()];
                 } catch {}
                 centeredNav = m("span", [
                     photoTitle &&
                         m("span.photo-title", [
                             m("em", photoTitle),
                             m("span.short-item", [
-                                Photo.storyTitle && m("span.ml-3.mr-3", " – "),
+                                photo.storyTitle && m("span.ml-3.mr-3", " – "),
                                 m(
                                     m.route.Link,
                                     {
-                                        href: Photo.getStoryPath(),
+                                        href: "" + photo.getStoryPath(),
                                     },
                                     attrs.title,
                                 ),

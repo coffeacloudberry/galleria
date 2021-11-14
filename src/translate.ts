@@ -14,10 +14,10 @@ interface Translatable {
     getLang(): string;
     init(lang?: string): void;
     prependLang(path: string): string;
-    replaceLang(lang: string, originHref: string | undefined): string;
+    replaceLang(lang: string, originHref?: string): string;
     createTippies(): void;
     getTranslations(): OneDictLang;
-    (key: string, args: any, params: any): m.Vnode<any, any> | string;
+    (key: string, args?: any, params?: any): m.Vnode<any, any> | string;
 }
 
 const translations: Record<string, OneDictLang> = {
@@ -33,32 +33,29 @@ const options = {
 
 let messages: OneDictLang = translations.en;
 
-const translate: Translatable = (key: string, args: any, params: any) => {
-    const t = tjs(messages, options);
-    return args ? t(key, args, params) : t(key);
+const t: Translatable = (key: string, args?: any, params?: any) => {
+    const translate = tjs(messages, options);
+    return args ? translate(key, args, params) : translate(key);
 };
 
-translate.getLang = (): string => {
+t.getLang = (): string => {
     const inputLang = m.parsePathname(m.route.get()).path.split("/")[1];
     return translations.hasOwnProperty(inputLang) ? inputLang : "en";
 };
 
-translate.init = (lang?: string) => {
+t.init = (lang?: string) => {
     if (lang === undefined) {
-        lang = translate.getLang();
+        lang = t.getLang();
     }
     document.documentElement.lang = lang;
     messages = translations[lang];
 };
 
-translate.prependLang = (path: string): string => {
-    return `/${translate.getLang()}${path}`;
+t.prependLang = (path: string): string => {
+    return `/${t.getLang()}${path}`;
 };
 
-translate.replaceLang = (
-    lang: string,
-    originHref: string | undefined,
-): string => {
+t.replaceLang = (lang: string, originHref?: string): string => {
     if (!originHref) {
         originHref = m.route.get();
     }
@@ -73,7 +70,7 @@ translate.replaceLang = (
     );
 };
 
-translate.createTippies = () => {
+t.createTippies = () => {
     const tippyAttr = "data-tippy-content";
 
     // Refresh the tooltip content on update (not automatic by default)
@@ -106,6 +103,6 @@ translate.createTippies = () => {
     });
 };
 
-translate.getTranslations = (): OneDictLang => messages;
+t.getTranslations = (): OneDictLang => messages;
 
-module.exports = translate;
+export { t };

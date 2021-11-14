@@ -5,11 +5,10 @@ import m from "mithril";
 
 import { config } from "../config";
 import { LogType } from "../CustomLogging";
+import { t } from "../translate";
 import { toast } from "../utils";
 import { PrivacyButton } from "./Forms";
 import Icon from "./Icon";
-
-const t = require("../translate");
 
 /** True during the process of requesting a new GIF to be added. */
 let shareInProgress = false;
@@ -42,17 +41,18 @@ export class Player implements m.ClassComponent<PlayerAttrs> {
         })
             .then(() => {
                 if (attrs.onSuccess) {
-                    toast(t("applause.feedback.pass"));
+                    toast("" + t("applause.feedback.pass"));
                     attrs.onSuccess();
                 }
                 shareInProgress = false;
             })
             .catch((err: Error & { code: number }) => {
                 toast(
-                    t(
-                        "applause.feedback.fail" +
-                            (err.code == 429 ? ".429" : ""),
-                    ),
+                    "" +
+                        t(
+                            "applause.feedback.fail" +
+                                (err.code == 429 ? ".429" : ""),
+                        ),
                     LogType.error,
                 );
                 shareInProgress = false;
@@ -136,10 +136,10 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
         }).then((result) => {
             this.isLoading = false;
             if (result.meta.status >= 400) {
-                toast(t("applause.feedback.fail"), LogType.error);
+                toast("" + t("applause.feedback.fail"), LogType.error);
                 throw new Error(`Giphy error: ${result.meta.msg}`);
             } else if (result.data.length == 0) {
-                toast(t("no-result-try-sth-else"), LogType.error);
+                toast("" + t("no-result-try-sth-else"), LogType.error);
             } else {
                 this.listResult.push(...result.data);
             }

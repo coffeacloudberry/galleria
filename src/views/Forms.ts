@@ -6,12 +6,12 @@ import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
+import { t } from "../translate";
 import Captcha from "./Captcha";
 import Icon from "./Icon";
 import { modal } from "./Modal";
 import { PrivacyPolicy } from "./PrivacyPolicy";
 
-const t = require("../translate");
 const info = new CustomLogging();
 
 type SubmitEvent = Event & { submitter: HTMLElement };
@@ -69,11 +69,11 @@ const SubmitButton: m.Component<SubmitButtonAttrs> = {
         if (attrs.processing) {
             status = `${t("wait")}...`;
         } else if (attrs.success) {
-            status = t("thanks");
+            status = "" + t("thanks");
         } else if (attrs.tooManyRequests) {
             status = `${t("wait-minute")}...`;
         } else {
-            status = t(attrs.okText);
+            status = "" + t(attrs.okText);
         }
         return m(
             "button[type=submit]",

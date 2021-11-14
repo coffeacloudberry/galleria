@@ -5,6 +5,8 @@ import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
+import { story } from "../models/Story";
+import { t } from "../translate";
 import { injectCode, numberWithCommas } from "../utils";
 import WebTrack from "../webtrack";
 import type { WebTrackGeoJsonFeature } from "../webtrack";
@@ -17,8 +19,6 @@ declare const Chart: typeof import("chart.js");
 
 const warn = new CustomLogging("warning");
 const error = new CustomLogging("error");
-const Story = require("../models/Story");
-const t = require("../translate");
 
 /*
 Mapbox requirements on Firefox:
@@ -152,18 +152,21 @@ const StatsComponent: m.Component<StatsComponentAttrs> = {
             ]),
             m("p", m("strong", t("map.stats.source"))),
             m("ul.blabla", [
-                m(
-                    "li",
-                    `${t("map.stats.source.pos")} ${Story.gpsConfig.model} (${
-                        Story.gpsConfig.multiBandEnabled
-                            ? t("multi-band")
-                            : t("single-band")
-                    }, ${
-                        Story.gpsConfig.multiGNSSEnabled
-                            ? t("multi-gnss")
-                            : t("single-gnss")
-                    }) + ${t("topo-maps")}`,
-                ),
+                story.gpsConfig &&
+                    m(
+                        "li",
+                        `${t("map.stats.source.pos")} ${
+                            story.gpsConfig.model
+                        } (${
+                            story.gpsConfig.multiBandEnabled
+                                ? t("multi-band")
+                                : t("single-band")
+                        }, ${
+                            story.gpsConfig.multiGNSSEnabled
+                                ? t("multi-gnss")
+                                : t("single-gnss")
+                        }) + ${t("topo-maps")}`,
+                    ),
                 hasEle &&
                     m("li", [
                         t("map.stats.chart.ele.tooltip"),
@@ -279,7 +282,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         // based on the feature found.
         this.popup
             .setLngLat(coordinates)
-            .setHTML(t("map.sym", sym))
+            .setHTML("" + t("map.sym", sym))
             .addTo(this.map);
     }
 
@@ -425,7 +428,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     const turf = await import("@turf/turf");
                     if (this.map !== undefined) {
                         globalMapState.controls.autoPilot =
-                            new AutoPilotControl(data, Story.duration);
+                            new AutoPilotControl(data, story.duration);
                         this.map.addControl(globalMapState.controls.autoPilot);
                     }
                 })();

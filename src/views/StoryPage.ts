@@ -1,14 +1,12 @@
 import m from "mithril";
 import tippy, { Instance as TippyInstance } from "tippy.js";
 
-import { EasyDate, SeasonStrings } from "../models/Story";
+import { EasyDate, SeasonStrings, story } from "../models/Story";
+import { t } from "../translate";
 import { hideAllForce, transformExternalLinks } from "../utils";
 import ApplauseButton from "./ApplauseButton";
-import { Header } from "./Header";
+import { Header, HeaderAttrs } from "./Header";
 import Map from "./Map";
-
-const Story = require("../models/Story");
-const t = require("../translate");
 
 function getStoryId(): string {
     const splitPath = m.parsePathname(m.route.get()).path.split("/");
@@ -24,6 +22,7 @@ const Duration: m.Component<DurationAttrs> = {
         const argTranslate =
             attrs.duration < 1 ? "0" : Math.floor(attrs.duration);
         return (
+            "" +
             t("story.duration") +
             t(attrs.duration % 1 ? "half-days" : "days", argTranslate)
         );
@@ -40,7 +39,8 @@ export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
     view({ attrs }: m.Vnode<StorySubTitleAttrs>): m.Vnode {
         return m(".period", [
             attrs.start &&
-                t("story.start") +
+                "" +
+                    t("story.start") +
                     t("date", attrs.start.month, {
                         day: attrs.start.day,
                         year: attrs.start.year,
@@ -59,12 +59,12 @@ export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
 const StoryTitle: m.Component = {
     view(): m.Vnode {
         return m("h1", [
-            Story.title,
-            (Story.start || Story.duration) &&
+            story.title,
+            (story.start || story.duration) &&
                 m(StorySubTitle, {
-                    start: Story.start,
-                    season: Story.season,
-                    duration: Story.duration,
+                    start: story.start,
+                    season: story.season,
+                    duration: story.duration,
                 }),
         ]);
     },
@@ -77,10 +77,10 @@ export default function StoryPage(): m.Component {
         oninit(): void {
             t.init();
             currentLang = t.getLang();
-            Story.load(getStoryId());
+            story.load(getStoryId());
         },
         oncreate(): void {
-            document.title = t("story.title");
+            document.title = "" + t("story.title");
             t.createTippies();
             transformExternalLinks();
         },
@@ -89,13 +89,13 @@ export default function StoryPage(): m.Component {
         },
         onupdate(): void {
             const futureLang = t.getLang();
-            const preTitle = Story.title ? Story.title + " - " : "";
+            const preTitle = story.title ? story.title + " - " : "";
             document.title = `${preTitle}${t("story.title")}`;
             if (currentLang !== futureLang) {
-                Story.reload();
+                story.reload();
                 currentLang = futureLang;
             }
-            if (Story.isLoaded()) {
+            if (story.isLoaded()) {
                 if (tippyAbbr) {
                     for (const currentTippy of tippyAbbr) {
                         currentTippy.destroy();
@@ -109,19 +109,19 @@ export default function StoryPage(): m.Component {
             }
             transformExternalLinks();
         },
-        view(): m.Vnode[] {
+        view(): (m.Vnode<HeaderAttrs> | boolean)[] {
             const lang = t.getLang();
-            const photoTitle =
-                Story.originPhotoMeta !== null
-                    ? Story.originPhotoMeta.title[lang]
-                    : "";
+            const meta = story.originPhotoMeta;
+            // @ts-ignore
+            const photoTitle = meta !== null ? meta.title[lang] : "";
+
             return [
                 m(Header, {
                     title: photoTitle,
                     aboutButton: true,
                     refPage: "story",
                 }),
-                Story.isLoaded() &&
+                story.isLoaded() &&
                     m(
                         "section#story",
                         m(
@@ -129,9 +129,12 @@ export default function StoryPage(): m.Component {
                             m(".row", [
                                 m(".one.column", [
                                     m(StoryTitle),
-                                    m(".story-content", m.trust(Story.content)),
+                                    m(
+                                        ".story-content",
+                                        m.trust("" + story.content),
+                                    ),
                                 ]),
-                                Story.hasGeodata &&
+                                story.hasGeodata &&
                                     m(
                                         ".one.column",
                                         m(Map, {
@@ -139,13 +142,13 @@ export default function StoryPage(): m.Component {
                                         }),
                                     ),
                                 m(".one.column.applause-story", [
-                                    Story.isApplauding &&
+                                    story.isApplauding &&
                                         t("loading.tooltip") + "...",
                                     m(ApplauseButton, {
                                         mediaType: "story",
-                                        mediaIsLoading: !Story.isLoaded(),
+                                        mediaIsLoading: !story.isLoaded(),
                                         getId: getStoryId,
-                                        applausePromise: Story.applause,
+                                        applausePromise: story.applause,
                                     }),
                                 ]),
                             ]),

@@ -1,10 +1,9 @@
 import m from "mithril";
 
+import { t } from "../translate";
 import { transformExternalLinks } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
 import { PrivacyPolicy } from "./PrivacyPolicy";
-
-const t = require("../translate");
 
 /** The Privacy Policy shall have its own page for sharing permalink. */
 export default function PrivacyPage(): m.Component {
@@ -13,7 +12,7 @@ export default function PrivacyPage(): m.Component {
             t.init();
         },
         oncreate(): void {
-            document.title = t("privacy.title");
+            document.title = "" + t("privacy.title");
             t.createTippies();
             transformExternalLinks();
         },

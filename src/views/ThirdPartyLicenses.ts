@@ -1,8 +1,7 @@
 import m from "mithril";
 
+import { t } from "../translate";
 import { extraIcons, extraIconsInfo } from "./Map";
-
-const t = require("../translate");
 
 const IconDetailComponent: m.Component<extraIconsInfo> = {
     view({ attrs }: m.Vnode<extraIconsInfo>): m.Vnode {

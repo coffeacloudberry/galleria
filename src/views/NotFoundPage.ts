@@ -1,8 +1,7 @@
 import m from "mithril";
 
+import { t } from "../translate";
 import { hideAllForce } from "../utils";
-
-const t = require("../translate");
 
 /** Default "404" landing page when none of the listed routes match the path. */
 export default function NotFoundPage(): m.Component {
@@ -11,7 +10,7 @@ export default function NotFoundPage(): m.Component {
             t.init();
         },
         oncreate(): void {
-            document.title = t("not-found.message");
+            document.title = "" + t("not-found.message");
 
             // hide lonely tooltips from quickly removed DOM
             hideAllForce();

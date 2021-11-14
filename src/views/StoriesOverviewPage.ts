@@ -2,14 +2,13 @@ import bookOutline from "@/icons/book-outline.svg";
 import m from "mithril";
 
 import { OneStory } from "../models/AllStories";
+import { allStories } from "../models/AllStories";
+import { story } from "../models/Story";
+import { t } from "../translate";
 import ApplauseButton from "./ApplauseButton";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import { StorySubTitle } from "./StoryPage";
-
-const Story = require("../models/Story");
-const AllStories = require("../models/AllStories");
-const t = require("../translate");
 
 /**
  * Check if an element is visible in the viewport.
@@ -46,7 +45,7 @@ function lazyLoadStories(): void {
         if (!checkVisible(oneClass, 0, "below")) {
             const titleId = oneClass.getAttribute("data-id");
             if (titleId) {
-                AllStories.loadOneStory(titleId);
+                allStories.loadOneStory(titleId);
             }
         }
     }
@@ -124,7 +123,7 @@ class OneStoryComponent implements m.ClassComponent<OneStory> {
                     m(".row", [
                         m(".two-thirds.column.p-0", [
                             m(StorySubTitle, {
-                                start: Story.strToEasyDate(
+                                start: story.strToEasyDate(
                                     "" + attrs.metadata.start,
                                 ),
                                 season: attrs.metadata.season || null,
@@ -158,7 +157,7 @@ class OneStoryComponent implements m.ClassComponent<OneStory> {
                                         return attrs.id;
                                     },
                                     applausePromise: () => {
-                                        return Story.applause(attrs.id);
+                                        return story.applause(attrs.id);
                                     },
                                 }),
                             ),
@@ -186,8 +185,8 @@ class AllStoriesComponent implements m.ClassComponent {
                     ".row",
                     m(
                         ".one.column",
-                        AllStories.fullList &&
-                            AllStories.fullList.map((oneStory: OneStory) => {
+                        allStories.fullList &&
+                            allStories.fullList.map((oneStory: OneStory) => {
                                 return m(OneStoryComponent, oneStory);
                             }),
                     ),
@@ -203,10 +202,10 @@ export default function StoriesOverviewPage(): m.Component {
     return {
         oninit(): void {
             t.init();
-            AllStories.loadFullList();
+            allStories.loadFullList();
         },
         oncreate(): void {
-            document.title = t("stories.title");
+            document.title = "" + t("stories.title");
             t.createTippies();
             const scrollingEl = document.getElementById("stories");
             if (scrollingEl) {
@@ -216,10 +215,10 @@ export default function StoriesOverviewPage(): m.Component {
         onupdate(): void {
             const futureLang = t.getLang();
             if (currentLang !== futureLang) {
-                AllStories.reload();
+                allStories.reload();
                 currentLang = futureLang;
             }
-            if (AllStories.noOneRequested) {
+            if (allStories.noOneRequested) {
                 lazyLoadStories();
             }
             t.createTippies();

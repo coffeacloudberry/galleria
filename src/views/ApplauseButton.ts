@@ -2,19 +2,17 @@ import thumbsUpOutline from "@/icons/thumbs-up-outline.svg";
 import m from "mithril";
 
 import CustomLogging, { LogType } from "../CustomLogging";
+import { t } from "../translate";
 import { toast } from "../utils";
 import Icon from "./Icon";
 
 const err = new CustomLogging("error");
-const t = require("../translate");
-
-type FnPromiseErrorCode = () => Promise<(Error & { code: number }) | undefined>;
 
 interface ApplauseButtonAttrs {
     mediaType: string;
     mediaIsLoading: boolean;
     getId: () => number | string | null;
-    applausePromise: FnPromiseErrorCode;
+    applausePromise: () => Promise<void>;
 }
 
 /** The applause button on center bottom. */
@@ -23,7 +21,7 @@ export default class ApplauseButton
 {
     pressed = false;
     currentId: number | string | null = null;
-    applausePromise: FnPromiseErrorCode;
+    applausePromise: () => Promise<void>;
 
     constructor({ attrs }: m.CVnode<ApplauseButtonAttrs>) {
         this.applausePromise = attrs.applausePromise;
@@ -34,14 +32,15 @@ export default class ApplauseButton
         this.pressed = true;
         this.applausePromise()
             .then(() => {
-                toast(t("applause.feedback.pass"));
+                toast("" + t("applause.feedback.pass"));
             })
             .catch((error: Error & { code: number }) => {
                 toast(
-                    t(
-                        "applause.feedback.fail" +
-                            (error.code == 429 ? "." + error.code : ""),
-                    ),
+                    "" +
+                        t(
+                            "applause.feedback.fail" +
+                                (error.code == 429 ? "." + error.code : ""),
+                        ),
                     LogType.error,
                 );
                 err.log(`Failed to like ${this.currentId}`, error);

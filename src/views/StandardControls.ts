@@ -1,7 +1,8 @@
 // @ts-nocheck
 
 import type mapboxgl from "mapbox-gl";
-const t = require("../translate");
+
+import { t } from "../translate";
 
 /**
  * Force using the tippy instead of the default title.

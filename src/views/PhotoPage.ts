@@ -7,13 +7,12 @@ import returnUpBackOutline from "@/icons/return-up-back-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
+import { photo } from "../models/Photo";
+import { t } from "../translate";
 import { getPhotoId, hideAllForce, isMobile } from "../utils";
 import ApplauseButton from "./ApplauseButton";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
-
-const Photo = require("../models/Photo");
-const t = require("../translate");
 
 /** Prev, current, and next photo components. */
 const Gallery: m.Component = {
@@ -21,20 +20,20 @@ const Gallery: m.Component = {
         return m("section#gallery", [
             m(
                 ".goto-photo-screen-nav.goto-prev-photo" +
-                    (Photo.isFirst() || Photo.isLoading ? ".invisible" : ""),
+                    (photo.isFirst() || photo.isLoading ? ".invisible" : ""),
                 {
                     onclick: (): void => {
-                        Photo.loadPrev();
+                        photo.loadPrev();
                     },
                 },
             ),
             m("#current-photo", m("img#current-image-element")),
             m(
                 ".goto-photo-screen-nav.goto-next-photo" +
-                    (Photo.isLoading ? ".invisible" : ""),
+                    (photo.isLoading ? ".invisible" : ""),
                 {
                     onclick: (): void => {
-                        Photo.loadNext();
+                        photo.loadNext();
                     },
                 },
             ),
@@ -50,9 +49,9 @@ const RewindButton: m.Component = {
                 href: "",
                 onclick: (e: Event): void => {
                     e.preventDefault();
-                    Photo.loadNext();
+                    photo.loadNext();
                 },
-                class: `nav-item ${Photo.isLoading ? "invisible" : ""}`,
+                class: `nav-item ${photo.isLoading ? "invisible" : ""}`,
                 "data-tippy-content":
                     t("rewind.tooltip") +
                     (!isMobile() ? ` (${t("keystroke")} ➡)` : ""),
@@ -70,9 +69,9 @@ const NextButton: m.Component = {
                 href: "",
                 onclick: (e: Event): void => {
                     e.preventDefault();
-                    Photo.loadNext();
+                    photo.loadNext();
                 },
-                class: `nav-item ${Photo.isLoading ? "invisible" : ""}`,
+                class: `nav-item ${photo.isLoading ? "invisible" : ""}`,
                 "data-tippy-content":
                     t("next.tooltip") +
                     (!isMobile() ? ` (${t("keystroke")} ➡)` : ""),
@@ -92,7 +91,7 @@ const LastButton: m.Component = {
                     title: config.lastPhotoId,
                 }),
                 class: `nav-item ${
-                    Photo.isLast() || Photo.isLoading ? "invisible" : ""
+                    photo.isLast() || photo.isLoading ? "invisible" : ""
                 }`,
                 "data-tippy-content": t("last.tooltip"),
             },
@@ -111,7 +110,7 @@ const FirstButton: m.Component = {
                     title: config.firstPhotoId,
                 }),
                 class: `nav-item ${
-                    Photo.isFirst() || Photo.isLoading ? "invisible" : ""
+                    photo.isFirst() || photo.isLoading ? "invisible" : ""
                 }`,
                 "data-tippy-content": t("first.tooltip"),
             },
@@ -128,10 +127,10 @@ const PrevButton: m.Component = {
                 href: "",
                 onclick: (e: Event): void => {
                     e.preventDefault();
-                    Photo.loadPrev();
+                    photo.loadPrev();
                 },
                 class: `nav-item ${
-                    Photo.isFirst() || Photo.isLoading ? "invisible" : ""
+                    photo.isFirst() || photo.isLoading ? "invisible" : ""
                 }`,
                 "data-tippy-content":
                     t("previous.tooltip") +
@@ -146,7 +145,7 @@ const AnimatedLoading: m.Component = {
     view(): m.Vnode {
         return m(
             `span.loading-icon.nav-item${
-                Photo.isLoading || Photo.isApplauding ? "" : ".hide"
+                photo.isLoading || photo.isApplauding ? "" : ".hide"
             }`,
             {
                 "data-tippy-content": t("loading.tooltip") + "...",
@@ -178,12 +177,12 @@ const Footer: m.Component<FooterAttrs> = {
                 m(AnimatedLoading),
                 m(ApplauseButton, {
                     mediaType: "photo",
-                    mediaIsLoading: Photo.isLoading,
+                    mediaIsLoading: photo.isLoading,
                     getId: getPhotoId,
-                    applausePromise: Photo.applause,
+                    applausePromise: photo.applause,
                 }),
                 m("span", [
-                    Photo.isLast() ? m(RewindButton) : m(NextButton),
+                    photo.isLast() ? m(RewindButton) : m(NextButton),
                     m(LastButton),
                 ]),
             ]),
@@ -195,15 +194,15 @@ const Footer: m.Component<FooterAttrs> = {
 function onKeyPressed(e: KeyboardEvent) {
     switch (e.code) {
         case "ArrowRight":
-            if (!Photo.isLoading) {
+            if (!photo.isLoading) {
                 hideAllForce();
-                Photo.loadNext();
+                photo.loadNext();
             }
             break;
         case "ArrowLeft":
-            if (!Photo.isFirst() && !Photo.isLoading) {
+            if (!photo.isFirst() && !photo.isLoading) {
                 hideAllForce();
-                Photo.loadPrev();
+                photo.loadPrev();
             }
             break;
     }
@@ -218,15 +217,16 @@ function onKeyPressed(e: KeyboardEvent) {
  * current language.
  */
 function pageTitle(): string {
-    if (Photo.meta) {
-        const photoTitle = Photo.meta.title[t.getLang()];
-        if (Photo.storyTitle === null) {
+    if (photo.meta) {
+        // @ts-ignore
+        const photoTitle = photo.meta.title[t.getLang()];
+        if (photo.storyTitle === null) {
             return ""; // no story linked to the photo
         }
-        return Photo.storyTitle &&
-            photoTitle !== Photo.storyTitle &&
-            Photo.storyLang === t.getLang()
-            ? `${t("photo.open-story.pre-title")} ${Photo.storyTitle}`
+        return photo.storyTitle &&
+            photoTitle !== photo.storyTitle &&
+            photo.storyLang === t.getLang()
+            ? `${t("photo.open-story.pre-title")} ${photo.storyTitle}`
             : `${t("photo.open-story.tooltip")}`;
     }
     return "";
@@ -241,20 +241,21 @@ function pageTitle(): string {
  * considered to be the current language.
  */
 function documentTitle(): string {
-    if (Photo.meta) {
-        const photoTitle = Photo.meta.title[t.getLang()];
+    if (photo.meta) {
+        // @ts-ignore
+        const photoTitle = photo.meta.title[t.getLang()];
         if (!photoTitle) {
-            return t("photo.title");
+            return "" + t("photo.title");
         }
         const additionalInfo =
-            Photo.storyTitle &&
-            photoTitle !== Photo.storyTitle &&
-            Photo.storyLang === t.getLang()
-                ? Photo.storyTitle + " - "
+            photo.storyTitle &&
+            photoTitle !== photo.storyTitle &&
+            photo.storyLang === t.getLang()
+                ? photo.storyTitle + " - "
                 : "";
         return `${photoTitle + " - " + additionalInfo}${t("photo.title")}`;
     }
-    return t("photo.title");
+    return "" + t("photo.title");
 }
 
 /** Complete photography page with links to the next/prev photo. */
@@ -268,11 +269,11 @@ export default function PhotoPage(): m.Component {
             currentLang = t.getLang();
             selectedPhotoId = getPhotoId();
             selectedPhotoId === null
-                ? Photo.loadFirst()
-                : Photo.load(selectedPhotoId);
+                ? photo.loadFirst()
+                : photo.load(selectedPhotoId);
         },
         oncreate(): void {
-            document.title = t("photo.title");
+            document.title = "" + t("photo.title");
             t.createTippies();
             document.addEventListener("keydown", onKeyPressed);
         },
@@ -291,19 +292,19 @@ export default function PhotoPage(): m.Component {
             // an update, then load the photo. The logic is to change the
             // path and load the photo consequently.
             if (
-                !Photo.isLoading &&
+                !photo.isLoading &&
                 !isNaN(routePhotoId) &&
                 routePhotoId <= config.firstPhotoId &&
-                Photo.id !== null &&
-                routePhotoId !== Photo.id
+                photo.id !== null &&
+                routePhotoId !== photo.id
             ) {
-                Photo.load(routePhotoId);
+                photo.load(routePhotoId);
             }
 
             const futureLang = t.getLang();
             document.title = documentTitle();
             if (currentLang !== futureLang) {
-                Photo.loadOriginStoryTitle();
+                photo.loadOriginStoryTitle();
                 currentLang = futureLang;
             }
             t.createTippies();

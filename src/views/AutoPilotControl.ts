@@ -3,12 +3,12 @@ import type { Position } from "geojson";
 import m from "mithril";
 
 import CustomLogging from "../CustomLogging";
+import { t } from "../translate";
 import type { WebTrackGeoJson } from "../webtrack";
 import { setInteractions } from "./InteractionsControl";
 
 declare const turf: typeof import("@turf/turf");
 declare const mapboxgl: typeof import("mapbox-gl");
-const t = require("../translate");
 const error = new CustomLogging("error");
 const info = new CustomLogging();
 

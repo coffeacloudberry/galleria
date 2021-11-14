@@ -1,10 +1,9 @@
 import close from "@/icons/close.svg";
 import m from "mithril";
 
+import { t } from "../translate";
 import { hideAllForce } from "../utils";
 import Icon from "./Icon";
-
-const t = require("../translate");
 
 function scrollableBody(scrollable: boolean) {
     const scrollableEl = document.getElementById("about");

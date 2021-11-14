@@ -2,9 +2,8 @@ import m from "mithril";
 import snarkdown from "snarkdown";
 
 import { config } from "../config";
+import { t } from "../translate";
 import { PhotoInfo } from "./Photo";
-
-const t = require("../translate");
 
 export interface EasyDate {
     day: number;
@@ -130,53 +129,53 @@ function getOriginPhotoId(): number | null {
     return isNaN(id) || id > config.firstPhotoId ? null : id;
 }
 
-const Story = {
+class Story {
     /** Story title retrieved from the Markdown file. */
-    title: null as string | null,
+    title: string | null = null;
 
     /** Story content (without title) retrieved from the Markdown file. */
-    content: null as string | null,
+    content: string | null = null;
 
     /** Start date retrieved from the JSON file. */
-    start: null as EasyDate | null,
+    start: EasyDate | null = null;
 
     /** Total number of days, retrieved from the JSON file. */
-    duration: null as number | null,
+    duration: number | null = null;
 
     /** Local season retrieved from the JSON file. */
-    season: null as SeasonStrings | null,
+    season: SeasonStrings | null = null;
 
     /** True if the story contains a WebTrack, based on the JSON file. */
-    hasGeodata: false,
+    hasGeodata = false;
 
     /** The most recent photo ID of the story, based on the JSON file. */
-    mostRecentPhoto: null as string | null,
+    mostRecentPhoto: string | null = null;
 
     /** GPS model and configuration, based on the JSON file or default conf. */
-    gpsConfig: null as GpsConfig | null,
+    gpsConfig: GpsConfig | null = null;
 
     /** Folder name of the story. */
-    folderName: null as string | null,
+    folderName: string | null = null;
 
     /** True if the story title and content has been fetched and processed. */
-    gotContent: false,
+    gotContent = false;
 
     /** True if the JSON file has been fetched and processed. */
-    gotStoryMeta: false,
+    gotStoryMeta = false;
 
     /** JSON file of the linked photo. */
-    originPhotoMeta: null as PhotoInfo | null,
+    originPhotoMeta: PhotoInfo | null = null;
 
     /** True if the user applauded and is waiting for a confirmation. */
-    isApplauding: false,
+    isApplauding = false;
 
     /** True if a story is available. */
-    isLoaded: (): boolean => {
-        return Story.gotContent && Story.gotStoryMeta;
-    },
+    isLoaded(): boolean {
+        return this.gotContent && this.gotStoryMeta;
+    }
 
     /** Static method converting a string date like 2020-10-25. */
-    strToEasyDate: (strDate: string): EasyDate | null => {
+    strToEasyDate(strDate: string): EasyDate | null {
         if (!strDate) {
             return null;
         }
@@ -190,10 +189,10 @@ const Story = {
         } catch {
             return null;
         }
-    },
+    }
 
     /** Static method fetching the story title and content. */
-    getStoryTitleContent: (folderName: string): Promise<ProcessedStoryFile> => {
+    getStoryTitleContent(folderName: string): Promise<ProcessedStoryFile> {
         return new Promise((resolve, reject) => {
             m.request<ProcessedStoryFile>({
                 method: "GET",
@@ -223,7 +222,7 @@ const Story = {
                 })
                 .catch(reject);
         });
-    },
+    }
 
     /**
      * The origin photo ID is provided by the URL parameter. If not found, it
@@ -231,13 +230,13 @@ const Story = {
      * Load the origin photo metadata to be asynchronously inserted in the
      * story page.
      */
-    loadOriginPhotoMeta: (): void => {
+    loadOriginPhotoMeta(): void {
         let originPhotoId = getOriginPhotoId();
         if (originPhotoId === null) {
-            if (Story.mostRecentPhoto === null) {
+            if (this.mostRecentPhoto === null) {
                 return;
             }
-            originPhotoId = parseInt(Story.mostRecentPhoto);
+            originPhotoId = parseInt(this.mostRecentPhoto);
         }
         m.request<PhotoInfo>({
             method: "GET",
@@ -246,28 +245,28 @@ const Story = {
                 folderName: originPhotoId,
             },
         }).then((result) => {
-            Story.originPhotoMeta = result;
+            this.originPhotoMeta = result;
         });
-    },
+    }
 
     /** Load the story identified by its ID, or do nothing if not existing. */
-    reload: (): void => {
-        if (Story.folderName) {
-            Story.load(Story.folderName);
+    reload(): void {
+        if (this.folderName) {
+            this.load(this.folderName);
         }
-    },
+    }
 
     /** Load a story from a specific folder (fields are null if not found). */
-    load: (folderName: string): void => {
-        Story.isApplauding = false;
-        Story.gotContent = false;
-        Story.gotStoryMeta = false;
-        Story.folderName = folderName;
-        Story.getStoryTitleContent(folderName)
+    load(folderName: string): void {
+        this.isApplauding = false;
+        this.gotContent = false;
+        this.gotStoryMeta = false;
+        this.folderName = folderName;
+        this.getStoryTitleContent(folderName)
             .then((result) => {
-                Story.title = result.title;
-                Story.content = result.content;
-                Story.gotContent = true;
+                this.title = result.title;
+                this.content = result.content;
+                this.gotContent = true;
             })
             .catch(() => {
                 m.route.set(
@@ -287,36 +286,36 @@ const Story = {
         })
             .then((result) => {
                 if (result.start) {
-                    Story.start = Story.strToEasyDate(result.start);
+                    this.start = this.strToEasyDate(result.start);
                 } else {
-                    Story.start = null;
+                    this.start = null;
                 }
-                Story.season = result.season || null;
-                Story.duration = result.duration || null;
-                Story.hasGeodata = result.hasGeodata || false;
-                Story.mostRecentPhoto = result.mostRecentPhoto || null;
-                if (Story.hasGeodata) {
-                    Story.gpsConfig = result.gpsConfig || defaultGpsConfig;
+                this.season = result.season || null;
+                this.duration = result.duration || null;
+                this.hasGeodata = result.hasGeodata || false;
+                this.mostRecentPhoto = result.mostRecentPhoto || null;
+                if (this.hasGeodata) {
+                    this.gpsConfig = result.gpsConfig || defaultGpsConfig;
                 } else {
-                    Story.gpsConfig = null;
+                    this.gpsConfig = null;
                 }
-                Story.gotStoryMeta = true;
-                Story.loadOriginPhotoMeta();
+                this.gotStoryMeta = true;
+                this.loadOriginPhotoMeta();
             })
             .catch(() => {
-                Story.start = null;
-                Story.gotStoryMeta = true;
-                Story.hasGeodata = false;
+                this.start = null;
+                this.gotStoryMeta = true;
+                this.hasGeodata = false;
             });
-    },
+    }
 
     /** Path the the photo of the loaded story. */
-    getPhotoPath: (): string | null => {
+    getPhotoPath(): string | null {
         let originPhoto: number | string | null = getOriginPhotoId();
 
         if (originPhoto === null) {
-            if (Story.mostRecentPhoto) {
-                originPhoto = Story.mostRecentPhoto;
+            if (this.mostRecentPhoto) {
+                originPhoto = this.mostRecentPhoto;
             } else {
                 return null;
             }
@@ -325,7 +324,7 @@ const Story = {
             lang: t.getLang(),
             id: originPhoto,
         });
-    },
+    }
 
     /**
      * This method is pseudo-static. Static if the folder name is given,
@@ -334,8 +333,8 @@ const Story = {
      * is received unless there is no request / no story defined at the time of
      * the request.
      */
-    applause: (folderName?: string): Promise<void> => {
-        const actualFolderName = folderName || Story.folderName;
+    applause(folderName?: string): Promise<void> {
+        const actualFolderName = folderName || this.folderName;
         if (!actualFolderName) {
             return new Promise((resolve, reject) => {
                 const error: Error & { code: number } = Object.assign(
@@ -345,7 +344,7 @@ const Story = {
                 reject(error);
             });
         }
-        Story.isApplauding = true;
+        this.isApplauding = true;
         return new Promise((resolve, reject) => {
             m.request<undefined>({
                 method: "POST",
@@ -353,15 +352,16 @@ const Story = {
                 body: { type: "story", id: actualFolderName },
             })
                 .then(() => {
-                    Story.isApplauding = false;
+                    this.isApplauding = false;
                     resolve();
                 })
                 .catch((error: Error & { code: number }) => {
-                    Story.isApplauding = false;
+                    this.isApplauding = false;
                     reject(error);
                 });
         });
-    },
-};
+    }
+}
 
-module.exports = Story;
+/** This is a shared instance. */
+export const story = new Story();

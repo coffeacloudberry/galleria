@@ -1,9 +1,8 @@
 import m from "mithril";
 
 import { config } from "../config";
+import { t } from "../translate";
 import { clearSelection } from "../utils";
-
-const t = require("../translate");
 
 export interface PhotoInfo {
     title: {
@@ -46,63 +45,66 @@ function mdProcessorTitle(text: string): string | null {
     return titleWords.join(" ");
 }
 
-const Photo = {
+/**
+ * Model for managing one photo.
+ */
+class Photo {
     /** JSON metadata of the photo. */
-    meta: null as PhotoInfo | null,
+    meta: PhotoInfo | null = null;
 
     /**
      * True if the photo is considered loading.
      * Once the story title is fetched
      */
-    isLoading: true,
+    isLoading = true;
 
     /** True if the user applauded and is waiting for a confirmation. */
-    isApplauding: false,
+    isApplauding = false;
 
     /** Folder containing the photos and JSON file. */
-    folderName: null as number | null,
+    folderName: number | null = null;
 
-    id: null as number | null,
+    id: number | null = null;
 
     /**
      * The story title from the Markdown file.
      * Empty string if the title is loading.
      * Null when there is no story linked to the loaded photo.
      */
-    storyTitle: null as string | null,
+    storyTitle: string | null = null;
 
     /**
      * The language of the story title. Used to compare with
      * the language of the photo when switching the language.
      */
-    storyLang: null as string | null,
+    storyLang: string | null = null;
 
-    lastLoadingTime: null as number | null,
+    lastLoadingTime: number | null = null;
 
     /**
      * True if the "prev" button should be hidden:
      * no photo or currently the first one.
      */
-    isFirst: (): boolean => {
-        if (Photo.meta !== null) {
-            return Photo.meta.next === undefined;
+    isFirst(): boolean {
+        if (this.meta !== null) {
+            return this.meta.next === undefined;
         } else {
             return true;
         }
-    },
+    }
 
     /**
      * True if the "next" button should be hidden:
      * no photo or currently the last one.
      * Use Photo.load(config.lastPhotoId) for loading the last photo.
      */
-    isLast: (): boolean => {
-        if (Photo.meta !== null) {
-            return Photo.meta.prev === undefined;
+    isLast(): boolean {
+        if (this.meta !== null) {
+            return this.meta.prev === undefined;
         } else {
             return true;
         }
-    },
+    }
 
     /**
      * Called when the user first visits the website without specifying any
@@ -111,38 +113,38 @@ const Photo = {
      * for loading the first photo at any time. The history is replaced because
      * the root path is meaningless.
      */
-    loadFirst: (): void => {
-        if (Photo.meta === null) {
-            Photo.load(config.firstPhotoId).then(() => {
-                Photo.loadNext(true);
+    loadFirst(): void {
+        if (this.meta === null) {
+            this.load(config.firstPhotoId).then(() => {
+                this.loadNext(true);
             });
         }
-    },
+    }
 
     /**
      * Load the story metadata. Once fetched, the interface would be updated
      * consequently. That would trigger an additional onupdate event on which
      * the image is considered loaded.
      */
-    loadOriginStoryTitle: (): void => {
-        if (Photo.meta === null || !Photo.meta.story) {
-            Photo.storyTitle = null;
-            Photo.isLoading = false;
+    loadOriginStoryTitle(): void {
+        if (this.meta === null || !this.meta.story) {
+            this.storyTitle = null;
+            this.isLoading = false;
             m.redraw(); // outside the m.request
             return;
         }
 
-        if (Photo.storyLang !== t.getLang()) {
-            Photo.storyTitle = ""; // reset
+        if (this.storyLang !== t.getLang()) {
+            this.storyTitle = ""; // reset
         }
-        Photo.storyLang = t.getLang();
+        this.storyLang = t.getLang();
 
         m.request<string | null>({
             method: "GET",
             url: "/content/stories/:folderName/:lang.md",
             params: {
-                folderName: Photo.meta.story,
-                lang: Photo.storyLang,
+                folderName: this.meta.story,
+                lang: this.storyLang,
             },
             headers: {
                 "Content-Type": "text/markdown; charset=utf-8",
@@ -157,13 +159,13 @@ const Photo = {
             },
         })
             .then((storyTitle) => {
-                Photo.storyTitle = storyTitle;
-                Photo.isLoading = false;
+                this.storyTitle = storyTitle;
+                this.isLoading = false;
             })
             .catch(() => {
-                Photo.isLoading = false;
+                this.isLoading = false;
             });
-    },
+    }
 
     /**
      * Load a photo at a specific position. The image size depends on the screen
@@ -190,9 +192,9 @@ const Photo = {
      * Howto: `find public/content/photos/ -iname 'l.hd.webp' -print0 | du
      * --files0-from - -c -h | sort -h`
      */
-    load: (id: number): Promise<void> => {
-        Photo.isApplauding = false; // forget about any previous applause
-        Photo.isLoading = true;
+    load(id: number): Promise<void> {
+        this.isApplauding = false; // forget about any previous applause
+        this.isLoading = true;
         return m
             .request<PhotoInfo>({
                 method: "GET",
@@ -210,22 +212,22 @@ const Photo = {
                 }
                 const startTime = performance.now();
                 image.onload = () => {
-                    Photo.lastLoadingTime = performance.now() - startTime;
+                    this.lastLoadingTime = performance.now() - startTime;
                     // only update the interface when the photo has changed
-                    Photo.meta = result;
-                    Photo.folderName = id;
-                    Photo.id = id;
+                    this.meta = result;
+                    this.folderName = id;
+                    this.id = id;
 
                     // clicking fast may select the icon, deselect it
                     clearSelection();
 
-                    Photo.loadOriginStoryTitle();
+                    this.loadOriginStoryTitle();
                 };
                 let filename = window.innerHeight > 780 ? "l" : "m";
                 if (
                     filename === "l" &&
-                    Photo.lastLoadingTime &&
-                    Photo.lastLoadingTime < 1400
+                    this.lastLoadingTime &&
+                    this.lastLoadingTime < 1400
                 ) {
                     filename += ".hd";
                 }
@@ -238,35 +240,35 @@ const Photo = {
                     throw error;
                 }
             });
-    },
+    }
 
     /**
      * Load the previous photo (selected based on the metadata)
      * or the first one if the previous one is not linked.
      */
-    loadPrev: (): void => {
-        Photo.isApplauding = false;
+    loadPrev(): void {
+        this.isApplauding = false;
         const prevFolderId =
-            Photo.meta === null || Photo.meta.next === undefined
+            this.meta === null || this.meta.next === undefined
                 ? config.firstPhotoId
-                : Photo.meta.next;
+                : this.meta.next;
 
         m.route.set("/:lang/photo/:title", {
             lang: t.getLang(),
             title: prevFolderId,
         });
-    },
+    }
 
     /**
      * Load the next photo (selected based on the metadata)
      * or the first one if the next one is not linked.
      */
-    loadNext: (replaceHistory = false): void => {
-        Photo.isApplauding = false;
+    loadNext(replaceHistory = false): void {
+        this.isApplauding = false;
         const nextFolderId =
-            Photo.meta === null || Photo.meta.prev === undefined
+            this.meta === null || this.meta.prev === undefined
                 ? config.firstPhotoId
-                : Photo.meta.prev;
+                : this.meta.prev;
 
         m.route.set(
             "/:lang/photo/:title",
@@ -278,32 +280,32 @@ const Photo = {
                 replace: replaceHistory,
             },
         );
-    },
+    }
 
     /** Path the the story of the loaded photo or null if not available. */
-    getStoryPath: (): string | null => {
+    getStoryPath(): string | null {
         if (
-            Photo.meta === null ||
-            Photo.meta.story === undefined ||
-            Photo.meta.story === ""
+            this.meta === null ||
+            this.meta.story === undefined ||
+            this.meta.story === ""
         ) {
             return null;
         }
         return m.buildPathname("/:lang/story/:folderName", {
             lang: t.getLang(),
-            folderName: Photo.meta.story,
+            folderName: this.meta.story,
             /* key to go back to the photo once in the story page */
-            from_photo: Photo.id,
+            from_photo: this.id,
         });
-    },
+    }
 
     /**
      * POST request, 200 if okay, an error code otherwise, no detailed message
      * is received unless there is no request / no photo defined at the time of
      * the request.
      */
-    applause: (): Promise<void> => {
-        if (Photo.id === null) {
+    applause(): Promise<void> {
+        if (this.id === null) {
             return new Promise((resolve, reject) => {
                 const error: Error & { code: number } = Object.assign(
                     new Error("Photo undefined"),
@@ -312,23 +314,24 @@ const Photo = {
                 reject(error);
             });
         }
-        Photo.isApplauding = true;
+        this.isApplauding = true;
         return new Promise((resolve, reject) => {
             m.request<undefined>({
                 method: "POST",
                 url: "/api/applause",
-                body: { type: "photo", id: Photo.id },
+                body: { type: "photo", id: this.id },
             })
                 .then(() => {
-                    Photo.isApplauding = false;
+                    this.isApplauding = false;
                     resolve();
                 })
                 .catch((error: Error & { code: number }) => {
-                    Photo.isApplauding = false;
+                    this.isApplauding = false;
                     reject(error);
                 });
         });
-    },
-};
+    }
+}
 
-module.exports = Photo;
+/** This is a shared instance. */
+export const photo = new Photo();

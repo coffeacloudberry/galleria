@@ -1,6 +1,7 @@
 import m from "mithril";
 
-const t = require("../translate");
+import { t } from "../translate";
+
 const thirdParties: ThirdPartyConnectionStruct[] = require("../third-party-connections");
 
 interface ThirdPartyConnectionStruct {

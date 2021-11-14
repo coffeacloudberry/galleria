@@ -9,6 +9,7 @@ import sunnyOutline from "@/icons/sunny-outline.svg";
 import m from "mithril";
 
 import CustomLogging from "../CustomLogging";
+import { t } from "../translate";
 import { transformExternalLinks } from "../utils";
 import { ContactForm, NewsletterForm } from "./Forms";
 import { Finder, GifMetadata, Lister, ListerAttrs } from "./Giphy";
@@ -17,7 +18,6 @@ import Icon from "./Icon";
 import { ModalSize, closeAllModals, modal } from "./Modal";
 import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
 
-const t = require("../translate");
 const error = new CustomLogging("error");
 
 /** The big title and text about me. */
@@ -298,7 +298,7 @@ export default function AboutPage(): m.Component {
             t.init();
         },
         oncreate(): void {
-            document.title = t("about");
+            document.title = "" + t("about");
             t.createTippies();
             transformExternalLinks();
         },

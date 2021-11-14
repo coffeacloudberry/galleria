@@ -1,5 +1,10 @@
 Todo:
 
 * Lint with `npm run lint`,
-* Test in both dev and prod environment with `npm start` and `vercel dev` as detailed above,
+* Test as detailed in the [README.md](README.md) file,
 * Check the code quality with Sonar.
+
+Rules of Thumb:
+
+* If a script is fetched from CDN, check with `npm bundle-analysis` that it has not been included in the bundle,
+* The `export` keyword increase the bundle size, `export` only if used outside the file.

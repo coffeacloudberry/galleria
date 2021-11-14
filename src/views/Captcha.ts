@@ -3,9 +3,9 @@ import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
+import { t } from "../translate";
 import { injectCode } from "../utils";
 
-const t = require("../translate");
 const error = new CustomLogging("error");
 
 export interface CaptchaAttrs {
@@ -25,6 +25,22 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
         error.log("Failed to solve the Captcha", err.error);
     }
 
+    /**
+     * Return the intersection between the language in the page:
+     * "en" | "fr" | "fi"
+     * with the ones available in the widget:
+     * "en" | "fr" | "de" | "nl" | "it" | "pt" | "es" | "ca" | "ja" | "da"
+     */
+    getLang(): "en" | "fr" {
+        const currentLang = t.getLang();
+        switch (currentLang) {
+            case "fr":
+                return currentLang;
+            default:
+                return "en";
+        }
+    }
+
     oncreate({ dom, attrs }: m.CVnodeDOM<CaptchaAttrs>): void {
         injectCode(config.captcha.js)
             .then(() => {
@@ -37,7 +53,7 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
                         {
                             startMode: "auto",
                             sitekey: config.captcha.siteKey,
-                            language: t.getLang(),
+                            language: this.getLang(),
                             doneCallback: attrs.doneCallback,
                             errorCallback: (err) => {
                                 this.errorCallback(err);
