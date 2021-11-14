@@ -14,6 +14,7 @@ export interface OneStory extends OneJsonStory, ProcessedStoryFile {
 
 /**
  * Model for listing stories.
+ * @notExported
  */
 class AllStories {
     fullList: OneStory[] = [];

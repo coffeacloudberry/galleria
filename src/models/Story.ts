@@ -129,6 +129,10 @@ function getOriginPhotoId(): number | null {
     return isNaN(id) || id > config.firstPhotoId ? null : id;
 }
 
+/**
+ * Model handling one story.
+ * @notExported
+ */
 class Story {
     /** Story title retrieved from the Markdown file. */
     title: string | null = null;

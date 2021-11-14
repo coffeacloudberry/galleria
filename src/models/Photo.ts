@@ -47,6 +47,7 @@ function mdProcessorTitle(text: string): string | null {
 
 /**
  * Model for managing one photo.
+ * @notExported
  */
 class Photo {
     /** JSON metadata of the photo. */
