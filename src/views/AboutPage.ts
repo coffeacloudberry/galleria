@@ -101,6 +101,7 @@ class CopyrightNotice implements m.ClassComponent {
                             modal({
                                 title: t("copyright.third-parties.title"),
                                 content: ThirdPartyLicenses,
+                                size: ModalSize.Large,
                             });
                         },
                     },

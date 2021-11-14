@@ -53,7 +53,7 @@ function lazyLoadStories(): void {
 
 /** Keep only the first few words of a text. */
 function cutText(longText: string): string {
-    let cutPosition = 200;
+    let cutPosition = 140;
     // cut to the first 200 characters minus the last word, probably cut
     while (longText[cutPosition] != " " && cutPosition) {
         cutPosition--;

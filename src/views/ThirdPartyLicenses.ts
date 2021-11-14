@@ -28,6 +28,10 @@ const IconDetailComponent: m.Component<extraIconsInfo> = {
 
 export const ThirdPartyLicenses: m.Component = {
     view(): m.Vnode[] {
+        const iconNodes: m.Vnode<extraIconsInfo>[] = [];
+        for (const icon in extraIcons) {
+            iconNodes.push(m(IconDetailComponent, extraIcons[icon]));
+        }
         return [
             m("p.text-center", t("copyright.third-parties.details")),
             m(
@@ -41,10 +45,7 @@ export const ThirdPartyLicenses: m.Component = {
                                 m("th", t("copyright.third-parties.icon")),
                                 m("th", t("copyright.third-parties.from")),
                             ]),
-                            // @ts-ignore
-                            ...extraIcons.map((info: extraIconsInfo) => {
-                                return m(IconDetailComponent, info);
-                            }),
+                            ...iconNodes,
                         ]),
                     ),
                 ),
