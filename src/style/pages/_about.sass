@@ -1,4 +1,4 @@
-@import "../base/variables"
+@import '../base/variables'
 
 section#about
     margin-top: #{$nav-bar-height}
@@ -6,22 +6,22 @@ section#about
     height: calc(100vh - #{$nav-bar-height})
     .me
         position: relative
-        margin-bottom: -.5rem
+        margin-bottom: -0.5rem
         img
             max-width: 100%
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
             border-radius: 0 $border-radius-lg 0 $border-radius-lg
         p.credit
             position: absolute
-            font-size: .8rem
+            font-size: 0.8rem
             margin: 0
-            padding: .1rem .3rem
+            padding: 0.1rem 0.3rem
             bottom: 1rem
-            right: .5rem
-            background-color: rgba(255, 255, 255, .5)
+            right: 0.5rem
+            background-color: rgba(255, 255, 255, 0.5)
             border-radius: 0 $border-radius-lg 0 $border-radius-lg
             a
-                color: black
+                color: #000
                 text-decoration: none
 
 table.data
@@ -31,11 +31,13 @@ table.data
     th
         background: #efefef
         text-align: left
-    td, th
-        border: .1px solid #a7a7a7 /* .1 instead of 1px to avoid thick borders on Chrome */
-        padding: .5rem
+    td,
+    th
+        border: 0.1px solid #a7a7a7 /* .1 instead of 1px to avoid thick borders on Chrome */
+        padding: 0.5rem
     &.icons
-        th:first-child, td:first-child
+        th:first-child,
+        td:first-child
             text-align: center
         img
             vertical-align: middle

@@ -1,36 +1,41 @@
-@import "variables"
+@import 'variables'
 
-body, html
+body,
+html
     overflow: hidden
 
 body
     color: $body-color
     font-family: 'MyBodyFont', sans-serif
 
-a, a:visited
+a,
+a:visited
     color: #2e8f6b
     text-decoration: rgba(46, 143, 107, 0.37) wavy underline
     text-underline-position: under
     text-underline-offset: 0 /* to have the same style on both Chrome and Firefox */
-    transition: all .2s ease-in
+    transition: all 0.2s ease-in
 
-a:hover:not(.nav-item), a:focus:not(.nav-item)
+a:hover:not(.nav-item),
+a:focus:not(.nav-item)
     color: $button-background-hover
     text-decoration: rgba(46, 143, 107, 1) wavy underline
 
 .tippy-box
     box-shadow: 2px 2px 3px rgba(51, 51, 51, 0.46) !important
-    border: none !important
+    border: 0 !important
     &[data-placement^='top']:not([data-theme~='abbr'])
-        bottom: .3rem
+        bottom: 0.3rem
     &[data-placement^='bottom']:not([data-theme~='abbr'])
-        top: .3rem
-    a, a:visited
-        color: white
+        top: 0.3rem
+    a,
+    a:visited
+        color: #fff
         text-decoration: rgba(255, 255, 255, 0.37) wavy underline
-    a:hover, a:focus
-        color: white
-        text-decoration: white wavy underline
+    a:hover,
+    a:focus
+        color: #fff
+        text-decoration: #fff wavy underline
 
 .loading-icon
     img

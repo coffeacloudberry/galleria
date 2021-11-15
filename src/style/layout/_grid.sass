@@ -1,6 +1,8 @@
-@import "../base/variables"
+@import '../base/variables'
 
-.container, .container-md, .container-fluid
+.container,
+.container-md,
+.container-fluid
     margin: 0 auto
     padding: 0 $block-space
     @media (max-width: 1100px)
@@ -18,7 +20,7 @@
 .row::before,
 .row::after
     display: table
-    content: " "
+    content: ' '
     clear: both
 
 .one,
@@ -48,7 +50,8 @@
         .column-right
             float: right
 
-.container-md, .container-fluid
+.container-md,
+.container-fluid
     @media (min-width: 1400px)
         .one
             width: 100%

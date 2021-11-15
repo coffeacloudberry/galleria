@@ -1,9 +1,9 @@
-@import "../base/variables"
+@import '../base/variables'
 
 .period
-    font-size: .9rem
+    font-size: 0.9rem
     font-family: 'MyBodyFont', sans-serif
-    margin-top: .5rem
+    margin-top: 0.5rem
 
 .applause-story
     .icon
@@ -20,7 +20,7 @@
             display: block
             height: 24px
             margin: 1rem
-            background-image: url('icons/bonfire-outline.svg')
+            background-image: url('../icons/bonfire-outline.svg')
             background-size: contain
             background-repeat: no-repeat
             background-position-x: center
@@ -53,41 +53,41 @@ section#story
                         filter: $filter-button-background
             .mapboxgl-canvas-container
                 opacity: 0
-                transition: opacity .4s linear
+                transition: opacity 0.4s linear
                 &.full-opacity
                     opacity: 1
                 &:not(.mapboxgl-interactive)
                     cursor: not-allowed
             .mapboxgl-ctrl-scale
                 font-family: 'MyBodyFont', sans-serif
-                font-size: .8rem
+                font-size: 0.8rem
             .mapboxgl-ctrl button.mapboxgl-ctrl-my-autopilot .mapboxgl-ctrl-icon
                 width: 80% !important
                 height: 80% !important
                 margin: auto
                 &.play-autopilot
-                    background-image: url("../icons/map/helicopter.svg")
+                    background-image: url('../icons/map/helicopter.svg')
                 &.pause-autopilot
-                    background-image: url("../icons/pause-outline.svg")
+                    background-image: url('../icons/pause-outline.svg')
                 &.loading-autopilot
-                    background-image: url("../icons/hourglass-outline.svg")
+                    background-image: url('../icons/hourglass-outline.svg')
                     animation: hourglass 4s ease infinite
                 &.rewind-autopilot
-                    background-image: url("../icons/play-back-outline.svg")
+                    background-image: url('../icons/play-back-outline.svg')
             .tooltip-inside-map
                 font-family: 'MyBoldFont', sans-serif
-                font-size: .9rem
+                font-size: 0.9rem
                 .mapboxgl-popup-tip
                     visibility: hidden /* hide unwanted arrow */
                 .mapboxgl-popup-content
-                    padding: .5rem
+                    padding: 0.5rem
             width: 100%
             /* the map does not load if too small */
             height: calc(max(60vh - #{$nav-bar-height} - #{$block-space}, 300px))
             background: #eae8e6 /* for the user to know that something will appear (instead of just a big gap) */
         p.attributions
-            font-size: .8rem
-            margin-top: .3rem
+            font-size: 0.8rem
+            margin-top: 0.3rem
             line-height: 1.2rem
             text-align: right
     .applause-story
@@ -97,4 +97,4 @@ section#story
     .chart-container
         padding-top: 1rem /* the legend on the bottom adds space that needs to be compensated on the top */
         width: 100%
-        height: calc(max(40vh - #{$nav-bar-height} - #{$block-space}, 200px))
+        height: calc(max(40vh - #{$nav-bar-height} - 1.5 * #{$block-space}, 200px))

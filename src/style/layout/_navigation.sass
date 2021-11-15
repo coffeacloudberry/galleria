@@ -1,6 +1,7 @@
-@import "../base/variables"
+@import '../base/variables'
 
-header, footer
+header,
+footer
     nav
         box-shadow: 0 0 3px rgba(51, 51, 51, 0.46)
         position: absolute
@@ -22,24 +23,25 @@ header, footer
             @media (max-width: 1024px)
                 .photo-title
                     position: absolute
-                    background-color: rgb(255, 255, 255, .5)
+                    background-color: rgb(255, 255, 255, 0.5)
                     text-align: center
-                    color: black
+                    color: #000
                     *
                         display: inline-block
                     .short-item a
-                        color: black !important
+                        color: #000 !important
                         text-decoration: rgba(0, 0, 0, 0.4) wavy underline
-                        &:hover, &:focus
+                        &:hover,
+                        &:focus
                             background-color: inherit
-                            text-decoration: black wavy underline
+                            text-decoration: #000 wavy underline
                 @media (orientation: landscape)
                     top: 0
                     width: calc(#{$nav-bar-height} + 1px)
                     flex-direction: column
                     height: 100vh
                     .photo-title
-                        bottom: .3rem
+                        bottom: 0.3rem
                         left: calc(#{$nav-bar-height} + 4px) /* 4px to keep distance from the shadow on the nav bar */
                         width: calc(100vw - 2 * (#{$nav-bar-height} + 4px))
                 @media (orientation: portrait)
@@ -80,7 +82,7 @@ header, footer
                 vertical-align: calc(#{$nav-font-size} - #{$nav-icon-size} + 1.5px)
             &#language-selection
                 cursor: default
-                transition: all .2s ease-in
+                transition: all 0.2s ease-in
                 outline: 1px solid $nav-bg-color
                 border-radius: 0 $border-radius-lg 0 $border-radius-lg
                 &:focus
@@ -89,7 +91,8 @@ header, footer
             text-decoration: none
             color: $body-color !important
             border-radius: 0 $border-radius-lg 0 $border-radius-lg
-            &:hover, &:focus
+            &:hover,
+            &:focus
                 background-color: $nav-hover-bg-color
         .applause-feedback
             display: flex
@@ -108,20 +111,21 @@ header, footer
                 border: 1px solid $mute-color
                 color: $mute-color
             a.lang-item
-                color: white !important
+                color: #fff !important
                 display: block
                 text-decoration: none
                 border: 1px solid $body-color
-                &:hover, &:focus
+                &:hover,
+                &:focus
                     background-color: $body-color
-                    border: 1px solid white
+                    border: 1px solid #fff
 
 header nav
     border-bottom: 1px solid $strong-border-color
     top: 0
     &.nav-photo
         @media (max-width: 1024px) and (orientation: landscape)
-            border-bottom: none
+            border-bottom: 0
             border-right: 1px solid $strong-border-color
 
 footer nav
@@ -129,6 +133,6 @@ footer nav
     bottom: 0
     &.nav-photo
         @media (max-width: 1024px) and (orientation: landscape)
-            border-top: none
+            border-top: 0
             border-left: 1px solid $strong-border-color
             right: 0
