@@ -1,8 +1,20 @@
 import type { Feature, MultiLineString, Point, Position } from "geojson";
 
+/** A GPX point with symbol and optional name. */
 export interface FeaturePoint extends Feature<Point> {
     properties: {
+        /**
+         * Symbole for selecting the icon.
+         * [[include:webtrack_waypoints.md]]
+         */
         sym: string;
+
+        /**
+         * If used, that would be displayed in a tooltip. For now, only a
+         * legend of the icon is displayed, because localization is not handled
+         * in the tag name. One idea would be to point the tag name to an item
+         * in the locales folder.
+         */
         name?: string;
     };
 }

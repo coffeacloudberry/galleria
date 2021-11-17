@@ -17,7 +17,8 @@
     "typedocOptions": {
         "entryPoints": ["src/"],
         "entryPointStrategy": "Expand",
-        "out": "docs"
+        "out": "docs",
+        "includes": "extra_docs"
     },
     "include": ["src/**/*", "api/**/*", "tests/unit/**/*"],
     "exclude": ["node_modules", "**/*.spec.ts"]
