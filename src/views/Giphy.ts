@@ -13,25 +13,43 @@ import Icon from "./Icon";
 /** True during the process of requesting a new GIF to be added. */
 let shareInProgress = false;
 
+/**
+ * This object could contain a variety of information as detailed here:
+ * https://developers.giphy.com/docs/api/schema#gif-object
+ * Since the GIF URL can be reconstructed from the GIF ID, only the ID is used
+ * in order to reduce the amount of data and simplify the object.
+ */
 export interface GifMetadata {
+    /** The GIF's unique ID */
     id: string;
 }
 
+/**
+ * Contains a subset of the Giphy response from the search endpoint.
+ * For simplicity sake, the pagination object and the offset and total count
+ * are guessed from the current state and data length.
+ */
 interface Payload {
+    /** A list of GIF object */
     data: GifMetadata[];
+    /** The Meta Object contains basic information regarding the response */
     meta: {
+        /** HTTP Response Code (200, 400, 403, 404, 429) */
         status: number;
+        /** HTTP Response Message */
         msg: string;
     };
 }
 
 interface PlayerAttrs {
+    /** The GIF's unique ID */
     giphyId: string;
+    /** Callback when the GIF has been successfully added to the book */
     onSuccess?: () => void;
-    onFail?: (err: string) => void;
 }
 
 export class Player implements m.ClassComponent<PlayerAttrs> {
+    /** Select a GIF to add in the book. The GIF ID is fetched in the Finder. */
     selectGif(attrs: PlayerAttrs): void {
         shareInProgress = true;
         m.request<undefined>({
@@ -90,6 +108,7 @@ export class Player implements m.ClassComponent<PlayerAttrs> {
 
 export interface ListerAttrs {
     list: GifMetadata[];
+    /** Callback when the GIF has been successfully added to the book */
     onSuccess?: () => void;
 }
 
@@ -111,6 +130,7 @@ export class Lister implements m.ClassComponent<ListerAttrs> {
 }
 
 interface FinderAttrs {
+    /** Callback when the GIF has been successfully added to the book */
     callbackSelection: () => void;
 }
 
@@ -119,6 +139,7 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
     listResult: GifMetadata[] = [];
     isLoading = false;
 
+    /** Contact the Giphy API to find a few GIFs related to the search. */
     requestGifs(): void {
         this.isLoading = true;
         const listLength = this.listResult.length;
