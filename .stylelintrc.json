@@ -1,5 +1,8 @@
 {
     "customSyntax": "postcss-sass",
+    "ignoreFiles": [
+        "*.md"
+    ],
     "rules": {
         "at-rule-disallowed-list": [
             "debug"
