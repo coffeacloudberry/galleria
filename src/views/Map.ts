@@ -65,19 +65,23 @@ export const globalMapState: GlobalMapState = {
 };
 
 /**
- * Cast the unknown raw type as any if the lon,lat fields exist,
- * or return null.
+ * Return the object if the lon and lat fields exist, return null otherwise.
  */
-function withLonLatOrNull(el: any): any {
-    return "lon" in el && "lat" in el ? el : null;
+function withLonLatOrNull(el: unknown): { lon: number; lat: number } | null {
+    if (el instanceof Object) {
+        return "lon" in el && "lat" in el ? el : null;
+    }
+    return null;
 }
 
 /**
- * Cast the unknown raw type as any if the x,y fields exist,
- * or return null.
+ * Return the object if the x and y fields exist, return null otherwise.
  */
-function withXYOrNull(el: any): any {
-    return "x" in el && "y" in el ? el : null;
+function withXYOrNull(el: unknown): { x: number; y: number } | null {
+    if (el instanceof Object) {
+        return "x" in el && "y" in el ? el : null;
+    }
+    return null;
 }
 
 interface StatsComponentAttrs {
