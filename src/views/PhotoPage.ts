@@ -245,7 +245,7 @@ function documentTitle(): string {
         // @ts-ignore
         const photoTitle = photo.meta.title[t.getLang()];
         if (!photoTitle) {
-            return "" + t("photo.title");
+            return t("photo.title");
         }
         const additionalInfo =
             photo.storyTitle &&
@@ -255,7 +255,7 @@ function documentTitle(): string {
                 : "";
         return `${photoTitle + " - " + additionalInfo}${t("photo.title")}`;
     }
-    return "" + t("photo.title");
+    return t("photo.title");
 }
 
 /** Complete photography page with links to the next/prev photo. */
@@ -273,7 +273,7 @@ export default function PhotoPage(): m.Component {
                 : photo.load(selectedPhotoId);
         },
         oncreate(): void {
-            document.title = "" + t("photo.title");
+            document.title = t("photo.title");
             t.createTippies();
             document.addEventListener("keydown", onKeyPressed);
         },

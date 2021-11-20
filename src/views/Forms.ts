@@ -69,7 +69,7 @@ const SubmitButton: m.Component<SubmitButtonAttrs> = {
         if (attrs.processing) {
             status = `${t("wait")}...`;
         } else if (attrs.success) {
-            status = "" + t("thanks");
+            status = t("thanks");
         } else if (attrs.tooManyRequests) {
             status = `${t("wait-minute")}...`;
         } else {

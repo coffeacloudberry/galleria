@@ -80,7 +80,7 @@ export default function StoryPage(): m.Component {
             story.load(getStoryId());
         },
         oncreate(): void {
-            document.title = "" + t("story.title");
+            document.title = t("story.title");
             t.createTippies();
             transformExternalLinks();
         },

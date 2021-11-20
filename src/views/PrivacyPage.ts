@@ -12,7 +12,7 @@ export default function PrivacyPage(): m.Component {
             t.init();
         },
         oncreate(): void {
-            document.title = "" + t("privacy.title");
+            document.title = t("privacy.title");
             t.createTippies();
             transformExternalLinks();
         },

@@ -17,7 +17,7 @@ interface Translatable {
     replaceLang(lang: string, originHref?: string): string;
     createTippies(): void;
     getTranslations(): OneDictLang;
-    (key: string, args?: any, params?: any): m.Vnode<any, any> | string;
+    (key: string, args?: any, params?: any): string;
 }
 
 const translations: Record<string, OneDictLang> = {

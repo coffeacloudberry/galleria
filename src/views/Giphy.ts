@@ -59,7 +59,7 @@ export class Player implements m.ClassComponent<PlayerAttrs> {
         })
             .then(() => {
                 if (attrs.onSuccess) {
-                    toast("" + t("applause.feedback.pass"));
+                    toast(t("applause.feedback.pass"));
                     attrs.onSuccess();
                 }
                 shareInProgress = false;
@@ -157,10 +157,10 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
         }).then((result) => {
             this.isLoading = false;
             if (result.meta.status >= 400) {
-                toast("" + t("applause.feedback.fail"), LogType.error);
+                toast(t("applause.feedback.fail"), LogType.error);
                 throw new Error(`Giphy error: ${result.meta.msg}`);
             } else if (result.data.length == 0) {
-                toast("" + t("no-result-try-sth-else"), LogType.error);
+                toast(t("no-result-try-sth-else"), LogType.error);
             } else {
                 this.listResult.push(...result.data);
             }

@@ -282,7 +282,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         // based on the feature found.
         this.popup
             .setLngLat(coordinates)
-            .setHTML("" + t("map.sym", sym))
+            .setHTML(t("map.sym", sym))
             .addTo(this.map);
     }
 
@@ -645,7 +645,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         position: "bottom",
                         title: {
                             display: true,
-                            text: "" + t("map.stats.chart.dist.label"),
+                            text: t("map.stats.chart.dist.label"),
                         },
                     },
                     yAxes: {
@@ -653,7 +653,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         position: "left",
                         title: {
                             display: true,
-                            text: "" + t("map.stats.chart.ele.label"),
+                            text: t("map.stats.chart.ele.label"),
                         },
                     },
                 },

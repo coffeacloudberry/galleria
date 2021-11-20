@@ -205,7 +205,7 @@ export default function StoriesOverviewPage(): m.Component {
             allStories.loadFullList();
         },
         oncreate(): void {
-            document.title = "" + t("stories.title");
+            document.title = t("stories.title");
             t.createTippies();
             const scrollingEl = document.getElementById("stories");
             if (scrollingEl) {

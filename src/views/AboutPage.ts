@@ -299,7 +299,7 @@ export default function AboutPage(): m.Component {
             t.init();
         },
         oncreate(): void {
-            document.title = "" + t("about");
+            document.title = t("about");
             t.createTippies();
             transformExternalLinks();
         },

@@ -32,7 +32,7 @@ export default class ApplauseButton
         this.pressed = true;
         this.applausePromise()
             .then(() => {
-                toast("" + t("applause.feedback.pass"));
+                toast(t("applause.feedback.pass"));
             })
             .catch((error: Error & { code: number }) => {
                 toast(

@@ -10,7 +10,7 @@ export default function NotFoundPage(): m.Component {
             t.init();
         },
         oncreate(): void {
-            document.title = "" + t("not-found.message");
+            document.title = t("not-found.message");
 
             // hide lonely tooltips from quickly removed DOM
             hideAllForce();
