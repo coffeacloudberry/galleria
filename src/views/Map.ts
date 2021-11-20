@@ -33,7 +33,7 @@ the page.
 const attributions = [
     ["OpenStreetMap", "https://www.openstreetmap.org/copyright"],
     ["Mapbox", "https://www.mapbox.com/about/maps/"],
-    ["Maxar", "https://www.mapbox.com/about/maps/"],
+    ["Maxar", "https://www.maxar.com/"],
 ];
 
 export interface extraIconsInfo {
