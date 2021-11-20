@@ -1,5 +1,5 @@
 import compassOutline from "@/icons/compass-outline.svg";
-import type { TooltipItem } from "chart.js";
+import type { ChartConfiguration, TooltipItem } from "chart.js";
 import type { Position } from "geojson";
 import m from "mithril";
 
@@ -596,19 +596,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     }
 
     createElevationChart(
-        ctx: CanvasRenderingContext2D | null,
+        ctx: CanvasRenderingContext2D,
         profile: Position[],
-        style: {
-            backgroundColor: string;
-            tooltipBackgroundColor: string;
-            tooltipBodyColor: string;
-            pointStyle: string;
-        },
     ): void {
-        if (ctx === null) {
-            return;
-        }
-
         const data = [];
         for (let i = 0; i < profile.length; i++) {
             data[i] = {
@@ -618,7 +608,8 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 lat: profile[i][1],
             };
         }
-        const myChartConfig: Record<string, any> = {
+
+        const myChartConfig: ChartConfiguration = {
             type: "line",
             data: {
                 datasets: [
@@ -627,44 +618,42 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
                         // smooth (kind of antialiasing)
                         tension: 0.1,
+
+                        // filling
+                        fill: true,
+
+                        // no markers on points (too many)
+                        radius: 0,
+
+                        // design the pointer
+                        hoverRadius: 10,
+                        pointStyle: "cross",
+                        hoverBorderWidth: 1,
+
+                        // line width
+                        borderWidth: 1,
                     },
                 ],
             },
             options: {
-                // filling
-                fill: true,
-                backgroundColor: style.backgroundColor,
-
-                // no markers on points (too many)
-                radius: 0,
-
-                // full width horizontal line
-                hoverRadius: style.pointStyle === "line" ? 5000 : 10,
+                backgroundColor: "rgba(139,147,26,0.63)",
+                borderColor: "rgb(0,0,0)",
                 animation: false,
-                pointStyle: style.pointStyle,
-                hoverBorderWidth: 1,
-                borderColor: style.tooltipBodyColor,
-
-                // line
-                borderWidth: 1,
-
                 scales: {
-                    x: {
+                    xAxes: {
                         type: "linear",
                         position: "bottom",
-                        display: true,
                         title: {
                             display: true,
-                            text: t("map.stats.chart.dist.label"),
+                            text: "" + t("map.stats.chart.dist.label"),
                         },
                     },
-                    y: {
+                    yAxes: {
                         type: "linear",
                         position: "left",
-                        display: true,
                         title: {
                             display: true,
-                            text: t("map.stats.chart.ele.label"),
+                            text: "" + t("map.stats.chart.ele.label"),
                         },
                     },
                 },
@@ -694,10 +683,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         },
                         displayColors: false,
                         borderColor: "rgb(255,255,255)",
-                        backgroundColor: style.tooltipBackgroundColor,
-                        bodyColor: style.tooltipBodyColor,
+                        backgroundColor: "rgba(255,255,255,0.42)",
+                        bodyColor: "rgb(0,0,0)",
                         borderWidth: 1,
-                        borderRadius: 2,
                     },
                     legend: {
                         display: false,
@@ -716,6 +704,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             family: "MyBodyFont",
             size: 14,
         };
+
         try {
             // @ts-ignore
             new Chart.Chart(ctx, myChartConfig);
@@ -735,12 +724,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             const canvas = document.createElement("canvas");
             canvasContainer.innerHTML = "";
             canvasContainer.appendChild(canvas);
-            this.createElevationChart(canvas.getContext("2d"), points, {
-                backgroundColor: "rgba(139,147,26,0.63)",
-                tooltipBackgroundColor: "rgba(255,255,255,0.42)",
-                tooltipBodyColor: "rgb(0,0,0)",
-                pointStyle: "cross",
-            });
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+                this.createElevationChart(ctx, points);
+            }
         }
     }
 
