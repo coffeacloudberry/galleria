@@ -140,8 +140,10 @@ module.exports = merge(common, {
         },
     },
     performance: {
-        hints: false,
-        maxEntrypointSize: 512000,
-        maxAssetSize: 512000,
+        hints: "error",
+        // the total amount of emitted files utilized during initial load time
+        maxEntrypointSize: 300 * 1024,
+        // the biggest emitted file allowed
+        maxAssetSize: 250 * 1024,
     },
 });

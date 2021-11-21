@@ -12,6 +12,10 @@ export function clearSelection(): void {
     }
 }
 
+/**
+ * Return true if the navigator is mobile.
+ * NOTE: Due to user agent spoofing, the result SHALL NOT be trusted.
+ */
 export function isMobile(): boolean {
     return !!(
         navigator.userAgent.match(/Android/i) ||
@@ -109,7 +113,16 @@ export function transformExternalLinks(): void {
     });
 }
 
+/**
+ * Display an ephemeral toast.
+ * @param message A text string.
+ * @param type Can be info or error.
+ */
 export function toast(message: string, type: LogType = LogType.info): void {
+    /*
+    Documentation:
+    https://github.com/apvarun/toastify-js/blob/master/README.md
+     */
     Toastify({
         text: message,
         duration: config.ephemeralDisplayTimeout * 1000,

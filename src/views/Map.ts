@@ -203,6 +203,11 @@ interface MapAttrs {
  * An error message is displayed if the performance of Mapbox GL
  * JS would be dramatically worse than expected (e.g. a software
  * WebGL renderer would be used).
+ *
+ * If the track contains elevation data:
+ * The elevation profile is part of the map. Both the map and the
+ * elevation chart are interacting with each other. The Chart.js
+ * library is loaded on the fly in the same manner as Mapbox GL JS.
  */
 export default class Map implements m.ClassComponent<MapAttrs> {
     /** The WebTrack if loaded. */
@@ -240,6 +245,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         globalMapState.controls = {};
     }
 
+    /** Display a tooltip when the mouse hovers a marker. */
     markerOnMouseEnter(e: MouseEnterEvent): void {
         if (
             this.map === undefined ||
@@ -290,6 +296,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             .addTo(this.map);
     }
 
+    /** Remove the tooltip when the mouse leaves the marker. */
     markerOnMouseLeave(): void {
         if (this.map === undefined || this.popup === undefined) {
             return;
