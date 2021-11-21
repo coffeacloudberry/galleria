@@ -15,8 +15,18 @@ const { merge } = require("webpack-merge");
 const paths = require("./paths");
 const common = require("./webpack.common.js");
 const languages = require("../src/languages.json");
-const plainRoutes = ["photo", "about", "privacy"];
+const { readdirSync } = require("fs");
 const address = "https://www.explorewilder.com";
+const allStories = readdirSync(`${paths.build}/content/stories/`);
+const allPhotos = readdirSync(`${paths.build}/content/photos/`);
+const plainRoutes = [
+    "photo",
+    "stories",
+    "about",
+    "privacy",
+    ...allStories.map((storyId) => "story/" + storyId),
+    ...allPhotos.map((photoId) => "photo/" + photoId),
+];
 
 if (!("MAPBOX_ACCESS_TOKEN" in process.env)) {
     require("dotenv").config();
@@ -97,7 +107,7 @@ module.exports = merge(common, {
             options: {
                 skipgzip: true,
                 lastmod: new Date().toISOString().split("T")[0],
-                changefreq: "weekly",
+                changefreq: "monthly",
             },
             paths: languages
                 .map((key) => {
