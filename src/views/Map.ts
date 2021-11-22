@@ -1,5 +1,10 @@
 import compassOutline from "@/icons/compass-outline.svg";
-import type { ChartConfiguration, TooltipItem } from "chart.js";
+import type { MultiLineString } from "@turf/helpers";
+import type {
+    ChartConfiguration,
+    Chart as TChart,
+    TooltipItem,
+} from "chart.js";
 import type { Position } from "geojson";
 import m from "mithril";
 
@@ -14,11 +19,13 @@ import AutoPilotControl from "./AutoPilotControl";
 import Icon from "./Icon";
 import Controls, { ControlsType } from "./StandardControls";
 
+declare const turf: typeof import("@turf/turf");
 declare const mapboxgl: typeof import("mapbox-gl");
 declare const Chart: typeof import("chart.js");
 
 const warn = new CustomLogging("warning");
 const error = new CustomLogging("error");
+let chart: TChart | undefined = undefined;
 
 /*
 Mapbox requirements on Firefox:
@@ -296,7 +303,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             .addTo(this.map);
     }
 
-    /** Remove the tooltip when the mouse leaves the marker. */
+    /** Remove the tooltip when the mouse leaves a marker. */
     markerOnMouseLeave(): void {
         if (this.map === undefined || this.popup === undefined) {
             return;
@@ -304,6 +311,43 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
         this.map.getCanvas().style.cursor = "";
         this.popup.remove();
+    }
+
+    /**
+     * When the mouse is moving anywhere in the map.
+     * The hiker is displayed on the map and the tooltip is triggered on the
+     * chart. Nothing is triggered if the mouse is too far away from the path.
+     * The complexity of this procedure is in nearestPointOnLine.
+     * The chart might not be ready when calling this procedure.
+     */
+    mouseMove(path: MultiLineString, e: mapboxgl.MapMouseEvent): void {
+        if (!(this.webtrack instanceof WebTrack)) {
+            return;
+        }
+        const trackLength = this.webtrack.getTrackInfo().length;
+        if (typeof trackLength !== "number") {
+            return;
+        }
+        const minDist = (0.2 * trackLength) / 1000; // 20% in km
+        const currentPos = e.lngLat.toArray();
+        const nearestPoint = turf.nearestPointOnLine(path, currentPos);
+        if (
+            !nearestPoint.properties.dist ||
+            !nearestPoint.properties.index ||
+            nearestPoint.properties.dist > minDist || // if too far
+            chart === undefined ||
+            chart.tooltip === undefined
+        ) {
+            return;
+        }
+        const [lon, lat] = nearestPoint.geometry.coordinates;
+        const index = nearestPoint.properties.index;
+        this.moveHiker(lon, lat);
+        chart.tooltip.setActiveElements([{ datasetIndex: 0, index: index }], {
+            x: 0, // unused
+            y: 0, // unused
+        });
+        chart.update();
     }
 
     addPointsLayer(feature: WebTrackGeoJsonFeature): void {
@@ -382,7 +426,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         );
     }
 
-    moveHiker(position: mapboxgl.LngLat): void {
+    moveHiker(lon: number, lat: number): void {
         if (this.map === undefined) {
             return;
         }
@@ -390,6 +434,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             window.clearTimeout(this.currentTimeoutHiker);
         }
 
+        const position = new mapboxgl.LngLat(lon, lat);
         if (this.hikerMarker === undefined) {
             const el = document.createElement("div");
             m.render(
@@ -431,6 +476,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         }
         this.webtrack = new WebTrack(webtrackBytes);
         const data = this.webtrack.toGeoJson();
+        const line = data.features[0].geometry as MultiLineString;
         this.hasElevation = this.webtrack.someTracksWithEle();
 
         injectCode(config.turf.js)
@@ -441,6 +487,13 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         globalMapState.controls.autoPilot =
                             new AutoPilotControl(data, story.duration);
                         this.map.addControl(globalMapState.controls.autoPilot);
+
+                        this.map.on(
+                            "mousemove",
+                            (e: mapboxgl.MapMouseEvent) => {
+                                this.mouseMove(line, e);
+                            },
+                        );
                     }
                 })();
             })
@@ -682,9 +735,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                             label: (tooltipItem: TooltipItem<"line">) => {
                                 const raw = withLonLatOrNull(tooltipItem.raw);
                                 if (raw !== null) {
-                                    this.moveHiker(
-                                        new mapboxgl.LngLat(raw.lon, raw.lat),
-                                    );
+                                    this.moveHiker(raw.lon, raw.lat);
                                 }
                                 return this.labelElevation(tooltipItem);
                             },
@@ -693,7 +744,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                             },
                         },
                         displayColors: false,
-                        borderColor: "rgb(255,255,255)",
+                        borderColor: "rgb(67,121,67)",
                         backgroundColor: "rgba(255,255,255,0.42)",
                         bodyColor: "rgb(0,0,0)",
                         borderWidth: 1,
@@ -717,8 +768,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         };
 
         try {
-            // @ts-ignore
-            new Chart.Chart(ctx, myChartConfig);
+            chart = new Chart.Chart(ctx, myChartConfig);
         } catch {} // may occur when updating a chart not displayed at this time
     }
 
