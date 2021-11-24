@@ -12,9 +12,9 @@ import { config } from "../config";
 import CustomLogging from "../CustomLogging";
 import { story } from "../models/Story";
 import { t } from "../translate";
-import { injectCode, numberWithCommas } from "../utils";
-import WebTrack from "../webtrack";
+import { injectCode, isMobile, numberWithCommas } from "../utils";
 import type { WebTrackGeoJsonFeature } from "../webtrack";
+import WebTrack from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
 import Icon from "./Icon";
 import Controls, { ControlsType } from "./StandardControls";
@@ -845,6 +845,13 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         style: config.mapbox.style,
                         attributionControl: false, // outside the map widget to control the style and language
                         logoPosition: "bottom-right",
+                        // About cooperative gesture:
+                        // https://docs.mapbox.com/mapbox-gl-js/example/cooperative-gestures/
+                        // Pending type definition:
+                        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/57193
+                        // TODO: remove the ts-ignore soon
+                        // @ts-ignore
+                        cooperativeGestures: isMobile(),
                     });
 
                     globalMapState.controls.scale = new mapboxgl.ScaleControl({
