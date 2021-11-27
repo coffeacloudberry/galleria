@@ -368,11 +368,11 @@ class Story {
         const actualFolderName = folderName || this.folderName;
         if (!actualFolderName) {
             return new Promise((resolve, reject) => {
-                const error: Error & { code: number } = Object.assign(
+                const err: Error & { code: number } = Object.assign(
                     new Error("Story undefined"),
                     { code: 0 },
                 );
-                reject(error);
+                reject(err);
             });
         }
         this.isApplauding = true;
@@ -386,9 +386,9 @@ class Story {
                     this.isApplauding = false;
                     resolve();
                 })
-                .catch((error: Error & { code: number }) => {
+                .catch((err: Error & { code: number }) => {
                     this.isApplauding = false;
-                    reject(error);
+                    reject(err);
                 });
         });
     }

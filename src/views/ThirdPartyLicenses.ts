@@ -1,10 +1,10 @@
 import m from "mithril";
 
 import { t } from "../translate";
-import { extraIcons, extraIconsInfo } from "./Map";
+import { ExtraIconsInfo, extraIcons } from "./Map";
 
-const IconDetailComponent: m.Component<extraIconsInfo> = {
-    view({ attrs }: m.Vnode<extraIconsInfo>): m.Vnode {
+const IconDetailComponent: m.Component<ExtraIconsInfo> = {
+    view({ attrs }: m.Vnode<ExtraIconsInfo>): m.Vnode {
         return m("tr", [
             m(
                 "td",
@@ -28,7 +28,7 @@ const IconDetailComponent: m.Component<extraIconsInfo> = {
 
 export const ThirdPartyLicenses: m.Component = {
     view(): m.Vnode[] {
-        const iconNodes: m.Vnode<extraIconsInfo>[] = [];
+        const iconNodes: m.Vnode<ExtraIconsInfo>[] = [];
         for (const icon in extraIcons) {
             iconNodes.push(m(IconDetailComponent, extraIcons[icon]));
         }

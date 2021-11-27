@@ -43,7 +43,7 @@ const attributions = [
     ["Maxar", "https://www.maxar.com/"],
 ];
 
-export interface extraIconsInfo {
+export interface ExtraIconsInfo {
     // file name in the assets
     source: string;
     attributions: [string, string];
@@ -55,9 +55,9 @@ export interface extraIconsInfo {
  * Update ThirdPartyLicenses.ts if the icon supplier is not only
  * https://www.flaticon.com/
  */
-type extraIconsStruct = { [key: string]: extraIconsInfo };
+type ExtraIconsStruct = { [key: string]: ExtraIconsInfo };
 
-export const extraIcons: extraIconsStruct = require("../extra-icons");
+export const extraIcons: ExtraIconsStruct = require("../extra-icons");
 
 export interface GlobalMapState {
     /** All controls in the map. */

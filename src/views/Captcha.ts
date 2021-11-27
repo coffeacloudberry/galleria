@@ -33,12 +33,7 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
      */
     getLang(): "en" | "fr" {
         const currentLang = t.getLang();
-        switch (currentLang) {
-            case "fr":
-                return currentLang;
-            default:
-                return "en";
-        }
+        return currentLang == "fr" ? "fr" : "en";
     }
 
     oncreate({ dom, attrs }: m.CVnodeDOM<CaptchaAttrs>): void {

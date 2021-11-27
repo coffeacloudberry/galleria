@@ -1,8 +1,7 @@
 import bookOutline from "@/icons/book-outline.svg";
 import m from "mithril";
 
-import { OneStory } from "../models/AllStories";
-import { allStories } from "../models/AllStories";
+import { OneStory, allStories } from "../models/AllStories";
 import { story } from "../models/Story";
 import { t } from "../translate";
 import ApplauseButton from "./ApplauseButton";
