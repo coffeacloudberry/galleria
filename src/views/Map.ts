@@ -842,7 +842,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         center: [0, 0], // in the ocean (center to the track later on)
                         pitch: 0,
                         bearing: 0,
-                        style: config.mapbox.style,
+                        style: config.mapbox.style[story.mapTheme],
                         attributionControl: false, // outside the map widget to control the style and language
                         logoPosition: "bottom-right",
                         // About cooperative gesture:

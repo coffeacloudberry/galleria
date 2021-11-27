@@ -70,7 +70,10 @@ export const config = {
         },
 
         /** Either official Mapbox style or custom style from Mapbox Studio. */
-        style: "mapbox://styles/onvbjzhghu/ckp9oa8nw216718o43dskmvsg",
+        style: {
+            default: "mapbox://styles/onvbjzhghu/ckp9oa8nw216718o43dskmvsg",
+            darkSnow: "mapbox://styles/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr",
+        },
     },
 
     /**
@@ -109,13 +112,5 @@ export const config = {
 
         /** Public rating of the results provided by GIPHY. */
         rating: "g",
-    },
-
-    goat: {
-        /** GoatCounter endpoint. */
-        endpoint: "https://explorewilder.goatcounter.com/count",
-
-        /** True to count request from localhost. */
-        allowLocal: false,
     },
 };

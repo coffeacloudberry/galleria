@@ -2,8 +2,11 @@ import m from "mithril";
 import snarkdown from "snarkdown";
 
 import { config } from "../config";
+import CustomLogging from "../CustomLogging";
 import { t } from "../translate";
 import { PhotoInfo } from "./Photo";
+
+const error = new CustomLogging("error");
 
 export interface EasyDate {
     day: number;
@@ -19,6 +22,13 @@ enum Season {
 }
 
 export type SeasonStrings = keyof typeof Season;
+
+enum MapTheme {
+    default,
+    darkSnow,
+}
+
+type MapThemeStrings = keyof typeof MapTheme;
 
 /** GPS model and configuration */
 interface GpsConfig {
@@ -66,6 +76,9 @@ export interface StoryInfo {
 
     /** True if there is a WebTrack to load. */
     hasGeodata?: boolean;
+
+    /** The theme used for the map if the story has geodata. */
+    mapTheme?: MapThemeStrings;
 
     /** Photo folder name of the latest photo taken on that trip. */
     mostRecentPhoto?: string;
@@ -151,6 +164,9 @@ class Story {
 
     /** True if the story contains a WebTrack, based on the JSON file. */
     hasGeodata = false;
+
+    /** The map theme used if the story has geodata. */
+    mapTheme: MapThemeStrings = "default";
 
     /** The most recent photo ID of the story, based on the JSON file. */
     mostRecentPhoto: string | null = null;
@@ -295,7 +311,12 @@ class Story {
                 } else {
                     this.start = null;
                 }
-                this.season = result.season || null;
+                if (result.season && Season[result.season]) {
+                    this.season = result.season;
+                } else {
+                    error.log(`Unknown season '${result.season}'`);
+                    this.season = null;
+                }
                 this.duration = result.duration || null;
                 this.hasGeodata = result.hasGeodata || false;
                 this.mostRecentPhoto = result.mostRecentPhoto || null;
@@ -303,6 +324,11 @@ class Story {
                     this.gpsConfig = result.gpsConfig || defaultGpsConfig;
                 } else {
                     this.gpsConfig = null;
+                }
+                if (result.mapTheme && MapTheme[result.mapTheme]) {
+                    this.mapTheme = result.mapTheme;
+                } else {
+                    this.mapTheme = "default";
                 }
                 this.gotStoryMeta = true;
                 this.loadOriginPhotoMeta();
