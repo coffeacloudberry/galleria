@@ -20,7 +20,7 @@ interface DurationAttrs {
 const Duration: m.Component<DurationAttrs> = {
     view({ attrs }: m.Vnode<DurationAttrs>): string {
         const argTranslate =
-            attrs.duration < 1 ? "0" : Math.floor(attrs.duration);
+            attrs.duration < 1 ? "0" : "" + Math.floor(attrs.duration);
         return (
             "" +
             t("story.duration") +
@@ -44,10 +44,10 @@ export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
                     t("date", attrs.start.month, {
                         day: attrs.start.day,
                         year: attrs.start.year,
-                    }) +
-                    " • " +
-                    t("seasons", attrs.season),
-            attrs.start && attrs.duration && " • ",
+                    }),
+            attrs.start && attrs.season && " • ",
+            attrs.season && t("seasons", attrs.season),
+            (attrs.start || attrs.season) && attrs.duration && " • ",
             attrs.duration &&
                 m(Duration, {
                     duration: attrs.duration,

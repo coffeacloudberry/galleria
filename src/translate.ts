@@ -1,6 +1,6 @@
 import m from "mithril";
 import tippy, { Instance as TippyInstance } from "tippy.js";
-import { default as tjs } from "translate.js";
+import { Messages, Options, default as tjs } from "translate.js";
 
 export interface Language {
     id: number;
@@ -8,34 +8,33 @@ export interface Language {
     name: string;
 }
 
-type OneDictLang = { [key: string]: any };
-
 interface Translatable {
     getLang(): string;
     init(lang?: string): void;
     prependLang(path: string): string;
     replaceLang(lang: string, originHref?: string): string;
     createTippies(): void;
-    getTranslations(): OneDictLang;
-    (key: string, args?: any, params?: any): string;
+    (key: string, subKey?: string | number, params?: object): string;
 }
 
-const translations: Record<string, OneDictLang> = {
+const translations: Record<string, Messages> = {
     en: require("./locales/en"),
     fi: require("./locales/fi"),
     fr: require("./locales/fr"),
 };
 
-const options = {
+const options: Options = {
     debug: true,
     resolveAliases: true,
 };
 
-let messages: OneDictLang = translations.en;
+let messages: Messages = translations.en;
 
-const t: Translatable = (key: string, args?: any, params?: any) => {
+const t: Translatable = (key, subKey, params) => {
     const translate = tjs(messages, options);
-    return args ? translate(key, args, params) : translate(key);
+    // false positive on type
+    // @ts-ignore
+    return subKey ? translate(key, subKey, params) : translate(key);
 };
 
 t.getLang = (): string => {
@@ -43,7 +42,7 @@ t.getLang = (): string => {
     return translations.hasOwnProperty(inputLang) ? inputLang : "en";
 };
 
-t.init = (lang?: string) => {
+t.init = (lang) => {
     if (lang === undefined) {
         lang = t.getLang();
     }
@@ -51,11 +50,11 @@ t.init = (lang?: string) => {
     messages = translations[lang];
 };
 
-t.prependLang = (path: string): string => {
+t.prependLang = (path) => {
     return `/${t.getLang()}${path}`;
 };
 
-t.replaceLang = (lang: string, originHref?: string): string => {
+t.replaceLang = (lang, originHref) => {
     if (!originHref) {
         originHref = m.route.get();
     }
@@ -102,7 +101,5 @@ t.createTippies = () => {
         observer.observe(targetNode, config);
     });
 };
-
-t.getTranslations = (): OneDictLang => messages;
 
 export { t };
