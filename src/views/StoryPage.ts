@@ -20,7 +20,7 @@ interface DurationAttrs {
 const Duration: m.Component<DurationAttrs> = {
     view({ attrs }: m.Vnode<DurationAttrs>): string {
         const argTranslate =
-            attrs.duration < 1 ? "0" : "" + Math.floor(attrs.duration);
+            attrs.duration < 1 ? "0" : Math.floor(attrs.duration);
         return (
             "" +
             t("story.duration") +
