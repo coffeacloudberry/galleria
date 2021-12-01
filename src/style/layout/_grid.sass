@@ -1,21 +1,13 @@
 @import '../base/variables'
 
-.container,
-.container-md,
-.container-fluid
+.container
     margin: 0 auto
     padding: 0 $block-space
-    @media (max-width: 1100px)
+    @media (max-width: $container-column-threshold)
         padding: 0
-    max-width: 1100px
+    max-width: $container-column-threshold
     &:last-child
         margin-bottom: $block-space
-
-.container-fluid
-    max-width: 100%
-
-.container-md
-    max-width: 1400px
 
 .row::before,
 .row::after
@@ -30,29 +22,11 @@
 .half
     width: 100%
     padding: 0 $block-space
-    @media (max-width: 1100px)
+    @media (max-width: $container-column-threshold)
         padding: 0 calc(#{$block-space} / 2)
 
 .container
-    @media (min-width: 1100px)
-        .one
-            width: 100%
-        .half
-            width: calc(100% / 2)
-        .one-third
-            width: calc(100% / 3)
-        .one-fourth
-            width: calc(100% / 4)
-        .two-thirds
-            width: calc(100% / 3 * 2)
-        .column
-            float: left
-        .column-right
-            float: right
-
-.container-md,
-.container-fluid
-    @media (min-width: 1400px)
+    @media (min-width: $container-column-threshold)
         .one
             width: 100%
         .half

@@ -117,7 +117,7 @@ class OneStoryComponent implements m.ClassComponent<OneStory> {
                 ),
             ),
             m(
-                ".container-fluid.p-0",
+                ".container.p-0",
                 attrs.title &&
                     m(".row", [
                         m(".two-thirds.column.p-0", [

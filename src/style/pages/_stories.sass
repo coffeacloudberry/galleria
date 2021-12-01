@@ -6,7 +6,7 @@
     height: calc(100vh - #{$nav-bar-height})
     .applause-story
         text-align: center
-        @media (min-width: 1100px)
+        @media (min-width: $container-column-threshold)
             text-align: inherit
     .lazy-thumbnail-container
         img
@@ -14,7 +14,7 @@
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
             margin-top: calc(#{$p-vertical-margin} / 2)
         text-align: center
-        @media (min-width: 1100px)
+        @media (min-width: $container-column-threshold)
             text-align: right
             img
                 /* align to the letters' top */
