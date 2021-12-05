@@ -52,6 +52,8 @@ npm i
 * Use the [PhotosManagerCLI](https://github.com/ExploreWilder/PhotosManagerCLI) to put a new picture,
 * Use the [WebTrackCLI](https://github.com/ExploreWilder/WebTrackCLI) to get elevation data and convert GPX to webtrack.
 
+Notice that the list of stories are statically generated at build time (by a custom Webpack plugin). Rebuild or rerun the local server to apply the changes.
+
 ### Running
 
 <details>

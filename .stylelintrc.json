@@ -1,7 +1,7 @@
 {
     "customSyntax": "postcss-sass",
     "ignoreFiles": [
-        "*.md"
+        "**/*.md"
     ],
     "rules": {
         "at-rule-disallowed-list": [
