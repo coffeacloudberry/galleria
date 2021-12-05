@@ -319,6 +319,8 @@ export default class Map implements m.ClassComponent<MapAttrs> {
      * chart. Nothing is triggered if the mouse is too far away from the path.
      * The complexity of this procedure is in nearestPointOnLine.
      * The chart might not be ready when calling this procedure.
+     * This procedure has no effect if the chart is not loaded, i.e. if the
+     * track has no elevation profile.
      */
     mouseMove(path: MultiLineString, e: mapboxgl.MapMouseEvent): void {
         if (!(this.webtrack instanceof WebTrack)) {
@@ -488,12 +490,14 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                             new AutoPilotControl(data, story.duration);
                         this.map.addControl(globalMapState.controls.autoPilot);
 
-                        this.map.on(
-                            "mousemove",
-                            (e: mapboxgl.MapMouseEvent) => {
-                                this.mouseMove(line, e);
-                            },
-                        );
+                        if (this.hasElevation) {
+                            this.map.on(
+                                "mousemove",
+                                (e: mapboxgl.MapMouseEvent) => {
+                                    this.mouseMove(line, e);
+                                },
+                            );
+                        }
                     }
                 })();
             })
@@ -812,6 +816,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     oncreate({ attrs }: m.CVnode<MapAttrs>): void {
         const mapElement = document.getElementById("map");
         this.storyId = attrs.storyId;
+        chart = undefined; // reset
         if (mapElement === null) {
             return;
         }
