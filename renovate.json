@@ -1,5 +1,16 @@
 {
     "extends": [
         "config:semverAllMonthly"
+    ],
+    "packageRules": [
+        {
+            "matchPackageNames": [
+                "node"
+            ],
+            "matchUpdateTypes": [
+                "major"
+            ],
+            "enabled": false
+        }
     ]
 }
