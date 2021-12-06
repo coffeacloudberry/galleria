@@ -311,10 +311,14 @@ class Story {
                 } else {
                     this.start = null;
                 }
-                if (result.season && Season[result.season]) {
-                    this.season = result.season;
+                if (result.season !== undefined) {
+                    if (Season[result.season] !== undefined) {
+                        this.season = result.season;
+                    } else {
+                        error.log(`Unknown season '${result.season}'`);
+                        this.season = null;
+                    }
                 } else {
-                    error.log(`Unknown season '${result.season}'`);
                     this.season = null;
                 }
                 this.duration = result.duration || null;

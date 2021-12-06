@@ -8,6 +8,7 @@ import ApplauseButton from "./ApplauseButton";
 import { Header, HeaderAttrs } from "./Header";
 import Map from "./Map";
 
+/** Get the story ID from the path. */
 function getStoryId(): string {
     const splitPath = m.parsePathname(m.route.get()).path.split("/");
     return splitPath[splitPath.length - 1];
@@ -148,7 +149,9 @@ export default function StoryPage(): m.Component {
                                         mediaType: "story",
                                         mediaIsLoading: !story.isLoaded(),
                                         getId: getStoryId,
-                                        applausePromise: story.applause,
+                                        applausePromise: () => {
+                                            return story.applause();
+                                        },
                                     }),
                                 ]),
                             ]),

@@ -179,7 +179,9 @@ const Footer: m.Component<FooterAttrs> = {
                     mediaType: "photo",
                     mediaIsLoading: photo.isLoading,
                     getId: getPhotoId,
-                    applausePromise: photo.applause,
+                    applausePromise: () => {
+                        return photo.applause();
+                    },
                 }),
                 m("span", [
                     photo.isLast() ? m(RewindButton) : m(NextButton),

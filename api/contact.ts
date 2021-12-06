@@ -1,16 +1,10 @@
 import { tmpdir } from "os";
-import { promisify } from "util";
 
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getClientIp } from "request-ip";
 import sendpulse from "sendpulse-api";
 
-import {
-    anonymizeClient,
-    doRequest,
-    initClient,
-    isSameSite,
-} from "../src/utils_api";
+import * as utils from "../src/utils_api";
 
 /** Address book name as defined in the SendPulse admin panel. */
 export const newsletterAddressBookName = "Newsletter";
@@ -179,31 +173,18 @@ export async function checkVisitor(
         });
     }
 
-    let client;
-    try {
-        client = initClient();
-    } catch {
-        throw new Error("500");
-    }
-
-    const cHashedIp = anonymizeClient(clientIp);
+    const client = await utils.initClient();
+    const cHashedIp = utils.anonymizeClient(clientIp);
     const userKey = process.env.VERCEL_ENV + listName + cHashedIp;
-    const existsAsync = promisify(client.exists).bind(client);
-    const setAsync = promisify(client.set).bind(client);
-    const expireAsync = promisify(client.expire).bind(client);
 
     // abort if the visitor has recently been recorded
-    // @ts-ignore
-    if (await existsAsync(userKey)) {
-        client.quit();
+    if (await client.exists(userKey)) {
         throw new Error("429");
     }
 
     // the value is meaningless, what matters is the key existence
-    // @ts-ignore
-    await setAsync(userKey, "");
-    await expireAsync(userKey, timeGap);
-    client.quit();
+    await client.set(userKey, "");
+    await client.expire(userKey, timeGap);
 }
 
 interface FriendlyCapthaResponse {
@@ -241,7 +222,8 @@ export async function checkCaptcha(solution: string): Promise<boolean> {
         },
     };
     return new Promise<boolean>((resolve) => {
-        doRequest(options, data)
+        utils
+            .doRequest(options, data)
             .then((responseBody: unknown) => {
                 const payload = responseBody as FriendlyCapthaResponse;
                 resolve(payload["success"]);
@@ -259,7 +241,7 @@ export function isEmail(emailAddress: string): boolean {
 }
 
 export default async (request: VercelRequest, response: VercelResponse) => {
-    if (!isSameSite(request)) {
+    if (!utils.isSameSite(request)) {
         response.status(401).json(undefined);
         return;
     }

@@ -9,9 +9,21 @@ import Icon from "./Icon";
 const err = new CustomLogging("error");
 
 interface ApplauseButtonAttrs {
+    /** Used for the tooltip. */
     mediaType: string;
+
+    /** The button will be hidden if this is true. */
     mediaIsLoading: boolean;
+
+    /**
+     * Story or photo ID only used to change the button visibility and error
+     * message. The button stays hidden if the return value of this procedure
+     * does not change. This procedure should retrieve the element ID from the
+     * path whereas the XHR request uses the models or data attributes.
+     */
     getId: () => number | string | null;
+
+    /** Called on like click. */
     applausePromise: () => Promise<void>;
 }
 

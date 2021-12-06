@@ -1,7 +1,4 @@
-import { promisify } from "util";
-
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import redis from "redis";
 
 import * as utils from "../src/utils_api";
 
@@ -20,38 +17,20 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 return;
             }
 
-            let client: redis.RedisClient;
-            try {
-                client = utils.initClient();
-            } catch {
-                response.status(500).json(undefined);
-                return;
-            }
-
             // add the entry
-            const rpushAsync = promisify(client.rpush).bind(client);
-            // @ts-ignore
-            await rpushAsync(`${process.env.VERCEL_ENV}:giphy`, giphyId);
-            client.quit();
+            const client = await utils.initClient();
+            await client.rPush(`${process.env.VERCEL_ENV}:giphy`, giphyId);
             response.json(undefined);
             return;
         }
         case "GET": {
-            let client: redis.RedisClient;
-            try {
-                client = utils.initClient();
-            } catch {
-                response.status(500).json(undefined);
-                return;
-            }
-            const lrangeAsync = promisify(client.lrange).bind(client);
+            const client = await utils.initClient();
             // get the last 8 entries
-            let giphies = await lrangeAsync(
+            let giphies = await client.lRange(
                 `${process.env.VERCEL_ENV}:giphy`,
                 -8,
                 -1,
             );
-            client.quit();
             giphies = giphies.reverse(); // most recent first
             response.json(
                 giphies.map((entry: string) => {

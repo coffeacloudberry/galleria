@@ -2,16 +2,16 @@ import { createHash } from "crypto";
 import https from "https";
 
 import { VercelRequest } from "@vercel/node";
-import redis from "redis";
+import { createClient } from "redis";
+
+const client = createClient({ url: process.env.REDIS_URL });
+type RedisClientType = typeof client;
 
 /** Initialize the Redis connection. Remember to close it. */
-export function initClient(): redis.RedisClient {
-    const client = redis.createClient({
-        url: process.env.REDIS_URL,
-    });
-    client.on("error", function (err: Error) {
-        throw err;
-    });
+export async function initClient(): Promise<RedisClientType> {
+    if (!client.isOpen) {
+        await client.connect();
+    }
     return client;
 }
 
@@ -40,7 +40,10 @@ export function isSameSite(request: VercelRequest): boolean {
 }
 
 /** Do a request with options provided. */
-export function doRequest(options: any, data: any) {
+export function doRequest(
+    options: https.RequestOptions,
+    data: string,
+): Promise<any> {
     return new Promise((resolve, reject) => {
         const req = https.request(options, (res) => {
             res.setEncoding("utf8");
@@ -51,7 +54,11 @@ export function doRequest(options: any, data: any) {
             });
 
             res.on("end", () => {
-                resolve(JSON.parse(responseBody));
+                if (res.statusCode && res.statusCode < 400) {
+                    resolve(JSON.parse(responseBody));
+                } else {
+                    reject(res.statusCode);
+                }
             });
         });
 

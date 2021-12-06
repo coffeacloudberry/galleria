@@ -850,12 +850,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         style: config.mapbox.style[story.mapTheme],
                         attributionControl: false, // outside the map widget to control the style and language
                         logoPosition: "bottom-right",
-                        // About cooperative gesture:
-                        // https://docs.mapbox.com/mapbox-gl-js/example/cooperative-gestures/
-                        // Pending type definition:
-                        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/57193
-                        // TODO: remove the ts-ignore soon
-                        // @ts-ignore
                         cooperativeGestures: isMobile(),
                     });
 

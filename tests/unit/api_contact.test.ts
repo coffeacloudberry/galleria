@@ -48,14 +48,15 @@ describe("Contact Forms", () => {
     });
 
     it("should record new visitors", (done) => {
+        const startTime = Date.now();
         contact
-            .checkVisitor("sender", "" + Date.now(), "")
+            .checkVisitor("sender", "" + startTime, "")
             .then(() => {
                 contact
-                    .checkVisitor("sender", "" + Date.now(), "")
+                    .checkVisitor("sender", "" + (startTime + 1), "")
                     .then(() => {
                         contact
-                            .checkVisitor("sender", "" + Date.now(), "")
+                            .checkVisitor("sender", "" + (startTime + 2), "")
                             .then(() => {
                                 done();
                             })
