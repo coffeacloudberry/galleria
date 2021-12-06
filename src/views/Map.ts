@@ -37,10 +37,21 @@ the page.
  */
 
 /** List of copyrights (depends on the Mapbox style, see config.ts). */
-const attributions = [
-    ["OpenStreetMap", "https://www.openstreetmap.org/copyright"],
-    ["Mapbox", "https://www.mapbox.com/about/maps/"],
-    ["Maxar", "https://www.maxar.com/"],
+export enum Attribution {
+    OpenStreetMap,
+    Mapbox,
+    Maxar,
+}
+
+/**
+ * Ordered list of attribution URLs.
+ * This is separated from the Attribution enum to have both forward and reverse
+ * mapping on a string to string structure.
+ */
+const AttribUrls = [
+    "https://www.openstreetmap.org/copyright",
+    "https://www.mapbox.com/about/maps/",
+    "https://www.maxar.com/",
 ];
 
 export interface ExtraIconsInfo {
@@ -847,7 +858,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         center: [0, 0], // in the ocean (center to the track later on)
                         pitch: 0,
                         bearing: 0,
-                        style: config.mapbox.style[story.mapTheme],
+                        style: config.mapbox.style[story.mapTheme].url,
                         attributionControl: false, // outside the map widget to control the style and language
                         logoPosition: "bottom-right",
                         cooperativeGestures: isMobile(),
@@ -901,12 +912,18 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
     view(): m.Vnode<StatsComponentAttrs>[] {
         const attributionsComponents: (string | m.Vnode)[] = [];
-        attributions.forEach((source) => {
-            attributionsComponents.push.apply(attributionsComponents, [
-                " © ",
-                m("a", { href: source[1] }, source[0]),
-            ]);
-        });
+        config.mapbox.style[story.mapTheme].attributions.forEach(
+            (keyAttrib: number) => {
+                attributionsComponents.push.apply(attributionsComponents, [
+                    " © ",
+                    m(
+                        "a",
+                        { href: AttribUrls[keyAttrib] },
+                        Attribution[keyAttrib],
+                    ),
+                ]);
+            },
+        );
         return [
             m("hr"),
             m(StatsComponent, {

@@ -26,6 +26,7 @@ export type SeasonStrings = keyof typeof Season;
 enum MapTheme {
     default,
     darkSnow,
+    whiteSnow,
 }
 
 type MapThemeStrings = keyof typeof MapTheme;

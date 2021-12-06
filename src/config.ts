@@ -1,4 +1,5 @@
 import CustomLogging from "./CustomLogging";
+import { Attribution } from "./views/Map";
 
 const error = new CustomLogging("error");
 
@@ -71,8 +72,22 @@ export const config = {
 
         /** Either official Mapbox style or custom style from Mapbox Studio. */
         style: {
-            default: "mapbox://styles/onvbjzhghu/ckp9oa8nw216718o43dskmvsg",
-            darkSnow: "mapbox://styles/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr",
+            default: {
+                url: "mapbox://styles/onvbjzhghu/ckp9oa8nw216718o43dskmvsg",
+                attributions: [
+                    Attribution.OpenStreetMap,
+                    Attribution.Mapbox,
+                    Attribution.Maxar,
+                ],
+            },
+            darkSnow: {
+                url: "mapbox://styles/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr",
+                attributions: [Attribution.OpenStreetMap, Attribution.Mapbox],
+            },
+            whiteSnow: {
+                url: "mapbox://styles/onvbjzhghu/ckwuwtmkeeb1p15p2zbawe8u5",
+                attributions: [Attribution.OpenStreetMap, Attribution.Mapbox],
+            },
         },
     },
 
