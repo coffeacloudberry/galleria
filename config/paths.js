@@ -6,4 +6,7 @@ module.exports = {
 
     // Production build files
     build: path.resolve(__dirname, "../public"),
+
+    // Root folder when the project configuration is located
+    root: path.resolve(__dirname, ".."),
 };

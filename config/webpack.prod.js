@@ -11,11 +11,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
 const HumanstxtPlugin = require("./humanstxt-webpack-plugin");
 const SitemapPlugin = require("sitemap-webpack-plugin").default;
+const SentryCliPlugin = require("@sentry/webpack-plugin");
 const { merge } = require("webpack-merge");
 const paths = require("./paths");
 const common = require("./webpack.common.js");
 const languages = require("../src/languages.json");
 const { readdirSync } = require("fs");
+const path = require("path");
 const address = "https://www.explorewilder.com";
 const allStories = readdirSync(`${paths.build}/content/stories/`);
 const allPhotos = readdirSync(`${paths.build}/content/photos/`);
@@ -34,7 +36,7 @@ if (!("MAPBOX_ACCESS_TOKEN" in process.env)) {
 
 module.exports = merge(common, {
     mode: "production",
-    devtool: false,
+    devtool: "source-map",
     output: {
         path: paths.build,
         publicPath: "",
@@ -116,6 +118,14 @@ module.exports = merge(common, {
                     });
                 })
                 .flat(),
+        }),
+
+        // Push source maps to Sentry
+        new SentryCliPlugin({
+            include: path.resolve(paths.build, "js"),
+            ignoreFile: path.resolve(paths.root, ".gitignore"),
+            urlPrefix: "~/js",
+            dryRun: !("SENTRY_AUTH_TOKEN" in process.env),
         }),
     ],
     optimization: {
