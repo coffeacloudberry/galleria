@@ -127,6 +127,8 @@
     "map.control.pause-autopilot": "Pause le pilote automatique",
     "map.control.loading-autopilot": "Acquisition de données... Cliques pour te promener",
     "map.control.rewind-autopilot": "Retour au point de départ",
+    "map.control.faster": "Aller plus vite",
+    "map.control.slower": "Aller plus lentement",
     "story.start": "Date du départ : ",
     "story.duration": "Durée : ",
     "credit": "Crédit : ",

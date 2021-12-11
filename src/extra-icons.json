@@ -1,52 +1,42 @@
 {
     "First Point": {
         "source": "goal-outline",
-        "attributions": ["Freepik", "https://www.freepik.com"]
+        "attributions": ["Freepik", "Flaticon"]
     },
     "Residence": {
         "source": "house-outline",
-        "attributions": [
-            "Good Ware",
-            "https://www.flaticon.com/authors/good-ware"
-        ]
+        "attributions": ["Good Ware", "Flaticon"]
     },
     "camera": {
         "source": "photo-camera-outline",
-        "attributions": [
-            "Good Ware",
-            "https://www.flaticon.com/authors/good-ware"
-        ]
+        "attributions": ["Good Ware", "Flaticon"]
     },
     "Campground": {
         "source": "tent-outline",
-        "attributions": [
-            "Good Ware",
-            "https://www.flaticon.com/authors/good-ware"
-        ]
+        "attributions": ["Good Ware", "Flaticon"]
     },
     "Fishing Hot Spot Facility": {
         "source": "wood-house-outline",
-        "attributions": [
-            "Good Ware",
-            "https://www.flaticon.com/authors/good-ware"
-        ]
+        "attributions": ["Good Ware", "Flaticon"]
     },
     "Last Point": {
         "source": "mission-outline",
-        "attributions": [
-            "Pixel perfect",
-            "https://www.flaticon.com/authors/pixel-perfect"
-        ]
+        "attributions": ["Pixel perfect", "Flaticon"]
     },
     "hiker": {
         "source": "backpacker-outline",
-        "attributions": ["surang", "https://www.flaticon.com/authors/surang"]
+        "attributions": ["surang", "Flaticon"]
     },
     "helicopter": {
         "source": "helicopter",
-        "attributions": [
-            "Pixel perfect",
-            "https://www.flaticon.com/authors/pixel-perfect"
-        ]
+        "attributions": ["Pixel perfect", "Flaticon"]
+    },
+    "snail": {
+        "source": "snail",
+        "attributions": ["macrovector", "Freepik"]
+    },
+    "rabbit": {
+        "source": "rabbit",
+        "attributions": ["macrovector", "Freepik"]
     }
 }

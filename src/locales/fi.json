@@ -127,6 +127,8 @@
     "map.control.pause-autopilot": "Pysäytä autopilotti",
     "map.control.loading-autopilot": "Tietojen hankkiminen... Klikkaa kiertääksesi",
     "map.control.rewind-autopilot": "Takaisin lähtökohtaan",
+    "map.control.faster": "Nopeammin",
+    "map.control.slower": "Hitaammin",
     "story.start": "Aloituspäivä: ",
     "story.duration": "Kesto: ",
     "credit": "Tunnustus: ",

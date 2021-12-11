@@ -3,6 +3,15 @@ import m from "mithril";
 import { t } from "../translate";
 import { ExtraIconsInfo, extraIcons } from "./Map";
 
+const attribUrls: Record<string, string> = {
+    "Good Ware": "https://www.flaticon.com/authors/good-ware",
+    Flaticon: "https://www.flaticon.com/",
+    Freepik: "https://www.freepik.com",
+    "Pixel perfect": "https://www.flaticon.com/authors/pixel-perfect",
+    surang: "https://www.flaticon.com/authors/surang",
+    macrovector: "https://www.freepik.com/macrovector",
+};
+
 const IconDetailComponent: m.Component<ExtraIconsInfo> = {
     view({ attrs }: m.Vnode<ExtraIconsInfo>): m.Vnode {
         return m("tr", [
@@ -16,11 +25,19 @@ const IconDetailComponent: m.Component<ExtraIconsInfo> = {
             m("td", [
                 t("copyright.third-parties.icon.creator"),
                 " ",
-                m("a", { href: attrs.attributions[1] }, attrs.attributions[0]),
+                m(
+                    "a",
+                    { href: attribUrls[attrs.attributions[0]] },
+                    attrs.attributions[0],
+                ),
                 " ",
                 t("copyright.third-parties.icon.distributor"),
                 " ",
-                m("a", { href: "https://www.flaticon.com/" }, "Flaticon"),
+                m(
+                    "a",
+                    { href: attribUrls[attrs.attributions[1]] },
+                    attrs.attributions[1],
+                ),
             ]),
         ]);
     },

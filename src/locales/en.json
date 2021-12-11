@@ -127,6 +127,8 @@
     "map.control.pause-autopilot": "Pause autopilot",
     "map.control.loading-autopilot": "Acquiring data... Click to wander around",
     "map.control.rewind-autopilot": "Back to the starting point",
+    "map.control.faster": "Go faster",
+    "map.control.slower": "Go slower",
     "story.start": "Start Date: ",
     "story.duration": "Duration: ",
     "credit": "Credit: ",

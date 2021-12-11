@@ -43,7 +43,7 @@ section#story
                 button:disabled
                     /* the 'important' is to overwrite the :active */
                     cursor: not-allowed !important
-                button:focus
+                button:active
                     box-shadow: none
                     .mapboxgl-ctrl-icon
                         filter: $filter-button-background
@@ -70,6 +70,10 @@ section#story
                     animation: hourglass 4s ease infinite
                 &.rewind-autopilot
                     background-image: url('../icons/play-back-outline.svg')
+                &.faster
+                    background-image: url('../icons/map/rabbit.svg')
+                &.slower
+                    background-image: url('../icons/map/snail.svg')
             .tooltip-inside-map
                 font-family: 'MyBoldFont', sans-serif
                 font-size: 0.9rem

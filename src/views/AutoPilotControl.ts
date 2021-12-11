@@ -23,8 +23,11 @@ interface AutoPilotControlAttrs {
 class AutoPilotControlComponent
     implements m.ClassComponent<AutoPilotControlAttrs>
 {
-    /** Timestamp when the auto pilot started from the first point. */
-    timestampStart = 0;
+    /** True if paused (terrain acquisition or pause button). */
+    isPause = true;
+
+    /** Timestamp at the previous frame. */
+    previousTimestamp = 0;
 
     /** Timestamp when the auto pilot stopped, 0 if not stopped. */
     timestampPause = 0;
@@ -50,23 +53,33 @@ class AutoPilotControlComponent
     /** Progress between 0 (start) and 1 (end). */
     phase = 0;
 
-    /** Duration of the entire animation in ms. */
-    readonly animationDuration: number;
-
     /** Distance on the ground between the camera position and its target. */
     readonly dPosToTarget: number;
 
     /** The gap of the phase at the start/end. Between 0 and 1. */
     static readonly phaseMargin = 0.04;
 
+    /** Duration in days as floating point or null if not known. */
+    readonly duration: number;
+
+    /**
+     * Duration in ms of the animation for one hiking day.
+     * This auto pilot is designed to go at true speed relative to the hiker's
+     * speed, but there is a difference between true speed and perceptual speed,
+     * impacted by the camera's elevation and pitch. If you're thousands of feet
+     * in the air and staring out at the horizon, you may barely notice how
+     * quickly you're moving. If you're just above the ground and staring
+     * directly downwards, it'll feel like you're moving quickly. However, the
+     * intention of this auto pilot is to be as realistic as possible.
+     */
+    msPerDay = 90000;
+
     constructor({ attrs }: m.CVnode<AutoPilotControlAttrs>) {
         this.map = attrs.map;
         this.cameraRoute = attrs.cameraRoute;
         this.cameraRouteDistance = attrs.cameraRouteDistance;
         this.dPosToTarget = attrs.dPosToTarget;
-        this.animationDuration =
-            (attrs.duration === null ? 1 : attrs.duration) *
-            AutoPilotControl.msPerDay;
+        this.duration = attrs.duration === null ? 1 : attrs.duration;
         this.setupOnVisibilityChange();
     }
 
@@ -112,7 +125,8 @@ class AutoPilotControlComponent
 
     /** This reset the progress of the autopilot along the route. */
     reset(): void {
-        this.timestampStart = 0;
+        this.phase = 0;
+        this.previousTimestamp = 0;
         this.timestampPause = 0;
         this.autoPiloting = false;
     }
@@ -123,15 +137,17 @@ class AutoPilotControlComponent
      * @param {number} timestamp Current timestamp.
      */
     frame(timestamp: number): void {
-        if (this.timestampStart === 0) {
-            this.timestampStart = timestamp;
-        } else if (this.autoPiloting && this.timestampPause > 0) {
-            this.timestampStart += timestamp - this.timestampPause;
-            this.timestampPause = 0;
+        // if not restarting
+        if (this.previousTimestamp > 0) {
+            if (this.isPause) {
+                this.isPause = false;
+            } else {
+                this.phase +=
+                    (timestamp - this.previousTimestamp) /
+                    (this.duration * this.msPerDay);
+            }
         }
-
-        // Determine how far through the animation we are
-        this.phase = (timestamp - this.timestampStart) / this.animationDuration;
+        this.previousTimestamp = timestamp;
 
         // phase is normalized between 0 and 1, stop just before the end
         if (this.phase > 1 - AutoPilotControlComponent.phaseMargin) {
@@ -174,13 +190,13 @@ class AutoPilotControlComponent
             }
             if (elevation === null) {
                 elevation = this.eleFirstPoint; // restart
-                this.pause(timestamp);
+                this.pause();
             } else {
                 this.play();
             }
             if (elevation === null) {
                 error.log("Failed to acquire terrain.");
-                this.timestampPause = timestamp;
+                this.isPause = true;
             } else {
                 const camera = this.map.getFreeCameraOptions();
 
@@ -196,37 +212,35 @@ class AutoPilotControlComponent
                 this.map.setFreeCameraOptions(camera);
             }
         } else {
-            this.pause(timestamp);
+            this.pause();
         }
 
-        this.nextFrameOrPause(timestamp);
+        this.nextFrameOrPause();
     }
 
     /**
      * Call for the next frame or pause the autopilot if disabled.
-     * @param timestamp Timestamp of the current frame.
      */
-    nextFrameOrPause(timestamp: number): void {
+    nextFrameOrPause(): void {
         if (this.autoPiloting) {
             window.requestAnimationFrame((nextTimestamp: number) => {
                 this.frame(nextTimestamp);
             });
         } else {
-            this.timestampPause = timestamp;
+            this.isPause = true;
         }
     }
 
     /**
      * Stop moving until the elevation is known.
-     * @param timestamp Timestamp of the current frame.
      */
-    pause(timestamp: number): void {
+    pause(): void {
         if (!this.isLoading) {
             info.log("Pausing autopilot for terrain acquisition.");
             this.isLoading = true;
             m.redraw();
         }
-        this.timestampPause = timestamp;
+        this.isPause = true;
     }
 
     /**
@@ -282,6 +296,34 @@ class AutoPilotControlComponent
                 },
                 m(`span.mapboxgl-ctrl-icon.${text}-autopilot`),
             ),
+            this.autoPiloting &&
+                !this.isLoading &&
+                m(
+                    "button.mapboxgl-ctrl-my-autopilot",
+                    {
+                        type: "button",
+                        "data-tippy-content": t(`map.control.faster`),
+                        "data-tippy-placement": "left",
+                        onclick: () => {
+                            this.msPerDay /= 2;
+                        },
+                    },
+                    m(`span.mapboxgl-ctrl-icon.faster`),
+                ),
+            this.autoPiloting &&
+                !this.isLoading &&
+                m(
+                    "button.mapboxgl-ctrl-my-autopilot",
+                    {
+                        type: "button",
+                        "data-tippy-content": t(`map.control.slower`),
+                        "data-tippy-placement": "left",
+                        onclick: () => {
+                            this.msPerDay *= 2;
+                        },
+                    },
+                    m(`span.mapboxgl-ctrl-icon.slower`),
+                ),
             // refresh is not dynamic but on click
             this.phase > AutoPilotControlComponent.phaseMargin &&
                 m(
@@ -325,7 +367,7 @@ export default class AutoPilotControl implements mapboxgl.IControl {
     cameraRouteDistance: number;
 
     /** Duration in days as floating point or null if not known. */
-    duration: number | null;
+    readonly duration: number | null;
 
     /** Distance on the ground between the camera position and its target. */
     readonly dPosToTarget: number;
@@ -343,18 +385,6 @@ export default class AutoPilotControl implements mapboxgl.IControl {
      * going downhill, and high when going uphill.
      */
     static readonly cameraAltitude = 1000;
-
-    /**
-     * Duration in ms of the animation for one hiking day.
-     * This auto pilot is designed to go at true speed relative to the hiker's
-     * speed, but there is a difference between true speed and perceptual speed,
-     * impacted by the camera's elevation and pitch. If you're thousands of feet
-     * in the air and staring out at the horizon, you may barely notice how
-     * quickly you're moving. If you're just above the ground and staring
-     * directly downwards, it'll feel like you're moving quickly. However, the
-     * intention of this auto pilot is to be as realistic as possible.
-     */
-    static readonly msPerDay = 90000;
 
     /**
      * Simplify the WebTrack with the Ramer-Douglas-Peucker algorithm,
