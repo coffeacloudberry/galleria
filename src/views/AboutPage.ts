@@ -4,7 +4,6 @@ import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoPaypal from "@/icons/logo-paypal.svg";
 import logoRss from "@/icons/logo-rss.svg";
-import logoTwitter from "@/icons/logo-twitter.svg";
 import sunnyOutline from "@/icons/sunny-outline.svg";
 import m from "mithril";
 
@@ -145,19 +144,6 @@ const SocialNetworks: m.Component = {
                             href: "https://photog.social/@explorewilder.rss",
                         },
                         m(Icon, { src: logoRss }),
-                    ),
-                ),
-                m(
-                    "li",
-                    {
-                        "data-tippy-content": "Twitter",
-                    },
-                    m(
-                        "a.button-icon",
-                        {
-                            href: "https://twitter.com/ExploreWilder",
-                        },
-                        m(Icon, { src: logoTwitter }),
                     ),
                 ),
                 m(

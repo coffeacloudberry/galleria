@@ -95,8 +95,7 @@ module.exports = merge(common, {
             team: [
                 {
                     type: "Name",
-                    name: "Clément Fontaine",
-                    twitter: "ExploreWilder",
+                    name: "Clement",
                 },
             ],
             languages: languages.map((key) => {
