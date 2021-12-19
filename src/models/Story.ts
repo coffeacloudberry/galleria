@@ -52,6 +52,12 @@ interface GpsConfig {
      * * IRNSS (66sr)
      */
     multiGNSSEnabled: boolean;
+
+    /**
+     * Use Wide Area Augmentation System/European Geostationary Navigation
+     * Overlay Service (WAAS/EGNOS) data.
+     */
+    waasEgnosEnabled: boolean;
 }
 
 /** Default GPS configuration when no details are provided in the JSON file. */
@@ -59,6 +65,7 @@ const defaultGpsConfig = {
     model: "Garmin 64sc",
     multiBandEnabled: false,
     multiGNSSEnabled: true,
+    waasEgnosEnabled: false,
 };
 
 /** Structure of the JSON file. */

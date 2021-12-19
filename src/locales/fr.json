@@ -118,6 +118,8 @@
     "multi-band": "multi-bande",
     "single-gnss": "GPS seul",
     "multi-gnss": "multi-GNSS",
+    "waas-egnos-enabled": "WAAS/EGNOS activé",
+    "waas-egnos-disabled": "WAAS/EGNOS désactivé",
     "topo-maps": "cartes topographiques",
     "map.stats.chart.ele.label": "{{elevation}} (m)",
     "map.stats.chart.ele.tooltip": "{{elevation}} :",

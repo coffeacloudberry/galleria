@@ -187,6 +187,10 @@ const StatsComponent: m.Component<StatsComponentAttrs> = {
                             story.gpsConfig.multiGNSSEnabled
                                 ? t("multi-gnss")
                                 : t("single-gnss")
+                        }, ${
+                            story.gpsConfig.waasEgnosEnabled
+                                ? t("waas-egnos-enabled")
+                                : t("waas-egnos-disabled")
                         }) + ${t("topo-maps")}`,
                     ),
                 hasEle &&

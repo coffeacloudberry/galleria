@@ -118,6 +118,8 @@
     "multi-band": "monikaistainen",
     "single-gnss": "Vain GPS",
     "multi-gnss": "moni GNSS",
+    "waas-egnos-enabled": "WAAS/EGNOS:n kanssa",
+    "waas-egnos-disabled": "ilman WAAS/EGNOS",
     "topo-maps": "topokartat",
     "map.stats.chart.ele.label": "{{elevation}} (m)",
     "map.stats.chart.ele.tooltip": "{{elevation}}:",
