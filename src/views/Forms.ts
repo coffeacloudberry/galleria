@@ -203,7 +203,7 @@ class BaseForm {
      */
     static isEmail(emailAddress: string): boolean {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-        return !!emailAddress && !!emailAddress.match(emailFormat);
+        return !!emailAddress && emailFormat.test(emailAddress);
     }
 
     /**

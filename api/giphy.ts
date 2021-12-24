@@ -10,8 +10,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     switch (request.method) {
         case "POST": {
             const { giphyId } = request.body;
-            const re = /^[a-z0-9]+$/i;
-            if (giphyId.length > 32 || !re.exec(giphyId)) {
+            if (giphyId.length > 32 || !/^[a-z0-9]+$/i.test(giphyId)) {
                 // Bad Request
                 response.status(400).json(undefined);
                 return;

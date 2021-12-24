@@ -17,13 +17,13 @@ export function clearSelection(): void {
  * NOTE: Due to user agent spoofing, the result SHALL NOT be trusted.
  */
 export function isMobile(): boolean {
-    return !!(
-        navigator.userAgent.match(/Android/i) ||
-        navigator.userAgent.match(/webOS/i) ||
-        navigator.userAgent.match(/iPhone/i) ||
-        navigator.userAgent.match(/iPad/i) ||
-        navigator.userAgent.match(/iPod/i) ||
-        navigator.userAgent.match(/BlackBerry/i)
+    return (
+        /Android/i.test(navigator.userAgent) ||
+        /webOS/i.test(navigator.userAgent) ||
+        /iPhone/i.test(navigator.userAgent) ||
+        /iPad/i.test(navigator.userAgent) ||
+        /iPod/i.test(navigator.userAgent) ||
+        /BlackBerry/i.test(navigator.userAgent)
     );
 }
 

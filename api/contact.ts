@@ -236,8 +236,9 @@ export async function checkCaptcha(solution: string): Promise<boolean> {
 
 /** Email validation. */
 export function isEmail(emailAddress: string): boolean {
-    const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    return !!emailAddress.match(emailFormat);
+    return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
+        emailAddress,
+    );
 }
 
 export default async (request: VercelRequest, response: VercelResponse) => {
