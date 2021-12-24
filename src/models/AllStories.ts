@@ -26,7 +26,10 @@ class AllStories {
      * @param firstEl One story.
      * @param secondEl An other story.
      */
-    sortTwoStories(firstEl: OneJsonStory, secondEl: OneJsonStory): number {
+    static sortTwoStories(
+        firstEl: OneJsonStory,
+        secondEl: OneJsonStory,
+    ): number {
         if (firstEl.metadata.start === undefined) {
             return secondEl.metadata.start === undefined ? 0 : 1;
         }
@@ -48,7 +51,7 @@ class AllStories {
             method: "GET",
             url: "/all_stories.json",
         }).then((result) => {
-            result.sort(this.sortTwoStories);
+            result.sort(AllStories.sortTwoStories);
             for (const oneEntry of result) {
                 this.fullList.push({
                     ...oneEntry,
