@@ -36,7 +36,10 @@ export function setInteractions(map: mapboxgl.Map, enable: boolean): void {
         canvasContainer.classList.remove("mapboxgl-interactive");
     }
     if (
-        globalMapState.controls.hasOwnProperty("navigation") &&
+        Object.prototype.hasOwnProperty.call(
+            globalMapState.controls,
+            "navigation",
+        ) &&
         map.hasControl(globalMapState.controls.navigation)
     ) {
         // @ts-ignore

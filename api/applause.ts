@@ -35,7 +35,12 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
         await doRequest(options, data).then((responseBody: unknown) => {
             const remoteResponse = responseBody as Record<string, string>;
-            if (remoteResponse.hasOwnProperty("statusCode")) {
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    remoteResponse,
+                    "statusCode",
+                )
+            ) {
                 const statusCode = parseInt(remoteResponse["statusCode"]);
                 if (statusCode >= 400) {
                     // Bad Gateway

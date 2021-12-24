@@ -39,7 +39,9 @@ const t: Translatable = (key, subKey, params) => {
 
 t.getLang = (): string => {
     const inputLang = m.parsePathname(m.route.get()).path.split("/")[1];
-    return translations.hasOwnProperty(inputLang) ? inputLang : "en";
+    return Object.prototype.hasOwnProperty.call(translations, inputLang)
+        ? inputLang
+        : "en";
 };
 
 t.init = (lang) => {

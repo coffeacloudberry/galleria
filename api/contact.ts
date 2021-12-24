@@ -247,7 +247,12 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     }
     if (request.method === "POST") {
         const { action, email, message } = request.body;
-        if (!request.body.hasOwnProperty("frc-captcha-solution")) {
+        if (
+            !Object.prototype.hasOwnProperty.call(
+                request.body,
+                "frc-captcha-solution",
+            )
+        ) {
             response.status(418).json("Missing CAPTCHA solution.");
             return;
         }
