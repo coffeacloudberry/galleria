@@ -42,7 +42,7 @@ export const config = {
              * Cross-check SRI from other sources:
              * https://www.jsdelivr.com/package/npm/chart.js?path=dist
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js",
 
             /**
              * Subresource Integrity.
@@ -50,7 +50,7 @@ export const config = {
              * `openssl dgst -sha512 -binary FILENAME.js | openssl base64 -A`
              * More details: https://www.srihash.org/
              */
-            sri: "sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==",
+            sri: "sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==",
         },
     },
 
@@ -62,12 +62,12 @@ export const config = {
     mapbox: {
         /** Mapbox GL JS from the CDN. */
         css: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css",
+            src: "https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css",
             sri: "sha512-5fX4Hy2/CjCjezt8kPbPtdjCmJZVVqD5t2ibWR4Z7CUVrhYHs1Dnni8yVXks9ZzIMcyPRo1c6wBfkeo5GhblFw==",
         },
         js: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js",
-            sri: "sha512-v9GM0e0puQ80W6hEyekiWFfUJQwq1MwAke9vPBrIpRQHXPuGEKdV6nxUTbOe3Z8Fhs74Uee5RSeWw3Fe2/C6Tg==",
+            src: "https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js",
+            sri: "sha512-tDQO9aI6VVbd2ZlHpKzQonF99PzAfL7UOu97y3s+DLQPXS0oE35AFmmy4NU26g576EIHobNpRWn0p85+n5659Q==",
         },
 
         /** Either official Mapbox style or custom style from Mapbox Studio. */
