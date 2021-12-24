@@ -3,6 +3,7 @@ import happyOutline from "@/icons/happy-outline.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoPaypal from "@/icons/logo-paypal.svg";
+import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoRss from "@/icons/logo-rss.svg";
 import sunnyOutline from "@/icons/sunny-outline.svg";
 import m from "mithril";
@@ -157,6 +158,19 @@ const SocialNetworks: m.Component = {
                             href: "https://github.com/coffeacloudberry/galleria",
                         },
                         m(Icon, { src: logoGitHub }),
+                    ),
+                ),
+                m(
+                    "li",
+                    {
+                        "data-tippy-content": "Pixelfed",
+                    },
+                    m(
+                        "a.button-icon",
+                        {
+                            href: "https://pixelfed.social/ExploreWilder",
+                        },
+                        m(Icon, { src: logoPixelfed }),
                     ),
                 ),
             ]),
