@@ -10,7 +10,7 @@ import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
-import { story } from "../models/Story";
+import { GpsConfig, story } from "../models/Story";
 import { t } from "../translate";
 import { injectCode, isMobile, numberWithCommas } from "../utils";
 import type { WebTrackGeoJsonFeature } from "../webtrack";
@@ -102,6 +102,39 @@ function withXYOrNull(el: unknown): { x: number; y: number } | null {
     return null;
 }
 
+interface ListPositioningComponentAttrs {
+    configs: GpsConfig[];
+}
+
+const ListPositioningComponent: m.Component<ListPositioningComponentAttrs> = {
+    view({ attrs }: m.Vnode<ListPositioningComponentAttrs>): m.Vnode {
+        return m("ul", [
+            ...attrs.configs.map((oneConfig) =>
+                m(
+                    "li",
+                    m(
+                        "small",
+                        `${oneConfig.model} (${
+                            oneConfig.multiBandEnabled
+                                ? t("multi-band")
+                                : t("single-band")
+                        }, ${
+                            oneConfig.multiGNSSEnabled
+                                ? t("multi-gnss")
+                                : t("single-gnss")
+                        }, ${
+                            oneConfig.waasEgnosEnabled
+                                ? t("waas-egnos-enabled")
+                                : t("waas-egnos-disabled")
+                        })`,
+                    ),
+                ),
+            ),
+            m("li", m("small", t("topo-maps"))),
+        ]);
+    },
+};
+
 interface StatsComponentAttrs {
     webtrack: WebTrack | undefined;
 }
@@ -174,25 +207,13 @@ const StatsComponent: m.Component<StatsComponentAttrs> = {
             ]),
             m("p", m("strong", t("map.stats.source"))),
             m("ul.blabla", [
-                story.gpsConfig &&
-                    m(
-                        "li",
-                        `${t("map.stats.source.pos")} ${
-                            story.gpsConfig.model
-                        } (${
-                            story.gpsConfig.multiBandEnabled
-                                ? t("multi-band")
-                                : t("single-band")
-                        }, ${
-                            story.gpsConfig.multiGNSSEnabled
-                                ? t("multi-gnss")
-                                : t("single-gnss")
-                        }, ${
-                            story.gpsConfig.waasEgnosEnabled
-                                ? t("waas-egnos-enabled")
-                                : t("waas-egnos-disabled")
-                        }) + ${t("topo-maps")}`,
-                    ),
+                story.gpsConfig instanceof Array &&
+                    m("li", [
+                        t("map.stats.source.pos"),
+                        m(ListPositioningComponent, {
+                            configs: story.gpsConfig,
+                        }),
+                    ]),
                 hasEle &&
                     m("li", [
                         t("map.stats.chart.ele.tooltip"),

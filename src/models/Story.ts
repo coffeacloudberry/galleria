@@ -32,7 +32,7 @@ enum MapTheme {
 type MapThemeStrings = keyof typeof MapTheme;
 
 /** GPS model and configuration */
-interface GpsConfig {
+export interface GpsConfig {
     /**
      * Example: 'Garmin 64sc' or 'Garmin 66sr'
      */
@@ -61,12 +61,14 @@ interface GpsConfig {
 }
 
 /** Default GPS configuration when no details are provided in the JSON file. */
-const defaultGpsConfig = {
-    model: "Garmin 64sc",
-    multiBandEnabled: false,
-    multiGNSSEnabled: true,
-    waasEgnosEnabled: false,
-};
+const defaultGpsConfig = [
+    {
+        model: "Garmin 64sc",
+        multiBandEnabled: false,
+        multiGNSSEnabled: true,
+        waasEgnosEnabled: false,
+    },
+];
 
 /** Structure of the JSON file. */
 export interface StoryInfo {
@@ -96,7 +98,7 @@ export interface StoryInfo {
      * GPX file, therefore not included in the WebTrack metadata.
      * This config is skipped if hasGeodata is false.
      */
-    gpsConfig?: GpsConfig;
+    gpsConfig?: GpsConfig[];
 }
 
 /** Based on the Markdown file. */
@@ -180,7 +182,7 @@ class Story {
     mostRecentPhoto: string | null = null;
 
     /** GPS model and configuration, based on the JSON file or default conf. */
-    gpsConfig: GpsConfig | null = null;
+    gpsConfig: GpsConfig[] | null = null;
 
     /** Folder name of the story. */
     folderName: string | null = null;
