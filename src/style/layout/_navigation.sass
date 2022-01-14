@@ -8,7 +8,7 @@ footer
         background-color: $nav-bg-color
         z-index: 10
         width: 100%
-        height: calc(#{$nav-bar-height} + 1px)
+        height: $nav-bar-height
         display: flex
         flex-direction: row
         justify-content: space-between
@@ -46,7 +46,7 @@ footer
                         width: calc(100vw - 2 * (#{$nav-bar-height} + 4px))
                 @media (orientation: portrait)
                     .photo-title
-                        top: calc(#{$nav-bar-height} + 1px)
+                        top: $nav-bar-height
                         left: 0
                         width: 100vw
             .flex-sides
@@ -124,7 +124,6 @@ footer
                     border: 1px solid #fff
 
 header nav
-    border-bottom: 1px solid $strong-border-color
     top: 0
     &.nav-photo
         @media (max-width: 1024px) and (orientation: landscape)
@@ -132,7 +131,6 @@ header nav
             border-right: 1px solid $strong-border-color
 
 footer nav
-    border-top: 1px solid $strong-border-color
     bottom: 0
     &.nav-photo
         @media (max-width: 1024px) and (orientation: landscape)
