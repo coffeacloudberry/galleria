@@ -81,6 +81,9 @@ class AutoPilotControlComponent
         this.dPosToTarget = attrs.dPosToTarget;
         this.duration = attrs.duration === null ? 1 : attrs.duration;
         this.setupOnVisibilityChange();
+
+        // reconfigure interactions on startup
+        setInteractions(this.map, !this.autoPiloting);
     }
 
     /**

@@ -56,6 +56,7 @@ export interface GpsConfig {
     /**
      * Use Wide Area Augmentation System/European Geostationary Navigation
      * Overlay Service (WAAS/EGNOS) data.
+     * WAAS/EGNOS is not available on the multi-band Garmin GPSMAP 66sr.
      */
     waasEgnosEnabled: boolean;
 }

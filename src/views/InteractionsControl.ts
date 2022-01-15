@@ -17,7 +17,6 @@ export function setInteractions(map: mapboxgl.Map, enable: boolean): void {
         .querySelector(".mapboxgl-canvas-container") as Element;
 
     if (enable) {
-        // @ts-ignore
         map.dragPan.enable({
             // to avoid flying far away with a sensitive mouse
             deceleration: 0,
