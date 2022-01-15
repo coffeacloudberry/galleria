@@ -23,13 +23,13 @@ enum Season {
 
 export type SeasonStrings = keyof typeof Season;
 
-enum MapTheme {
+export enum MapTheme {
     default,
     darkSnow,
     whiteSnow,
 }
 
-type MapThemeStrings = keyof typeof MapTheme;
+export type MapThemeStrings = keyof typeof MapTheme;
 
 /** GPS model and configuration */
 export interface GpsConfig {

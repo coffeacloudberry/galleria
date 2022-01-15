@@ -10,13 +10,14 @@ import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
-import { GpsConfig, story } from "../models/Story";
+import { GpsConfig, MapTheme, story } from "../models/Story";
 import { t } from "../translate";
 import { injectCode, isMobile, numberWithCommas } from "../utils";
 import type { WebTrackGeoJsonFeature } from "../webtrack";
 import WebTrack from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
 import Icon from "./Icon";
+import LayerSelectionControl from "./LayerSelectionControl";
 import Controls, { ControlsType } from "./StandardControls";
 
 declare const turf: typeof import("@turf/turf");
@@ -73,6 +74,9 @@ export const extraIcons: ExtraIconsStruct = require("../extra-icons");
 export interface GlobalMapState {
     /** All controls in the map. */
     controls: ControlsType;
+
+    /** Map layer. */
+    theme: MapTheme;
 }
 
 /**
@@ -80,6 +84,7 @@ export interface GlobalMapState {
  */
 export const globalMapState: GlobalMapState = {
     controls: {},
+    theme: MapTheme.default,
 };
 
 /**
@@ -259,6 +264,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     /** Mapbox GL JS map. */
     map: mapboxgl.Map | undefined;
 
+    /** True if the style has never been loaded. */
+    firstLoad = true;
+
     /** Story ID as specified in the path. */
     storyId: string | undefined;
 
@@ -286,6 +294,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     constructor() {
         this.currentLang = t.getLang();
         globalMapState.controls = {};
+        globalMapState.theme = MapTheme[story.mapTheme];
     }
 
     /** Display a tooltip when the mouse hovers a marker. */
@@ -522,9 +531,18 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 (async () => {
                     const turf = await import("@turf/turf");
                     if (this.map !== undefined) {
-                        globalMapState.controls.autoPilot =
-                            new AutoPilotControl(data, story.duration);
-                        this.map.addControl(globalMapState.controls.autoPilot);
+                        if (
+                            !Object.prototype.hasOwnProperty.call(
+                                globalMapState.controls,
+                                "autoPilot",
+                            )
+                        ) {
+                            globalMapState.controls.autoPilot =
+                                new AutoPilotControl(data, story.duration);
+                            this.map.addControl(
+                                globalMapState.controls.autoPilot,
+                            );
+                        }
 
                         if (this.hasElevation) {
                             this.map.on(
@@ -898,6 +916,13 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     this.map.on("load", () => {
                         this.loadMap();
                     });
+                    this.firstLoad = true;
+                    this.map.on("style.load", () => {
+                        if (!this.firstLoad) {
+                            this.loadMap();
+                        }
+                        this.firstLoad = false;
+                    });
                 })();
             })
             .catch((err) => {
@@ -929,6 +954,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         // language switch is handled by re-instancing
         // the non-Mithril control instances
         Object.assign(globalMapState.controls, Controls());
+        globalMapState.controls.layer = new LayerSelectionControl();
 
         for (const control in globalMapState.controls) {
             this.map.addControl(globalMapState.controls[control]);

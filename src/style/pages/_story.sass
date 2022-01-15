@@ -57,7 +57,8 @@ section#story
             .mapboxgl-ctrl-scale
                 font-family: 'MyBodyFont', sans-serif
                 font-size: 0.8rem
-            .mapboxgl-ctrl button.mapboxgl-ctrl-my-autopilot .mapboxgl-ctrl-icon
+            .mapboxgl-ctrl button.mapboxgl-ctrl-my-autopilot .mapboxgl-ctrl-icon,
+            .mapboxgl-ctrl button.mapboxgl-ctrl-my-layer .mapboxgl-ctrl-icon
                 width: 80% !important
                 height: 80% !important
                 margin: auto
@@ -74,6 +75,8 @@ section#story
                     background-image: url('../icons/map/rabbit.svg')
                 &.slower
                     background-image: url('../icons/map/snail.svg')
+                &.select-layer
+                    background-image: url('../icons/layers.svg')
             .tooltip-inside-map
                 font-family: 'MyBoldFont', sans-serif
                 font-size: 0.9rem

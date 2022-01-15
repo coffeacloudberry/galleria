@@ -120,7 +120,7 @@
     "multi-gnss": "multi-GNSS",
     "waas-egnos-enabled": "WAAS/EGNOS enabled",
     "waas-egnos-disabled": "WAAS/EGNOS disabled",
-    "topo-maps": "topo maps",
+    "topo-maps": "Topo maps",
     "map.stats.chart.ele.label": "{{elevation}} (m)",
     "map.stats.chart.ele.tooltip": "{{elevation}}:",
     "map.stats.chart.dist.label": "{{distance}} (km)",
@@ -131,6 +131,12 @@
     "map.control.rewind-autopilot": "Back to the starting point",
     "map.control.faster": "Go faster",
     "map.control.slower": "Go slower",
+    "map.control.select-layer": "Change the map theme to: ",
+    "map.theme": {
+        "default": "Sunny Summer",
+        "whiteSnow": "Sunny Tundra",
+        "darkSnow": "Dark Tundra"
+    },
     "story.start": "Start Date: ",
     "story.duration": "Duration: ",
     "credit": "Credit: ",

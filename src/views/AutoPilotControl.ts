@@ -347,7 +347,7 @@ class AutoPilotControlComponent
 }
 
 /**
- * This is the custom Mapbox GL JS widget. The camera route is created in
+ * This is a custom Mapbox GL JS widget. The camera route is created in
  * the constructor, but the component and animation is handled in
  * AutoPilotControlComponent.
  * An other kind of auto pilot:

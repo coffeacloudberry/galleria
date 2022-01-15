@@ -120,7 +120,7 @@
     "multi-gnss": "multi-GNSS",
     "waas-egnos-enabled": "WAAS/EGNOS activé",
     "waas-egnos-disabled": "WAAS/EGNOS désactivé",
-    "topo-maps": "cartes topographiques",
+    "topo-maps": "Cartes topographiques",
     "map.stats.chart.ele.label": "{{elevation}} (m)",
     "map.stats.chart.ele.tooltip": "{{elevation}} :",
     "map.stats.chart.dist.label": "{{distance}} (km)",
@@ -131,6 +131,12 @@
     "map.control.rewind-autopilot": "Retour au point de départ",
     "map.control.faster": "Aller plus vite",
     "map.control.slower": "Aller plus lentement",
+    "map.control.select-layer": "Changer le thème de la carte en : ",
+    "map.theme": {
+        "default": "Été ensoleillé",
+        "whiteSnow": "Toundra ensoleillée",
+        "darkSnow": "Toundra nocturne"
+    },
     "story.start": "Date du départ : ",
     "story.duration": "Durée : ",
     "credit": "Crédit : ",

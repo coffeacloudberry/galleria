@@ -1,4 +1,5 @@
 import CustomLogging from "./CustomLogging";
+import { MapThemeStrings } from "./models/Story";
 import { Attribution } from "./views/Map";
 
 const error = new CustomLogging("error");
@@ -88,7 +89,10 @@ export const config = {
                 url: "mapbox://styles/onvbjzhghu/ckwuwtmkeeb1p15p2zbawe8u5",
                 attributions: [Attribution.OpenStreetMap, Attribution.Mapbox],
             },
-        },
+        } as Record<
+            MapThemeStrings,
+            { url: string; attributions: Attribution[] }
+        >,
     },
 
     /**

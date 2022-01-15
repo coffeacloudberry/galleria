@@ -120,7 +120,7 @@
     "multi-gnss": "moni GNSS",
     "waas-egnos-enabled": "WAAS/EGNOS:n kanssa",
     "waas-egnos-disabled": "ilman WAAS/EGNOS",
-    "topo-maps": "topokartat",
+    "topo-maps": "Maastokartta",
     "map.stats.chart.ele.label": "{{elevation}} (m)",
     "map.stats.chart.ele.tooltip": "{{elevation}}:",
     "map.stats.chart.dist.tooltip": "{{distance}}:",
@@ -131,6 +131,12 @@
     "map.control.rewind-autopilot": "Takaisin lähtökohtaan",
     "map.control.faster": "Nopeammin",
     "map.control.slower": "Hitaammin",
+    "map.control.select-layer": "Vaihda kartan teemaksi: ",
+    "map.theme": {
+        "default": "Aurinkoinen kesä",
+        "whiteSnow": "Aurinkoinen tundra",
+        "darkSnow": "Tumma tundra"
+    },
     "story.start": "Aloituspäivä: ",
     "story.duration": "Kesto: ",
     "credit": "Tunnustus: ",
