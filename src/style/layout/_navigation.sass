@@ -15,6 +15,7 @@ footer
         .flex-sides
             flex: 1 1 0
             width: 0
+            min-width: max-content
         &.nav-photo
             .photo-title
                 display: inline-block
@@ -52,6 +53,7 @@ footer
             .flex-sides
                 @media (max-width: 1024px) and (orientation: landscape)
                     flex: inherit
+                    min-width: inherit
         .flex-right
             text-align: right
         .long-item
@@ -90,6 +92,10 @@ footer
                 border-radius: 0 $border-radius-lg 0 $border-radius-lg
                 &:focus
                     outline: 1px solid $nav-hover-bg-color
+        .limit-width, .limit-width .nav-item
+            @media (max-width: 1110px)
+                /* reduce size to fit long titles into one line */
+                font-size: calc(#{$nav-font-size} / 1.25)
         a
             text-decoration: none
             color: $body-color !important
@@ -125,15 +131,9 @@ footer
 
 header nav
     top: 0
-    &.nav-photo
-        @media (max-width: 1024px) and (orientation: landscape)
-            border-bottom: 0
-            border-right: 1px solid $strong-border-color
 
 footer nav
     bottom: 0
     &.nav-photo
         @media (max-width: 1024px) and (orientation: landscape)
-            border-top: 0
-            border-left: 1px solid $strong-border-color
             right: 0

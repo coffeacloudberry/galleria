@@ -166,7 +166,7 @@ const AboutButton: m.Component = {
                     m("span.logo"),
                     m("span.ml-3", t("about")),
                 ]),
-                m("span.short-item", m("span.logo")),
+                m("span.short-item.logo", m("span")),
             ],
         );
     },
@@ -238,7 +238,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
 
         switch (attrs.refPage) {
             case "story":
-                centeredNav = m("span", [
+                centeredNav = m("span.limit-width", [
                     story.gotContent &&
                         m("span", m("em.mr-3.long-item", story.title)),
                     m(OpenPhoto, {
@@ -252,7 +252,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                     // @ts-ignore
                     photoTitle = photo.meta.title[t.getLang()];
                 } catch {}
-                centeredNav = m("span", [
+                centeredNav = m("span.limit-width", [
                     photoTitle &&
                         m("span.photo-title", [
                             m("em", photoTitle),
