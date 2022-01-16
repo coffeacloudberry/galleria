@@ -165,6 +165,7 @@ class BaseForm {
             })
             .catch((error) => {
                 this.processing = false;
+                const fmt_error = Error(`${error.code}: ${error.response}`);
                 switch (error.code) {
                     case 429:
                         this.tooManyRequests = true;
@@ -176,17 +177,17 @@ class BaseForm {
                     case 418:
                         this.success = false;
                         this.isBot = true;
-                        throw error;
+                        throw fmt_error;
                     default:
                         this.success = false;
-                        throw error;
+                        throw fmt_error;
                 }
             });
     }
 
     /**
      * Promise returned after some time.
-     * A redraw is made to refresh the UI.
+     * A 'redraw' is made to refresh the UI.
      */
     static handleTooManyRequests(): Promise<void> {
         return new Promise((resolve) => {
@@ -328,7 +329,7 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                             icon: paperPlaneOutline,
                             okText: "send",
                         }),
-                        this.invalidEmailAddress
+                        this.invalidEmailAddress && !this.invalidMessage
                             ? m("span.ml-3.critical-error", t("invalid-email"))
                             : "",
                         this.invalidMessage
