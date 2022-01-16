@@ -14,7 +14,11 @@ interface Translatable {
     prependLang(path: string): string;
     replaceLang(lang: string, originHref?: string): string;
     createTippies(): void;
-    (key: string, subKey?: string | number, params?: object): string;
+    (
+        key: string,
+        subKey?: string | number,
+        params?: Record<string, unknown>,
+    ): string;
 }
 
 const translations: Record<string, Messages> = {
@@ -24,7 +28,7 @@ const translations: Record<string, Messages> = {
 };
 
 const options: Options = {
-    debug: true,
+    debug: true, // to detect missing translations when e2e testing
     resolveAliases: true,
 };
 
