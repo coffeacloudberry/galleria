@@ -28,8 +28,8 @@ class HumanstxtPlugin {
                     this.options.team.forEach((teamMember) => {
                         s += `\t${teamMember.type}: ${teamMember.name}\n`;
 
-                        if (teamMember["twitter"] !== undefined) {
-                            s += `\tTwitter: @${teamMember["twitter"]}\n`;
+                        if (teamMember.twitter !== undefined) {
+                            s += `\tTwitter: @${teamMember.twitter}\n`;
                         }
                         s += "\n";
                     });
@@ -41,8 +41,8 @@ class HumanstxtPlugin {
                         .split("-")
                         .join("/");
                     s += `\tLast update: ${date}\n`;
-                    if (this.options["languages"] !== undefined) {
-                        s += `\tLanguage: ${this.options["languages"].join(
+                    if (this.options.languages !== undefined) {
+                        s += `\tLanguage: ${this.options.languages.join(
                             " / ",
                         )}\n`;
                     }

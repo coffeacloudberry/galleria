@@ -7,9 +7,9 @@ import { anonymizeClient, doRequest, isSameSite } from "../src/utils_api";
  * Forward the like to the Azure API Manager. The APIM credentials are sent in
  * the request alongside the client's IP address in anonymous form.
  * NOTICE: The Privacy Badger plugin blacklist the endpoint, that is why
- * forwarding the request is necessary. That also helps complying the Privacy
- * and DNT Policies since the end user's IP address is unknown from the Azure
- * API Manager.
+ * forwarding the request is necessary. That also helps to comply with the
+ * Privacy and DNT Policies since the end user's IP address is unknown from the
+ * Azure API Manager.
  */
 export default async (request: VercelRequest, response: VercelResponse) => {
     if (!isSameSite(request)) {
