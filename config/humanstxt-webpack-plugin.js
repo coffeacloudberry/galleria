@@ -28,7 +28,7 @@ class HumanstxtPlugin {
                     this.options.team.forEach((teamMember) => {
                         s += `\t${teamMember.type}: ${teamMember.name}\n`;
 
-                        if (teamMember.twitter !== undefined) {
+                        if (teamMember.twitter) {
                             s += `\tTwitter: @${teamMember.twitter}\n`;
                         }
                         s += "\n";
@@ -41,7 +41,7 @@ class HumanstxtPlugin {
                         .split("-")
                         .join("/");
                     s += `\tLast update: ${date}\n`;
-                    if (this.options.languages !== undefined) {
+                    if (this.options.languages) {
                         s += `\tLanguage: ${this.options.languages.join(
                             " / ",
                         )}\n`;
