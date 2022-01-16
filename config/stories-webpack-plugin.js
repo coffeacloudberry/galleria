@@ -3,7 +3,7 @@ const { readdirSync, readFileSync } = require("fs");
 
 class StoriesPlugin {
     static listStories() {
-        let combinedStories = [];
+        const combinedStories = [];
         try {
             const allStories = readdirSync(`${paths.build}/content/stories/`);
             for (const dirStory of allStories) {
@@ -34,7 +34,7 @@ class StoriesPlugin {
         compiler.hooks.compilation.tap(plugin, (compilation) => {
             compilation.hooks.additionalAssets.tapPromise(plugin, () => {
                 return new Promise((resolve) => {
-                    let s = JSON.stringify(StoriesPlugin.listStories());
+                    const s = JSON.stringify(StoriesPlugin.listStories());
 
                     const source = {
                         source() {
