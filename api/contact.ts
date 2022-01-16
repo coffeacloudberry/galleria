@@ -207,7 +207,7 @@ interface FriendlyCapthaResponse {
  */
 export async function checkCaptcha(solution: string): Promise<boolean> {
     const data = JSON.stringify({
-        solution: solution,
+        solution,
         secret: process.env.FRIENDLY_CAPTCHA_SECRET_KEY,
         sitekey: process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY,
     });

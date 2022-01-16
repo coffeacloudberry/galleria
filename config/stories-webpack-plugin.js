@@ -37,10 +37,10 @@ class StoriesPlugin {
                     let s = JSON.stringify(this.listStories());
 
                     const source = {
-                        source: function () {
+                        source() {
                             return s;
                         },
-                        size: function () {
+                        size() {
                             return s.length;
                         },
                     };

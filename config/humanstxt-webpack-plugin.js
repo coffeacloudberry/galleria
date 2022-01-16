@@ -48,10 +48,10 @@ class HumanstxtPlugin {
                     }
 
                     const source = {
-                        source: function () {
+                        source() {
                             return s;
                         },
-                        size: function () {
+                        size() {
                             return s.length;
                         },
                     };

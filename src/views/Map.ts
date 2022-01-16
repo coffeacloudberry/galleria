@@ -390,7 +390,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         const [lon, lat] = nearestPoint.geometry.coordinates;
         const index = nearestPoint.properties.index;
         this.moveHiker(lon, lat);
-        chart.tooltip.setActiveElements([{ datasetIndex: 0, index: index }], {
+        chart.tooltip.setActiveElements([{ datasetIndex: 0, index }], {
             x: 0, // unused
             y: 0, // unused
         });
@@ -598,7 +598,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
         this.map.addSource("webtrack", {
             type: "geojson",
-            data: data,
+            data,
             tolerance: 0, // simplification is done at the source (simplified dataset)
         });
 
@@ -736,7 +736,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             data: {
                 datasets: [
                     {
-                        data: data,
+                        data,
 
                         // smooth (kind of antialiasing)
                         tension: 0.1,

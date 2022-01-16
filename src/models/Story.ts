@@ -229,7 +229,7 @@ class Story {
                 method: "GET",
                 url: "/content/stories/:folderName/:lang.md",
                 params: {
-                    folderName: folderName,
+                    folderName,
                     lang: t.getLang(),
                 },
                 headers: {
@@ -313,7 +313,7 @@ class Story {
             method: "GET",
             url: "/content/stories/:folderName/i.json",
             params: {
-                folderName: folderName,
+                folderName,
             },
         })
             .then((result) => {

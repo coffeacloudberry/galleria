@@ -358,7 +358,7 @@ export default class WebTrack {
             bytes = new Uint8Array(arr);
             const name = dec.decode(bytes);
 
-            this.waypoints[i] = { ...wpt, sym: sym, name: name };
+            this.waypoints[i] = { ...wpt, sym, name };
         }
     }
 
@@ -466,7 +466,7 @@ export default class WebTrack {
             const length = this._rUint32();
             if (this.someTracksWithEle()) {
                 this.trackInfo = {
-                    length: length,
+                    length,
                     min: this._rInt16(),
                     max: this._rInt16(),
                     gain: this._rUint32(),
@@ -474,7 +474,7 @@ export default class WebTrack {
                 };
             } else {
                 this.trackInfo = {
-                    length: length,
+                    length,
                 };
             }
         } else {

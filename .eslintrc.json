@@ -20,7 +20,8 @@
         ],
         "no-nested-ternary": "error",
         "no-unneeded-ternary": "error",
-        "no-throw-literal": "error"
+        "no-throw-literal": "error",
+        "object-shorthand": "error"
     },
     "parserOptions": {
         "project": "tsconfig.json",

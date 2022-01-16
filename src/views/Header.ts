@@ -77,7 +77,7 @@ class LanguageSelectionComponent
                     "li",
                     language.slug === t.getLang()
                         ? m(".lang-item", language.name)
-                        : m(this.LanguageLink, { language: language }),
+                        : m(this.LanguageLink, { language }),
                 ),
             ),
         );

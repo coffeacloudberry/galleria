@@ -20,10 +20,10 @@ interface RoutedResolvers {
 
 function routeResolver(Component: Page): m.RouteResolver {
     return {
-        onmatch: function () {
+        onmatch() {
             return Component;
         },
-        render: function (vnode) {
+        render(vnode) {
             return [vnode];
         },
     };
