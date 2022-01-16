@@ -7,12 +7,7 @@
         "downlevelIteration": true,
         "target": "es6",
         "sourceMap": true,
-        "lib": [
-            "es2019",
-            "es6",
-            "dom",
-            "dom.iterable"
-        ]
+        "lib": ["es2019", "es6", "dom", "dom.iterable"]
     },
     "typedocOptions": {
         "entryPoints": ["src/"],
@@ -20,6 +15,6 @@
         "out": "docs",
         "includes": "extra_docs"
     },
-    "include": ["src/**/*", "api/**/*", "tests/unit/**/*"],
+    "include": ["src/**/*", "api/**/*", "tests/unit/**/*", "config/**/*"],
     "exclude": ["node_modules", "**/*.spec.ts"]
 }
