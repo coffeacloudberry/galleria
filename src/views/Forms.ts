@@ -212,7 +212,7 @@ class BaseForm {
      * Update the field and check it.
      */
     onEmailInput(e: { currentTarget: HTMLInputElement }): void {
-        this.email = e.currentTarget.value;
+        this.email = e.currentTarget.value.trim();
         this.instantiateCaptcha = true;
         if (this.invalidEmailAddress && BaseForm.isEmail(this.email)) {
             this.invalidEmailAddress = false; // reset
