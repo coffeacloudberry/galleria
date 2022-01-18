@@ -51,6 +51,7 @@ class AllStories {
             method: "GET",
             url: "/all_stories.json",
         }).then((result) => {
+            // skipcq: JS-0387
             result.sort(AllStories.sortTwoStories);
             for (const oneEntry of result) {
                 this.fullList.push({
