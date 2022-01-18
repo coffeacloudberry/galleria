@@ -169,6 +169,7 @@ class BaseForm {
                 switch (error.code) {
                     case 429:
                         this.tooManyRequests = true;
+                        // skipcq: JS-0328
                         BaseForm.handleTooManyRequests().then(() => {
                             this.tooManyRequests = false;
                             this.success = false;

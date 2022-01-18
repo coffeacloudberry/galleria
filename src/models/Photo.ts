@@ -116,6 +116,7 @@ class Photo {
      */
     loadFirst(): void {
         if (this.meta === null) {
+            // skipcq: JS-0328
             this.load(config.firstPhotoId).then(() => {
                 this.loadNext(true);
             });

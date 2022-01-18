@@ -270,9 +270,11 @@ export default function PhotoPage(): m.Component {
             t.init();
             currentLang = t.getLang();
             selectedPhotoId = getPhotoId();
-            selectedPhotoId === null
-                ? photo.loadFirst()
-                : photo.load(selectedPhotoId);
+            if (selectedPhotoId === null) {
+                photo.loadFirst();
+            } else {
+                void photo.load(selectedPhotoId);
+            }
         },
         oncreate(): void {
             document.title = t("photo.title");
@@ -300,7 +302,7 @@ export default function PhotoPage(): m.Component {
                 photo.id !== null &&
                 routePhotoId !== photo.id
             ) {
-                photo.load(routePhotoId);
+                void photo.load(routePhotoId);
             }
 
             const futureLang = t.getLang();
