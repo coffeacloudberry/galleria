@@ -116,7 +116,7 @@ export interface ProcessedStoryFile {
  */
 function abbrMdToHtml(md: string): string {
     return md.replace(
-        /{([^}]*)}="([^"]*)"/g,
+        /{([^{}]*)}="([^"]*)"/g,
         '<abbr data-tippy-content="$2">$1</abbr>',
     );
 }

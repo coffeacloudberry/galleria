@@ -67,7 +67,7 @@ function cutText(longText: string): string {
  */
 function cleanUpText(longText: string): string {
     const result = cutText(longText)
-        .replace(/<[^>]*>/g, " ")
+        .replace(/<[^<>]*>/g, " ")
         .trim();
     // the text should end with three dots
     const countDots = result.slice(-3).split(".").length - 1;
