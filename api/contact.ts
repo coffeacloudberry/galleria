@@ -154,46 +154,6 @@ export function sendEmail(
 }
 
 /**
- * Check if the visitor has recently done the same action in a specific time
- * laps. If that is the case, an error is thrown, otherwise a new volatile entry
- * is created.
- */
-export async function checkVisitor(
-    listName: string,
-    clientIp: string,
-    solution: string,
-    timeGap = minTimeGap,
-): Promise<void> {
-    // check CAPTCHA if not in testing mode
-    if (solution != "") {
-        await checkCaptcha(solution).then((is_human: boolean) => {
-            if (!is_human) {
-                throw new Error("418");
-            }
-        });
-    }
-
-    const client = await utils.initClient();
-    const cHashedIp = utils.anonymizeClient(clientIp);
-    const userKey = process.env.VERCEL_ENV + listName + cHashedIp;
-
-    // abort if the visitor has recently been recorded
-    if (await client.exists(userKey)) {
-        throw new Error("429");
-    }
-
-    // the value is meaningless, what matters is the key existence
-    await client.set(userKey, "");
-    await client.expire(userKey, timeGap);
-}
-
-interface FriendlyCapthaResponse {
-    success: boolean;
-    details?: string;
-    errors?: string[];
-}
-
-/**
  * Check the Friendly CAPTCHA.
  *
  * Verification Best practices:
@@ -232,6 +192,46 @@ export async function checkCaptcha(solution: string): Promise<boolean> {
                 resolve(true);
             });
     });
+}
+
+/**
+ * Check if the visitor has recently done the same action in a specific time
+ * laps. If that is the case, an error is thrown, otherwise a new volatile entry
+ * is created.
+ */
+export async function checkVisitor(
+    listName: string,
+    clientIp: string,
+    solution: string,
+    timeGap = minTimeGap,
+): Promise<void> {
+    // check CAPTCHA if not in testing mode
+    if (solution != "") {
+        await checkCaptcha(solution).then((is_human: boolean) => {
+            if (!is_human) {
+                throw new Error("418");
+            }
+        });
+    }
+
+    const client = await utils.initClient();
+    const cHashedIp = utils.anonymizeClient(clientIp);
+    const userKey = process.env.VERCEL_ENV + listName + cHashedIp;
+
+    // abort if the visitor has recently been recorded
+    if (await client.exists(userKey)) {
+        throw new Error("429");
+    }
+
+    // the value is meaningless, what matters is the key existence
+    await client.set(userKey, "");
+    await client.expire(userKey, timeGap);
+}
+
+interface FriendlyCapthaResponse {
+    success: boolean;
+    details?: string;
+    errors?: string[];
 }
 
 /** Email validation. */

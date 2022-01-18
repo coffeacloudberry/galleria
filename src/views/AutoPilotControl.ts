@@ -205,6 +205,7 @@ class AutoPilotControlComponent
 
                 camera.position = mapboxgl.MercatorCoordinate.fromLngLat(
                     cameraLngLat,
+                    // skipcq: JS-0357
                     elevation + AutoPilotControl.cameraAltitude,
                 );
                 camera.lookAtPoint({
@@ -353,7 +354,7 @@ class AutoPilotControlComponent
  * This is a custom Mapbox GL JS widget. The camera route is created in
  * the constructor, but the component and animation is handled in
  * AutoPilotControlComponent.
- * An other kind of auto pilot:
+ * Another kind of autopilot:
  * https://www.mapbox.com/blog/river-runner-how-i-built-it
  */
 export default class AutoPilotControl implements mapboxgl.IControl {
