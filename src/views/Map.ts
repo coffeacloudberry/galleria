@@ -529,6 +529,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         injectCode(config.turf.js)
             .then(() => {
                 (async () => {
+                    // skipcq: JS-0356
                     const turf = await import("@turf/turf");
                     if (this.map !== undefined) {
                         if (
@@ -563,6 +564,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             injectCode(config.chart.js)
                 .then(() => {
                     (async () => {
+                        // skipcq: JS-0356
                         const Chart = await import("chart.js");
                         this.addBodyChart();
                     })();
