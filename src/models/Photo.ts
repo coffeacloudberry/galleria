@@ -284,7 +284,7 @@ class Photo {
         );
     }
 
-    /** Path the the story of the loaded photo or null if not available. */
+    /** Path to the story of the loaded photo or null if not available. */
     getStoryPath(): string | null {
         if (
             this.meta === null ||

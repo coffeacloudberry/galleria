@@ -261,7 +261,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                                 m(
                                     m.route.Link,
                                     {
-                                        href: "" + photo.getStoryPath(),
+                                        href: photo.getStoryPath() || "",
                                     },
                                     attrs.title,
                                 ),

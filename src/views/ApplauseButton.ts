@@ -51,7 +51,9 @@ export default class ApplauseButton
                     "" +
                         t(
                             "applause.feedback.fail" +
-                                (error.code == 429 ? "." + error.code : ""),
+                                (error.code == 429
+                                    ? "." + error.code.toString()
+                                    : ""),
                         ),
                     LogType.error,
                 );

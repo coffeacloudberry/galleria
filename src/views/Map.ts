@@ -459,7 +459,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     filter: [
                         "all",
                         ["==", "$type", "Point"],
-                        ["==", "sym", "" + sym],
+                        ["==", "sym", sym],
                     ],
                 });
 

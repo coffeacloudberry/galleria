@@ -132,7 +132,7 @@ export default function StoryPage(): m.Component {
                                     m(StoryTitle),
                                     m(
                                         ".story-content",
-                                        m.trust("" + story.content),
+                                        m.trust(story.content || ""),
                                     ),
                                 ]),
                                 story.hasGeodata &&

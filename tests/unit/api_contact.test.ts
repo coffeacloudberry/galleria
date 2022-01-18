@@ -52,13 +52,17 @@ describe("Contact Forms", () => {
     it("should record new visitors", (done) => {
         const startTime = Date.now();
         contact
-            .checkVisitor("sender", "" + startTime, "")
+            .checkVisitor("sender", startTime.toString(), "")
             .then(() => {
                 contact
-                    .checkVisitor("sender", "" + (startTime + 1), "")
+                    .checkVisitor("sender", (startTime + 1).toString(), "")
                     .then(() => {
                         contact
-                            .checkVisitor("sender", "" + (startTime + 2), "")
+                            .checkVisitor(
+                                "sender",
+                                (startTime + 2).toString(),
+                                "",
+                            )
                             .then(() => {
                                 done();
                             })
@@ -76,7 +80,7 @@ describe("Contact Forms", () => {
     });
 
     it("should not record the same visitor within a short time laps", (done) => {
-        const visitorId = "" + Date.now();
+        const visitorId = Date.now().toString();
         contact
             .checkVisitor("sender", visitorId, "")
             .then(() => {
@@ -95,7 +99,7 @@ describe("Contact Forms", () => {
     });
 
     it("should record the same visitor after some time", (done) => {
-        const visitorId = "" + Date.now();
+        const visitorId = Date.now().toString();
         contact
             .checkVisitor("sender", visitorId, "", 1)
             .then(() => {
