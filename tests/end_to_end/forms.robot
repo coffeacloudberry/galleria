@@ -16,20 +16,20 @@ Check Contact Form Validation
     Element Should Not Be Visible    ${CONTACTFORM}//textarea[@class="invalid"]
 
     Click Button                     ${CONTACTFORM}//button[@type="submit"]
-    Element Should Contain           ${CONTACTFORM}  Check your email!
+    Element Should Contain           ${CONTACTFORM}  Say something!
     Element Should Be Visible        ${CONTACTFORM}//input[@type="text" and @class="invalid"]
     Element Should Not Be Visible    ${NEWSLETTERFORM}//input[@type="text" and @class="invalid"]
     Element Should Contain           ${CONTACTFORM}  Say something!
     Element Should Be Visible        ${CONTACTFORM}//textarea[@class="invalid"]
 
     Input Text                       ${CONTACTFORM}//input[@type="text"]    bad email
-    Element Should Contain           ${CONTACTFORM}  Check your email!
+    Element Should Contain           ${CONTACTFORM}  Say something!
     Element Should Be Visible        ${CONTACTFORM}//input[@type="text" and @class="invalid"]
     Element Should Contain           ${CONTACTFORM}  Say something!
     Element Should Be Visible        ${CONTACTFORM}//textarea[@class="invalid"]
 
     Input Text                       ${CONTACTFORM}//input[@type="text"]    robotframework@example.com
-    Element Should Not Contain       ${CONTACTFORM}  Check your email!
+    Element Should Not Contain       ${CONTACTFORM}  Invalid email address!
     Element Should Not Be Visible    ${CONTACTFORM}//input[@type="text" and @class="invalid"]
     Element Should Contain           ${CONTACTFORM}  Say something!
     Element Should Be Visible        ${CONTACTFORM}//textarea[@class="invalid"]
@@ -37,20 +37,20 @@ Check Contact Form Validation
     Input Text                       ${CONTACTFORM}//input[@type="text"]    bad email
     Input Text                       ${CONTACTFORM}//textarea    blabla
     Textarea Should Contain          ${CONTACTFORM}//textarea   blabla
-    Element Should Not Contain       ${CONTACTFORM}  Check your email!
+    Element Should Not Contain       ${CONTACTFORM}  Invalid email address!
     Element Should Not Be Visible    ${CONTACTFORM}//input[@type="text" and @class="invalid"]
     Element Should Not Contain       ${CONTACTFORM}  Say something!
     Element Should Not Be Visible    ${CONTACTFORM}//textarea[@class="invalid"]
 
     Click Button                     ${CONTACTFORM}//button[@type="submit"]
-    Element Should Contain           ${CONTACTFORM}  Check your email!
+    Element Should Contain           ${CONTACTFORM}  Invalid email address!
     Element Should Be Visible        ${CONTACTFORM}//input[@type="text" and @class="invalid"]
     Element Should Not Contain       ${CONTACTFORM}  Say something!
     Element Should Not Be Visible    ${CONTACTFORM}//textarea[@class="invalid"]
 
-    Input Text                       ${CONTACTFORM}//input[@type="text"]    robotframework@example.com
+    Input Text                       ${CONTACTFORM}//input[@type="text"]    ${SPACE}robotframework@example.com${SPACE*3}
     Input Text                       ${CONTACTFORM}//textarea    blabla
-    Element Should Not Contain       ${CONTACTFORM}  Check your email!
+    Element Should Not Contain       ${CONTACTFORM}  Invalid email address!
     Element Should Not Be Visible    ${CONTACTFORM}//input[@type="text" and @class="invalid"]
     Element Should Not Contain       ${CONTACTFORM}  Say something!
     Element Should Not Be Visible    ${CONTACTFORM}//textarea[@class="invalid"]
@@ -69,20 +69,20 @@ Check Newsletter Form
     Element Should Not Be Visible    ${NEWSLETTERFORM}//input[@type="text" and @class="invalid"]
 
     Input Text                       ${NEWSLETTERFORM}//input[@type="text"]    bad email
-    Element Should Not Contain       ${NEWSLETTERFORM}  Check your email!
+    Element Should Not Contain       ${NEWSLETTERFORM}  Invalid email address!
     Element Should Not Be Visible    ${NEWSLETTERFORM}//input[@type="text" and @class="invalid"]
 
     Click Button                     ${NEWSLETTERFORM}//button[@type="submit"]
-    Element Should Contain           ${NEWSLETTERFORM}  Check your email!
+    Element Should Contain           ${NEWSLETTERFORM}  Invalid email address!
     Element Should Be Visible        ${NEWSLETTERFORM}//input[@type="text" and @class="invalid"]
     Element Should Not Be Visible    ${CONTACTFORM}//input[@type="text" and @class="invalid"]
 
     Input Text                       ${NEWSLETTERFORM}//input[@type="text"]    bad email
-    Element Should Contain           ${NEWSLETTERFORM}  Check your email!
+    Element Should Contain           ${NEWSLETTERFORM}  Invalid email address!
     Element Should Be Visible        ${NEWSLETTERFORM}//input[@type="text" and @class="invalid"]
 
     Input Text                       ${NEWSLETTERFORM}//input[@type="text"]    robotframework@example.com
-    Element Should Not Contain       ${NEWSLETTERFORM}  Check your email!
+    Element Should Not Contain       ${NEWSLETTERFORM}  Invalid email address!
     Element Should Not Be Visible    ${NEWSLETTERFORM}//input[@type="text" and @class="invalid"]
 
     Reload Page
