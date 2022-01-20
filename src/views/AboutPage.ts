@@ -196,7 +196,7 @@ const Support: m.Component = {
                 m(
                     "a.button",
                     {
-                        href: "https://paypal.me/explorewilder",
+                        href: "https://www.paypal.com/donate/?hosted_button_id=K44Z5AXPG8FZ2",
                     },
                     [m(Icon, { src: logoPaypal }), "PayPal"],
                 ),
