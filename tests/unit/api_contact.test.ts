@@ -134,7 +134,7 @@ describe("Contact Forms", () => {
                         );
                     }
 
-                    const newEmailAddress = `${Date.now()}@example.com`;
+                    const newEmailAddress = `test${Date.now()}@explorewilder.com`;
                     contact
                         .manageEmail(newEmailAddress)
                         .then(() => {
@@ -184,7 +184,7 @@ describe("Contact Forms", () => {
                         );
                     }
 
-                    const newEmailAddress = `${Date.now()}@example.com`;
+                    const newEmailAddress = `test${Date.now()}@explorewilder.com`;
                     sendpulse.addEmails(
                         (addEmailsResult: any) => {
                             if (addEmailsResult.result) {
@@ -231,7 +231,7 @@ describe("Contact Forms", () => {
 
     it("should send an email", (done) => {
         contact
-            .sendEmail(`${Date.now()}@example.com`, "Blåblä")
+            .sendEmail(`test${Date.now()}@explorewilder.com`, "Blåblä")
             .then(() => {
                 done();
             })

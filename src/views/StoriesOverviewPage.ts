@@ -88,7 +88,7 @@ const ThumbnailComponent: m.Component<OneStory> = {
                 "data-tippy-placement": "bottom",
             },
             m("img", {
-                src: `/content/photos/${attrs.metadata.mostRecentPhoto}/t.webp`,
+                src: `/content/photos/${attrs.metadata.mostRecentPhoto}/f.webp`,
             }),
         );
     },
