@@ -5,7 +5,7 @@
  * https://github.com/taniarascia/webpack-boilerplate/blob/master/LICENSE
  */
 
-const MiniCssExtractPlugin = require("mini-css-extract-plugin").default;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
