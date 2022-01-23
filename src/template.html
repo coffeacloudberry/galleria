@@ -46,9 +46,6 @@
                 font-size: 1.05rem;
                 color: #4d4d4d;
             }
-            .loading-js .content noscript {
-                color: red;
-            }
         </style>
         <title>Nature Photo Gallery &amp; Adventure Stories</title>
         <% if (prod) { %>
@@ -58,16 +55,21 @@
             defer="defer"
             data-lazy="no"
         ></script>
+        <script>
+            Sentry.onLoad(function() {
+                Sentry.init({
+                    release: "galleria-frontend@<%= sentry_release %>",
+                    environment: "production",
+                    autoSessionTracking: false
+                });
+            });
+        </script>
         <% } %>
     </head>
 
     <body>
         <div class="loading-js">
             <div class="content">
-                <noscript>
-                    This website requires JavaScript to be enabled. Please
-                    activate it in the settings of your browser.
-                </noscript>
                 <p>Loading...</p>
             </div>
         </div>

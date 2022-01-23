@@ -10,6 +10,7 @@ import { anonymizeClient, doRequest, isSameSite } from "../src/utils_api";
  * forwarding the request is necessary. That also helps to comply with the
  * Privacy and DNT Policies since the end user's IP address is unknown from the
  * Azure API Manager.
+ * FIXME: Got exception once: 'task timed out after 10.01 seconds' - 504 Error.
  */
 export default async (request: VercelRequest, response: VercelResponse) => {
     if (!isSameSite(request)) {
