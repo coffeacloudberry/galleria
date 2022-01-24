@@ -19,7 +19,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     }
     if (request.method == "POST") {
         const { type, id } = request.body;
-        const data = `${type}_id=${id}`;
+        const data = `${String(type)}_id=${String(id)}`;
         const options = {
             hostname: process.env.APIM_HOSTNAME,
             port: 443,

@@ -29,7 +29,7 @@ class AutoPilotControlComponent
     /** Timestamp at the previous frame. */
     previousTimestamp = 0;
 
-    /** Timestamp when the auto pilot stopped, 0 if not stopped. */
+    /** Timestamp when the autopilot stopped, 0 if not stopped. */
     timestampPause = 0;
 
     /** Smooth/simplified line followed by the camera. */
@@ -38,7 +38,7 @@ class AutoPilotControlComponent
     /** Distance of the camera route in kilometers. */
     cameraRouteDistance: number;
 
-    /** True to play the auto pilot. */
+    /** True to play the autopilot. */
     autoPiloting = false;
 
     /** Map instance. */
@@ -64,13 +64,13 @@ class AutoPilotControlComponent
 
     /**
      * Duration in ms of the animation for one hiking day.
-     * This auto pilot is designed to go at true speed relative to the hiker's
+     * This autopilot is designed to go at true speed relative to the hiker's
      * speed, but there is a difference between true speed and perceptual speed,
      * impacted by the camera's elevation and pitch. If you're thousands of feet
      * in the air and staring out at the horizon, you may barely notice how
      * quickly you're moving. If you're just above the ground and staring
      * directly downwards, it'll feel like you're moving quickly. However, the
-     * intention of this auto pilot is to be as realistic as possible.
+     * intention of this autopilot is to be as realistic as possible.
      */
     msPerDay = 90000;
 
@@ -394,7 +394,7 @@ export default class AutoPilotControl implements mapboxgl.IControl {
      * Simplify the WebTrack with the Ramer-Douglas-Peucker algorithm,
      * merge LineStrings, and apply the Bezier spline algorithm.
      * The WebTrack is already simplified but just enough to remove GPS noise
-     * while keeping all the details. On the other hand, the auto pilot needs
+     * while keeping all the details. On the other hand, the autopilot needs
      * a really smoothed line for a fluid animation.
      * @param geoJson WebTrack in the GeoJSON format
      * @param duration Duration in days as floating point or null if not known
@@ -472,7 +472,7 @@ export default class AutoPilotControl implements mapboxgl.IControl {
     }
 
     /**
-     * Stop the auto pilot and remove the custom control from the map.
+     * Stop the autopilot and remove the custom control from the map.
      */
     onRemove(): void {
         if (this.container && this.container.parentNode) {

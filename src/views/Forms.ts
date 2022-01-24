@@ -98,8 +98,9 @@ function getWindowSize(): { width: number; height: number } {
 
 function getConfForBugReport(): string {
     const windowSize = getWindowSize();
-    return `I'm visiting your website version ${process.env.GIT_VERSION}
-    (${process.env.GIT_AUTHOR_DATE}). My user agent is '${navigator.userAgent}'
+    return `I'm visiting your website version
+    ${String(process.env.GIT_VERSION)}.
+    My user agent is '${navigator.userAgent}'
     and my window size is ${windowSize.width}x${windowSize.height}px.`.replace(
         /\s+/g,
         " ",
@@ -165,7 +166,9 @@ class BaseForm {
             })
             .catch((error) => {
                 this.processing = false;
-                const fmt_error = Error(`${error.code}: ${error.response}`);
+                const fmt_error = Error(
+                    `${String(error.code)}: ${String(error.response)}`,
+                );
                 switch (error.code) {
                     case 429:
                         this.tooManyRequests = true;

@@ -405,8 +405,8 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         ) {
             return;
         }
-        const sym = feature.properties.sym;
-        if (extraIcons[sym] === undefined) {
+        const sym = String(feature.properties.sym);
+        if (!(sym in extraIcons)) {
             warn.log(
                 // eslint-disable-next-line max-len
                 `symbol '${sym}' from the WebTrack not available in the icon set. It won't be displayed.`,
@@ -507,8 +507,8 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 /*
                 The element opacity can change when the hiker goes behind hills.
                 The opacity parameter is on the div element that must be reset.
-                Let's force to create a new element the next time. Otherwise the
-                marker may pop up partially transparent.
+                Let's force to create a new element the next time. Otherwise,
+                the marker may pop up partially transparent.
                  */
                 this.hikerMarker = undefined;
             }
@@ -702,7 +702,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             })
             .catch((err: Error) => {
                 error.log(
-                    `Failed to fetch WebTrack from story '${this.storyId}'`,
+                    `Failed to fetch WebTrack from story '${
+                        this.storyId ? this.storyId : "???"
+                    }'`,
                     err,
                 );
             });

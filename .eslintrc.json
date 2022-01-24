@@ -3,6 +3,7 @@
     "rules": {
         "@typescript-eslint/no-var-requires": 0,
         "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/restrict-template-expressions": "error",
         "@typescript-eslint/unbound-method": [
             "error",
             {
@@ -38,7 +39,14 @@
             "parser": "eslint-plugin-json-es",
             "extends": "plugin:eslint-plugin-json-es/recommended",
             "rules": {
-                "@typescript-eslint/unbound-method": "off"
+                "@typescript-eslint/unbound-method": "off",
+                "@typescript-eslint/restrict-template-expressions": "off"
+            }
+        },
+        {
+            "files": ["*.js"],
+            "rules": {
+                "@typescript-eslint/restrict-template-expressions": "off"
             }
         }
     ]

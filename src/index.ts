@@ -11,8 +11,9 @@ import { routes } from "./routes";
 
 const info = new CustomLogging();
 info.log(
-    // eslint-disable-next-line max-len
-    `Running version ${process.env.GIT_VERSION} committed on ${process.env.GIT_AUTHOR_DATE}.`,
+    `Running version https://github.com/coffeacloudberry/galleria/commit/${String(
+        process.env.GIT_VERSION,
+    )}`,
 );
 
 m.route(document.body, "/en/photo", routes);

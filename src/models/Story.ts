@@ -92,7 +92,7 @@ export interface StoryInfo {
     mapTheme?: MapThemeStrings;
 
     /** Photo folder name of the latest photo taken on that trip. */
-    mostRecentPhoto?: string;
+    mostRecentPhoto?: `${number}`;
 
     /**
      * GPS model and configuration. Such information is not included in the

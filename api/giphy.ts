@@ -7,6 +7,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
         response.status(401).json(undefined);
         return;
     }
+    const env = String(process.env.VERCEL_ENV);
     switch (request.method) {
         case "POST": {
             const { giphyId } = request.body;
@@ -18,18 +19,14 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
             // add the entry
             const client = await utils.initClient();
-            await client.rPush(`${process.env.VERCEL_ENV}:giphy`, giphyId);
+            await client.rPush(`${env}:giphy`, giphyId);
             response.json(undefined);
             return;
         }
         case "GET": {
             const client = await utils.initClient();
             // get the last 8 entries
-            let giphies = await client.lRange(
-                `${process.env.VERCEL_ENV}:giphy`,
-                -8,
-                -1,
-            );
+            let giphies = await client.lRange(`${env}:giphy`, -8, -1);
             giphies = giphies.reverse(); // most recent first
             response.json(
                 giphies.map((entry: string) => {

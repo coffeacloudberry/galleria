@@ -57,7 +57,12 @@ export default class ApplauseButton
                         ),
                     LogType.error,
                 );
-                err.log(`Failed to like ${this.currentId}`, error);
+                err.log(
+                    `Failed to like ${
+                        this.currentId !== null ? String(this.currentId) : "???"
+                    }`,
+                    error,
+                );
             });
     }
 

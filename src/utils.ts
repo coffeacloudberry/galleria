@@ -58,14 +58,12 @@ export function injectCode(path: {
     src: string;
     sri: string;
     isModule?: boolean;
-}): Promise<any> {
+}): Promise<unknown> {
     return new Promise((resolve, reject) => {
         if (!path.sri.startsWith("sha512-")) {
-            throw TypeError(
-                `SRI SHALL start with 'sha512-' (got '${path.sri}')`,
-            );
+            throw Error(`SRI SHALL start with 'sha512-' (got '${path.sri}')`);
         }
-        const ext = path.src.split(".").pop();
+        const ext = String(path.src.split(".").pop());
         switch (ext) {
             case "js":
                 const script = document.createElement("script");
@@ -95,8 +93,8 @@ export function injectCode(path: {
 }
 
 /**
- * Open all external links in a new tab. It does not watch for new nodes so
- * it should be call on vnode creation and update.
+ * Open all external links in a new tab. It does not watch for new nodes, so
+ * it should be called on vnode creation and update.
  */
 export function transformExternalLinks(): void {
     const allExternalLinks = document.querySelectorAll("a[href^='http']");

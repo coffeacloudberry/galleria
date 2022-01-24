@@ -77,18 +77,19 @@ function cleanUpText(longText: string): string {
 /** Clickable thumbnail. */
 const ThumbnailComponent: m.Component<OneStory> = {
     view({ attrs }: m.Vnode<OneStory>): m.Vnode<m.RouteLinkAttrs> {
+        const photoId = attrs.metadata.mostRecentPhoto as `${number}`;
         return m(
             m.route.Link,
             {
                 href: m.buildPathname("/:lang/photo/:title", {
                     lang: t.getLang(),
-                    title: attrs.metadata.mostRecentPhoto,
+                    title: photoId,
                 }),
                 "data-tippy-content": t("story.open-photo.tooltip"),
                 "data-tippy-placement": "bottom",
             },
             m("img", {
-                src: `/content/photos/${attrs.metadata.mostRecentPhoto}/f.webp`,
+                src: `/content/photos/${photoId}/f.webp`,
             }),
         );
     },

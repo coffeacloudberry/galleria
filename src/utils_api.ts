@@ -73,14 +73,18 @@ export function doRequest(
 
 /**
  * Hash the client IP to anonymize the client and avoid disclosing the IP
- * to the database.
+ * to the database. A salt is applied to the IP address but that salt should
+ * be changed on a regular basis to ensure a zero-knowledge solution.
  */
 export function anonymizeClient(clientIp: string | null): string {
     if (clientIp === null) {
         return "";
     }
+    if (!("SALT" in process.env)) {
+        throw new Error("Salt is required to avoid rainbow table attacks");
+    }
     return createHash("sha1")
-        .update(clientIp + process.env.SALT)
+        .update(`${String(clientIp)}${String(process.env.SALT)}`)
         .digest("base64")
         .slice(0, 24);
 }
