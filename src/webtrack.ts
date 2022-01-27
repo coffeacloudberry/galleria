@@ -121,7 +121,7 @@ export default class WebTrack {
     }
 
     /**
-     * Read a uint8 element from the buffer at the current position and
+     * Read an uint8 element from the buffer at the current position and
      * increment the cursor.
      * @return The byte from the buffer.
      */
@@ -130,7 +130,7 @@ export default class WebTrack {
     }
 
     /**
-     * Read a uint16 element from the buffer at the current position and
+     * Read an uint16 element from the buffer at the current position and
      * increment the cursor.
      * @return The bytes from the buffer.
      */
@@ -141,7 +141,7 @@ export default class WebTrack {
     }
 
     /**
-     * Read a int16 element from the buffer at the current position and
+     * Read an int16 element from the buffer at the current position and
      * increment the cursor.
      * @return The bytes from the buffer.
      */
@@ -152,7 +152,7 @@ export default class WebTrack {
     }
 
     /**
-     * Read a uint32 element from the buffer at the current position and
+     * Read an uint32 element from the buffer at the current position and
      * increment the cursor.
      * @return The bytes from the buffer.
      */
@@ -163,7 +163,7 @@ export default class WebTrack {
     }
 
     /**
-     * Read a int32 element from the buffer at the current position and
+     * Read an int32 element from the buffer at the current position and
      * increment the cursor.
      * @return The bytes from the buffer.
      */
@@ -286,7 +286,7 @@ export default class WebTrack {
     /**
      * Check if the first bytes of the input buffer match the file format.
      * Returns false if the input buffer is null or undefined.
-     * @return True if match, false otherwise
+     * @return True if matches, false otherwise
      */
     protected _formatInfoPass(): boolean {
         if (!this.buffer) {
