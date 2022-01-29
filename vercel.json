@@ -20,6 +20,19 @@
                     "value": "https://explorewilder.com"
                 }
             ]
+        },
+        {
+            "source": "/(.*).webtrack",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "font/otf"
+                },
+                {
+                    "key": "Content-Security-Policy",
+                    "value": "default-src 'none'"
+                }
+            ]
         }
     ]
 }
