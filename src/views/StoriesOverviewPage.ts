@@ -50,7 +50,7 @@ function lazyLoadStories(): void {
 /** Keep only the first few words of a text. */
 function cutText(longText: string): string {
     let cutPosition = 140;
-    // cut to the first 200 characters minus the last word, probably cut
+    // cut to the first characters minus the last word, which is probably cut
     while (longText[cutPosition] != " " && cutPosition) {
         cutPosition--;
     }
@@ -63,10 +63,8 @@ function cutText(longText: string): string {
  * Markdown story is converted to HTML beforehand.
  */
 function cleanUpText(longText: string): string {
-    const result = cutText(longText)
-        .replace(/<[^<>]*>/g, " ")
-        .trim();
-    // the text should end with three dots
+    const result = cutText(longText.replace(/<[^<>]*>/g, "")).trim();
+    // the text should end with exactly three dots
     const countDots = result.slice(-3).split(".").length - 1;
     return result + ".".repeat(3 - countDots);
 }
