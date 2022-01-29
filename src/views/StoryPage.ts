@@ -4,7 +4,6 @@ import tippy, { Instance as TippyInstance } from "tippy.js";
 import { EasyDate, SeasonStrings, story } from "../models/Story";
 import { t } from "../translate";
 import { hideAllForce, transformExternalLinks } from "../utils";
-import ApplauseButton from "./ApplauseButton";
 import { Header, HeaderAttrs } from "./Header";
 import Map from "./Map";
 
@@ -142,18 +141,6 @@ export default function StoryPage(): m.Component {
                                             storyId: getStoryId(),
                                         }),
                                     ),
-                                m(".one.column.applause-story", [
-                                    story.isApplauding &&
-                                        t("loading.tooltip") + "...",
-                                    m(ApplauseButton, {
-                                        mediaType: "story",
-                                        mediaIsLoading: !story.isLoaded(),
-                                        getId: getStoryId,
-                                        applausePromise: () => {
-                                            return story.applause();
-                                        },
-                                    }),
-                                ]),
                             ]),
                         ),
                     ),

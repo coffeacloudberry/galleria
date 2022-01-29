@@ -1,12 +1,9 @@
-import bookOutline from "@/icons/book-outline.svg";
 import m from "mithril";
 
 import { OneStory, allStories } from "../models/AllStories";
 import { story } from "../models/Story";
 import { t } from "../translate";
-import ApplauseButton from "./ApplauseButton";
 import { Header, HeaderAttrs } from "./Header";
-import Icon from "./Icon";
 import { StorySubTitle } from "./StoryPage";
 
 /**
@@ -136,30 +133,6 @@ class OneStoryComponent implements m.ClassComponent<OneStory> {
                                         "span.appetizer",
                                         cleanUpText(attrs.content),
                                     ),
-                            ),
-                            m(
-                                ".applause-story",
-                                m(
-                                    m.route.Link,
-                                    {
-                                        href: storyLink,
-                                        "data-tippy-content": t(
-                                            "photo.open-story.tooltip",
-                                        ),
-                                    },
-                                    m(Icon, { src: bookOutline }),
-                                ),
-                                m("span.mr-3.ml-3"),
-                                m(ApplauseButton, {
-                                    mediaType: "story",
-                                    mediaIsLoading: false,
-                                    getId: () => {
-                                        return attrs.id;
-                                    },
-                                    applausePromise: () => {
-                                        return story.applause(attrs.id);
-                                    },
-                                }),
                             ),
                         ]),
                         m(

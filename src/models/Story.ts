@@ -197,9 +197,6 @@ class Story {
     /** JSON file of the linked photo. */
     originPhotoMeta: PhotoInfo | null = null;
 
-    /** True if the user applauded and is waiting for a confirmation. */
-    isApplauding = false;
-
     /** True if a story is available. */
     isLoaded(): boolean {
         return this.gotContent && this.gotStoryMeta;
@@ -289,7 +286,6 @@ class Story {
 
     /** Load a story from a specific folder (fields are null if not found). */
     load(folderName: string): void {
-        this.isApplauding = false;
         this.gotContent = false;
         this.gotStoryMeta = false;
         this.originPhotoMeta = null;
@@ -355,7 +351,7 @@ class Story {
             });
     }
 
-    /** Path the the photo of the loaded story. */
+    /** Path to the photo of the loaded story. */
     getPhotoPath(): string | null {
         let originPhoto: number | string | null = getOriginPhotoId();
 
@@ -369,42 +365,6 @@ class Story {
         return m.buildPathname("/:lang/photo/:id", {
             lang: t.getLang(),
             id: originPhoto,
-        });
-    }
-
-    /**
-     * This method is pseudo-static. Static if the folder name is given,
-     * otherwise the folder name of the current story would be used.
-     * POST request, 200 if okay, an error code otherwise, no detailed message
-     * is received unless there is no request / no story defined at the time of
-     * the request.
-     */
-    applause(folderName?: string): Promise<void> {
-        const actualFolderName = folderName || this.folderName;
-        if (!actualFolderName) {
-            return new Promise((resolve, reject) => {
-                const err: Error & { code: number } = Object.assign(
-                    new Error("Story undefined"),
-                    { code: 0 },
-                );
-                reject(err);
-            });
-        }
-        this.isApplauding = true;
-        return new Promise((resolve, reject) => {
-            m.request<undefined>({
-                method: "POST",
-                url: "/api/applause",
-                body: { type: "story", id: actualFolderName },
-            })
-                .then(() => {
-                    this.isApplauding = false;
-                    resolve();
-                })
-                .catch((err: Error & { code: number }) => {
-                    this.isApplauding = false;
-                    reject(err);
-                });
         });
     }
 }

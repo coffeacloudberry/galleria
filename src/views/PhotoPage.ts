@@ -10,7 +10,6 @@ import { config } from "../config";
 import { photo } from "../models/Photo";
 import { t } from "../translate";
 import { getPhotoId, hideAllForce, isMobile } from "../utils";
-import ApplauseButton from "./ApplauseButton";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 
@@ -144,9 +143,7 @@ const PrevButton: m.Component = {
 const AnimatedLoading: m.Component = {
     view(): m.Vnode {
         return m(
-            `span.loading-icon.nav-item${
-                photo.isLoading || photo.isApplauding ? "" : ".hide"
-            }`,
+            `span.loading-icon.nav-item${photo.isLoading ? "" : ".hide"}`,
             {
                 "data-tippy-content": t("loading.tooltip") + "...",
             },
@@ -160,8 +157,7 @@ interface FooterAttrs {
 }
 
 /**
- * Next/prev buttons and available actions (applause) or dynamic feedback
- * (loading spin).
+ * Next/prev buttons and dynamic feedback (loading spin).
  *
  * The tooltip is not displayed as expected on quickly created/deleted
  * elements, the loading/ready state is therefore updated via CSS only
@@ -175,14 +171,6 @@ const Footer: m.Component<FooterAttrs> = {
                 // in a span to be grouped
                 m("span", [m(FirstButton), m(PrevButton)]),
                 m(AnimatedLoading),
-                m(ApplauseButton, {
-                    mediaType: "photo",
-                    mediaIsLoading: photo.isLoading,
-                    getId: getPhotoId,
-                    applausePromise: () => {
-                        return photo.applause();
-                    },
-                }),
                 m("span", [
                     photo.isLast() ? m(RewindButton) : m(NextButton),
                     m(LastButton),

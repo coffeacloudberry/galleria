@@ -54,7 +54,7 @@ Valid Dynamic Translation Updates And Retention
     Element Should Be Visible        xpath://a[@data-tippy-content="Lire l'aventure"]
     Element Should Be Visible        xpath://a[contains(@href, "/about")]//span[text()="À propos"]
     Click Link                       xpath://a[@data-tippy-content="Aperçu des aventures"]
-    Wait Until Element Is Visible    class:applause-story
+    Wait Until Element Is Visible    class:one-story
     Page Should Be Translated
     [Teardown]    Close Browser
 

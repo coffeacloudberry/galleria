@@ -45,6 +45,7 @@ class LayerSelectionControlComponent
 
     view(): m.Vnode {
         const nextLayer = LayerSelectionControlComponent.getNextLayer();
+        // FIXME: [GALLERIA-FRONTEND-1N] disable button during map switch
         return m(
             "button.mapboxgl-ctrl-my-layer",
             {

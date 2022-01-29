@@ -5,13 +5,8 @@
         "link": "https://vercel.com/legal/privacy-policy"
     },
     {
-        "what": "permdb",
-        "who": "Microsoft Azure Ireland",
-        "link": "https://azure.microsoft.com/en-gb/resources/azure-global-compliance-map/"
-    },
-    {
         "what": "tmpdb",
-        "who": "Upstash Ireland",
+        "who": "Upstash (in AWS Ireland)",
         "link": "https://www.upstash.com/static/legal/privacy.html"
     },
     {
@@ -21,7 +16,7 @@
     },
     {
         "what": "messages",
-        "who": "Tutao GmbH",
+        "who": "Tutao GmbH (in Germany)",
         "link": "https://tutanota.com/privacy"
     },
     {
