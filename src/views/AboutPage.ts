@@ -18,7 +18,7 @@ import Icon from "./Icon";
 import { ModalSize, closeAllModals, modal } from "./Modal";
 import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
 
-const error = new CustomLogging("error");
+const warning = new CustomLogging("warning");
 
 /** The big title and text about me. */
 const Intro: m.Component = {
@@ -216,6 +216,9 @@ class VisitorsBook implements m.ClassComponent {
     /** True when the current visitor shared its GIF. */
     hasShared = false;
 
+    /** The time to wait before retrying to fetch the visitor book. */
+    bookRequestRetryTimeout = 1000;
+
     /** Content of the modal for sharing a new GIF. */
     contentGiphyFinder: m.Component = {
         view: () => {
@@ -241,12 +244,17 @@ class VisitorsBook implements m.ClassComponent {
                 this.storedGiphies = result;
                 this.isRequesting = false;
             })
-            .catch((err: Error) => {
-                error.log("Failed to load the Giphies.", err);
+            .catch(() => {
+                warning.log("Failed to load the Giphies, retry...");
+                setTimeout(() => {
+                    this.bookRequestRetryTimeout *= 2;
+                    this.initList();
+                }, this.bookRequestRetryTimeout);
             });
     }
 
     oninit(): void {
+        this.bookRequestRetryTimeout = 1000;
         this.initList();
         this.hasShared = false;
     }
