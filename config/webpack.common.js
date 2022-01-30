@@ -164,5 +164,7 @@ module.exports = {
         "@turf/turf": "turf",
         // Howto: const friendlyChallenge = await import("friendly-challenge");
         "friendly-challenge": "friendlyChallenge",
+        // Howto: declare const Sentry: typeof import("@sentry/browser");
+        Sentry: "Sentry",
     },
 };

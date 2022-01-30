@@ -1,3 +1,5 @@
+declare const Sentry: typeof import("@sentry/browser");
+
 export enum LogType {
     info,
     warning,
@@ -12,7 +14,7 @@ export default class CustomLogging {
     private readonly fLog: typeof console.log;
 
     /**
-     * Setup the logger style and type.
+     * Configure the logger style and type.
      * @param type 'info' if not defined. 'error' is intended for exceptions.
      */
     constructor(type?: LogTypeString) {
@@ -20,19 +22,19 @@ export default class CustomLogging {
             case "warning":
                 this.type = type;
                 this.color = "orange";
-                this.fLog = console.warn;
+                this.fLog = console.warn; // skipcq: JS-0002
                 break;
 
             case "error":
                 this.type = type;
                 this.color = "tomato";
-                this.fLog = console.error;
+                this.fLog = console.error; // skipcq: JS-0002
                 break;
 
             default:
                 this.type = "info";
                 this.color = "springgreen";
-                this.fLog = console.info;
+                this.fLog = console.info; // skipcq: JS-0002
         }
     }
 
@@ -49,9 +51,9 @@ export default class CustomLogging {
             background: black`,
         );
         if (err) {
-            throw err;
+            Sentry.captureException(err);
         } else if (this.type === "error") {
-            console.trace();
+            console.trace(); // skipcq: JS-0002
         }
     }
 }
