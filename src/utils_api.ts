@@ -1,6 +1,8 @@
 import { createHash } from "crypto";
 import https from "https";
 
+import * as Sentry from "@sentry/node";
+import { Transaction } from "@sentry/tracing";
 import { VercelRequest } from "@vercel/node";
 import { createClient } from "redis";
 
@@ -87,4 +89,58 @@ export function anonymizeClient(clientIp: string | null): string {
         .update(`${String(clientIp)}${String(process.env.SALT)}`)
         .digest("base64")
         .slice(0, 24);
+}
+
+/** Helper class for handling Sentry. */
+export class Monitoring {
+    /** Sentry transaction used in Sentry Performance. */
+    transaction: Transaction;
+
+    /** True when the connection to Sentry is open to capture messages. */
+    isOpen: boolean;
+
+    /**
+     * Sentry initializer to capture both error and performance data.
+     * https://docs.sentry.io/platforms/node/enriching-events/transaction-name/
+     * @param endpoint That is the transaction name in Sentry Performance.
+     * @param operation Transaction type.
+     */
+    constructor(endpoint: string, operation: string) {
+        // More options:
+        // https://docs.sentry.io/platforms/node/configuration/options/
+        Sentry.init({
+            integrations: [new Sentry.Integrations.Http({ tracing: true })],
+            tracesSampleRate: 1.0,
+            debug: process.env.VERCEL_ENV == "development",
+            environment: process.env.VERCEL_ENV,
+            release: `galleria-frontend@${String(
+                process.env.VERCEL_GIT_COMMIT_SHA,
+            )}`,
+        });
+        this.transaction = Sentry.startTransaction({
+            op: operation,
+            name: endpoint,
+        }) as Transaction;
+        this.isOpen = true;
+    }
+
+    /** Capture an exception event. */
+    except(exception: any): void {
+        Sentry.captureException(exception);
+    }
+
+    /**
+     * Send remaining traces and close connection. After closing, the Sentry
+     * client cannot be used anymore and any message or exception will be
+     * discarded. It's important to only call close immediately before shutting
+     * down the application.
+     * https://docs.sentry.io/platforms/node/configuration/draining/
+     */
+    async close(): Promise<void> {
+        if (this.isOpen) {
+            this.transaction.finish();
+            await Sentry.close(2000);
+            this.isOpen = false;
+        }
+    }
 }

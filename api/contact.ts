@@ -275,15 +275,19 @@ export default async (request: VercelRequest, response: VercelResponse) => {
             response.status(418).json(undefined);
             return;
         }
+        const trace = new utils.Monitoring("Contact & Newsletter", action);
         switch (action) {
             case "subscribe": {
                 await checkVisitor("subscriber", ip, captchaSolution)
                     .then(async () => {
                         await manageEmail(email)
-                            .then(() => {
+                            .then(async () => {
+                                await trace.close();
                                 response.status(200).json(undefined);
                             })
-                            .catch(() => {
+                            .catch(async (error) => {
+                                trace.except(error);
+                                await trace.close();
                                 response.status(500).json(undefined);
                             });
                     })
@@ -296,10 +300,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 await checkVisitor("unsubscriber", ip, captchaSolution)
                     .then(async () => {
                         await manageEmail(email, false)
-                            .then(() => {
+                            .then(async () => {
+                                await trace.close();
                                 response.status(200).json(undefined);
                             })
-                            .catch(() => {
+                            .catch(async (error) => {
+                                trace.except(error);
+                                await trace.close();
                                 // silent to avoid disclosing subscribers
                                 response.status(200).json(undefined);
                             });
@@ -313,10 +320,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 await checkVisitor("sender", ip, captchaSolution)
                     .then(async () => {
                         await sendEmail(email, message)
-                            .then(() => {
+                            .then(async () => {
+                                await trace.close();
                                 response.status(200).json(undefined);
                             })
-                            .catch(() => {
+                            .catch(async (error) => {
+                                trace.except(error);
+                                await trace.close();
                                 response.status(500).json(undefined);
                             });
                     })
@@ -328,7 +338,6 @@ export default async (request: VercelRequest, response: VercelResponse) => {
             default: {
                 // Bad Request
                 response.status(400).json(undefined);
-                return;
             }
         }
     } else {
