@@ -219,6 +219,9 @@ class VisitorsBook implements m.ClassComponent {
     /** The time to wait before retrying to fetch the visitor book. */
     bookRequestRetryTimeout = 1000;
 
+    /** Return of setTimeout that is reset onremove. */
+    retryTimeoutId: ReturnType<typeof setTimeout> | undefined;
+
     /** Content of the modal for sharing a new GIF. */
     contentGiphyFinder: m.Component = {
         view: () => {
@@ -246,7 +249,7 @@ class VisitorsBook implements m.ClassComponent {
             })
             .catch(() => {
                 warning.log("Failed to load the Giphies, retry...");
-                setTimeout(() => {
+                this.retryTimeoutId = setTimeout(() => {
                     this.bookRequestRetryTimeout *= 2;
                     this.initList();
                 }, this.bookRequestRetryTimeout);
@@ -257,6 +260,12 @@ class VisitorsBook implements m.ClassComponent {
         this.bookRequestRetryTimeout = 1000;
         this.initList();
         this.hasShared = false;
+    }
+
+    onremove(): void {
+        if (this.retryTimeoutId !== undefined) {
+            clearTimeout(this.retryTimeoutId);
+        }
     }
 
     view(): (boolean | m.Vnode<ListerAttrs>)[] {
