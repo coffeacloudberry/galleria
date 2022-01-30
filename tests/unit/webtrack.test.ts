@@ -3,7 +3,7 @@ import { readFile } from "fs";
 
 import WebTrack from "../../src/webtrack";
 
-let myWebTrack: WebTrack;
+let myWebTrack: WebTrack; // skipcq: JS-0309
 const webTrackPath = "tests/unit/fixtures/t.webtrack";
 const geoJsonPath = "tests/unit/fixtures/t.geojson";
 const webTrack1seg = "tests/unit/fixtures/Gillespie_Circuit.webtrack";

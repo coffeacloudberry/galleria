@@ -169,10 +169,11 @@ class AllStoriesComponent implements m.ClassComponent {
 
 /** The list of stories. */
 export default function StoriesOverviewPage(): m.Component {
-    let currentLang: string;
+    let currentLang: string | undefined; // skipcq: JS-0309
     return {
         oninit(): void {
             t.init();
+            currentLang = t.getLang();
             allStories.loadFullList();
         },
         oncreate(): void {

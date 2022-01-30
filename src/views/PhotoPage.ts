@@ -250,8 +250,8 @@ function documentTitle(): string {
 
 /** Complete photography page with links to the next/prev photo. */
 export default function PhotoPage(): m.Component {
-    let currentLang: string;
-    let selectedPhotoId: number | null;
+    let currentLang: string | undefined; // skipcq: JS-0309
+    let selectedPhotoId: number | null; // skipcq: JS-0309
 
     return {
         oninit(): void {

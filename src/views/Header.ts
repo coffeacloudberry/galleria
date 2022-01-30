@@ -18,7 +18,7 @@ const languages = require("../languages"); // skipcq: JS-0359
 const info = new CustomLogging();
 
 /** The link to the page before landing to the about page. */
-let prevHref: string | undefined;
+let prevHref: string | undefined; // skipcq: JS-0309
 
 interface LanguageSelectionAttrs {
     refPage: string;
@@ -234,6 +234,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
     }
 
     view({ attrs }: m.CVnode<HeaderAttrs>): m.Vnode {
+        // skipcq: JS-0309
         let centeredNav: m.Vnode<OpenPhotoAttrs | OpenStoryAttrs> | null;
 
         switch (attrs.refPage) {

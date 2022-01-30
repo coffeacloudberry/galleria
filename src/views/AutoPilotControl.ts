@@ -94,8 +94,8 @@ class AutoPilotControlComponent
      * https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API#example
      */
     setupOnVisibilityChange(): void {
-        let hidden: string | undefined;
-        let visibilityChange: string | undefined;
+        let hidden: string | undefined; // skipcq: JS-0309
+        let visibilityChange: string | undefined; // skipcq: JS-0309
 
         if (typeof document.hidden !== "undefined") {
             hidden = "hidden";
@@ -280,7 +280,7 @@ class AutoPilotControlComponent
     }
 
     view(): (boolean | m.Vnode)[] {
-        let text: string;
+        let text: string; // skipcq: JS-0309
         if (this.autoPiloting) {
             text = this.isLoading ? "loading" : "pause";
         } else {
@@ -428,8 +428,8 @@ export default class AutoPilotControl implements mapboxgl.IControl {
     }
 
     getPosBeyond(arrCameraRoute: Position[], isStart: boolean): Feature<Point> {
-        let pos: Feature<Point>;
-        let dPos: Feature<Point>;
+        let pos: Feature<Point>; // skipcq: JS-0309
+        let dPos: Feature<Point>; // skipcq: JS-0309
 
         if (isStart) {
             pos = turf.point(arrCameraRoute[0]);

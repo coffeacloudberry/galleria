@@ -71,7 +71,7 @@ const StoryTitle: m.Component = {
 };
 
 export default function StoryPage(): m.Component {
-    let currentLang: string;
+    let currentLang: string | undefined; // skipcq: JS-0309
     let tippyAbbr: TippyInstance[] = [];
     return {
         oninit(): void {

@@ -17,7 +17,7 @@ export const minTimeGap = 60;
 
 /** Get the address book ID from the address book name. */
 export function getNewsletterIdFromList(dataList: any[]): number | undefined {
-    let newsletterId: number | undefined;
+    let newsletterId: number | undefined; // skipcq: JS-0309
     for (const listItem of dataList) {
         if (listItem.name === newsletterAddressBookName) {
             newsletterId = listItem.id;

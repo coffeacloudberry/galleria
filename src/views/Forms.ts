@@ -65,7 +65,7 @@ interface SubmitButtonAttrs {
 /** Submit button, always visible. */
 const SubmitButton: m.Component<SubmitButtonAttrs> = {
     view({ attrs }: m.Vnode<SubmitButtonAttrs>): m.Vnode {
-        let status: string;
+        let status = "";
         if (attrs.processing) {
             status = `${t("wait")}...`;
         } else if (attrs.success) {
