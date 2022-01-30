@@ -27,13 +27,13 @@ I could not find anything cheap complying to the above requirements, and I was i
 - [x] Interactive charts,
 - [x] Home-made track format including elevation profile,
 - [x] Newsletter system and contact form,
-- [x] Home-made like buttons and emotion sharing with a GIF,
+- [x] Emotion sharing with a GIF,
 - [x] Fully translated in English, Finnish, and French,
-- [x] GDPR-compliant and privacy by design,
+- [x] Privacy by design,
 - [x] Do not use any cookie or Local Storage,
 - [x] Photo viewer with dynamic image optimization,
 - [x] Mobile-friendly,
-- [x] Lazy-loading heavy scripts.
+- [x] Lazy-loading heavy scripts (with dynamic import expressions).
 
 The project was not created to be a template or a flexible CMS, but for my own use. Feel free to take whatever inspiration from it that you want.
 
