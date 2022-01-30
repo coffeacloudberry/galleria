@@ -52,7 +52,7 @@ module.exports = merge(common, {
     module: {
         rules: [
             {
-                test: /\.(s[ac]ss|css)$/,
+                test: /\.(?:s[ac]ss|css)$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     {

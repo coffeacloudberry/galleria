@@ -53,13 +53,13 @@ module.exports = {
             { test: /\.tsx?$/, use: ["ts-loader"] },
 
             // Embedded into the scripts and styles
-            { test: /\.(svg|png)$/, type: "asset/inline" },
+            { test: /\.(?:svg|png)$/, type: "asset/inline" },
 
             // Images: Copy image files to build folder
             { test: /\.(?:ico|gif|jpg|jpeg)$/i, type: "asset/resource" },
 
             // Fonts: Inline
-            { test: /\.(woff(2)?|eot|ttf|otf|)$/, type: "asset/inline" },
+            { test: /\.(?:woff(2)?|eot|ttf|otf)$/, type: "asset/inline" },
         ],
     },
 
