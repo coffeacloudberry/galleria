@@ -1,9 +1,4 @@
-/* eslint-disable max-len */
-
-require("jsdom-global")();
-global.requestAnimationFrame = (cb: any) => cb(); // for Mithril
-const assert = require("assert");
-
+import assert from "assert";
 import { readFile } from "fs";
 
 import WebTrack from "../../src/webtrack";
@@ -27,7 +22,7 @@ describe("WebTrack Parser (1 segment, 0 waypoint)", () => {
     });
 
     it("should contains info", () => {
-        assert.deepEqual(myWebTrack.getTrackInfo(), {
+        assert.deepStrictEqual(myWebTrack.getTrackInfo(), {
             length: 57359,
             min: 55,
             max: 1209,
@@ -38,21 +33,21 @@ describe("WebTrack Parser (1 segment, 0 waypoint)", () => {
     });
 
     it("should have one segment", () => {
-        assert.equal(myWebTrack.getTrack().length, 1);
+        assert.strictEqual(myWebTrack.getTrack().length, 1);
     });
 
     it("should not have any waypoint", () => {
-        assert.equal(myWebTrack.getWaypoints().length, 0);
+        assert.strictEqual(myWebTrack.getWaypoints().length, 0);
     });
 
     it("should generate GeoJSON", (done) => {
         const geoJson = myWebTrack.toGeoJson();
-        assert.equal(typeof geoJson, "object");
+        assert.strictEqual(typeof geoJson, "object");
         readFile(geoJsonPath, "utf8", (err, expectedGeoJson) => {
             if (err) {
                 done(err);
             }
-            assert.deepEqual(geoJson, JSON.parse(expectedGeoJson));
+            assert.deepStrictEqual(geoJson, JSON.parse(expectedGeoJson));
             done();
         });
     });
@@ -70,11 +65,11 @@ describe("WebTrack Parser (1 segment, 4 waypoints)", () => {
     });
 
     it("should have one segment", () => {
-        assert.equal(myWebTrack.getTrack().length, 1);
+        assert.strictEqual(myWebTrack.getTrack().length, 1);
     });
 
     it("should have some waypoints", () => {
-        assert.equal(myWebTrack.getWaypoints().length, 4);
+        assert.strictEqual(myWebTrack.getWaypoints().length, 4);
     });
 });
 
@@ -90,11 +85,11 @@ describe("WebTrack Parser (3 segments, 4 waypoints)", () => {
     });
 
     it("should have three segments", () => {
-        assert.equal(myWebTrack.getTrack().length, 3);
+        assert.strictEqual(myWebTrack.getTrack().length, 3);
     });
 
     it("should have some waypoints", () => {
-        assert.equal(myWebTrack.getWaypoints().length, 4);
+        assert.strictEqual(myWebTrack.getWaypoints().length, 4);
     });
 
     it("should generate GeoJSON", (done) => {
@@ -102,7 +97,7 @@ describe("WebTrack Parser (3 segments, 4 waypoints)", () => {
             if (err) {
                 done(err);
             }
-            assert.deepEqual(
+            assert.deepStrictEqual(
                 myWebTrack.toGeoJson(),
                 JSON.parse(expectedGeoJson),
             );
