@@ -2,6 +2,7 @@ import m from "mithril";
 
 import { t } from "../translate";
 
+// skipcq: JS-0359
 const thirdParties: ThirdPartyConnectionStruct[] = require("../third-party-connections");
 
 interface ThirdPartyConnectionStruct {

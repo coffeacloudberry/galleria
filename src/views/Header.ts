@@ -14,7 +14,7 @@ import { story } from "../models/Story";
 import { Language, t } from "../translate";
 import Icon from "./Icon";
 
-const languages = require("../languages.json");
+const languages = require("../languages"); // skipcq: JS-0359
 const info = new CustomLogging();
 
 /** The link to the page before landing to the about page. */

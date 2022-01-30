@@ -69,6 +69,7 @@ export interface ExtraIconsInfo {
  */
 type ExtraIconsStruct = { [key: string]: ExtraIconsInfo };
 
+// skipcq: JS-0359
 export const extraIcons: ExtraIconsStruct = require("../extra-icons");
 
 export interface GlobalMapState {
