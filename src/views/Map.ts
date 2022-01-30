@@ -527,34 +527,30 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         this.hasElevation = this.webtrack.someTracksWithEle();
 
         injectCode(config.turf.js)
-            .then(() => {
-                (async () => {
-                    // skipcq: JS-0356
-                    const turf = await import("@turf/turf");
-                    if (this.map !== undefined) {
-                        if (
-                            !Object.prototype.hasOwnProperty.call(
-                                globalMapState.controls,
-                                "autoPilot",
-                            )
-                        ) {
-                            globalMapState.controls.autoPilot =
-                                new AutoPilotControl(data, story.duration);
-                            this.map.addControl(
-                                globalMapState.controls.autoPilot,
-                            );
-                        }
-
-                        if (this.hasElevation) {
-                            this.map.on(
-                                "mousemove",
-                                (e: mapboxgl.MapMouseEvent) => {
-                                    this.mouseMove(line, e);
-                                },
-                            );
-                        }
+            .then(async () => {
+                // skipcq: JS-0356
+                const turf = await import("@turf/turf");
+                if (this.map !== undefined) {
+                    if (
+                        !Object.prototype.hasOwnProperty.call(
+                            globalMapState.controls,
+                            "autoPilot",
+                        )
+                    ) {
+                        globalMapState.controls.autoPilot =
+                            new AutoPilotControl(data, story.duration);
+                        this.map.addControl(globalMapState.controls.autoPilot);
                     }
-                })();
+
+                    if (this.hasElevation) {
+                        this.map.on(
+                            "mousemove",
+                            (e: mapboxgl.MapMouseEvent) => {
+                                this.mouseMove(line, e);
+                            },
+                        );
+                    }
+                }
             })
             .catch((err) => {
                 error.log(err);
@@ -562,12 +558,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
         if (this.hasElevation) {
             injectCode(config.chart.js)
-                .then(() => {
-                    (async () => {
-                        // skipcq: JS-0356
-                        const Chart = await import("chart.js");
-                        this.addBodyChart();
-                    })();
+                .then(async () => {
+                    // skipcq: JS-0356
+                    const Chart = await import("chart.js");
+                    this.addBodyChart();
                 })
                 .catch((err) => {
                     error.log(err);
@@ -882,52 +876,50 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             injectCode(config.mapbox.css),
             injectCode(config.mapbox.js),
         ])
-            .then(() => {
-                (async () => {
-                    const { default: mapboxgl } = await import("mapbox-gl");
-                    mapboxgl.accessToken = "" + process.env.MAPBOX_ACCESS_TOKEN;
-                    if (!mapboxgl.supported()) {
-                        m.render(
-                            mapElement,
-                            m(
-                                "p.critical-error.text-center",
-                                "Sorry, Mapbox GL JS is not supported by your browser!",
-                            ),
-                        );
-                        return;
-                    }
+            .then(async () => {
+                const { default: mapboxgl } = await import("mapbox-gl");
+                mapboxgl.accessToken = "" + process.env.MAPBOX_ACCESS_TOKEN;
+                if (!mapboxgl.supported()) {
+                    m.render(
+                        mapElement,
+                        m(
+                            "p.critical-error.text-center",
+                            "Sorry, Mapbox GL JS is not supported by your browser!",
+                        ),
+                    );
+                    return;
+                }
 
-                    this.map = new mapboxgl.Map({
-                        container: mapElement,
-                        zoom: 13,
-                        maxZoom: 18,
-                        minZoom: 4,
-                        center: [0, 0], // in the ocean (center to the track later on)
-                        pitch: 0,
-                        bearing: 0,
-                        style: config.mapbox.style[story.mapTheme].url,
-                        attributionControl: false, // outside the map widget to control the style and language
-                        logoPosition: "bottom-right",
-                        cooperativeGestures: isMobile(),
-                    });
+                this.map = new mapboxgl.Map({
+                    container: mapElement,
+                    zoom: 13,
+                    maxZoom: 18,
+                    minZoom: 4,
+                    center: [0, 0], // in the ocean (center to the track later on)
+                    pitch: 0,
+                    bearing: 0,
+                    style: config.mapbox.style[story.mapTheme].url,
+                    attributionControl: false, // outside the map widget to control the style and language
+                    logoPosition: "bottom-right",
+                    cooperativeGestures: isMobile(),
+                });
 
-                    globalMapState.controls.scale = new mapboxgl.ScaleControl({
-                        maxWidth: 120,
-                        unit: "metric",
-                    });
-                    this.resetControls();
+                globalMapState.controls.scale = new mapboxgl.ScaleControl({
+                    maxWidth: 120,
+                    unit: "metric",
+                });
+                this.resetControls();
 
-                    this.map.on("load", () => {
+                this.map.on("load", () => {
+                    this.loadMap();
+                });
+                this.firstLoad = true;
+                this.map.on("style.load", () => {
+                    if (!this.firstLoad) {
                         this.loadMap();
-                    });
-                    this.firstLoad = true;
-                    this.map.on("style.load", () => {
-                        if (!this.firstLoad) {
-                            this.loadMap();
-                        }
-                        this.firstLoad = false;
-                    });
-                })();
+                    }
+                    this.firstLoad = false;
+                });
             })
             .catch((err) => {
                 error.log(err);

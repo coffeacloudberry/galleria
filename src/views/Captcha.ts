@@ -38,24 +38,20 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
 
     oncreate({ dom, attrs }: m.CVnodeDOM<CaptchaAttrs>): void {
         injectCode(config.captcha.js)
-            .then(() => {
-                (async () => {
-                    const friendlyChallenge = await import(
-                        "friendly-challenge"
-                    );
-                    this.widget = new friendlyChallenge.WidgetInstance(
-                        dom as HTMLElement,
-                        {
-                            startMode: "auto",
-                            sitekey: config.captcha.siteKey,
-                            language: this.getLang(),
-                            doneCallback: attrs.doneCallback,
-                            errorCallback: (err) => {
-                                this.errorCallback(err);
-                            },
+            .then(async () => {
+                const friendlyChallenge = await import("friendly-challenge");
+                this.widget = new friendlyChallenge.WidgetInstance(
+                    dom as HTMLElement,
+                    {
+                        startMode: "auto",
+                        sitekey: config.captcha.siteKey,
+                        language: this.getLang(),
+                        doneCallback: attrs.doneCallback,
+                        errorCallback: (err) => {
+                            this.errorCallback(err);
                         },
-                    );
-                })();
+                    },
+                );
             })
             .catch((err) => {
                 error.log("Failed to load CAPTCHA script", err);
