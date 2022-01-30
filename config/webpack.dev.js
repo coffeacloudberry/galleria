@@ -55,7 +55,7 @@ module.exports = merge(common, {
     plugins: [
         // Generates an HTML file from a template
         new HtmlWebpackPlugin({
-            template: paths.src + "/template.html", // template file
+            template: `${paths.src}/template.html`, // template file
             filename: "index.html", // output file
             templateParameters: {
                 prod: false,

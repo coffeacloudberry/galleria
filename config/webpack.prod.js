@@ -27,8 +27,8 @@ const plainRoutes = [
     "stories",
     "about",
     "privacy",
-    ...allStories.map((storyId) => "story/" + storyId),
-    ...allPhotos.map((photoId) => "photo/" + photoId),
+    ...allStories.map((storyId) => `story/${storyId}`),
+    ...allPhotos.map((photoId) => `photo/${photoId}`),
 ];
 
 if (!("MAPBOX_ACCESS_TOKEN" in process.env)) {
@@ -70,7 +70,7 @@ module.exports = merge(common, {
     plugins: [
         // Generates an HTML file from a template
         new HtmlWebpackPlugin({
-            template: paths.src + "/template.html", // template file
+            template: `${paths.src}/template.html`, // template file
             filename: "index.html", // output file
             templateParameters: {
                 prod: true,
@@ -97,7 +97,7 @@ module.exports = merge(common, {
                     allow: "/",
                 },
             ],
-            sitemap: address + "/sitemap.xml",
+            sitemap: `${address}/sitemap.xml`,
         }),
 
         new HumanstxtPlugin({

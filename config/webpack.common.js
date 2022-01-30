@@ -36,7 +36,7 @@ function oldestPhotoId() {
 
 module.exports = {
     // Where webpack looks to start building the bundle
-    entry: [paths.src + "/index.ts"],
+    entry: [`${paths.src}/index.ts`],
 
     // Where webpack outputs the assets and bundles
     output: {
@@ -59,7 +59,7 @@ module.exports = {
             { test: /\.(?:ico|gif|jpg|jpeg)$/i, type: "asset/resource" },
 
             // Fonts: Inline
-            { test: /\.(?:woff(2)?|eot|ttf|otf)$/, type: "asset/inline" },
+            { test: /\.(?:woff2?|eot|ttf|otf)$/, type: "asset/inline" },
         ],
     },
 
@@ -124,7 +124,7 @@ module.exports = {
                             .replace(/\\/g, "/"),
                         "*.{png,svg}",
                     ),
-                    to: paths.build + "/assets/map/[name][ext]",
+                    to: `${paths.build}/assets/map/[name][ext]`,
                     globOptions: {
                         caseSensitiveMatch: false,
                     },
@@ -132,7 +132,7 @@ module.exports = {
                 },
                 {
                     from: "src/404.html",
-                    to: paths.build + "/",
+                    to: `${paths.build}/`,
                 },
             ],
             options: {
