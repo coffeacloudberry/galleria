@@ -158,7 +158,7 @@ export class Finder implements m.ClassComponent<FinderAttrs> {
             this.isLoading = false;
             if (result.meta.status >= 400) {
                 toast(t("applause.feedback.fail"), LogType.error);
-                throw new Error(`Giphy error: ${result.meta.msg}`);
+                throw new Error(`Giphy error: ${String(result.meta.msg)}`);
             } else if (result.data.length == 0) {
                 toast(t("no-result-try-sth-else"), LogType.error);
             } else {

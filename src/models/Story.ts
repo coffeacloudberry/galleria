@@ -322,7 +322,7 @@ class Story {
                     if (Season[result.season] !== undefined) {
                         this.season = result.season;
                     } else {
-                        error.log(`Unknown season '${result.season}'`);
+                        error.log(`Unknown season '${String(result.season)}'`);
                         this.season = null;
                     }
                 } else {

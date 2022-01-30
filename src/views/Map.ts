@@ -119,7 +119,7 @@ const ListPositioningComponent: m.Component<ListPositioningComponentAttrs> = {
                     "li",
                     m(
                         "small",
-                        `${oneConfig.model} (${
+                        `${String(oneConfig.model)} (${
                             oneConfig.multiBandEnabled
                                 ? t("multi-band")
                                 : t("single-band")
