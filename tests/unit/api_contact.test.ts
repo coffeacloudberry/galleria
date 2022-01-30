@@ -1,10 +1,14 @@
 /* eslint-disable max-len */
 
+import assert from "assert";
+import os from "os"; // use tmpdir for the SendPulse API
+
+import { config } from "dotenv";
+import sendpulse from "sendpulse-api";
+
 import * as contact from "../../api/contact";
-const assert = require("assert");
-const sendpulse = require("sendpulse-api");
-const os = require("os"); // use tmpdir for the SendPulse API
-require("dotenv").config();
+
+config();
 
 /*
 SendPulse API: https://github.com/sendpulse/sendpulse-rest-api-node.js/blob/master/example.js
@@ -125,6 +129,7 @@ describe("Contact Forms", () => {
             process.env.SMTP_PASSWORD,
             os.tmpdir(),
             () => {
+                // @ts-ignore
                 sendpulse.listAddressBooks((addressBooks: any[]) => {
                     const newsletterId =
                         contact.getNewsletterIdFromList(addressBooks);
@@ -175,6 +180,7 @@ describe("Contact Forms", () => {
             process.env.SMTP_PASSWORD,
             os.tmpdir(),
             () => {
+                // @ts-ignore
                 sendpulse.listAddressBooks((addressBooks: any[]) => {
                     const newsletterId =
                         contact.getNewsletterIdFromList(addressBooks);
