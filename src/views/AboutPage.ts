@@ -235,6 +235,12 @@ class VisitorsBook implements m.ClassComponent {
         },
     };
 
+    constructor() {
+        this.bookRequestRetryTimeout = 1000;
+        this.initList();
+        this.hasShared = false;
+    }
+
     /** Fetch the stored giphies. */
     initList(): void {
         this.storedGiphies = [];
@@ -254,12 +260,6 @@ class VisitorsBook implements m.ClassComponent {
                     this.initList();
                 }, this.bookRequestRetryTimeout);
             });
-    }
-
-    oninit(): void {
-        this.bookRequestRetryTimeout = 1000;
-        this.initList();
-        this.hasShared = false;
     }
 
     onremove(): void {
@@ -311,10 +311,8 @@ class VisitorsBook implements m.ClassComponent {
 
 /** About page including contact form and newsletter subscription. */
 export default function AboutPage(): m.Component {
+    t.init();
     return {
-        oninit(): void {
-            t.init();
-        },
         oncreate(): void {
             document.title = t("about");
             t.createTippies();

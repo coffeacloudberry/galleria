@@ -71,14 +71,11 @@ const StoryTitle: m.Component = {
 };
 
 export default function StoryPage(): m.Component {
-    let currentLang: string | undefined; // skipcq: JS-0309
+    t.init();
+    let currentLang = t.getLang();
     let tippyAbbr: TippyInstance[] = [];
+    story.load(getStoryId());
     return {
-        oninit(): void {
-            t.init();
-            currentLang = t.getLang();
-            story.load(getStoryId());
-        },
         oncreate(): void {
             document.title = t("story.title");
             t.createTippies();

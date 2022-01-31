@@ -5,10 +5,8 @@ import { hideAllForce } from "../utils";
 
 /** Default "404" landing page when none of the listed routes match the path. */
 export default function NotFoundPage(): m.Component {
+    t.init();
     return {
-        oninit(): void {
-            t.init();
-        },
         oncreate(): void {
             document.title = t("not-found.message");
 

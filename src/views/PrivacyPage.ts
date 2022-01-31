@@ -7,10 +7,8 @@ import { PrivacyPolicy } from "./PrivacyPolicy";
 
 /** The Privacy Policy shall have its own page for sharing permalink. */
 export default function PrivacyPage(): m.Component {
+    t.init();
     return {
-        oninit(): void {
-            t.init();
-        },
         oncreate(): void {
             document.title = t("privacy.title");
             t.createTippies();

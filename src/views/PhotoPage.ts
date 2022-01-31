@@ -250,20 +250,16 @@ function documentTitle(): string {
 
 /** Complete photography page with links to the next/prev photo. */
 export default function PhotoPage(): m.Component {
-    let currentLang: string | undefined; // skipcq: JS-0309
-    let selectedPhotoId: number | null; // skipcq: JS-0309
+    t.init();
+    let currentLang = t.getLang();
+    const selectedPhotoId = getPhotoId();
+    if (selectedPhotoId === null) {
+        photo.loadFirst();
+    } else {
+        void photo.load(selectedPhotoId);
+    }
 
     return {
-        oninit(): void {
-            t.init();
-            currentLang = t.getLang();
-            selectedPhotoId = getPhotoId();
-            if (selectedPhotoId === null) {
-                photo.loadFirst();
-            } else {
-                void photo.load(selectedPhotoId);
-            }
-        },
         oncreate(): void {
             document.title = t("photo.title");
             t.createTippies();
