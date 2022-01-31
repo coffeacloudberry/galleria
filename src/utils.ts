@@ -4,6 +4,9 @@ import Toastify from "toastify-js";
 import { config } from "./config";
 import { LogType } from "./CustomLogging";
 
+/** All injected scripts. Wide scope because scripts are cached. */
+const allInjectedScripts: string[] = [];
+
 /** Deselect text. */
 export function clearSelection(): void {
     const selection = window.getSelection();
@@ -53,7 +56,11 @@ export function numberWithCommas(x: number): string {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-/** Loads a file and returns a Promise for when it is loaded. */
+/**
+ * Loads a file and returns a Promise for when it is loaded.
+ * The function does nothing if the script has already been injected.
+ * That is to avoid duplication in script injections.
+ */
 export function injectCode(path: {
     src: string;
     sri: string;
@@ -63,6 +70,11 @@ export function injectCode(path: {
         if (!path.sri.startsWith("sha512-")) {
             throw Error(`SRI SHALL start with 'sha512-' (got '${path.sri}')`);
         }
+        if (allInjectedScripts.indexOf(path.src) !== -1) {
+            resolve(null);
+            return;
+        }
+        allInjectedScripts.push(path.src);
         const ext = String(path.src.split(".").pop());
         switch (ext) {
             case "js":
