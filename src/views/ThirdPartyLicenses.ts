@@ -45,10 +45,6 @@ const IconDetailComponent: m.Component<ExtraIconsInfo> = {
 
 export const ThirdPartyLicenses: m.Component = {
     view(): m.Vnode[] {
-        const iconNodes: m.Vnode<ExtraIconsInfo>[] = [];
-        for (const icon in extraIcons) {
-            iconNodes.push(m(IconDetailComponent, extraIcons[icon]));
-        }
         return [
             m("p.text-center", t("copyright.third-parties.details")),
             m("table.data.icons", [
@@ -56,7 +52,9 @@ export const ThirdPartyLicenses: m.Component = {
                     m("th", t("copyright.third-parties.icon")),
                     m("th", t("copyright.third-parties.from")),
                 ]),
-                ...iconNodes,
+                Object.values(extraIcons).map((icon) => {
+                    return m(IconDetailComponent, icon);
+                }),
             ]),
             // link to Ionicons because not linked otherwise
             m("p.text-center", [

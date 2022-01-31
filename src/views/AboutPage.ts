@@ -54,40 +54,23 @@ const Intro: m.Component = {
     },
 };
 
+/** Licenses of home-made content and code. */
+const myCopyrightList = [
+    {
+        what: "content",
+        short: "CC BY-SA 4.0",
+        href: "https://creativecommons.org/licenses/by-sa/4.0/",
+    },
+    {
+        what: "source",
+        short: "Apache-2.0",
+        href: "https://github.com/coffeacloudberry/galleria/blob/master/LICENSE",
+    },
+];
+
 /** The copyright notice including the opener to the dependencies. */
-class CopyrightNotice implements m.ClassComponent {
-    readonly myCopyrightList = [
-        {
-            what: "content",
-            short: "CC BY-SA 4.0",
-            href: "https://creativecommons.org/licenses/by-sa/4.0/",
-        },
-        {
-            what: "source",
-            short: "Apache-2.0",
-            href: "https://github.com/coffeacloudberry/galleria/blob/master/LICENSE",
-        },
-    ];
-
+const CopyrightNotice: m.Component = {
     view(): m.Vnode[] {
-        const myCopyrightNodes: m.Vnode[] = [];
-        for (const license of this.myCopyrightList) {
-            myCopyrightNodes.push(
-                m("p", [
-                    t(`copyright.${license.what}`),
-                    " ",
-                    m(
-                        "a",
-                        {
-                            href: license.href,
-                        },
-                        license.short,
-                    ),
-                    ".",
-                ]),
-            );
-        }
-
         return [
             m("h1", t("copyright.title")),
             m("p", [
@@ -109,10 +92,26 @@ class CopyrightNotice implements m.ClassComponent {
                 ),
                 ".",
             ]),
-            m("p", myCopyrightNodes),
+            m(
+                "p",
+                myCopyrightList.map((license) => {
+                    return m("p", [
+                        t(`copyright.${license.what}`),
+                        " ",
+                        m(
+                            "a",
+                            {
+                                href: license.href,
+                            },
+                            license.short,
+                        ),
+                        ".",
+                    ]);
+                }),
+            ),
         ];
-    }
-}
+    },
+};
 
 /** Icons and links to my social networks. */
 const SocialNetworks: m.Component = {

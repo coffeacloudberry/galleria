@@ -10,7 +10,7 @@ import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
-import { GpsConfig, MapTheme, story } from "../models/Story";
+import { GpsConfig, MapTheme, MapThemeStrings, story } from "../models/Story";
 import { t } from "../translate";
 import { injectCode, isMobile, numberWithCommas } from "../utils";
 import type { WebTrackGeoJsonFeature } from "../webtrack";
@@ -959,19 +959,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     }
 
     view(): m.Vnode<StatsComponentAttrs>[] {
-        const attributionsComponents: (string | m.Vnode)[] = [];
-        config.mapbox.style[story.mapTheme].attributions.forEach(
-            (keyAttrib: number) => {
-                attributionsComponents.push.apply(attributionsComponents, [
-                    " © ",
-                    m(
-                        "a",
-                        { href: AttribUrls[keyAttrib] },
-                        Attribution[keyAttrib],
-                    ),
-                ]);
-            },
-        );
         return [
             m("hr"),
             m(StatsComponent, {
@@ -985,7 +972,18 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 m("#map"),
                 m("p.attributions", [
                     t("map.data"),
-                    ...attributionsComponents,
+                    config.mapbox.style[
+                        MapTheme[globalMapState.theme] as MapThemeStrings
+                    ].attributions.map((keyAttrib: number) => {
+                        return [
+                            " © ",
+                            m(
+                                "a",
+                                { href: AttribUrls[keyAttrib] },
+                                Attribution[keyAttrib],
+                            ),
+                        ];
+                    }),
                     ". ",
                     m(
                         "a",
