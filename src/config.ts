@@ -83,7 +83,11 @@ export const config = {
             },
             darkSnow: {
                 url: "mapbox://styles/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr",
-                attributions: [Attribution.OpenStreetMap, Attribution.Mapbox],
+                attributions: [
+                    Attribution.OpenStreetMap,
+                    Attribution.Mapbox,
+                    Attribution.Maxar,
+                ],
             },
             whiteSnow: {
                 url: "mapbox://styles/onvbjzhghu/ckwuwtmkeeb1p15p2zbawe8u5",
