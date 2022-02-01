@@ -31,6 +31,7 @@ class LayerSelectionControlComponent
         if (!this.map) {
             return;
         }
+        globalMapState.isLoadingLayers = true;
         globalMapState.theme = layer;
         this.map.setStyle(
             config.mapbox.style[
@@ -45,11 +46,11 @@ class LayerSelectionControlComponent
 
     view(): m.Vnode {
         const nextLayer = LayerSelectionControlComponent.getNextLayer();
-        // FIXME: [GALLERIA-FRONTEND-1N] disable button during map switch
         return m(
             "button.mapboxgl-ctrl-my-layer",
             {
                 type: "button",
+                disabled: globalMapState.isLoadingLayers,
                 "data-tippy-content":
                     t("map.control.select-layer") +
                     t("map.theme", MapTheme[nextLayer]),

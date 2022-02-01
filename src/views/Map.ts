@@ -78,6 +78,9 @@ export interface GlobalMapState {
 
     /** Map layer. */
     theme: MapTheme;
+
+    /** True if the map is loading layers, not ready to handle more changes. */
+    isLoadingLayers: boolean;
 }
 
 /**
@@ -86,6 +89,7 @@ export interface GlobalMapState {
 export const globalMapState: GlobalMapState = {
     controls: {},
     theme: MapTheme.default,
+    isLoadingLayers: false,
 };
 
 /**
@@ -284,7 +288,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     readonly timeoutHiker = 1000;
 
     /** Ratio to apply on the actual PNG image sizes. */
-    readonly makersRelSize = 0.3; // high res
+    readonly makersRelSize = 0.3; // high-res
 
     /** The current language of the map interface. */
     currentLang: string;
@@ -292,10 +296,14 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     /** True if the track contains elevation data. */
     hasElevation: boolean | undefined;
 
+    /** Total number of remaining points layer to load. */
+    remainingPointsLayer: number | undefined;
+
     constructor() {
         this.currentLang = t.getLang();
         globalMapState.controls = {};
         globalMapState.theme = MapTheme[story.mapTheme];
+        globalMapState.isLoadingLayers = true;
     }
 
     /** Display a tooltip when the mouse hovers a marker. */
@@ -398,12 +406,23 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         chart.update();
     }
 
+    decrementRemainingLayers(): void {
+        if (this.remainingPointsLayer) {
+            this.remainingPointsLayer--;
+            if (this.remainingPointsLayer === 0) {
+                globalMapState.isLoadingLayers = false;
+                m.redraw(); // enable the layer button
+            }
+        }
+    }
+
     addPointsLayer(feature: WebTrackGeoJsonFeature): void {
         if (
             this.map === undefined ||
             feature.geometry.type !== "Point" ||
             feature.properties === null
         ) {
+            this.decrementRemainingLayers();
             return;
         }
         const sym = String(feature.properties.sym);
@@ -412,6 +431,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 // eslint-disable-next-line max-len
                 `symbol '${sym}' from the WebTrack not available in the icon set. It won't be displayed.`,
             );
+            this.decrementRemainingLayers();
             return;
         }
         const source = extraIcons[sym].source;
@@ -421,6 +441,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         The check is done now to reduce multiple loads of the same image.
          */
         if (this.map.getLayer(source)) {
+            this.decrementRemainingLayers();
             return;
         }
         this.map.loadImage(
@@ -440,6 +461,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     image === undefined ||
                     this.map.getLayer(source)
                 ) {
+                    this.decrementRemainingLayers();
                     return;
                 }
                 if (err) {
@@ -470,6 +492,8 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 this.map.on("mouseleave", source, () => {
                     this.markerOnMouseLeave();
                 });
+
+                this.decrementRemainingLayers();
             },
         );
     }
@@ -673,6 +697,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             }, 800);
         }
 
+        this.remainingPointsLayer = data.features.length;
         data.features.forEach((feature: WebTrackGeoJsonFeature) => {
             this.addPointsLayer(feature);
         });
