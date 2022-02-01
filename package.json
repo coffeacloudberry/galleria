@@ -58,7 +58,7 @@
         "copy-webpack-plugin": "^10.2.1",
         "css-loader": "^6.5.1",
         "css-minimizer-webpack-plugin": "^3.4.1",
-        "dotenv": "^14.2.0",
+        "dotenv": "^15.0.0",
         "eslint": "^8.7.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-json-es": "^1.5.4",
