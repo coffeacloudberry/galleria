@@ -6,7 +6,7 @@
     },
     {
         "what": "tmpdb",
-        "who": "Upstash (in AWS Ireland)",
+        "who": "Upstash (AWS@eu-west-1)",
         "link": "https://www.upstash.com/static/legal/privacy.html"
     },
     {
@@ -16,7 +16,7 @@
     },
     {
         "what": "messages",
-        "who": "Tutao GmbH (in Germany)",
+        "who": "Tutao GmbH",
         "link": "https://tutanota.com/privacy"
     },
     {

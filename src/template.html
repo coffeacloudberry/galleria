@@ -6,6 +6,18 @@
         <% if (prod) { %>
         <link rel="preconnect" href="https://api.mapbox.com" />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <% } %> <% if (!prod) { %>
+        <!--
+        The Content Security Policy is in the meta tag only for safer local
+        development. In the deployed application, Vercel will read the
+        vercel.json file and put the CSP in the HTTP header instead. The HTTP
+        header is preferred to enforce CSP rules not supported in the meta tag
+        such as frame-ancestors.
+        -->
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'none'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://api.mapbox.com https://cdnjs.cloudflare.com https://unpkg.com; connect-src 'self' https://api.mapbox.com https://api.giphy.com https://api.friendlycaptcha.com; img-src 'self' https://media0.giphy.com data: blob:; style-src 'self' 'unsafe-inline' https://api.mapbox.com; font-src 'self' data:; worker-src blob:; child-src blob:; base-uri 'none'; form-action 'none'"
+        />
         <% } %>
         <meta name="robots" content="noarchive, notranslate" />
         <link

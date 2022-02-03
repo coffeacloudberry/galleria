@@ -143,28 +143,36 @@ describe("Contact Forms", () => {
                     contact
                         .manageEmail(newEmailAddress)
                         .then(() => {
-                            sendpulse.getEmailsFromBook((mailingList: any) => {
-                                let emailFound = false;
-                                for (const mailingItem of mailingList) {
-                                    if (mailingItem.email === newEmailAddress) {
-                                        emailFound = true;
-                                        break;
-                                    }
-                                }
-                                if (emailFound) {
-                                    sendpulse.removeEmails(
-                                        () => {
-                                            done();
-                                        },
-                                        newsletterId,
-                                        [newEmailAddress],
-                                    );
-                                } else {
-                                    done(
-                                        `'${newEmailAddress}' not found in '${contact.newsletterAddressBookName}'.`,
-                                    );
-                                }
-                            }, newsletterId);
+                            setTimeout(() => {
+                                sendpulse.getEmailsFromBook(
+                                    (mailingList: any) => {
+                                        let emailFound = false;
+                                        for (const mailingItem of mailingList) {
+                                            if (
+                                                mailingItem.email ===
+                                                newEmailAddress
+                                            ) {
+                                                emailFound = true;
+                                                break;
+                                            }
+                                        }
+                                        if (emailFound) {
+                                            sendpulse.removeEmails(
+                                                () => {
+                                                    done();
+                                                },
+                                                newsletterId,
+                                                [newEmailAddress],
+                                            );
+                                        } else {
+                                            done(
+                                                `'${newEmailAddress}' not found in '${contact.newsletterAddressBookName}'.`,
+                                            );
+                                        }
+                                    },
+                                    newsletterId,
+                                );
+                            });
                         })
                         .catch((error) => {
                             done(error);
