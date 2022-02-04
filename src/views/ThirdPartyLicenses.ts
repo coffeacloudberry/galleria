@@ -1,7 +1,7 @@
 import m from "mithril";
 
+import { ExtraIconsInfo, extraIcons } from "../models/Map";
 import { t } from "../translate";
-import { ExtraIconsInfo, extraIcons } from "./Map";
 
 const attribUrls: Record<string, string> = {
     "Good Ware": "https://www.flaticon.com/authors/good-ware",

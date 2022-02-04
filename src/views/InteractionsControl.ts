@@ -1,6 +1,6 @@
 import type mapboxgl from "mapbox-gl";
 
-import { globalMapState } from "./Map";
+import { globalMapState } from "../models/Map";
 
 const allInteractions = [
     "scrollZoom",

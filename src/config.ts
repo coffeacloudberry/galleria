@@ -1,18 +1,8 @@
-import CustomLogging from "./CustomLogging";
+import { Attribution } from "./models/Map";
 import { MapThemeStrings } from "./models/Story";
-import { Attribution } from "./views/Map";
 
-const error = new CustomLogging("error");
-
-const mostRecentPhotoId = parseInt("" + process.env.MOST_RECENT_PHOTO_ID);
-if (isNaN(mostRecentPhotoId) && process.env.NODE_ENV !== "test") {
-    error.log("Failed to find the most recent photo.");
-}
-
-const oldestPhotoId = parseInt("" + process.env.OLDEST_PHOTO_ID);
-if (isNaN(oldestPhotoId) && process.env.NODE_ENV !== "test") {
-    error.log("Failed to find the oldest photo.");
-}
+const mostRecentPhotoId = parseInt(String(process.env.MOST_RECENT_PHOTO_ID));
+const oldestPhotoId = parseInt(String(process.env.OLDEST_PHOTO_ID));
 
 /**
  * Project configuration with values used by multiple files or requiring

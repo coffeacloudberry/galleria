@@ -1,9 +1,9 @@
 import m from "mithril";
 
 import { config } from "../config";
+import { globalMapState } from "../models/Map";
 import { MapTheme, MapThemeStrings } from "../models/Story";
 import { t } from "../translate";
-import { globalMapState } from "./Map";
 
 interface LayerSelectionControlAttrs {
     map: mapboxgl.Map;

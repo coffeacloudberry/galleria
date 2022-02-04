@@ -1,15 +1,21 @@
 import compassOutline from "@/icons/compass-outline.svg";
 import type { MultiLineString } from "@turf/helpers";
-import type {
-    ChartConfiguration,
-    Chart as TChart,
-    TooltipItem,
-} from "chart.js";
 import type { Position } from "geojson";
 import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
+import {
+    chart,
+    createElevationChart,
+    unsetElevationChart,
+} from "../models/ElevationProfile";
+import {
+    AttribUrls,
+    Attribution,
+    extraIcons,
+    globalMapState,
+} from "../models/Map";
 import { GpsConfig, MapTheme, MapThemeStrings, story } from "../models/Story";
 import { t } from "../translate";
 import { injectCode, isMobile, numberWithCommas } from "../utils";
@@ -18,7 +24,7 @@ import WebTrack from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
 import Icon from "./Icon";
 import LayerSelectionControl from "./LayerSelectionControl";
-import Controls, { ControlsType } from "./StandardControls";
+import Controls from "./StandardControls";
 
 declare const turf: typeof import("@turf/turf");
 declare const mapboxgl: typeof import("mapbox-gl");
@@ -26,7 +32,6 @@ declare const Chart: typeof import("chart.js");
 
 const warn = new CustomLogging("warning");
 const error = new CustomLogging("error");
-let chart: TChart | undefined = undefined;
 
 /*
 Mapbox requirements on Firefox:
@@ -36,81 +41,6 @@ privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts = false
 You will be requested to allow images in the canvas. Once allowed, refresh
 the page.
  */
-
-/** List of copyrights (depends on the Mapbox style, see config.ts). */
-export enum Attribution {
-    OpenStreetMap,
-    Mapbox,
-    Maxar,
-}
-
-/**
- * Ordered list of attribution URLs.
- * This is separated from the Attribution enum to have both forward and reverse
- * mapping on a string to string structure.
- */
-const AttribUrls = [
-    "https://www.openstreetmap.org/copyright",
-    "https://www.mapbox.com/about/maps/",
-    "https://www.maxar.com/",
-];
-
-export interface ExtraIconsInfo {
-    // file name in the assets
-    source: string;
-    attributions: [string, string];
-}
-
-/**
- * Additional icons.
- * The key is "sym" in the GeoJSON properties and GPX file and translations.
- * Update ThirdPartyLicenses.ts if the icon supplier is not only
- * https://www.flaticon.com/
- */
-type ExtraIconsStruct = { [key: string]: ExtraIconsInfo };
-
-// skipcq: JS-0359
-export const extraIcons: ExtraIconsStruct = require("../extra-icons");
-
-export interface GlobalMapState {
-    /** All controls in the map. */
-    controls: ControlsType;
-
-    /** Map layer. */
-    theme: MapTheme;
-
-    /** True if the map is loading layers, not ready to handle more changes. */
-    isLoadingLayers: boolean;
-}
-
-/**
- * Contains state accessible globally (f.i. from Controls).
- */
-export const globalMapState: GlobalMapState = {
-    controls: {},
-    theme: MapTheme.default,
-    isLoadingLayers: false,
-};
-
-/**
- * Return the object if the lon and lat fields exist, return null otherwise.
- */
-function withLonLatOrNull(el: unknown): { lon: number; lat: number } | null {
-    if (el instanceof Object) {
-        return "lon" in el && "lat" in el ? el : null;
-    }
-    return null;
-}
-
-/**
- * Return the object if the x and y fields exist, return null otherwise.
- */
-function withXYOrNull(el: unknown): { x: number; y: number } | null {
-    if (el instanceof Object) {
-        return "x" in el && "y" in el ? el : null;
-    }
-    return null;
-}
 
 interface ListPositioningComponentAttrs {
     configs: GpsConfig[];
@@ -301,9 +231,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
     constructor() {
         this.currentLang = t.getLang();
-        globalMapState.controls = {};
-        globalMapState.theme = MapTheme[story.mapTheme];
-        globalMapState.isLoadingLayers = true;
+        globalMapState.start();
     }
 
     /** Display a tooltip when the mouse hovers a marker. */
@@ -730,130 +658,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             });
     }
 
-    /** Returns the content of the tooltip used in the elevation chart. */
-    labelElevation(tooltipItem: TooltipItem<"line">): string {
-        const raw = withXYOrNull(tooltipItem.raw);
-        if (raw === null) {
-            return "";
-        }
-        return `${t("map.stats.chart.ele.tooltip")} ${raw.y} m | ${t(
-            "map.stats.chart.dist.tooltip",
-        )} ${Math.round(raw.x * 10) / 10} km`;
-    }
-
-    createElevationChart(
-        ctx: CanvasRenderingContext2D,
-        profile: Position[],
-    ): void {
-        const data = [];
-        for (let i = 0; i < profile.length; i++) {
-            data[i] = {
-                x: profile[i][2] / 1000,
-                y: profile[i][3],
-                lon: profile[i][0],
-                lat: profile[i][1],
-            };
-        }
-
-        const myChartConfig: ChartConfiguration = {
-            type: "line",
-            data: {
-                datasets: [
-                    {
-                        data,
-
-                        // smooth (kind of antialiasing)
-                        tension: 0.1,
-
-                        // filling
-                        fill: true,
-
-                        // no markers on points (too many)
-                        radius: 0,
-
-                        // design the pointer
-                        hoverRadius: 10,
-                        pointStyle: "cross",
-                        hoverBorderWidth: 1,
-
-                        // line width
-                        borderWidth: 1,
-                    },
-                ],
-            },
-            options: {
-                backgroundColor: "rgba(139,147,26,0.63)",
-                borderColor: "rgb(0,0,0)",
-                animation: false,
-                scales: {
-                    xAxes: {
-                        type: "linear",
-                        position: "bottom",
-                        title: {
-                            display: true,
-                            text: t("map.stats.chart.dist.label"),
-                        },
-                    },
-                    yAxes: {
-                        type: "linear",
-                        position: "left",
-                        title: {
-                            display: true,
-                            text: t("map.stats.chart.ele.label"),
-                        },
-                    },
-                },
-                interaction: {
-                    // make sure there is only one found item at a time
-                    // (don't show duplicates)
-                    mode: "index",
-
-                    // apply the tooltip at all time
-                    intersect: false,
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: (tooltipItem: TooltipItem<"line">) => {
-                                const raw = withLonLatOrNull(tooltipItem.raw);
-                                if (raw !== null) {
-                                    this.moveHiker(raw.lon, raw.lat);
-                                }
-                                return this.labelElevation(tooltipItem);
-                            },
-                            title: () => {
-                                return "";
-                            },
-                        },
-                        displayColors: false,
-                        borderColor: "rgb(67,121,67)",
-                        backgroundColor: "rgba(255,255,255,0.42)",
-                        bodyColor: "rgb(0,0,0)",
-                        borderWidth: 1,
-                    },
-                    legend: {
-                        display: false,
-                    },
-                },
-
-                // resize the canvas when the container does
-                responsive: true,
-
-                // do not keep the original / meaningless ratio
-                maintainAspectRatio: false,
-            },
-        };
-
-        Chart.defaults.font = {
-            family: "MyBodyFont",
-            size: 14,
-        };
-
-        try {
-            chart = new Chart.Chart(ctx, myChartConfig);
-        } catch {} // may occur when updating a chart not displayed at this time
-    }
-
     addBodyChart(): void {
         if (this.webtrack === undefined) {
             return;
@@ -869,7 +673,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             canvasContainer.appendChild(canvas);
             const ctx = canvas.getContext("2d");
             if (ctx) {
-                this.createElevationChart(ctx, points);
+                createElevationChart(ctx, points, (lon, lat) => {
+                    this.moveHiker(lon, lat);
+                });
             }
         }
     }
@@ -894,7 +700,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     oncreate({ attrs }: m.CVnode<MapAttrs>): void {
         const mapElement = document.getElementById("map");
         this.storyId = attrs.storyId;
-        chart = undefined; // reset
+        unsetElevationChart();
         if (mapElement === null) {
             return;
         }
