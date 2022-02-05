@@ -26,7 +26,7 @@ export interface GifMetadata {
 
 /**
  * Contains a subset of the Giphy response from the search endpoint.
- * For simplicity sake, the pagination object and the offset and total count
+ * For simplicity's sake, the pagination object and the offset and total count
  * are guessed from the current state and data length.
  */
 interface Payload {
