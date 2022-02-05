@@ -194,6 +194,14 @@ From a new SVG file:
 * Generate a compressed version with Inkscape: File > Save As... > Optimized SVG.
 
 </details>
+<details>
+  <summary>The font</summary>
+
+The [main SASS file](src/style/main.sass) should point to the font files.
+
+For editing the font, adding glyphs, ligatures, exotic characters, etc. Have a look at this [README file](src/fonts/asap/README.md).
+
+</details>
 
 ### Real Deployment
 
