@@ -1,4 +1,3 @@
-import compassOutline from "@/icons/compass-outline.svg";
 import type { MultiLineString } from "@turf/helpers";
 import type { Position } from "geojson";
 import m from "mithril";
@@ -16,15 +15,15 @@ import {
     extraIcons,
     globalMapState,
 } from "../models/Map";
-import { GpsConfig, MapTheme, MapThemeStrings, story } from "../models/Story";
+import { MapTheme, MapThemeStrings, story } from "../models/Story";
 import { t } from "../translate";
-import { injectCode, isMobile, numberWithCommas } from "../utils";
+import { injectCode, isMobile } from "../utils";
 import type { WebTrackGeoJsonFeature } from "../webtrack";
 import WebTrack from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
-import Icon from "./Icon";
 import LayerSelectionControl from "./LayerSelectionControl";
 import Controls from "./StandardControls";
+import { StatsComponent, StatsComponentAttrs } from "./Stats";
 
 declare const turf: typeof import("@turf/turf");
 declare const mapboxgl: typeof import("mapbox-gl");
@@ -41,135 +40,6 @@ privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts = false
 You will be requested to allow images in the canvas. Once allowed, refresh
 the page.
  */
-
-interface ListPositioningComponentAttrs {
-    configs: GpsConfig[];
-}
-
-const ListPositioningComponent: m.Component<ListPositioningComponentAttrs> = {
-    view({ attrs }: m.Vnode<ListPositioningComponentAttrs>): m.Vnode {
-        return m("ul", [
-            ...attrs.configs.map((oneConfig) =>
-                m(
-                    "li",
-                    m(
-                        "small",
-                        `${String(oneConfig.model)} (${
-                            oneConfig.multiBandEnabled
-                                ? t("multi-band")
-                                : t("single-band")
-                        }, ${
-                            oneConfig.multiGNSSEnabled
-                                ? t("multi-gnss")
-                                : t("single-gnss")
-                        }, ${
-                            oneConfig.waasEgnosEnabled
-                                ? t("waas-egnos-enabled")
-                                : t("waas-egnos-disabled")
-                        })`,
-                    ),
-                ),
-            ),
-            m("li", m("small", t("topo-maps"))),
-        ]);
-    },
-};
-
-interface StatsComponentAttrs {
-    webtrack: WebTrack | undefined;
-}
-
-/**
- * Statistics about the track, embedded into a tooltip or directly in the page
- * for mobile screen.
- */
-const StatsComponent: m.Component<StatsComponentAttrs> = {
-    view({ attrs }: m.Vnode<StatsComponentAttrs>): m.Vnode[] {
-        if (attrs.webtrack === undefined) {
-            return [
-                m(".loading-icon.text-center.m-30", [
-                    m(
-                        "",
-                        m(Icon, {
-                            src: compassOutline,
-                            style: "height: 1.6rem",
-                        }),
-                    ),
-                    t("loading.tooltip") + "...",
-                ]),
-            ];
-        }
-
-        const stats = attrs.webtrack.getTrackInfo();
-        const hasEle = stats.trackPoints.withEle > 0;
-        return [
-            m("p", m("strong", t("map.stats"))),
-            m("ul.blabla", [
-                typeof stats.length === "number" &&
-                    m("li", [
-                        t("map.stats.total-length"),
-                        " ",
-                        m(
-                            "strong",
-                            `${Math.round(stats.length / 10) / 100} km`,
-                        ),
-                    ]),
-                typeof stats.min === "number" &&
-                    hasEle &&
-                    m("li", [
-                        t("map.stats.min-alt"),
-                        " ",
-                        m("strong", `${numberWithCommas(stats.min)} m`),
-                    ]),
-                typeof stats.max === "number" &&
-                    hasEle &&
-                    m("li", [
-                        t("map.stats.max-alt"),
-                        " ",
-                        m("strong", `${numberWithCommas(stats.max)} m`),
-                    ]),
-                typeof stats.gain === "number" &&
-                    typeof stats.loss === "number" &&
-                    hasEle &&
-                    m("li", [
-                        t("map.stats.total-ele"),
-                        " ",
-                        m(
-                            "strong",
-                            `${numberWithCommas(stats.gain + stats.loss)} m`,
-                        ),
-                        ` (${t("map.stats.gain")} `,
-                        m("strong", `${numberWithCommas(stats.gain)} m`),
-                        `, ${t("map.stats.loss")} `,
-                        m("strong", `-${numberWithCommas(stats.loss)} m`),
-                        ")",
-                    ]),
-            ]),
-            m("p", m("strong", t("map.stats.source"))),
-            m("ul.blabla", [
-                story.gpsConfig instanceof Array &&
-                    m("li", [
-                        t("map.stats.source.pos"),
-                        m(ListPositioningComponent, {
-                            configs: story.gpsConfig,
-                        }),
-                    ]),
-                hasEle &&
-                    m("li", [
-                        t("map.stats.chart.ele.tooltip"),
-                        " ",
-                        m(
-                            "a",
-                            {
-                                href: "https://github.com/ExploreWilder/WebTrackCLI/blob/main/DEM.md",
-                            },
-                            attrs.webtrack.getElevationSources().join(", "),
-                        ),
-                    ]),
-            ]),
-        ];
-    },
-};
 
 type MouseEnterEvent = mapboxgl.MapMouseEvent & mapboxgl.EventData;
 

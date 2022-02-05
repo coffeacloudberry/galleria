@@ -19,7 +19,7 @@ export type ControlsType = Record<string, mapboxgl.IControl>;
 
 /**
  * Wrap the controls into a function to lazy load the class extension.
- * Each class overwrite the title attribute handler to have a good looking
+ * Each class overwrite the title attribute handler to have a good-looking
  * tippy. The translation is handled directly by the application so that it is
  * dynamically/automatically updated on language switch.
  */
