@@ -552,7 +552,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
     onremove(): void {
         if (this.map) {
-            this.map.remove(); // remove controls
+            try {
+                this.map.remove(); // remove controls
+            } catch {}
         }
     }
 
