@@ -60,6 +60,7 @@ export function numberWithCommas(x: number): string {
  * Loads a file and returns a Promise for when it is loaded.
  * The function does nothing if the script has already been injected.
  * That is to avoid duplication in script injections.
+ * NOTICE: the code injection is only possible when the DOM is ready.
  */
 export function injectCode(path: {
     src: string;

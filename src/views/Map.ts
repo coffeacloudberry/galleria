@@ -271,8 +271,8 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         globalMapState.webtrack = new WebTrack(webtrackBytes);
         const data = globalMapState.webtrack.toGeoJson();
         const line = data.features[0].geometry as MultiLineString;
-        globalMapState.hasElevation =
-            globalMapState.webtrack.someTracksWithEle();
+        const hasElevation = globalMapState.webtrack.someTracksWithEle();
+        globalMapState.hasElevation = hasElevation;
 
         injectCode(config.turf.js)
             .then(async () => {
@@ -292,7 +292,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         );
                     }
 
-                    if (globalMapState.hasElevation) {
+                    if (hasElevation) {
                         globalMapState.map.on(
                             "mousemove",
                             (e: mapboxgl.MapMouseEvent) => {
@@ -305,17 +305,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             .catch((err) => {
                 error.log(err);
             });
-
-        if (globalMapState.hasElevation) {
-            injectCode(config.chart.js)
-                .then(async () => {
-                    // skipcq: JS-0356
-                    const Chart = await import("chart.js");
-                })
-                .catch((err) => {
-                    error.log(err);
-                });
-        }
 
         // get the latitude of the first point of the first line of the track
         const firstLine = data.features[0].geometry
