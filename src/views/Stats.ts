@@ -1,10 +1,10 @@
 import compassOutline from "@/icons/compass-outline.svg";
 import m from "mithril";
 
+import { globalMapState } from "../models/Map";
 import { GpsConfig, story } from "../models/Story";
 import { t } from "../translate";
 import { numberWithCommas } from "../utils";
-import WebTrack from "../webtrack";
 import Icon from "./Icon";
 
 interface ListPositioningComponentAttrs {
@@ -61,21 +61,17 @@ const Metres: m.Component<MetresAttrs> = {
     },
 };
 
-export interface StatsComponentAttrs {
-    webtrack: WebTrack | undefined;
-}
-
 /**
  * Statistics about the track, embedded into a tooltip or directly in the page
  * for mobile screen.
  */
-export const StatsComponent: m.Component<StatsComponentAttrs> = {
-    view({ attrs }: m.Vnode<StatsComponentAttrs>): m.Vnode[] {
-        if (attrs.webtrack === undefined) {
+export const StatsComponent: m.Component = {
+    view(): m.Vnode[] {
+        if (globalMapState.webtrack === undefined) {
             return [m(LoadingStats)];
         }
 
-        const stats = attrs.webtrack.getTrackInfo();
+        const stats = globalMapState.webtrack.getTrackInfo();
         const hasEle = stats.trackPoints.withEle > 0;
         return [
             m("p", m("strong", t("map.stats"))),
@@ -135,7 +131,9 @@ export const StatsComponent: m.Component<StatsComponentAttrs> = {
                             {
                                 href: "https://github.com/ExploreWilder/WebTrackCLI/blob/main/DEM.md",
                             },
-                            attrs.webtrack.getElevationSources().join(", "),
+                            globalMapState.webtrack
+                                .getElevationSources()
+                                .join(", "),
                         ),
                     ]),
             ]),

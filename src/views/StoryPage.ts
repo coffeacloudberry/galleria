@@ -1,11 +1,15 @@
 import m from "mithril";
 import tippy, { Instance as TippyInstance } from "tippy.js";
 
+import { globalMapState } from "../models/Map";
 import { EasyDate, SeasonStrings, story } from "../models/Story";
 import { t } from "../translate";
 import { hideAllForce, transformExternalLinks } from "../utils";
+import { ChartContainer } from "./ElevationProfile";
 import { Header, HeaderAttrs } from "./Header";
 import Map from "./Map";
+import { MapAttributions } from "./MapAttributions";
+import { StatsComponent } from "./Stats";
 
 /** Get the story ID from the path. */
 function getStoryId(): string {
@@ -66,6 +70,20 @@ const StoryTitle: m.Component = {
                     season: story.season,
                     duration: story.duration,
                 }),
+        ]);
+    },
+};
+
+const GeoData: m.Component = {
+    view(): m.Vnode {
+        return m(".one.column", [
+            m("hr"),
+            m(StatsComponent),
+            globalMapState.hasElevation && m(ChartContainer),
+            m(".map-extra", [
+                m(Map, { storyId: getStoryId() }),
+                m(MapAttributions),
+            ]),
         ]);
     },
 };
@@ -131,13 +149,7 @@ export default function StoryPage(): m.Component {
                                         m.trust(story.content || ""),
                                     ),
                                 ]),
-                                story.hasGeodata &&
-                                    m(
-                                        ".one.column",
-                                        m(Map, {
-                                            storyId: getStoryId(),
-                                        }),
-                                    ),
+                                story.hasGeodata && m(GeoData),
                             ]),
                         ),
                     ),

@@ -6,6 +6,7 @@ import type {
 import type { Position } from "geojson";
 
 import { t } from "../translate";
+import { globalMapState } from "./Map";
 
 declare const Chart: typeof import("chart.js");
 
@@ -49,22 +50,13 @@ function labelElevation(tooltipItem: TooltipItem<"line">): string {
 }
 
 /**
- * Just unset the chart.
- */
-export function unsetElevationChart(): void {
-    chart = undefined;
-}
-
-/**
  * Instantiate the Chart.
  * @param ctx Canvas used by the chart.
  * @param profile Data.
- * @param moveHiker Callback on mouse hover.
  */
 export function createElevationChart(
     ctx: CanvasRenderingContext2D,
     profile: Position[],
-    moveHiker: (lon: number, lat: number) => void,
 ): void {
     const data = [];
     for (let i = 0; i < profile.length; i++) {
@@ -138,7 +130,7 @@ export function createElevationChart(
                         label: (tooltipItem: TooltipItem<"line">) => {
                             const raw = withLonLatOrNull(tooltipItem.raw);
                             if (raw !== null) {
-                                moveHiker(raw.lon, raw.lat);
+                                globalMapState.moveHiker(raw.lon, raw.lat);
                             }
                             return labelElevation(tooltipItem);
                         },
