@@ -1,15 +1,15 @@
 {
     "title": {
         "en": "Mystic Path",
-        "fi": "",
-        "fr": ""
+        "fi": "Mystinen polku",
+        "fr": "Chemin mystérieux"
     },
     "description": {
-        "en": "Path through the forest located in the east side of Waikaremoana, New Zealand North Island",
-        "fi": "",
-        "fr": ""
+        "en": "Path through the forest located in the east side of Waikaremoana, New Zealand North Island.",
+        "fi": "Polku metsän halki Waikaremoanan itäpuolella, Uuden-Seelannin Pohjoissaari.",
+        "fr": "Chemin à travers la forêt situé à l'est de Waikaremoana, sur l'île du Nord de la Nouvelle-Zélande."
     },
-    "story": "",
+    "story": "Eastern_Waikaremoana",
     "dateTaken": "2017-09-16T08:57:07",
     "focalLength35mm": 15,
     "exposureTime": "1/50",
