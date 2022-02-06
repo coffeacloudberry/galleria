@@ -43,6 +43,33 @@ the page.
 
 type MouseEnterEvent = mapboxgl.MapMouseEvent & mapboxgl.EventData;
 
+const MapAttributions: m.Component = {
+    view(): m.Vnode {
+        return m("p.attributions", [
+            t("map.data"),
+            config.mapbox.style[
+                MapTheme[globalMapState.theme] as MapThemeStrings
+            ].attributions.map((keyAttrib: number) => {
+                return [
+                    " © ",
+                    m(
+                        "a",
+                        { href: AttribUrls[keyAttrib] },
+                        Attribution[keyAttrib],
+                    ),
+                ];
+            }),
+            ". ",
+            m(
+                "a",
+                { href: "https://www.mapbox.com/map-feedback/" },
+                t("map.improve"),
+            ),
+            ".",
+        ]);
+    },
+};
+
 interface MapAttrs {
     storyId: string;
 }
@@ -664,38 +691,12 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     view(): m.Vnode<StatsComponentAttrs>[] {
         return [
             m("hr"),
-            m(StatsComponent, {
-                webtrack: this.webtrack,
-            }),
+            m(StatsComponent, { webtrack: this.webtrack }),
             m(
                 "#bodyCanvasEle.chart-container" +
                     (this.hasElevation === true ? "" : ".hide"),
             ),
-            m(".map-extra", [
-                m("#map"),
-                m("p.attributions", [
-                    t("map.data"),
-                    config.mapbox.style[
-                        MapTheme[globalMapState.theme] as MapThemeStrings
-                    ].attributions.map((keyAttrib: number) => {
-                        return [
-                            " © ",
-                            m(
-                                "a",
-                                { href: AttribUrls[keyAttrib] },
-                                Attribution[keyAttrib],
-                            ),
-                        ];
-                    }),
-                    ". ",
-                    m(
-                        "a",
-                        { href: "https://www.mapbox.com/map-feedback/" },
-                        t("map.improve"),
-                    ),
-                    ".",
-                ]),
-            ]),
+            m(".map-extra", [m("#map"), m(MapAttributions)]),
         ];
     }
 }
