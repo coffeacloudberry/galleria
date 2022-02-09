@@ -1,0 +1,9 @@
+# Ninety Mile ranta
+
+Matkalla tapasin māorin, joka otti minut kyytiin. "Kerran me (Māoris) tapamme britin. He varastavat maamme, he pitävät vihreää maisemaa lehmille talojen sijaan - se ei auta ihmisiä, joilla ei ole kotia ja kaikkialla on paskaa. Se ei ole enää Aotearoaa! Puolet briteistä on hyviä, mutta toinen puoli on pahoja. Te olette kunnossa, koska olette ranskalaisia." Onneksi saimme kädenpuristuksen, ja hymyilin, vaikka kuuntelin äärimmäistä näkökulmaa. En kuitenkaan tuntenut oloani turvattomaksi, koska "me välitämme toisistamme".
+
+Sillä välin ruokavalioni muuttui jatkuvasti - lihasta ja paistetusta pikaruoasta muroihin ja riisiin - mikä oli vatsalleni raskasta, ja tunsin oloni sairaaksi. Nopeasti vaihtuva sää ja lämpötila eivät auttaneet - kevät Uudessa-Seelannissa on tosiaan hieman märkä. Joka tapauksessa olin kahdessa päivässä saaren huipulla ja patikoin ensimmäisen 12,5 kilometrin matkan Twilight Campgroundille lähellä Ninety Mile Beachia.
+
+Tapasin leirintäalueella tytön. Sarahilla oli kunnianhimoinen tavoite kävellä Te Araroa, joka on pohjoisen ja eteläisen saaren läpivaellus 2 998 km... 3 kuukaudessa! Tällä kertaa en ollut se hullu, ja se helpotti oloani. Kävelimme yhdessä kolme päivää, noin 89 km Ahiparaan, jossa ranta päättyy. Kävely Ninety Mile Beachia pitkin oli aika tylsää, ihan tasaista. Toivottavasti ei 90 mailin pituinen vaan 63. Puskimme toistemme motivaatiota jatkaa kävelyä ja kieltäydyimme ilmaisista kyydityksistä autoilijoilta rannalla. Kävelyn ensimmäiset askeleet, majakan ympärillä, olivat itse asiassa parhaita, ja maisema oli monipuolinen: rantaa, pensaikkoa ja Te Werahi -virran jälkeistä punaista maata.
+
+Sain aiotun vaatimattoman kävelyn päätökseen, mutta Sarah oli henkisesti uupunut ja hänen lukuisat rakkulansa näyttivät tuskallisilta. Valmistautumisen ja kestävyyden puute saattoi murtaa hänet. Paljon pahempaa tapahtui minulle myöhemmin.

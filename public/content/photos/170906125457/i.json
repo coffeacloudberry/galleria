@@ -1,15 +1,15 @@
 {
     "title": {
         "en": "Lost in the Waikare Inlet",
-        "fi": "",
-        "fr": ""
+        "fi": "Kadonnut Waikare Inletissä",
+        "fr": "Perdu dans la baie de Waikare"
     },
     "description": {
-        "en": "Russell Forest, New Zealand North Island",
-        "fi": "",
-        "fr": ""
+        "en": "Russell Forest, New Zealand North Island.",
+        "fi": "Russell metsä, Uuden-Seelannin Pohjoissaari.",
+        "fr": "Forêt de Russell, île du Nord de la Nouvelle-Zélande."
     },
-    "story": "",
+    "story": "Waikare_Inlet",
     "dateTaken": "2017-09-06T12:54:57",
     "focalLength35mm": 25,
     "exposureTime": "5/2",

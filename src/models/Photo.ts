@@ -175,8 +175,8 @@ class Photo {
      *
      * The photo is in the WebP format, converted from the TIF format.
      * The WebP converter is libwebp-1.2.0-linux-x86-64. The WebP configuration
-     * is as follow: `-preset photo -mt -m 6 -q {quality} -af -resize 0
-     * {height}` with `{quality}` = 90 for `t.webp` (thumbnail) and `m.webp`
+     * is: `-preset photo -mt -m 6 -q {quality} -af -resize 0 {height}`
+     * with `{quality}` = 90 for `t.webp` (thumbnail) and `m.webp`
      * (medium-size), 86 for `l.webp` (large), 98 for `l.hd.webp` (large
      * high-def), and `{height}` = 200 for `t.webp`, 760 for `m.webp`, and 1030
      * for `l(.hd).webp`.

@@ -1,15 +1,15 @@
 {
     "title": {
         "en": "Fly Agaric",
-        "fi": "",
-        "fr": ""
+        "fi": "Kärpässieni",
+        "fr": "Amanite tue-mouches"
     },
     "description": {
-        "en": "A fly agaric mushroom (Amanita muscaria) I found on my way between Helena Bay and Matapouri, New Zealand North Island",
-        "fi": "",
-        "fr": ""
+        "en": "A fly agaric mushroom (Amanita muscaria) I found on my way between Helena Bay and Matapouri, New Zealand North Island.",
+        "fi": "Kärpässieni (Amanita muscaria), jonka löysin matkalla Helena Bayn ja Matapourin välillä, Uuden-Seelannin Pohjoissaari.",
+        "fr": "Un champignon amanite (Amanita muscaria) que j'ai trouvé sur mon chemin entre Helena Bay et Matapouri, île du Nord de la Nouvelle-Zélande."
     },
-    "story": "",
+    "story": "Helena_Bay_to_Matapouri",
     "dateTaken": "2017-09-08T13:35:21",
     "focalLength35mm": 82,
     "exposureTime": "1/100",

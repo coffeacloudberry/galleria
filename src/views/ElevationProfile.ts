@@ -43,6 +43,6 @@ export const ChartContainer: m.Component = {
     },
 
     view(): m.Vnode {
-        return m("#bodyCanvasEle.chart-container");
+        return m(".chart-container");
     },
 };
