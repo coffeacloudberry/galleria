@@ -2,13 +2,21 @@ import m from "mithril";
 
 import { ProcessedStoryFile, StoryInfo, story } from "./Story";
 
+/** One story item of the JSON list. */
 interface OneJsonStory {
+    /** The folder name. */
     id: string;
+
+    /** The story metadata, that is everything but the markdown story. */
     metadata: StoryInfo;
 }
 
+/** The story metadata and content, plus the application state. */
 export interface OneStory extends OneJsonStory, ProcessedStoryFile {
+    /** True if the markdown story (title and content) has been fetched. */
     loaded: boolean;
+
+    /** True when downloading and processing the markdown story. */
     loading: boolean;
 }
 
@@ -17,8 +25,18 @@ export interface OneStory extends OneJsonStory, ProcessedStoryFile {
  * @notExported
  */
 class AllStories {
-    fullList: OneStory[] = [];
-    noOneRequested = true;
+    protected _fullList: OneStory[] = [];
+    protected _noOneRequested = true;
+
+    /** Get all stories and application states. */
+    get fullList(): OneStory[] {
+        return this._fullList;
+    }
+
+    /** Return true if no one markdown story has started to load. */
+    get noOneRequested(): boolean {
+        return this._noOneRequested;
+    }
 
     /**
      * Sort two stories based on the start time. The most recent one will be
@@ -45,8 +63,8 @@ class AllStories {
      * with loadOneStory().
      */
     loadFullList(): void {
-        this.fullList = [];
-        this.noOneRequested = true;
+        this._fullList = [];
+        this._noOneRequested = true;
         m.request<OneJsonStory[]>({
             method: "GET",
             url: "/all_stories.json",
@@ -66,7 +84,10 @@ class AllStories {
     }
 
     /** When the story title and content has been successfully retrieved. */
-    _onPromiseThen(result: ProcessedStoryFile, oneStory: OneStory): void {
+    private static onPromiseThen(
+        result: ProcessedStoryFile,
+        oneStory: OneStory,
+    ): void {
         oneStory.title = result.title;
         oneStory.content = result.content;
         oneStory.loaded = true;
@@ -74,7 +95,7 @@ class AllStories {
     }
 
     /** When the story title and content has failed to be retrieved. */
-    _onPromiseCatch(oneStory: OneStory): void {
+    private static onPromiseCatch(oneStory: OneStory): void {
         oneStory.loaded = true;
         oneStory.loading = false;
     }
@@ -85,7 +106,7 @@ class AllStories {
      * @param id Folder name of the story.
      */
     loadOneStory(id: string): void {
-        this.noOneRequested = false;
+        this._noOneRequested = false;
         for (const oneStory of this.fullList) {
             if (oneStory.id != id) {
                 continue;
@@ -97,10 +118,10 @@ class AllStories {
             story
                 .getStoryTitleContent(id)
                 .then((result: ProcessedStoryFile) => {
-                    this._onPromiseThen(result, oneStory);
+                    AllStories.onPromiseThen(result, oneStory);
                 })
                 .catch(() => {
-                    this._onPromiseCatch(oneStory);
+                    AllStories.onPromiseCatch(oneStory);
                 });
             break;
         }
@@ -123,10 +144,10 @@ class AllStories {
             story
                 .getStoryTitleContent(oneStory.id)
                 .then((result: ProcessedStoryFile) => {
-                    this._onPromiseThen(result, oneStory);
+                    AllStories.onPromiseThen(result, oneStory);
                 })
                 .catch(() => {
-                    this._onPromiseCatch(oneStory);
+                    AllStories.onPromiseCatch(oneStory);
                 });
         }
     }

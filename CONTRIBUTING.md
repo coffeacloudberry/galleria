@@ -7,4 +7,4 @@ Todo:
 Rules of Thumb:
 
 * If a script is fetched from CDN, check with `npm bundle-analysis` that it has not been included in the bundle,
-* The `export` keyword increase the bundle size, `export` only if used outside the file.
+* The `export` keyword increases the bundle size, `export` only if used outside the file.

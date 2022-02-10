@@ -21,7 +21,7 @@ Because:
 * I want it bug-free,
 * I like receiving feedback without forcing you to sign in a specific social platform.
 
-I could not find anything cheap complying to the above requirements, and I was interested in learning great web development tools. Therefore, I designed a Single Page Application using the Mithril framework, the TypeScript language, and some awesome libraries. It is deployed as a serverless application thanks to Vercel and connects to some 3rd parties to create a real interactivity. To sum up the features:
+I could not find anything cheap complying to the above requirements, and I was interested in learning great web development tools. Therefore, I designed a Single Page Application using the [Mithril framework](https://mithril.js.org/), the TypeScript language, and some awesome libraries. It is deployed as a serverless application thanks to Vercel and connects to some 3rd parties to create a real interactivity. To sum up the features:
 
 - [x] Interactive 3D maps,
 - [x] Interactive charts,
@@ -30,7 +30,7 @@ I could not find anything cheap complying to the above requirements, and I was i
 - [x] Emotion sharing with a GIF,
 - [x] Fully translated in English, Finnish, and French,
 - [x] Privacy by design,
-- [x] Do not use any cookie or Local Storage,
+- [x] No cookie, no Local Storage, no IndexedDB,
 - [x] Photo viewer with dynamic image optimization,
 - [x] Mobile-friendly,
 - [x] Lazy-loading heavy scripts (with dynamic import expressions).
@@ -41,11 +41,7 @@ The project was not created to be a template or a flexible CMS, but for my own u
 
 ### Install Dependencies
 
-Clone this repo and npm install.
-
-```sh
-npm i
-```
+Clone this repo, install Node.js 14, and run `npm i`.
 
 ### Add Content
 

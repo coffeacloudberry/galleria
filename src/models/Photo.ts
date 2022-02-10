@@ -4,32 +4,50 @@ import { config } from "../config";
 import { t } from "../translate";
 import { clearSelection } from "../utils";
 
+/** JSON metadata of the photo. */
 export interface PhotoInfo {
+    /** Main photo title. */
     title: {
         en: string;
         fi: string;
         fr: string;
     };
+
+    /** The photo description is longer than the title. Not used. */
     description?: {
         en: string;
         fi: string;
         fr: string;
     };
+
+    /** The story folder. No link to the story if this is missing or empty. */
     story?: string;
+
+    /** Date time when the story has been taken, f.i. "2014-07-06T06:02:58" */
     dateTaken?: string;
+
+    /** Focal length in 35mm equivalent. */
     focalLength35mm?: number;
+
+    /** The exposure time as a fraction, f.i. "1/800" */
     exposureTime?: string;
+
+    /** F-number, f.i. 15.4 */
     fNumber?: number;
+
+    /** ISO number. */
     iso?: number;
+
+    /** GPS coordinates. */
     position?: {
         lat: number;
         lon: number;
     };
 
-    // each photo folder links to the next one, except the last one
+    /** Each photo folder links to the next one, except the last one. */
     next?: number;
 
-    // same logic as "next"
+    /** Same logic as "next"... but the other way. */
     prev?: number;
 }
 
@@ -62,6 +80,7 @@ class Photo {
     /** Folder containing the photos and JSON file. */
     folderName: number | null = null;
 
+    /** Photo ID. */
     id: number | null = null;
 
     /**
@@ -77,6 +96,7 @@ class Photo {
      */
     storyLang: string | null = null;
 
+    /** Duration in microseconds of the loading time of the last load. */
     lastLoadingTime: number | null = null;
 
     /**

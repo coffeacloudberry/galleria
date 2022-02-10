@@ -29,6 +29,7 @@ function routeResolver(Component: Page): m.RouteResolver {
     };
 }
 
+// All translated pages, the language will be prepended
 const plainRoutes: RoutedComponents = {
     "/photo": PhotoPage /* will load the most recent photo */,
     "/photo/:title": PhotoPage,
@@ -40,7 +41,7 @@ const plainRoutes: RoutedComponents = {
     "/:other": NotFoundPage,
 };
 
-// Build the complete routes tree for all the languages
+// Build all routes for all the languages
 export const routes: RoutedResolvers = {
     "/:other": routeResolver(NotFoundPage),
 };
