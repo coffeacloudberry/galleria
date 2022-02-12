@@ -153,9 +153,8 @@ module.exports = merge(common, {
             }),
             "...",
         ],
-        runtimeChunk: {
-            name: "runtime",
-        },
+        // the app is so lightweight that everything fit in one JS file
+        runtimeChunk: false,
     },
     performance: {
         hints: "error",
