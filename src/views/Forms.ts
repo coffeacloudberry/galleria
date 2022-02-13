@@ -1,4 +1,5 @@
 import bugOutline from "@/icons/bug-outline.svg";
+import calendarOutline from "@/icons/calendar-outline.svg";
 import newspaperOutline from "@/icons/newspaper-outline.svg";
 import paperPlaneOutline from "@/icons/paper-plane-outline.svg";
 import trashOutline from "@/icons/trash-outline.svg";
@@ -378,7 +379,19 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
     view(): m.Vnode[] {
         return [
             m("h1", t("newsletter")),
-            m("p", t("newsletter.notice")),
+            m("p", [
+                m(Icon, { src: newspaperOutline }),
+                " ",
+                t("newsletter.what"),
+                m("br"),
+                m(Icon, { src: calendarOutline }),
+                " ",
+                t("newsletter.when"),
+                m("br"),
+                m(Icon, { src: trashOutline }),
+                " ",
+                t("newsletter.trash"),
+            ]),
             m(
                 "form#newsletter-form",
                 {
