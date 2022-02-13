@@ -1,24 +1,19 @@
 import cafeSharp from "@/icons/cafe-sharp.svg";
-import happyOutline from "@/icons/happy-outline.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoPaypal from "@/icons/logo-paypal.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoRss from "@/icons/logo-rss.svg";
-import sunnyOutline from "@/icons/sunny-outline.svg";
 import m from "mithril";
 
-import CustomLogging from "../CustomLogging";
 import { t } from "../translate";
 import { transformExternalLinks } from "../utils";
 import { ContactForm, NewsletterForm } from "./Forms";
-import { Finder, GifMetadata, Lister, ListerAttrs } from "./Giphy";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
-import { ModalSize, closeAllModals, modal } from "./Modal";
+import { ModalSize, modal } from "./Modal";
 import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
-
-const warning = new CustomLogging("warning");
+import { VisitorsBook } from "./VisitorsBook";
 
 /** The big title and text about me. */
 const Intro: m.Component = {
@@ -203,110 +198,6 @@ const Support: m.Component = {
         ];
     },
 };
-
-/** Display the latest GIFs shared by visitors + interactive buttons. */
-class VisitorsBook implements m.ClassComponent {
-    /** The most recent GIFs. */
-    storedGiphies: GifMetadata[] = [];
-
-    /** True when fetching the stored giphies. Only on init. */
-    isRequesting = true;
-
-    /** True when the current visitor shared its GIF. */
-    hasShared = false;
-
-    /** The time to wait before retrying to fetch the visitor book. */
-    bookRequestRetryTimeout = 1000;
-
-    /** Return of setTimeout that is reset onremove. */
-    retryTimeoutId: ReturnType<typeof setTimeout> | undefined;
-
-    /** Content of the modal for sharing a new GIF. */
-    contentGiphyFinder: m.Component = {
-        view: () => {
-            return m(Finder, {
-                callbackSelection: () => {
-                    this.initList();
-                    this.hasShared = true;
-                    closeAllModals();
-                },
-            });
-        },
-    };
-
-    constructor() {
-        this.bookRequestRetryTimeout = 1000;
-        this.initList();
-        this.hasShared = false;
-    }
-
-    /** Fetch the stored giphies. */
-    initList(): void {
-        this.storedGiphies = [];
-        this.isRequesting = true;
-        m.request<GifMetadata[]>({
-            method: "GET",
-            url: "/api/giphy",
-        })
-            .then((result) => {
-                this.storedGiphies = result;
-                this.isRequesting = false;
-            })
-            .catch(() => {
-                warning.log("Failed to load the Giphies, retry...");
-                this.retryTimeoutId = setTimeout(() => {
-                    this.bookRequestRetryTimeout *= 2;
-                    this.initList();
-                }, this.bookRequestRetryTimeout);
-            });
-    }
-
-    onremove(): void {
-        if (this.retryTimeoutId !== undefined) {
-            clearTimeout(this.retryTimeoutId);
-        }
-    }
-
-    view(): (boolean | m.Vnode<ListerAttrs>)[] {
-        return [
-            m("h1", t("visitors-book")),
-            m("p.text-center", t("visitors-book.what")),
-            this.isRequesting &&
-                m(".loading-icon.text-center.m-30", [
-                    m(
-                        "",
-                        m(Icon, {
-                            src: sunnyOutline,
-                            style: "height: 1.6rem",
-                        }),
-                    ),
-                    t("loading.tooltip") + "...",
-                ]),
-            m(Lister, { list: this.storedGiphies }),
-            !this.hasShared &&
-                m(
-                    "p.text-center",
-                    m(
-                        "button",
-                        {
-                            onclick: () => {
-                                modal({
-                                    title: t("visitors-book.involve.title"),
-                                    content: this.contentGiphyFinder,
-                                    size: ModalSize.Large,
-                                    cancelable: true,
-                                });
-                            },
-                        },
-                        [
-                            m(Icon, { src: happyOutline }),
-                            t("visitors-book.involve"),
-                        ],
-                    ),
-                ),
-        ];
-    }
-}
 
 /** About page including contact form and newsletter subscription. */
 export default function AboutPage(): m.Component {
