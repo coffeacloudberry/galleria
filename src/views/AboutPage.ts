@@ -1,6 +1,7 @@
 import cafeSharp from "@/icons/cafe-sharp.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
+import logoMatrix from "@/icons/logo-matrix.svg";
 import logoPaypal from "@/icons/logo-paypal.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoRss from "@/icons/logo-rss.svg";
@@ -165,6 +166,19 @@ const SocialNetworks: m.Component = {
                             href: "https://pixelfed.social/ExploreWilder",
                         },
                         m(Icon, { src: logoPixelfed }),
+                    ),
+                ),
+                m(
+                    "li",
+                    {
+                        "data-tippy-content": "Matrix",
+                    },
+                    m(
+                        "a.button-icon",
+                        {
+                            href: "https://matrix.to/#/@beebeecoffee:matrix.org",
+                        },
+                        m(Icon, { src: logoMatrix }),
                     ),
                 ),
             ]),
