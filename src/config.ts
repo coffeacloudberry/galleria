@@ -33,7 +33,7 @@ export const config = {
              * Cross-check SRI from other sources:
              * https://www.jsdelivr.com/package/npm/chart.js?path=dist
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js",
 
             /**
              * Subresource Integrity.
@@ -41,7 +41,7 @@ export const config = {
              * `openssl dgst -sha512 -binary FILENAME.js | openssl base64 -A`
              * More details: https://www.srihash.org/
              */
-            sri: "sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==",
+            sri: "sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==",
         },
     },
 
@@ -113,7 +113,7 @@ export const config = {
             isModule: true,
         },
 
-        siteKey: "" + process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY,
+        siteKey: String(process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY),
     },
 
     giphy: {

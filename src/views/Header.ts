@@ -243,7 +243,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                     story.gotContent &&
                         m("span", m("em.mr-3.long-item", story.title)),
                     m(OpenPhoto, {
-                        title: "" + attrs.title,
+                        title: String(attrs.title),
                     }),
                 ]);
                 break;
@@ -269,7 +269,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                             ]),
                         ]),
                     m(OpenStory, {
-                        title: "" + attrs.title,
+                        title: String(attrs.title),
                     }),
                 ]);
                 break;
