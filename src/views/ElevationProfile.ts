@@ -16,22 +16,13 @@ async function injectChart() {
 }
 
 /** Element containing the canvas used by the chart. */
-export const ChartContainer: m.Component = {
-    async oncreate(): Promise<unknown> {
-        return await injectCode(config.chart.js)
-            .then(injectChart)
-            .catch((err) => {
-                error.log(err);
-            });
-    },
-
-    onupdate({ dom }: m.VnodeDOM): void {
+export class ChartContainer implements m.ClassComponent {
+    private static buildChart(canvasContainer: HTMLCanvasElement): void {
         if (
             typeof Chart === "function" &&
             globalMapState.webtrack !== undefined
         ) {
             const points = globalMapState.webtrack.getTrack()[0].points;
-            const canvasContainer = dom as HTMLCanvasElement;
             const canvas = document.createElement("canvas");
             canvasContainer.innerHTML = "";
             canvasContainer.appendChild(canvas);
@@ -40,9 +31,26 @@ export const ChartContainer: m.Component = {
                 createElevationChart(ctx, points);
             }
         }
-    },
+    }
+
+    async oncreate({ dom }: m.VnodeDOM): Promise<void> {
+        return await injectCode(config.chart.js)
+            .then(injectChart)
+            .then(() => {
+                // first build
+                ChartContainer.buildChart(dom as HTMLCanvasElement);
+            })
+            .catch((err) => {
+                error.log(err);
+            });
+    }
+
+    onupdate({ dom }: m.VnodeDOM): void {
+        // need to re-build when switching the language for example
+        ChartContainer.buildChart(dom as HTMLCanvasElement);
+    }
 
     view(): m.Vnode {
         return m(".chart-container");
-    },
-};
+    }
+}
