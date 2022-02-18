@@ -3,10 +3,11 @@ import type {
     Chart as TChart,
     TooltipItem,
 } from "chart.js";
+import type { AnnotationOptions } from "chartjs-plugin-annotation";
 import type { Position } from "geojson";
 
 import { t } from "../translate";
-import { globalMapState } from "./Map";
+import { extraIcons, globalMapState } from "./Map";
 
 declare const Chart: typeof import("chart.js");
 
@@ -49,14 +50,45 @@ function labelElevation(tooltipItem: TooltipItem<"line">): string {
     )} ${Math.round(raw.x * 10) / 10} km`;
 }
 
+interface ChartWaypoint {
+    point: Position;
+    label?: string;
+}
+
+type Annotations = Record<string, AnnotationOptions<"label">>;
+
+function createAnnotations(waypoints: ChartWaypoint[]): Annotations {
+    const annotations: Annotations = {};
+    waypoints.forEach((wpt, idx) => {
+        if (wpt.label === undefined) {
+            return;
+        }
+        const source = extraIcons[wpt.label].source;
+        const iconSize = 28; // px
+        const image = new Image(iconSize, iconSize);
+        image.src = `/assets/map/${source}.png`;
+        annotations[wpt.label + String(idx)] = {
+            type: "label",
+            xValue: wpt.point[2] / 1000,
+            xScaleID: "xAxes",
+            yValue: wpt.point[3],
+            yScaleID: "yAxes",
+            content: image,
+        };
+    });
+    return annotations;
+}
+
 /**
  * Instantiate the Chart.
  * @param ctx Canvas used by the chart.
  * @param profile Data.
+ * @param waypoints List of waypoints already connected along the path.
  */
 export function createElevationChart(
     ctx: CanvasRenderingContext2D,
     profile: Position[],
+    waypoints: ChartWaypoint[],
 ): void {
     const data = [];
     for (let i = 0; i < profile.length; i++) {
@@ -146,6 +178,9 @@ export function createElevationChart(
                 },
                 legend: {
                     display: false,
+                },
+                annotation: {
+                    annotations: createAnnotations(waypoints),
                 },
             },
 

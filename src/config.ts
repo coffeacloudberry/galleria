@@ -46,6 +46,22 @@ export const config = {
     },
 
     /**
+     * chartjs-plugin-annotation prod version.
+     * Check for new releases:
+     * https://cdnjs.com/libraries/chartjs-plugin-annotation
+     */
+    chartPluginAnnotation: {
+        js: {
+            /**
+             * Cross-check SRI:
+             * https://www.jsdelivr.com/package/npm/chartjs-plugin-annotation?path=dist
+             */
+            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.3.1/chartjs-plugin-annotation.min.js",
+            sri: "sha512-y7WpspnUHkKaewKb/dwPyBDJhigLAA9eH2rdvXGwZonWs/5NpSxKI6ZG2TWQVo+JY+tfNdgPgjcTGDhG/GMriA==",
+        },
+    },
+
+    /**
      * Mapbox GL JS prod version.
      * Check for new releases:
      * https://github.com/mapbox/mapbox-gl-js/releases

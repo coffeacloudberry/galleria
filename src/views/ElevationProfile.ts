@@ -6,48 +6,66 @@ import { createElevationChart } from "../models/ElevationProfile";
 import { globalMapState } from "../models/Map";
 import { injectCode } from "../utils";
 
+declare const turf: typeof import("@turf/turf");
 declare const Chart: typeof import("chart.js");
 
 const error = new CustomLogging("error");
 
-async function injectChart() {
-    // skipcq: JS-0356
-    const Chart = await import("chart.js");
-}
-
-/** Element containing the canvas used by the chart. */
-export class ChartContainer implements m.ClassComponent {
-    private static buildChart(canvasContainer: HTMLCanvasElement): void {
-        if (
-            typeof Chart === "function" &&
-            globalMapState.webtrack !== undefined
-        ) {
+function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
+    return Promise.all([
+        injectCode(config.turf.js),
+        injectCode(config.chart.js),
+    ])
+        .then(async () => {
+            if (typeof turf === "undefined") {
+                // skipcq: JS-0356
+                const turf = await import("@turf/turf");
+            }
+            if (typeof Chart === "undefined") {
+                // skipcq: JS-0356
+                const Chart = await import("chart.js");
+            }
+            await injectCode(config.chartPluginAnnotation.js);
+        })
+        .then(() => {
+            if (globalMapState.webtrack === undefined) {
+                return;
+            }
             const points = globalMapState.webtrack.getTrack()[0].points;
+            const waypoints = globalMapState.webtrack
+                .getWaypoints()
+                .map((wpt) => {
+                    return {
+                        point: points[
+                            turf.nearestPointOnLine(
+                                turf.lineString(points),
+                                turf.point([wpt.lon, wpt.lat]),
+                            ).properties.index as number
+                        ],
+                        label: wpt.sym,
+                    };
+                });
             const canvas = document.createElement("canvas");
             canvasContainer.innerHTML = "";
             canvasContainer.appendChild(canvas);
             const ctx = canvas.getContext("2d");
             if (ctx) {
-                createElevationChart(ctx, points);
+                createElevationChart(ctx, points, waypoints);
             }
-        }
-    }
+        })
+        .catch((err) => {
+            error.log(err);
+        });
+}
 
+/** Element containing the canvas used by the chart. */
+export class ChartContainer implements m.ClassComponent {
     async oncreate({ dom }: m.VnodeDOM): Promise<void> {
-        return await injectCode(config.chart.js)
-            .then(injectChart)
-            .then(() => {
-                // first build
-                ChartContainer.buildChart(dom as HTMLCanvasElement);
-            })
-            .catch((err) => {
-                error.log(err);
-            });
+        return await createChart(dom as HTMLCanvasElement);
     }
 
-    onupdate({ dom }: m.VnodeDOM): void {
-        // need to re-build when switching the language for example
-        ChartContainer.buildChart(dom as HTMLCanvasElement);
+    async onupdate({ dom }: m.VnodeDOM): Promise<void> {
+        return await createChart(dom as HTMLCanvasElement);
     }
 
     view(): m.Vnode {

@@ -6,6 +6,8 @@ import CustomLogging from "../CustomLogging";
 import { t } from "../translate";
 import { injectCode } from "../utils";
 
+declare const friendlyChallenge: typeof import("friendly-challenge");
+
 const error = new CustomLogging("error");
 
 export interface CaptchaAttrs {
@@ -39,7 +41,12 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
     oncreate({ dom, attrs }: m.CVnodeDOM<CaptchaAttrs>): void {
         injectCode(config.captcha.js)
             .then(async () => {
-                const friendlyChallenge = await import("friendly-challenge");
+                if (typeof friendlyChallenge === "undefined") {
+                    // skipcq: JS-0356
+                    const friendlyChallenge = await import(
+                        "friendly-challenge"
+                    );
+                }
                 this.widget = new friendlyChallenge.WidgetInstance(
                     dom as HTMLElement,
                     {

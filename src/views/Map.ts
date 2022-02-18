@@ -164,7 +164,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             x: 0, // unused
             y: 0, // unused
         });
-        chart.update();
+        chart.render();
     }
 
     decrementRemainingLayers(): void {
@@ -276,8 +276,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
         injectCode(config.turf.js)
             .then(async () => {
-                // skipcq: JS-0356
-                const turf = await import("@turf/turf");
+                if (typeof turf === "undefined") {
+                    // skipcq: JS-0356
+                    const turf = await import("@turf/turf");
+                }
                 if (globalMapState.map !== undefined) {
                     if (
                         !Object.prototype.hasOwnProperty.call(
@@ -466,7 +468,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             injectCode(config.mapbox.js),
         ])
             .then(async () => {
-                const { default: mapboxgl } = await import("mapbox-gl");
+                if (typeof mapboxgl === "undefined") {
+                    // skipcq: JS-0356
+                    const { default: mapboxgl } = await import("mapbox-gl");
+                }
                 mapboxgl.accessToken = String(process.env.MAPBOX_ACCESS_TOKEN);
                 if (!mapboxgl.supported()) {
                     m.render(

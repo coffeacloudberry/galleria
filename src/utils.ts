@@ -3,9 +3,7 @@ import Toastify from "toastify-js";
 
 import { config } from "./config";
 import { LogType } from "./CustomLogging";
-
-/** All injected scripts. Wide scope because scripts are cached. */
-const allInjectedScripts: string[] = [];
+import { injector } from "./models/Injector";
 
 /** Deselect text. */
 export function clearSelection(): void {
@@ -66,22 +64,26 @@ export function injectCode(path: {
     src: string;
     sri: string;
     isModule?: boolean;
-}): Promise<unknown> {
+}): Promise<void> {
     return new Promise((resolve, reject) => {
         if (!path.sri.startsWith("sha512-")) {
             throw Error(`SRI SHALL start with 'sha512-' (got '${path.sri}')`);
         }
-        if (allInjectedScripts.indexOf(path.src) !== -1) {
-            resolve(null);
+        if (injector.alreadyResolved(path.src)) {
+            resolve();
             return;
         }
-        allInjectedScripts.push(path.src);
+        if (injector.push(path.src, resolve)) {
+            return;
+        }
         const ext = String(path.src.split(".").pop());
         switch (ext) {
             case "js":
                 const script = document.createElement("script");
                 script.type = path.isModule ? "module" : "text/javascript";
-                script.onload = resolve;
+                script.onload = () => {
+                    injector.popAll(path.src);
+                };
                 script.onerror = reject;
                 script.crossOrigin = "anonymous";
                 script.integrity = path.sri;
@@ -92,7 +94,9 @@ export function injectCode(path: {
                 const style = document.createElement("link");
                 style.rel = "stylesheet";
                 style.type = "text/css";
-                style.onload = resolve;
+                style.onload = () => {
+                    injector.popAll(path.src);
+                };
                 style.onerror = reject;
                 style.crossOrigin = "anonymous";
                 style.integrity = path.sri;
