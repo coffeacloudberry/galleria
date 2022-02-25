@@ -109,79 +109,74 @@ const CopyrightNotice: m.Component = {
     },
 };
 
+interface SocialNetworkItemAttrs {
+    tooltip: string;
+    link: string;
+    logo: string;
+}
+
+/** One social platform. */
+const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
+    view({ attrs }: m.Vnode<SocialNetworkItemAttrs>): m.Vnode {
+        return m(
+            "li",
+            {
+                "data-tippy-content": attrs.tooltip,
+            },
+            m(
+                "a.button-icon",
+                {
+                    href: attrs.link,
+                    rel: "me",
+                },
+                m(Icon, { src: attrs.logo }),
+            ),
+        );
+    },
+};
+
 /** Icons and links to my social networks. */
 const SocialNetworks: m.Component = {
     view(): m.Vnode[] {
+        const allItems = [
+            {
+                tooltip: "Mastodon",
+                link: "https://photog.social/@explorewilder",
+                logo: logoMastodon,
+            },
+            {
+                tooltip: t("rss-feed"),
+                link: "https://photog.social/@explorewilder.rss",
+                logo: logoRss,
+            },
+            {
+                tooltip: "GitHub",
+                link: "https://github.com/coffeacloudberry/galleria",
+                logo: logoGitHub,
+            },
+            {
+                tooltip: "Pixelfed",
+                link: "https://pixelfed.social/ExploreWilder",
+                logo: logoPixelfed,
+            },
+            {
+                tooltip: "Matrix",
+                link: "https://matrix.to/#/@beebeecoffee:matrix.org",
+                logo: logoMatrix,
+            },
+        ];
         return [
             m("h1", t("social-networks")),
-            m("ul", [
-                m(
-                    "li",
-                    {
-                        "data-tippy-content": "Mastodon",
-                    },
-                    m(
-                        "a.button-icon",
-                        {
-                            href: "https://photog.social/@explorewilder",
-                            rel: "me",
-                        },
-                        m(Icon, { src: logoMastodon }),
-                    ),
-                ),
-                m(
-                    "li",
-                    {
-                        "data-tippy-content": "RSS Feed",
-                    },
-                    m(
-                        "a.button-icon",
-                        {
-                            href: "https://photog.social/@explorewilder.rss",
-                        },
-                        m(Icon, { src: logoRss }),
-                    ),
-                ),
-                m(
-                    "li",
-                    {
-                        "data-tippy-content": "GitHub",
-                    },
-                    m(
-                        "a.button-icon",
-                        {
-                            href: "https://github.com/coffeacloudberry/galleria",
-                        },
-                        m(Icon, { src: logoGitHub }),
-                    ),
-                ),
-                m(
-                    "li",
-                    {
-                        "data-tippy-content": "Pixelfed",
-                    },
-                    m(
-                        "a.button-icon",
-                        {
-                            href: "https://pixelfed.social/ExploreWilder",
-                        },
-                        m(Icon, { src: logoPixelfed }),
-                    ),
-                ),
-                m(
-                    "li",
-                    {
-                        "data-tippy-content": "Matrix",
-                    },
-                    m(
-                        "a.button-icon",
-                        {
-                            href: "https://matrix.to/#/@beebeecoffee:matrix.org",
-                        },
-                        m(Icon, { src: logoMatrix }),
-                    ),
-                ),
-            ]),
+            m(
+                "ul",
+                allItems.map((item) => {
+                    return m(SocialNetworkItem, {
+                        tooltip: item.tooltip,
+                        link: item.link,
+                        logo: item.logo,
+                    });
+                }),
+            ),
         ];
     },
 };
