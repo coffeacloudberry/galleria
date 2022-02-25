@@ -26,50 +26,50 @@ interface LanguageSelectionAttrs {
 
 interface LanguageLinkAttrs {
     language: Language;
+    refPage: string;
+    tippy: TippyInstance[] | undefined;
 }
+
+const LanguageLink: m.Component<LanguageLinkAttrs> = {
+    view: ({ attrs }: m.Vnode<LanguageLinkAttrs>) => {
+        return m(
+            m.route.Link,
+            {
+                href: t.replaceLang(attrs.language.slug),
+                onclick: () => {
+                    t.init(attrs.language.slug);
+                    document.title = String(t(attrs.refPage + ".title"));
+                    if (attrs.tippy !== undefined) {
+                        attrs.tippy[0].hide();
+                    }
+                },
+                options: { replace: true },
+                tabindex: 0,
+                class: "lang-item",
+            },
+            attrs.language.name,
+        );
+    },
+};
 
 class LanguageSelectionComponent
     implements m.ClassComponent<LanguageSelectionAttrs>
 {
     tippyInstances: TippyInstance[] | undefined;
-    refPage = "";
 
-    LanguageLink: m.Component<LanguageLinkAttrs> = {
-        view: ({ attrs }: m.Vnode<LanguageLinkAttrs>) => {
-            return m(
-                m.route.Link,
-                {
-                    href: t.replaceLang(attrs.language.slug),
-                    onclick: () => {
-                        t.init(attrs.language.slug);
-                        document.title = "" + t(this.refPage + ".title");
-                        if (this.tippyInstances !== undefined) {
-                            this.tippyInstances[0].hide();
-                        }
-                    },
-                    options: { replace: true },
-                    tabindex: 0,
-                    class: "lang-item",
-                },
-                attrs.language.name,
-            );
-        },
-    };
-
-    oncreate(vnode: m.CVnodeDOM<LanguageSelectionAttrs>) {
+    oncreate({ dom }: m.CVnodeDOM<LanguageSelectionAttrs>) {
         this.tippyInstances = tippy("#language-selection", {
             interactive: true,
             allowHTML: true,
             hideOnClick: false,
             interactiveBorder: 30,
             interactiveDebounce: 70,
-            content: vnode.dom,
+            content: dom,
             theme: "dropdown-list",
         });
-        this.refPage = vnode.attrs.refPage;
     }
 
-    view(): m.Vnode {
+    view({ attrs }: m.CVnode<LanguageSelectionAttrs>): m.Vnode {
         return m(
             "ul",
             languages.map((language: Language) =>
@@ -77,7 +77,11 @@ class LanguageSelectionComponent
                     "li",
                     language.slug === t.getLang()
                         ? m(".lang-item", language.name)
-                        : m(this.LanguageLink, { language }),
+                        : m(LanguageLink, {
+                              language,
+                              refPage: attrs.refPage,
+                              tippy: this.tippyInstances,
+                          }),
                 ),
             ),
         );
