@@ -60,7 +60,10 @@ type Annotations = Record<string, AnnotationOptions<"label">>;
 function createAnnotations(waypoints: ChartWaypoint[]): Annotations {
     const annotations: Annotations = {};
     waypoints.forEach((wpt, idx) => {
-        if (wpt.label === undefined) {
+        if (
+            wpt.label === undefined ||
+            !Object.prototype.hasOwnProperty.call(extraIcons, wpt.label)
+        ) {
             return;
         }
         const source = extraIcons[wpt.label].source;
