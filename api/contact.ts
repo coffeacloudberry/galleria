@@ -2,7 +2,7 @@ import { tmpdir } from "os";
 
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getClientIp } from "request-ip";
-import sendpulse from "sendpulse-api";
+import sendpulse, { BookInfo, ReturnError } from "sendpulse-api";
 
 import * as utils from "../src/utils_api";
 
@@ -16,7 +16,9 @@ export const newsletterAddressBookName = "Newsletter";
 export const minTimeGap = 60;
 
 /** Get the address book ID from the address book name. */
-export function getNewsletterIdFromList(dataList: any[]): number | undefined {
+export function getNewsletterIdFromList(
+    dataList: BookInfo[],
+): number | undefined {
     let newsletterId: number | undefined; // skipcq: JS-0309
     for (const listItem of dataList) {
         if (listItem.name === newsletterAddressBookName) {
@@ -28,7 +30,7 @@ export function getNewsletterIdFromList(dataList: any[]): number | undefined {
 }
 
 function manageEmailInAddressBook(
-    dataAddressBooks: any[],
+    dataAddressBooks: BookInfo[],
     emailAddress: string,
     subscribe: boolean,
     resolve: (value: string) => void,
@@ -43,26 +45,26 @@ function manageEmailInAddressBook(
 
     if (subscribe) {
         sendpulse.addEmails(
-            (dataEmails: any) => {
-                if (dataEmails.result) {
+            (dataEmails: ReturnError | { result: boolean }) => {
+                if ("result" in dataEmails && dataEmails.result) {
                     resolve(`Successfully added ${transaction}.`);
                 } else {
                     reject(`Failed to add ${transaction}.`);
                 }
             },
-            newsletterId,
+            newsletterId as number,
             [{ email: emailAddress, variables: {} }],
         );
     } else {
         sendpulse.removeEmails(
-            (dataEmails: any) => {
-                if (dataEmails.result) {
+            (dataEmails: ReturnError | { result: boolean }) => {
+                if ("result" in dataEmails && dataEmails.result) {
                     resolve(`Successfully removed ${transaction}.`);
                 } else {
                     reject(`Failed to remove ${transaction}.`);
                 }
             },
-            newsletterId,
+            newsletterId as number,
             [emailAddress],
         );
     }
@@ -78,20 +80,25 @@ export function manageEmail(
             resolve("Done nothing with the sender email address.");
         }
         sendpulse.init(
-            process.env.SMTP_USER,
-            process.env.SMTP_PASSWORD,
+            String(process.env.SMTP_USER),
+            String(process.env.SMTP_PASSWORD),
             tmpdir(),
             () => {
-                // @ts-ignore
-                sendpulse.listAddressBooks((dataAddressBooks: any[]) => {
-                    manageEmailInAddressBook(
-                        dataAddressBooks,
-                        emailAddress,
-                        subscribe,
-                        resolve,
-                        reject,
-                    );
-                });
+                sendpulse.listAddressBooks(
+                    (dataAddressBooks: ReturnError | BookInfo[]) => {
+                        if (dataAddressBooks instanceof Array) {
+                            manageEmailInAddressBook(
+                                dataAddressBooks,
+                                emailAddress,
+                                subscribe,
+                                resolve,
+                                reject,
+                            );
+                        } else {
+                            reject(dataAddressBooks.message);
+                        }
+                    },
+                );
             },
         );
     });
@@ -118,36 +125,35 @@ export function sendEmail(
     content: string,
 ): Promise<string> {
     content += `\nFrom: ${emailAddress}`;
+    const contactSender = {
+        name: "Webmaster",
+        email: String(process.env.SENDER_EMAIL),
+    };
     const email = {
         html: textToHtml(content),
         text: content,
         subject: "Contact Form",
-        from: {
-            name: "Webmaster",
-            email: process.env.SENDER_EMAIL,
-        },
-        to: [
-            {
-                name: "Webmaster",
-                email: process.env.SENDER_EMAIL,
-            },
-        ],
+        from: contactSender,
+        to: [contactSender],
     };
     return new Promise((resolve, reject) => {
         sendpulse.init(
-            process.env.SMTP_USER,
-            process.env.SMTP_PASSWORD,
+            String(process.env.SMTP_USER),
+            String(process.env.SMTP_PASSWORD),
             tmpdir(),
             () => {
-                sendpulse.smtpSendMail((data: any) => {
-                    if (data.result) {
-                        resolve("Email sent.");
-                    } else if (data.message) {
-                        reject(data.message);
-                    } else {
-                        reject("Failed to send the email.");
-                    }
-                }, email);
+                sendpulse.smtpSendMail(
+                    (data: ReturnError | { result: boolean; id: string }) => {
+                        if ("result" in data && data.result) {
+                            resolve("Email sent.");
+                        } else if ("message" in data) {
+                            reject(data.message);
+                        } else {
+                            reject("Failed to send the email.");
+                        }
+                    },
+                    email,
+                );
             },
         );
     });

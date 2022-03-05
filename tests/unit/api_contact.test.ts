@@ -4,7 +4,7 @@ import assert from "assert";
 import os from "os"; // use tmpdir for the SendPulse API
 
 import { config } from "dotenv";
-import sendpulse from "sendpulse-api";
+import sendpulse, { BookInfo, EmailFromBook, ReturnError } from "sendpulse-api";
 
 import * as contact from "../../api/contact";
 
@@ -125,120 +125,155 @@ describe("Contact Forms", () => {
 
     it("should subscribe a new email address", (done) => {
         sendpulse.init(
-            process.env.SMTP_USER,
-            process.env.SMTP_PASSWORD,
+            String(process.env.SMTP_USER),
+            String(process.env.SMTP_PASSWORD),
             os.tmpdir(),
             () => {
-                // @ts-ignore
-                sendpulse.listAddressBooks((addressBooks: any[]) => {
-                    const newsletterId =
-                        contact.getNewsletterIdFromList(addressBooks);
-                    if (newsletterId === undefined) {
-                        done(
-                            `The address book '${contact.newsletterAddressBookName}' should be created.`,
-                        );
-                    }
+                sendpulse.listAddressBooks(
+                    (result: ReturnError | BookInfo[]) => {
+                        if ("message" in result) {
+                            done(result.message);
+                        }
+                        const addressBooks = result as BookInfo[];
+                        const newsletterId =
+                            contact.getNewsletterIdFromList(addressBooks);
+                        if (newsletterId === undefined) {
+                            done(
+                                `The address book '${contact.newsletterAddressBookName}' should be created.`,
+                            );
+                        }
 
-                    const newEmailAddress = `test${Date.now()}@explorewilder.com`;
-                    contact
-                        .manageEmail(newEmailAddress)
-                        .then(() => {
-                            setTimeout(() => {
-                                sendpulse.getEmailsFromBook(
-                                    (mailingList: any) => {
-                                        let emailFound = false;
-                                        for (const mailingItem of mailingList) {
-                                            if (
-                                                mailingItem.email ===
-                                                newEmailAddress
-                                            ) {
-                                                emailFound = true;
-                                                break;
+                        const newEmailAddress = `test${Date.now()}@explorewilder.com`;
+                        contact
+                            .manageEmail(newEmailAddress)
+                            .then(() => {
+                                setTimeout(() => {
+                                    sendpulse.getEmailsFromBook(
+                                        (
+                                            result:
+                                                | ReturnError
+                                                | EmailFromBook[],
+                                        ) => {
+                                            if ("message" in result) {
+                                                done(result.message);
                                             }
-                                        }
-                                        if (emailFound) {
-                                            sendpulse.removeEmails(
-                                                () => {
-                                                    done();
-                                                },
-                                                newsletterId,
-                                                [newEmailAddress],
-                                            );
-                                        } else {
-                                            done(
-                                                `'${newEmailAddress}' not found in '${contact.newsletterAddressBookName}'.`,
-                                            );
-                                        }
-                                    },
-                                    newsletterId,
-                                );
+                                            const mailingList =
+                                                result as EmailFromBook[];
+                                            let emailFound = false;
+                                            for (const mailingItem of mailingList) {
+                                                if (
+                                                    mailingItem.email ===
+                                                    newEmailAddress
+                                                ) {
+                                                    emailFound = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (emailFound) {
+                                                sendpulse.removeEmails(
+                                                    () => {
+                                                        done();
+                                                    },
+                                                    newsletterId as number,
+                                                    [newEmailAddress],
+                                                );
+                                            } else {
+                                                done(
+                                                    `'${newEmailAddress}' not found in '${contact.newsletterAddressBookName}'.`,
+                                                );
+                                            }
+                                        },
+                                        newsletterId as number,
+                                    );
+                                });
+                            })
+                            .catch((error) => {
+                                done(error);
                             });
-                        })
-                        .catch((error) => {
-                            done(error);
-                        });
-                });
+                    },
+                );
             },
         );
     });
 
     it("should unsubscribe an email address", (done) => {
         sendpulse.init(
-            process.env.SMTP_USER,
-            process.env.SMTP_PASSWORD,
+            String(process.env.SMTP_USER),
+            String(process.env.SMTP_PASSWORD),
             os.tmpdir(),
             () => {
-                // @ts-ignore
-                sendpulse.listAddressBooks((addressBooks: any[]) => {
-                    const newsletterId =
-                        contact.getNewsletterIdFromList(addressBooks);
-                    if (newsletterId === undefined) {
-                        done(
-                            `The address book '${contact.newsletterAddressBookName}' should be created.`,
-                        );
-                    }
+                sendpulse.listAddressBooks(
+                    (result: ReturnError | BookInfo[]) => {
+                        if ("message" in result) {
+                            done(result.message);
+                        }
+                        const addressBooks = result as BookInfo[];
+                        const newsletterId =
+                            contact.getNewsletterIdFromList(addressBooks);
+                        if (newsletterId === undefined) {
+                            done(
+                                `The address book '${contact.newsletterAddressBookName}' should be created.`,
+                            );
+                        }
 
-                    const newEmailAddress = `test${Date.now()}@explorewilder.com`;
-                    sendpulse.addEmails(
-                        (addEmailsResult: any) => {
-                            if (addEmailsResult.result) {
-                                contact
-                                    .manageEmail(newEmailAddress, false)
-                                    .then(() => {
-                                        sendpulse.getEmailsFromBook(
-                                            (mailingList: any) => {
-                                                let emailFound = false;
-                                                for (const mailingItem of mailingList) {
-                                                    if (
-                                                        mailingItem.email ===
-                                                        newEmailAddress
-                                                    ) {
-                                                        emailFound = true;
-                                                        break;
+                        const newEmailAddress = `test${Date.now()}@explorewilder.com`;
+                        sendpulse.addEmails(
+                            (
+                                addEmailsResult:
+                                    | ReturnError
+                                    | { result: boolean },
+                            ) => {
+                                if (
+                                    "result" in addEmailsResult &&
+                                    addEmailsResult.result
+                                ) {
+                                    contact
+                                        .manageEmail(newEmailAddress, false)
+                                        .then(() => {
+                                            sendpulse.getEmailsFromBook(
+                                                (
+                                                    result:
+                                                        | ReturnError
+                                                        | EmailFromBook[],
+                                                ) => {
+                                                    if ("message" in result) {
+                                                        done(result.message);
                                                     }
-                                                }
-                                                if (emailFound) {
-                                                    done(
-                                                        `'${newEmailAddress}' found.`,
-                                                    );
-                                                } else {
-                                                    done();
-                                                }
-                                            },
-                                            newsletterId,
-                                        );
-                                    })
-                                    .catch((error) => {
-                                        done(error);
-                                    });
-                            } else {
-                                done(`Failed to add ${newEmailAddress}.`);
-                            }
-                        },
-                        newsletterId,
-                        [{ email: newEmailAddress, variables: {} }],
-                    );
-                });
+                                                    const mailingList =
+                                                        result as EmailFromBook[];
+                                                    let emailFound = false;
+                                                    for (const mailingItem of mailingList) {
+                                                        if (
+                                                            mailingItem.email ===
+                                                            newEmailAddress
+                                                        ) {
+                                                            emailFound = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (emailFound) {
+                                                        done(
+                                                            `'${newEmailAddress}' found.`,
+                                                        );
+                                                    } else {
+                                                        done();
+                                                    }
+                                                },
+                                                newsletterId as number,
+                                            );
+                                        })
+                                        .catch((error) => {
+                                            done(error);
+                                        });
+                                } else {
+                                    done(`Failed to add ${newEmailAddress}.`);
+                                }
+                            },
+                            newsletterId as number,
+                            [{ email: newEmailAddress, variables: {} }],
+                        );
+                    },
+                );
             },
         );
     });

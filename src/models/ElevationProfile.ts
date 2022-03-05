@@ -1,7 +1,7 @@
 import type {
     ChartConfiguration,
-    Chart as TChart,
     TooltipItem,
+    Chart as TypeChart,
 } from "chart.js";
 import type { AnnotationOptions } from "chartjs-plugin-annotation";
 import type { Position } from "geojson";
@@ -11,7 +11,7 @@ import { extraIcons, globalMapState } from "./Map";
 
 declare const Chart: typeof import("chart.js");
 
-export let chart: TChart | undefined = undefined;
+export let chart: TypeChart | undefined = undefined;
 
 type LonLatPoint = { lon: number; lat: number };
 

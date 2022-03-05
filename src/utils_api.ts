@@ -45,7 +45,7 @@ export function isSameSite(request: VercelRequest): boolean {
 export function doRequest(
     options: https.RequestOptions,
     data: string,
-): Promise<any> {
+): Promise<unknown> {
     return new Promise((resolve, reject) => {
         const req = https.request(options, (res) => {
             res.setEncoding("utf8");
@@ -125,7 +125,7 @@ export class Monitoring {
     }
 
     /** Capture an exception event. */
-    except(exception: any): void {
+    except(exception: unknown): void {
         Sentry.captureException(exception);
     }
 
