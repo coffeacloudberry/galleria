@@ -201,7 +201,7 @@ For editing the font, adding glyphs, ligatures, exotic characters, etc. Have a l
 
 ### Real Deployment
 
-The frontend can be deployed on any server, just install dependencies with `npm ci`. The backend (API endpoints) is designed to run on Vercel, but any server capable of executing a Node.js application should be okay. Most third party connections require an account. The good news is that most third parties are cost- and maintenance-free, so that you can focus on what really matters: photographies, stories, adventures!
+The frontend can be deployed on any server, just install dependencies with `npm ci`. The backend (API endpoints) is designed to run on Vercel, but any server capable of executing a Node.js application should be okay. Most third party connections require an account. The good news is that most third parties are cost- and maintenance-free, so that you can focus on what really matters: photos, stories, adventures!
 
 ## Thanks
 

@@ -7,6 +7,7 @@ import { config } from "dotenv";
 import sendpulse, { BookInfo, EmailFromBook, ReturnError } from "sendpulse-api";
 
 import * as contact from "../../api/contact";
+import record from "./record";
 
 config();
 
@@ -15,6 +16,12 @@ SendPulse API: https://github.com/sendpulse/sendpulse-rest-api-node.js/blob/mast
  */
 
 describe("Contact Forms", () => {
+    const recorder = record("contact_forms");
+
+    before(() => {
+        recorder.before();
+    });
+
     it("should be a valid email address", () => {
         assert(contact.isEmail("test@example.com"));
         assert(contact.isEmail("test123@example.co"));
@@ -86,10 +93,10 @@ describe("Contact Forms", () => {
     it("should not record the same visitor within a short time laps", (done) => {
         const visitorId = Date.now().toString();
         contact
-            .checkVisitor("sender", visitorId, "")
+            .checkVisitor("sender", visitorId, "", 2)
             .then(() => {
                 contact
-                    .checkVisitor("sender", visitorId, "")
+                    .checkVisitor("sender", visitorId, "", 1)
                     .then((result) => {
                         done(result);
                     })
@@ -143,7 +150,7 @@ describe("Contact Forms", () => {
                             );
                         }
 
-                        const newEmailAddress = `test${Date.now()}@explorewilder.com`;
+                        const newEmailAddress = `test1646576043243@explorewilder.com`;
                         contact
                             .manageEmail(newEmailAddress)
                             .then(() => {
@@ -216,7 +223,7 @@ describe("Contact Forms", () => {
                             );
                         }
 
-                        const newEmailAddress = `test${Date.now()}@explorewilder.com`;
+                        const newEmailAddress = `test1646576044243@explorewilder.com`;
                         sendpulse.addEmails(
                             (
                                 addEmailsResult:
@@ -280,12 +287,16 @@ describe("Contact Forms", () => {
 
     it("should send an email", (done) => {
         contact
-            .sendEmail(`test${Date.now()}@explorewilder.com`, "Blåblä")
+            .sendEmail(`test1646576045243@explorewilder.com`, "Blåblä")
             .then(() => {
                 done();
             })
             .catch((error) => {
                 done(error);
             });
+    });
+
+    after((done) => {
+        recorder.after(done);
     });
 });
