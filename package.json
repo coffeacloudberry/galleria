@@ -26,7 +26,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "@sentry/node": "^6.17.7",
-        "@sentry/tracing": "^6.17.7",
+        "@sentry/tracing": "^6.17.8",
         "mithril": "^2.0.4",
         "redis": "^4.0.3",
         "request-ip": "^2.1.3",
