@@ -124,8 +124,8 @@ export const config = {
      */
     captcha: {
         js: {
-            src: "https://unpkg.com/friendly-challenge@0.9.0/widget.module.min.js",
-            sri: "sha512-TOjMX+X5yXszkKN5NLD98RlK8zGnbbkeHpj5coO1mpIiAsqrbMopkuoMI0hMiYTj2jQdX79001P71caSlbjqDA==",
+            src: "https://unpkg.com/friendly-challenge@0.9.1/widget.module.min.js",
+            sri: "sha512-hIj0kIsvWTagBjTWmDFme3ImeLs2hfG+CX4/cTdBaTNh56dWrbYtwpOwu6VjF60+JQrYJD6HUponjHUxORfg3A==",
             isModule: true,
         },
 
