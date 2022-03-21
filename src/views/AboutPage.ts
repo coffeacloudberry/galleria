@@ -1,8 +1,6 @@
-import cafeSharp from "@/icons/cafe-sharp.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoMatrix from "@/icons/logo-matrix.svg";
-import logoPaypal from "@/icons/logo-paypal.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoRss from "@/icons/logo-rss.svg";
 import m from "mithril";
@@ -181,33 +179,6 @@ const SocialNetworks: m.Component = {
     },
 };
 
-/** Donation section: title, text and a button pointing to Ko-fi. */
-const Support: m.Component = {
-    view(): m.Vnode[] {
-        return [
-            m("h1", t("support")),
-            m("p", t("support.why")),
-            m(
-                "p",
-                m(
-                    "a.button.mr-3",
-                    {
-                        href: "https://ko-fi.com/explorewilder",
-                    },
-                    [m(Icon, { src: cafeSharp }), "Ko-fi"],
-                ),
-                m(
-                    "a.button",
-                    {
-                        href: "https://www.paypal.com/donate/?hosted_button_id=K44Z5AXPG8FZ2",
-                    },
-                    [m(Icon, { src: logoPaypal }), "PayPal"],
-                ),
-            ),
-        ];
-    },
-};
-
 /** About page including contact form and newsletter subscription. */
 export default function AboutPage(): m.Component {
     t.init();
@@ -242,14 +213,8 @@ export default function AboutPage(): m.Component {
                             ".row",
                             m(".one.column.yydchtxork", m(SocialNetworks)),
                             m(".one.column", m(VisitorsBook)),
+                            m(".one.column", m(CopyrightNotice)),
                         ),
-                    ),
-                    m(
-                        ".container",
-                        m(".row", [
-                            m(".half.column", m(Support)),
-                            m(".half.column", m(CopyrightNotice)),
-                        ]),
                     ),
                 ]),
             ];
