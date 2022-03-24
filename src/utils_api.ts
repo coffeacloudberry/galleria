@@ -1,8 +1,10 @@
+import "@sentry/tracing";
+
 import { createHash } from "crypto";
 import https from "https";
 
 import * as Sentry from "@sentry/node";
-import { Transaction } from "@sentry/tracing";
+import type { Transaction } from "@sentry/tracing";
 import { VercelRequest } from "@vercel/node";
 import { createClient } from "redis";
 
