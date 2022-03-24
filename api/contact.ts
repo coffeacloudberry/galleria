@@ -297,8 +297,14 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                                 response.status(500).json(undefined);
                             });
                     })
-                    .catch((status_code) => {
-                        response.status(parseInt(status_code)).json(undefined);
+                    .catch(async (status_code) => {
+                        trace.except(status_code);
+                        await trace.close();
+                        let n_status_code = parseInt(status_code);
+                        if (isNaN(n_status_code)) {
+                            n_status_code = 500;
+                        }
+                        response.status(n_status_code).json(undefined);
                     });
                 return;
             }
@@ -317,8 +323,14 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                                 response.status(200).json(undefined);
                             });
                     })
-                    .catch((status_code) => {
-                        response.status(parseInt(status_code)).json(undefined);
+                    .catch(async (status_code) => {
+                        trace.except(status_code);
+                        await trace.close();
+                        let n_status_code = parseInt(status_code);
+                        if (isNaN(n_status_code)) {
+                            n_status_code = 500;
+                        }
+                        response.status(n_status_code).json(undefined);
                     });
                 return;
             }
@@ -336,8 +348,14 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                                 response.status(500).json(undefined);
                             });
                     })
-                    .catch((status_code) => {
-                        response.status(parseInt(status_code)).json(undefined);
+                    .catch(async (status_code) => {
+                        trace.except(status_code);
+                        await trace.close();
+                        let n_status_code = parseInt(status_code);
+                        if (isNaN(n_status_code)) {
+                            n_status_code = 500;
+                        }
+                        response.status(n_status_code).json(undefined);
                     });
                 return;
             }

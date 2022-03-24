@@ -138,7 +138,10 @@ export class Monitoring {
      */
     async close(): Promise<void> {
         if (this.isOpen) {
-            this.transaction.finish();
+            // The transaction can really be undefined
+            if (this.transaction !== undefined) {
+                this.transaction.finish();
+            }
             await Sentry.close(2000);
             this.isOpen = false;
         }
