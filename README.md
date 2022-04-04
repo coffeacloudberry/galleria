@@ -134,6 +134,8 @@ robot ..
 
 > If the driver is not found, you may need to `export PATH=$PATH:/home/.../.local/share/WebDriverManager/bin`
 
+> The tests do not use fake fixtures but the actual website content. The most recent photo should have a story or some tests may fail.
+
 An HTML report should have been generated.
 
 </details>
