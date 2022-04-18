@@ -1,0 +1,24 @@
+{
+    "title": {
+        "en": "Spring on Liesijärvi",
+        "fi": "Kevät Liesijärvellä",
+        "fr": "Printemps au lac Liesijärvi"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 61.969365,
+        "lon": 23.363409
+    },
+    "story": "Easter_on_Seitseminen",
+    "dateTaken": "2022-04-16T10:44:49",
+    "focalLength35mm": 57,
+    "exposureTime": "1/320",
+    "fNumber": 10.0,
+    "iso": 100,
+    "prev": 220415175556,
+    "next": 220416111510
+}
