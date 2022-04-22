@@ -13,8 +13,7 @@ import { StatsComponent } from "./Stats";
 
 /** Get the story ID from the path. */
 function getStoryId(): string {
-    const splitPath = m.parsePathname(m.route.get()).path.split("/");
-    return splitPath[splitPath.length - 1];
+    return m.route.param("title");
 }
 
 interface DurationAttrs {
@@ -103,19 +102,11 @@ export default function StoryPage(): m.Component {
             hideAllForce();
         },
         onupdate(): void {
-            let routeStoryId: string | null = null;
-            try {
-                routeStoryId = m.route.param("title");
-            } catch {}
-
+            const routeStoryId = getStoryId();
             const futureLang = t.getLang();
             const preTitle = story.title ? story.title + " - " : "";
             document.title = `${preTitle}${t("story.title")}`;
-            if (
-                routeStoryId &&
-                story.folderName &&
-                routeStoryId !== story.folderName
-            ) {
+            if (routeStoryId !== story.folderName) {
                 story.load(routeStoryId);
             } else if (currentLang !== futureLang) {
                 story.reload();
