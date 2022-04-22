@@ -103,10 +103,21 @@ export default function StoryPage(): m.Component {
             hideAllForce();
         },
         onupdate(): void {
+            let routeStoryId: string | null = null;
+            try {
+                routeStoryId = m.route.param("title");
+            } catch {}
+
             const futureLang = t.getLang();
             const preTitle = story.title ? story.title + " - " : "";
             document.title = `${preTitle}${t("story.title")}`;
-            if (currentLang !== futureLang) {
+            if (
+                routeStoryId &&
+                story.folderName &&
+                routeStoryId !== story.folderName
+            ) {
+                story.load(routeStoryId);
+            } else if (currentLang !== futureLang) {
                 story.reload();
                 currentLang = futureLang;
             }
