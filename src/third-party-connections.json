@@ -1,17 +1,17 @@
 [
     {
         "what": "host",
-        "who": "Vercel",
-        "link": "https://vercel.com/legal/privacy-policy"
+        "who": "Vercel Inc.",
+        "link": "https://vercel.com/legal/privacy-policy#customers"
     },
     {
         "what": "tmpdb",
-        "who": "Upstash (AWS@eu-west-1)",
+        "who": "Upstash, Inc. (AWS@eu-west-1)",
         "link": "https://www.upstash.com/static/legal/privacy.html"
     },
     {
         "what": "emails",
-        "who": "SendPulse",
+        "who": "SendPulse Inc.",
         "link": "https://sendpulse.com/legal/pp"
     },
     {
@@ -26,22 +26,22 @@
     },
     {
         "what": "maps",
-        "who": "Mapbox",
+        "who": "Mapbox, Inc.",
         "link": "https://www.mapbox.com/legal/privacy"
     },
     {
         "what": "bugs",
-        "who": "Sentry",
+        "who": "Functional Software, Inc. dba Sentry",
         "link": "https://sentry.io/privacy/"
     },
     {
         "what": "cdn",
-        "who": "Cloudflare",
+        "who": "Cloudflare, Inc.",
         "link": "https://www.cloudflare.com/privacypolicy/"
     },
     {
         "what": "gif",
-        "who": "GIPHY",
+        "who": "Giphy, Inc.",
         "link": "https://www.giphy.com/privacy"
     }
 ]

@@ -23,7 +23,7 @@ export const PrivacyPolicy: m.Component = {
             m("h3", t("privacy.third-parties.title")),
             m(
                 "ul.blabla",
-                thirdParties.map((partner, i) => {
+                thirdParties.map((partner) => {
                     return m("li", [
                         t(`privacy.third-parties.${partner.what}`),
                         " ",
@@ -34,7 +34,6 @@ export const PrivacyPolicy: m.Component = {
                             },
                             partner.who,
                         ),
-                        ++i === thirdParties.length ? "." : ",",
                     ]);
                 }),
             ),
