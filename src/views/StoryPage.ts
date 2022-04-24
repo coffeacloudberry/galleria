@@ -2,7 +2,12 @@ import m from "mithril";
 import tippy, { Instance as TippyInstance } from "tippy.js";
 
 import { globalMapState } from "../models/Map";
-import { EasyDate, SeasonStrings, story } from "../models/Story";
+import {
+    EasyDate,
+    ProcessedStoryFile,
+    SeasonStrings,
+    story,
+} from "../models/Story";
 import { t } from "../translate";
 import { hideAllForce, transformExternalLinks } from "../utils";
 import { ChartContainer } from "./ElevationProfile";
@@ -87,6 +92,57 @@ const GeoData: m.Component = {
     },
 };
 
+/**
+ * Call every time the tooltip is displayed.
+ * Get the translated title from the story ID.
+ */
+function onShowStoryTippy(instance: TippyInstance) {
+    const ref = instance.reference as HTMLLinkElement;
+    const storyId = ref.dataset.story;
+
+    // load only once
+    if (ref.dataset.loadedMeta || !storyId) {
+        return;
+    }
+
+    const defaultText = t("photo.open-story.tooltip");
+    story
+        .getStoryTitleContent(storyId)
+        .then((result: ProcessedStoryFile) => {
+            ref.dataset.loadedMeta = "yes";
+            const text = result.title
+                ? `${t("open-this-story.tooltip")} ${result.title}`
+                : defaultText;
+            instance.setContent(text);
+        })
+        .catch(() => {
+            instance.setContent(defaultText);
+        });
+}
+
+/** Print the story content. Create dynamically translated tippies. */
+const StoryContent: m.Component = {
+    onupdate({ dom }: m.VnodeDOM): void {
+        dom.querySelectorAll("a[data-story]").forEach((targetNode: Element) => {
+            const tippyNode = targetNode as HTMLElement & {
+                _tippy: TippyInstance;
+            };
+            if (!tippyNode._tippy) {
+                // Create only if not existing to avoid duplication
+                tippy(tippyNode, {
+                    content: `${t("loading.tooltip")}...`,
+                    onShow: onShowStoryTippy,
+                    placement: "right", // next to the book icon
+                });
+            }
+        });
+    },
+
+    view(): m.Vnode {
+        return m(".story-content", m.trust(story.content || ""));
+    },
+};
+
 export default function StoryPage(): m.Component {
     t.init();
     let currentLang = t.getLang();
@@ -146,10 +202,7 @@ export default function StoryPage(): m.Component {
                             m(".row", [
                                 m(".one.column", [
                                     m(StoryTitle),
-                                    m(
-                                        ".story-content",
-                                        m.trust(story.content || ""),
-                                    ),
+                                    story.content && m(StoryContent),
                                 ]),
                                 story.hasGeodata && m(GeoData),
                             ]),

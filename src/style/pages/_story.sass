@@ -7,6 +7,20 @@
 
 .story-content
     margin-bottom: $global-font-size
+    a[data-story]
+        /* Same color as text to avoid catching the eye on links, this is not a Wikipedia page. */
+        color: $body-color
+        &::after
+            content: ' '
+            display: inline-block
+            width: 1.3rem
+            height: 1rem
+            margin-bottom: -0.1rem
+            list-style: none
+            background-image: url('../icons/book-outline.svg')
+            background-size: contain
+            background-repeat: no-repeat
+            background-position-x: center
     ul li
         margin-top: 1rem
         list-style: none

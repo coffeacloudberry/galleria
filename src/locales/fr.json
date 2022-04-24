@@ -85,6 +85,7 @@
     "not-found.action": "Visites la page principale",
     "photo.title": "Photographie",
     "photo.open-story.tooltip": "Lire l'aventure",
+    "open-this-story.tooltip": "{{photo.open-story.tooltip}} :",
     "stories-overview": "Aperçu des aventures",
     "stories.title": "Toutes les aventures publiées",
     "photo.open-story.pre-title": "De l'aventure :",

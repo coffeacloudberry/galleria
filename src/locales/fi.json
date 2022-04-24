@@ -85,6 +85,7 @@
     "not-found.action": "Käy pääsivulla",
     "photo.title": "Valokuvaus",
     "photo.open-story.tooltip": "Lue tarina",
+    "open-this-story.tooltip": "{{photo.open-story.tooltip}}:",
     "stories-overview": "Tarinoiden yleiskatsaus",
     "stories.title": "Kaikki julkaistut tarinat",
     "photo.open-story.pre-title": "Tarinasta:",

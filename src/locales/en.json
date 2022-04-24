@@ -85,6 +85,7 @@
     "not-found.action": "Visit the main page",
     "photo.title": "Photography",
     "photo.open-story.tooltip": "Read the story",
+    "open-this-story.tooltip": "{{photo.open-story.tooltip}}:",
     "stories-overview": "Stories overview",
     "stories.title": "All Published Stories",
     "photo.open-story.pre-title": "From the story:",

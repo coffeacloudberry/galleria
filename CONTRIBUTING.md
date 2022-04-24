@@ -17,4 +17,4 @@ Feel free to open an issue or a discussion.
 
 ## PyCharm Pro / WebStorm Users
 
-The README.md file contains some tips. Also, [mark](https://www.jetbrains.com/help/webstorm/configuring-project-structure.html) `src/` as *Resource Root* so that the IDE finds the icons, and mark `tests/end_to_end/results/` as *Excluded* so that the IDE does not analyse test results.
+The README.md file contains some tips. Also, [mark](https://www.jetbrains.com/help/webstorm/configuring-project-structure.html) `src/` and `src/style/` as *Resource Root* so that the IDE finds the icons, and mark `tests/end_to_end/results/` as *Excluded* so that the IDE does not analyse test results.
