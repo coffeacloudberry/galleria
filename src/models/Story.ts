@@ -109,19 +109,6 @@ export interface ProcessedStoryFile {
 }
 
 /**
- * Replace: '{fine spells}="Moslty sunny"'
- * with: '<abbr data-tippy-content="Moslty sunny">fine spells</abbr>'
- *
- * Regex help: https://www.keycdn.com/support/regex-cheatsheet
- */
-function abbrMdToHtml(md: string): string {
-    return md.replace(
-        /{([^{}]*)}="([^"]*)"/g,
-        '<abbr data-tippy-content="$2">$1</abbr>',
-    );
-}
-
-/**
  * Process a TRUSTED story file and return the title separated from the content.
  */
 function mdProcessor(text: string): ProcessedStoryFile {
@@ -138,8 +125,8 @@ function mdProcessor(text: string): ProcessedStoryFile {
 
     blocks = blocks.map((l) =>
         [" ", "\t", "#", "-", "*"].some((ch) => l.startsWith(ch))
-            ? snarkdown(abbrMdToHtml(l))
-            : `<p>${snarkdown(abbrMdToHtml(l))}</p>`,
+            ? snarkdown(l)
+            : `<p>${snarkdown(l)}</p>`,
     );
 
     return {
