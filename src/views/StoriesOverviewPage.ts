@@ -81,6 +81,7 @@ const ThumbnailComponent: m.Component<OneStory> = {
                     title: photoId,
                 }),
                 "data-tippy-content": t("story.open-photo.tooltip"),
+                "data-tippy-offset": "[0,0]",
                 "data-tippy-placement": "bottom",
             },
             m("img", {
@@ -108,6 +109,7 @@ class OneStoryComponent implements m.ClassComponent<OneStory> {
                     {
                         href: storyLink,
                         "data-tippy-content": t("photo.open-story.tooltip"),
+                        "data-tippy-placement": "right",
                     },
                     attrs.title,
                 ),

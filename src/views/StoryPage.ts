@@ -1,5 +1,5 @@
 import m from "mithril";
-import tippy, { Instance as TippyInstance } from "tippy.js";
+import tippy, { Instance as TippyInstance, inlinePositioning } from "tippy.js";
 
 import { globalMapState } from "../models/Map";
 import {
@@ -132,7 +132,9 @@ const StoryContent: m.Component = {
                 tippy(tippyNode, {
                     content: `${t("loading.tooltip")}...`,
                     onShow: onShowStoryTippy,
-                    placement: "right", // next to the book icon
+                    inlinePositioning: true,
+                    plugins: [inlinePositioning],
+                    offset: [0, 0],
                 });
             }
         });
