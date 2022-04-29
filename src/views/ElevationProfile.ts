@@ -11,6 +11,11 @@ declare const Chart: typeof import("chart.js");
 
 const error = new CustomLogging("error");
 
+/**
+ * Create the canvas, instantiate the chart, and populate with the
+ * available data from the WebTrack.
+ * @param canvasContainer Canvas element.
+ */
 function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
     return Promise.all([
         injectCode(config.turf.js),

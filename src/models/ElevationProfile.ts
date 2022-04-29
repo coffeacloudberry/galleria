@@ -175,9 +175,16 @@ export function createElevationChart(
                     },
                     displayColors: false,
                     borderColor: "rgb(67,121,67)",
-                    backgroundColor: "rgba(255,255,255,0.42)",
+                    backgroundColor: "rgba(255,255,255,0.66)",
                     bodyColor: "rgb(0,0,0)",
                     borderWidth: 1,
+                    yAlign: "bottom",
+                    caretSize: 10,
+                    caretPadding: 10, // above the cross pointer
+                    bodyFont: {
+                        family: "MyBoldFont",
+                        size: 14,
+                    },
                 },
                 legend: {
                     display: false,

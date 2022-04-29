@@ -160,10 +160,13 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         const [lon, lat] = nearestPoint.geometry.coordinates;
         const index = nearestPoint.properties.index;
         globalMapState.moveHiker(lon, lat);
+        // draw tooltip
         chart.tooltip.setActiveElements([{ datasetIndex: 0, index }], {
             x: 0, // unused
             y: 0, // unused
         });
+        // draw pointer
+        chart.setActiveElements([{ datasetIndex: 0, index }]);
         chart.render();
     }
 
