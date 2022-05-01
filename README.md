@@ -200,6 +200,16 @@ The [main SASS file](src/style/main.sass) should point to the font files.
 For editing the font, adding glyphs, ligatures, exotic characters, etc. Have a look at this [README file](src/fonts/asap/README.md).
 
 </details>
+<details>
+  <summary>The map styles</summary>
+
+The Mapbox Studio styles are public:
+
+* *Sunny Summer* theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckp9oa8nw216718o43dskmvsg.html?title=view&access_token=pk.eyJ1Ijoib252Ymp6aGdodSIsImEiOiJjanh1cGJldXQwMzdkM2dtbnFoMDdydnpiIn0.nGLVthTXA3lrPVb8faDoAA&zoomwheel=true&fresh=true#10.26/45.9278/6.9381/120/3), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckp9oa8nw216718o43dskmvsg.html?title=copy&access_token=pk.eyJ1Ijoib252Ymp6aGdodSIsImEiOiJjanh1cGJldXQwMzdkM2dtbnFoMDdydnpiIn0.nGLVthTXA3lrPVb8faDoAA&zoomwheel=true&fresh=true#10.26/45.9278/6.9381/120/3),
+* *Sunny Tundra* theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwuwtmkeeb1p15p2zbawe8u5.html?title=view&access_token=pk.eyJ1Ijoib252Ymp6aGdodSIsImEiOiJjanh1cGJldXQwMzdkM2dtbnFoMDdydnpiIn0.nGLVthTXA3lrPVb8faDoAA&zoomwheel=true&fresh=true#15.12/68.667283/27.535102/-20/66), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwuwtmkeeb1p15p2zbawe8u5.html?title=copy&access_token=pk.eyJ1Ijoib252Ymp6aGdodSIsImEiOiJjanh1cGJldXQwMzdkM2dtbnFoMDdydnpiIn0.nGLVthTXA3lrPVb8faDoAA&zoomwheel=true&fresh=true#15.12/68.667283/27.535102/-20/66),
+* *Dark Tundra* theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr.html?title=view&access_token=pk.eyJ1Ijoib252Ymp6aGdodSIsImEiOiJjanh1cGJldXQwMzdkM2dtbnFoMDdydnpiIn0.nGLVthTXA3lrPVb8faDoAA&zoomwheel=true&fresh=true#12.34/68.42216/27.41957/20.8/63), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr.html?title=copy&access_token=pk.eyJ1Ijoib252Ymp6aGdodSIsImEiOiJjanh1cGJldXQwMzdkM2dtbnFoMDdydnpiIn0.nGLVthTXA3lrPVb8faDoAA&zoomwheel=true&fresh=true#12.34/68.42216/27.41957/20.8/63).
+
+</details>
 
 ### Real Deployment
 
