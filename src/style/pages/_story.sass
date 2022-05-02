@@ -94,6 +94,9 @@ section#story
                 .mapboxgl-popup-content
                     padding: 0.5rem
             width: 100%
+            .mapboxgl-canvas
+                width: inherit !important
+                height: inherit !important
             /* the map does not load if too small */
             height: calc(max(60vh - #{$nav-bar-height} - #{$block-space}, 300px))
             background: #eae8e6 /* for the user to know that something will appear (instead of just a big gap) */
