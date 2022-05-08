@@ -173,5 +173,6 @@
         "NavigationControl.ResetBearing": "Reset bearing to north",
         "NavigationControl.ZoomIn": "Zoom in",
         "NavigationControl.ZoomOut": "Zoom out"
-    }
+    },
+    "verified": "Check verified accounts"
 }

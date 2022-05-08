@@ -173,5 +173,6 @@
         "NavigationControl.ResetBearing": "Nollaa suuntima pohjoiseen",
         "NavigationControl.ZoomIn": "Suurenna",
         "NavigationControl.ZoomOut": "Pienennä"
-    }
+    },
+    "verified": "Tarkista todennetut tilit"
 }

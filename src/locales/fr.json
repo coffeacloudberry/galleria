@@ -173,5 +173,6 @@
         "NavigationControl.ResetBearing": "Remettre le nord en haut",
         "NavigationControl.ZoomIn": "Zoomer",
         "NavigationControl.ZoomOut": "Dézoomer"
-    }
+    },
+    "verified": "Vérifier les comptes"
 }

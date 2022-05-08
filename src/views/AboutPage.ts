@@ -3,6 +3,7 @@ import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoMatrix from "@/icons/logo-matrix.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoRss from "@/icons/logo-rss.svg";
+import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
 
 import { t } from "../translate";
@@ -133,6 +134,21 @@ const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
     },
 };
 
+/** "Verified" icon pointing the verifier. */
+const ShieldLink: m.Component = {
+    view(): m.Vnode {
+        return m(
+            "a.ml-3",
+            {
+                href: "https://keyoxide.org/hkp/FFD0B3DDAD69CB71BAE13B1DDFFF34860D361C52",
+                "data-tippy-content": t("verified"),
+                "data-tippy-placement": "right",
+            },
+            m(Icon, { src: ShieldCheckmarkOutline }),
+        );
+    },
+};
+
 /** Icons and links to my social networks. */
 const SocialNetworks: m.Component = {
     view(): m.Vnode[] {
@@ -164,7 +180,7 @@ const SocialNetworks: m.Component = {
             },
         ];
         return [
-            m("h1", t("social-networks")),
+            m("h1", [t("social-networks"), m(ShieldLink)]),
             m(
                 "ul",
                 allItems.map((item) => {
