@@ -27,7 +27,7 @@ class GenerateWebLabelsPlugin {
         // check that provided options match JSON schema
         validate(schema, opts, pluginName);
         this.options = opts || {};
-        this.weblabelsDirName = this.options["outputDir"] || "jssources";
+        this.weblabelsDirName = this.options["outputDir"] || "/jssources";
         this.outputType = this.options["outputType"] || "html";
         // source file extension handled by webpack and compiled to js
         this.srcExts = ["js", "ts", "coffee", "lua"];
@@ -125,7 +125,9 @@ class GenerateWebLabelsPlugin {
                 mod.chunks.forEach((chunk) => {
                     const chunkName = this.chunkIdToName[chunk];
                     const chunkJsAsset =
-                        stats.publicPath + this.chunkNameToJsAsset[chunkName];
+                        "/" +
+                        stats.publicPath +
+                        this.chunkNameToJsAsset[chunkName];
 
                     // init the chunk to source files mapping if needed
                     if (
