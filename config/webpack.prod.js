@@ -15,6 +15,7 @@ const SentryCliPlugin = require("@sentry/webpack-plugin");
 const { merge } = require("webpack-merge");
 const paths = require("./paths");
 const common = require("./webpack.common.js");
+const GenerateWebLabelsPlugin = require("./generate-weblabels-webpack-plugin");
 const languages = require("../src/languages.json");
 const { readdirSync } = require("fs");
 const path = require("path");
@@ -128,6 +129,22 @@ module.exports = merge(common, {
                 .flat(),
         }),
 
+        new GenerateWebLabelsPlugin({
+            additionalScripts: Object.assign({
+                "https://unpkg.com/friendly-challenge@0.9.1/widget.module.min.js":
+                    [
+                        {
+                            id: "widget.module.min.js",
+                            path: "https://github.com/FriendlyCaptcha/friendly-challenge/blob/master/src/index.ts",
+                            spdxLicenseExpression: "MIT",
+                            licenseFilePath:
+                                "https://github.com/FriendlyCaptcha/friendly-challenge/blob/master/LICENSE.md",
+                        },
+                    ],
+                // Mapbox GL JS is not OSI compliant
+            }),
+        }),
+
         // Push source maps to Sentry
         new SentryCliPlugin({
             include: path.resolve(paths.build, "js"),
@@ -138,6 +155,7 @@ module.exports = merge(common, {
     ],
     optimization: {
         minimize: true,
+        concatenateModules: false,
         minimizer: [
             new CssMinimizerPlugin({
                 // the default cssnano is broken, use clean-css instead

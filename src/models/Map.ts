@@ -58,6 +58,9 @@ class GlobalMapState {
     /** True if the map is loading layers, not ready to handle more changes. */
     public isLoadingLayers = false;
 
+    /** True if the map failed to load. */
+    public mapLoadFailure = false;
+
     /** The WebTrack if loaded. */
     public webtrack: WebTrack | undefined;
 

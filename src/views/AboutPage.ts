@@ -58,8 +58,8 @@ const myCopyrightList = [
     },
     {
         what: "source",
-        short: "Apache-2.0",
-        href: "https://github.com/coffeacloudberry/galleria/blob/master/LICENSE",
+        short: "AGPL-3.0+",
+        href: "/jssources/jslicenses.html",
     },
 ];
 

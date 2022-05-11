@@ -477,6 +477,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 }
                 mapboxgl.accessToken = String(process.env.MAPBOX_ACCESS_TOKEN);
                 if (!mapboxgl.supported()) {
+                    globalMapState.mapLoadFailure = true;
                     m.render(
                         dom,
                         m(
@@ -484,6 +485,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                             "Sorry, Mapbox GL JS is not supported by your browser!",
                         ),
                     );
+                    m.redraw();
                     return;
                 }
 
@@ -519,6 +521,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 });
             })
             .catch((err) => {
+                globalMapState.mapLoadFailure = true;
                 error.log(err);
                 m.render(
                     dom,
@@ -527,6 +530,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         "Sorry, Mapbox GL JS could not be fetched!",
                     ),
                 );
+                m.redraw();
             });
     }
 

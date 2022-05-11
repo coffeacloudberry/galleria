@@ -86,7 +86,7 @@ const GeoData: m.Component = {
             globalMapState.hasElevation && m(ChartContainer),
             m(".map-extra", [
                 m(Map, { storyId: getStoryId() }),
-                m(MapAttributions),
+                !globalMapState.mapLoadFailure && m(MapAttributions),
             ]),
         ]);
     },
