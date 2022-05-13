@@ -10,17 +10,25 @@
 <head>
     <title>Web Labels</title>
     <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
         table {
-            border-collapse: collapse;
             border-spacing: 0;
             width: 100%;
             max-width: 100%;
+            margin-top: 2em;
         }
 
         thead th {
             position: sticky;
             top: 0;
-            background-color: #dedede;
+            background-color: #eaeaea;
         }
 
         td {
@@ -46,11 +54,16 @@
         a:hover {
             text-decoration: underline;
         }
+
+        a.bundle {
+            position: sticky;
+            top: 2.5em;
+        }
     </style>
 </head>
 <body>
-<h1>JavaScript Web Labels</h1>
-<p><a href="https://www.gnu.org/philosophy/javascript-trap.html" title="Find out more">What is the JavaScript trap?</a></p>
+<h1 class="centered">JavaScript Web Labels</h1>
+<p class="centered"><a href="https://www.gnu.org/philosophy/javascript-trap.html" title="Find out more">What is the JavaScript trap?</a></p>
 <table id="jslicense-labels1">
     <thead>
     <tr>
@@ -60,12 +73,6 @@
     </tr>
     </thead>
     <tbody>
-    <!--
-    The license should point to a listed URL:
-    https://www.gnu.org/software/librejs/manual/html_node/Free-Licenses-Detection.html#Free-Licenses-Detection
-    However, most listed URLs are not secure, does not handle HTTPS, or have a bad HTTPS certificate.
-    Therefore, the link is hidden and only a safe link is clickable.
-    -->
     <% for (let jsasset of Object.keys(jslicenses_data).sort((a, b) => {
         let va = a.split("/").slice(-1)[0];
         let vb = b.split("/").slice(-1)[0];
@@ -79,7 +86,7 @@
         let bundled_js_srcs = jslicenses_data[jsasset]; %>
     <tr>
         <td>
-            <a href="<%= jsasset ;%>">
+            <a href="<%= jsasset ;%>" class="bundle">
                 <% if (jsasset.split("/").slice(-1)[0]) { %>
                     <%= jsasset.split("/").slice(-1)[0] ;%>
                 <% } else { %>
@@ -92,6 +99,12 @@
                 let js_src = bundled_js_srcs[i];
             for (let j = 0; j < js_src.licenses.length; ++j) {
                 let js_license = js_src.licenses[j]; %>
+            <!--
+            The license should point to a listed URL:
+            https://www.gnu.org/software/librejs/manual/html_node/Free-Licenses-Detection.html#Free-Licenses-Detection
+            However, most listed URLs are not secure, does not handle HTTPS, or have a bad HTTPS certificate.
+            Therefore, the link is hidden and only a safe link is clickable.
+            -->
             <a href="<%= js_license.official_url ;%>"></a>
             <a href="<%= js_license.actual_url ;%>"><%= js_license.name ;%></a>
             <% if (js_license.copy_url) { %>

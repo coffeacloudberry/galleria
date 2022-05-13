@@ -121,6 +121,7 @@ export const config = {
      * Friendly Captcha.
      * Check for new releases:
      * https://docs.friendlycaptcha.com/#/installation?id=option-a-using-a-script-tag
+     * Also change the URL in the Webpack Web Labels config.
      */
     captcha: {
         js: {
