@@ -3,6 +3,7 @@ import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoMatrix from "@/icons/logo-matrix.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoRss from "@/icons/logo-rss.svg";
+import logoXmpp from "@/icons/logo-xmpp.svg";
 import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
 
@@ -177,6 +178,11 @@ const SocialNetworks: m.Component = {
                 tooltip: "Matrix",
                 link: "https://matrix.to/#/@beebeecoffee:matrix.org",
                 logo: logoMatrix,
+            },
+            {
+                tooltip: "XMPP/Jabber",
+                link: "xmpp:frozenveggies@nixnet.services",
+                logo: logoXmpp,
             },
         ];
         return [
