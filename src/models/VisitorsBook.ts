@@ -39,7 +39,7 @@ class VisitorsBookState {
     /** True during the process of requesting a new GIF to be added. */
     private _shareInProgress = false;
 
-    /** The GIF's unique ID. */
+    /** The GIF unique ID. */
     private selectedGiphyId?: string;
 
     /** Callback when the GIF has been successfully added to the book. */
@@ -168,6 +168,7 @@ class VisitorsBookState {
         m.request<GifMetadata[]>({
             method: "GET",
             url: "/api/giphy",
+            timeout: this.bookRequestRetryTimeout,
         })
             .then((result) => {
                 this._storedGiphies = result;
