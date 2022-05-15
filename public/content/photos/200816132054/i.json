@@ -1,0 +1,24 @@
+{
+    "title": {
+        "en": "Sharp Circus",
+        "fi": "Terävä sirkus",
+        "fr": "Cirque acéré"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 44.737775,
+        "lon": 6.335775
+    },
+    "story": "Ecrins",
+    "dateTaken": "2020-08-16T13:20:54",
+    "focalLength35mm": null,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": null,
+    "prev": 200814092046,
+    "next": 200816151145
+}
