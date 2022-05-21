@@ -8,7 +8,7 @@ interface OneJsonStory {
     id: string;
 
     /** The story metadata, that is everything but the markdown story. */
-    metadata: StoryInfo;
+    metadata: StoryInfo | null;
 }
 
 /** The story metadata and content, plus the application state. */
@@ -48,6 +48,9 @@ class AllStories {
         firstEl: OneJsonStory,
         secondEl: OneJsonStory,
     ): number {
+        if (firstEl.metadata === null || secondEl.metadata === null) {
+            return 0;
+        }
         if (firstEl.metadata.start === undefined) {
             return secondEl.metadata.start === undefined ? 0 : 1;
         }
@@ -105,26 +108,54 @@ class AllStories {
      * is found. Then start the title and content load flow.
      * @param id Folder name of the story.
      */
-    loadOneStory(id: string): void {
-        this._noOneRequested = false;
-        for (const oneStory of this.fullList) {
-            if (oneStory.id != id) {
-                continue;
+    loadOneStory(id: string): Promise<ProcessedStoryFile> {
+        return new Promise<ProcessedStoryFile>((resolve, reject) => {
+            this._noOneRequested = false;
+            let theStory: OneStory | null = null;
+            for (const oneStory of this.fullList) {
+                if (oneStory.id != id) {
+                    continue;
+                }
+                if (oneStory.loaded || oneStory.loading) {
+                    resolve(oneStory);
+                    return;
+                }
+                oneStory.loading = true;
+                theStory = oneStory;
+                break;
             }
-            if (oneStory.loaded || oneStory.loading) {
-                return;
+
+            // empty or corrupted full list, add unlisted story
+            if (theStory === null) {
+                theStory = {
+                    id,
+                    metadata: null,
+                    loaded: false,
+                    loading: true,
+                    title: null,
+                    content: null,
+                };
+                // append without sorting because the current loadFullList()
+                // implementation reset the list and fill it in order
+                this.fullList.push(theStory);
             }
-            oneStory.loading = true;
+
             story
                 .getStoryTitleContent(id)
                 .then((result: ProcessedStoryFile) => {
-                    AllStories.onPromiseThen(result, oneStory);
+                    if (theStory) {
+                        AllStories.onPromiseThen(result, theStory);
+                        resolve(result);
+                    }
+                    reject();
                 })
                 .catch(() => {
-                    AllStories.onPromiseCatch(oneStory);
+                    if (theStory) {
+                        AllStories.onPromiseCatch(theStory);
+                    }
+                    reject();
                 });
-            break;
-        }
+        });
     }
 
     /**
@@ -150,6 +181,18 @@ class AllStories {
                     AllStories.onPromiseCatch(oneStory);
                 });
         }
+    }
+
+    /** Remove the language-specific information (title and content) from all
+     * stories, which can be used when switching language.
+     */
+    unload(): void {
+        this.fullList.forEach((oneStory) => {
+            oneStory.loaded = false;
+            oneStory.loading = false;
+            oneStory.title = null;
+            oneStory.content = null;
+        });
     }
 }
 

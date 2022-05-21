@@ -41,7 +41,7 @@ function lazyLoadStories(): void {
         if (!checkVisible(oneClass, 0, "below")) {
             const titleId = oneClass.getAttribute("data-id");
             if (titleId) {
-                allStories.loadOneStory(titleId);
+                void allStories.loadOneStory(titleId);
             }
         }
     }
@@ -71,7 +71,10 @@ function cleanUpText(longText: string): string {
 
 /** Clickable thumbnail. */
 const ThumbnailComponent: m.Component<OneStory> = {
-    view({ attrs }: m.Vnode<OneStory>): m.Vnode<m.RouteLinkAttrs> {
+    view({ attrs }: m.Vnode<OneStory>): m.Vnode<m.RouteLinkAttrs> | null {
+        if (attrs.metadata === null) {
+            return null;
+        }
         const photoId = attrs.metadata.mostRecentPhoto as `${number}`;
         return m(
             m.route.Link,
@@ -93,7 +96,10 @@ const ThumbnailComponent: m.Component<OneStory> = {
 
 /** One story container, either loaded or not. */
 class OneStoryComponent implements m.ClassComponent<OneStory> {
-    view({ attrs }: m.CVnode<OneStory>): m.Vnode[] {
+    view({ attrs }: m.CVnode<OneStory>): m.Vnode[] | null {
+        if (attrs.metadata === null) {
+            return null;
+        }
         const storyLink = m.buildPathname("/:lang/story/:title", {
             lang: t.getLang(),
             title: attrs.id,

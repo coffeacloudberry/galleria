@@ -1,6 +1,7 @@
 import m from "mithril";
 import tippy, { Instance as TippyInstance, inlinePositioning } from "tippy.js";
 
+import { allStories } from "../models/AllStories";
 import { globalMapState } from "../models/Map";
 import {
     EasyDate,
@@ -106,8 +107,12 @@ function onShowStoryTippy(instance: TippyInstance) {
     }
 
     const defaultText = t("photo.open-story.tooltip");
-    story
-        .getStoryTitleContent(storyId)
+
+    // The story is fetched only once and stored in a list.
+    // So there can be many call to this function, but only one XHR request
+    // per story.
+    allStories
+        .loadOneStory(storyId)
         .then((result: ProcessedStoryFile) => {
             ref.dataset.loadedMeta = "yes";
             const text = result.title
@@ -167,6 +172,7 @@ export default function StoryPage(): m.Component {
             if (routeStoryId !== story.folderName) {
                 story.load(routeStoryId);
             } else if (currentLang !== futureLang) {
+                allStories.unload();
                 story.reload();
                 currentLang = futureLang;
             }
