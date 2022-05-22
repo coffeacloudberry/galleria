@@ -191,12 +191,9 @@ class GenerateWebLabelsPlugin {
                         let packageJsonPath;
                         const nodeModule =
                             srcFilePath.startsWith("./node_modules/");
-                        if (nodeModule) {
-                            packageJsonPath =
-                                this.findPackageJsonPath(srcFilePath);
-                        } else {
-                            packageJsonPath = "./package.json";
-                        }
+                        packageJsonPath = nodeModule
+                            ? this.findPackageJsonPath(srcFilePath)
+                            : "./package.json";
                         const packageJson =
                             this.parsePackageJson(packageJsonPath);
 
