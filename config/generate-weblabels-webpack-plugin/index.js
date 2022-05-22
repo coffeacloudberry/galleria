@@ -31,9 +31,7 @@ class GenerateWebLabelsPlugin {
         this.outputType = this.options.outputType || "html";
         // source file extension handled by webpack and compiled to js
         this.srcExts = ["js", "ts", "coffee", "lua"];
-        this.srcExtsRegexp = new RegExp(
-            "^.*.(" + this.srcExts.join("|") + ")$",
-        );
+        this.srcExtsRegexp = new RegExp(`^.*.(${this.srcExts.join("|")})$`);
         this.chunkIdToName = {};
         this.chunkNameToJsAsset = {};
         this.chunkJsAssetToSrcFiles = {};
@@ -48,7 +46,7 @@ class GenerateWebLabelsPlugin {
             this.options.exclude.forEach((toExclude) => {
                 if (!toExclude.startsWith(".")) {
                     this.exclude.push(
-                        "./" + path.join("node_modules", toExclude),
+                        `./${path.join("node_modules", toExclude)}`,
                     );
                 } else {
                     this.exclude.push(toExclude);
@@ -124,10 +122,8 @@ class GenerateWebLabelsPlugin {
                 // iterate on all chunks containing the module
                 mod.chunks.forEach((chunk) => {
                     const chunkName = this.chunkIdToName[chunk];
-                    const chunkJsAsset =
-                        "/" +
-                        stats.publicPath +
-                        this.chunkNameToJsAsset[chunkName];
+                    // eslint-disable-next-line max-len
+                    const chunkJsAsset = `/${stats.publicPath}${this.chunkNameToJsAsset[chunkName]}`;
 
                     // init the chunk to source files mapping if needed
                     if (
@@ -158,9 +154,10 @@ class GenerateWebLabelsPlugin {
                         )) {
                             let srcFilePrefix = srcFilePrefixKey;
                             if (!srcFilePrefixKey.startsWith(".")) {
-                                srcFilePrefix =
-                                    "./" +
-                                    path.join("node_modules", srcFilePrefixKey);
+                                srcFilePrefix = `./${path.join(
+                                    "node_modules",
+                                    srcFilePrefixKey,
+                                )}`;
                             }
                             if (srcFilePath.startsWith(srcFilePrefix)) {
                                 const spdxLicenseExpression =
