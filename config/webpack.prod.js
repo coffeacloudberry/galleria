@@ -131,7 +131,7 @@ module.exports = merge(common, {
 
         new GenerateWebLabelsPlugin({
             additionalScripts: Object.assign({
-                "https://unpkg.com/friendly-challenge@0.9.1/widget.module.min.js":
+                "https://unpkg.com/friendly-challenge@0.9.2/widget.module.min.js":
                     [
                         {
                             id: "widget.module.min.js",
