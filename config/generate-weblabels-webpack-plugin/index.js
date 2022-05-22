@@ -151,7 +151,7 @@ class GenerateWebLabelsPlugin {
 
                     // extract license information, overriding it if needed
                     let licenseOverridden = false;
-                    let licenseFilePath;
+                    let licenseFilePath = null;
                     if (this.options.licenseOverride) {
                         for (const srcFilePrefixKey of Object.keys(
                             this.options.licenseOverride,
@@ -331,7 +331,7 @@ class GenerateWebLabelsPlugin {
 
     findPackageJsonPath(srcFilePath) {
         const pathSplit = srcFilePath.split("/");
-        let packageJsonPath;
+        let packageJsonPath = null;
         for (let i = 3; i < pathSplit.length; ++i) {
             packageJsonPath = path.join(
                 ...pathSplit.slice(0, i),
@@ -346,7 +346,7 @@ class GenerateWebLabelsPlugin {
 
     findLicenseFile(packageJsonDir) {
         if (!this.packageLicenseFile.hasOwnProperty(packageJsonDir)) {
-            let foundLicenseFile;
+            let foundLicenseFile = null;
             fs.readdirSync(packageJsonDir).forEach((file) => {
                 if (foundLicenseFile) {
                     return;
@@ -391,9 +391,7 @@ class GenerateWebLabelsPlugin {
     }
 
     parseSpdxLicenseExpression(spdxLicenseExpression, context) {
-        let parsedLicense;
         try {
-            parsedLicense = spdxParse(spdxLicenseExpression);
             if (spdxLicenseExpression.indexOf("AND") !== -1) {
                 this.logger.warn(
                     `The SPDX license expression '${spdxLicenseExpression}' ` +
@@ -402,6 +400,7 @@ class GenerateWebLabelsPlugin {
                         "licenses information may be provided to LibreJS",
                 );
             }
+            return spdxParse(spdxLicenseExpression);
         } catch (e) {
             this.logger.warn(
                 "Unable to parse the SPDX license expression" +
@@ -410,9 +409,8 @@ class GenerateWebLabelsPlugin {
             this.logger.warn(
                 "Some generated JavaScript assets may be blocked by LibreJS due to missing license information.",
             );
-            parsedLicense = { license: spdxLicenseExpression };
+            return { license: spdxLicenseExpression };
         }
-        return parsedLicense;
     }
 
     spdxToWebLabelsLicense(spdxLicenceId) {
@@ -465,7 +463,7 @@ class GenerateWebLabelsPlugin {
     }
 
     extractLicenseInformation(packageJson) {
-        let spdxLicenseExpression;
+        let spdxLicenseExpression = null;
         if (packageJson.hasOwnProperty("license")) {
             spdxLicenseExpression = packageJson.license;
         } else if (packageJson.hasOwnProperty("licenses")) {
