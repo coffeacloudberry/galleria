@@ -7,7 +7,6 @@
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const PrettierPlugin = require("prettier-webpack-plugin");
 const StoriesPlugin = require("./stories-webpack-plugin");
 const path = require("path");
 const paths = require("./paths");
@@ -139,9 +138,6 @@ module.exports = {
                 concurrency: 10,
             },
         }),
-
-        // Prettier configuration
-        new PrettierPlugin(),
 
         new StoriesPlugin(),
     ],
