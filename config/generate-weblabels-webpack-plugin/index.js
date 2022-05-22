@@ -370,10 +370,12 @@ class GenerateWebLabelsPlugin {
                 ext = ".txt";
             }
             this.copyFileToOutputPath(licenseFilePath, ext);
-            licenseFilePath = this.cleanupPath(licenseFilePath);
             licenseCopyPath =
                 this.stats.publicPath +
-                path.join(this.weblabelsDirName, licenseFilePath + ext);
+                path.join(
+                    this.weblabelsDirName,
+                    this.cleanupPath(licenseFilePath) + ext,
+                );
         }
         return licenseCopyPath;
     }
