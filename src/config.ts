@@ -125,8 +125,12 @@ export const config = {
      */
     captcha: {
         js: {
-            src: "https://unpkg.com/friendly-challenge@0.9.1/widget.module.min.js",
-            sri: "sha512-hIj0kIsvWTagBjTWmDFme3ImeLs2hfG+CX4/cTdBaTNh56dWrbYtwpOwu6VjF60+JQrYJD6HUponjHUxORfg3A==",
+            /**
+             * Cross-check SRI:
+             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.2/widget.module.min.js
+             */
+            src: "https://unpkg.com/friendly-challenge@0.9.2/widget.module.min.js",
+            sri: "sha512-dinFq6qHfLQ377qBfkNzam2sSrSYdz0deoWk+LAuiZxK9BQLDCY7whprfI+Y0BieTsfZs1w5P6HTMoYPrN6sUA==",
             isModule: true,
         },
 
