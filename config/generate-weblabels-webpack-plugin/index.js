@@ -188,10 +188,9 @@ class GenerateWebLabelsPlugin {
 
                     if (!licenseOverridden) {
                         // find and parse the corresponding package.json file
-                        let packageJsonPath;
                         const nodeModule =
                             srcFilePath.startsWith("./node_modules/");
-                        packageJsonPath = nodeModule
+                        const packageJsonPath = nodeModule
                             ? this.findPackageJsonPath(srcFilePath)
                             : "./package.json";
                         const packageJson =
