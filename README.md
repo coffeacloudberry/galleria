@@ -48,7 +48,7 @@ Clone this repo, install Node.js 14, and run `npm i`.
 * Use the [PhotosManagerCLI](https://github.com/coffeacloudberry/PhotosManagerCLI) to put a new picture,
 * Use the [WebTrackCLI](https://github.com/coffeacloudberry/WebTrackCLI) to get elevation data and convert GPX to webtrack.
 
-Notice that the list of stories are statically generated at build time (by a custom Webpack plugin). Rebuild or rerun the local server to apply the changes.
+Notice that the list of stories are statically generated at build time (by a custom Webpack plugin) as well as the [Web Labels](config/generate-weblabels-webpack-plugin/README.md). Rebuild or rerun the local server to apply the changes.
 
 ### Running
 
