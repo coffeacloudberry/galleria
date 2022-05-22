@@ -66,7 +66,7 @@ class GenerateWebLabelsPlugin {
                 stats.outputPath,
                 this.weblabelsDirName,
             );
-            this.recursiveMkdir(this.weblabelsOutputDir);
+            GenerateWebLabelsPlugin.recursiveMkdir(this.weblabelsOutputDir);
 
             stats.assets.forEach((asset) => {
                 for (let i = 0; i < asset.chunks.length; ++i) {
@@ -143,7 +143,9 @@ class GenerateWebLabelsPlugin {
                     }
 
                     // init source file metadata
-                    const srcFileData = { id: this.cleanupPath(srcFilePath) };
+                    const srcFileData = {
+                        id: GenerateWebLabelsPlugin.cleanupPath(srcFilePath),
+                    };
 
                     // extract license information, overriding it if needed
                     let licenseOverridden = false;
@@ -188,7 +190,9 @@ class GenerateWebLabelsPlugin {
                         const nodeModule =
                             srcFilePath.startsWith("./node_modules/");
                         const packageJsonPath = nodeModule
-                            ? this.findPackageJsonPath(srcFilePath)
+                            ? GenerateWebLabelsPlugin.findPackageJsonPath(
+                                  srcFilePath,
+                              )
                             : "./package.json";
                         const packageJson =
                             this.parsePackageJson(packageJsonPath);
@@ -320,13 +324,13 @@ class GenerateWebLabelsPlugin {
         }
     }
 
-    cleanupPath(moduleFilePath) {
+    static cleanupPath(moduleFilePath) {
         return moduleFilePath
             .replace(/^[./]*node_modules\//, "")
             .replace(/^.\//, "");
     }
 
-    findPackageJsonPath(srcFilePath) {
+    static findPackageJsonPath(srcFilePath) {
         const pathSplit = srcFilePath.split("/");
         let packageJsonPath = null;
         for (let i = 3; i < pathSplit.length; ++i) {
@@ -371,7 +375,7 @@ class GenerateWebLabelsPlugin {
                 this.stats.publicPath +
                 path.join(
                     this.weblabelsDirName,
-                    this.cleanupPath(licenseFilePath) + ext,
+                    GenerateWebLabelsPlugin.cleanupPath(licenseFilePath) + ext,
                 );
         }
         return licenseCopyPath;
@@ -491,18 +495,18 @@ class GenerateWebLabelsPlugin {
         ) {
             return;
         }
-        let destPath = this.cleanupPath(srcFilePath);
+        let destPath = GenerateWebLabelsPlugin.cleanupPath(srcFilePath);
         const destDir = path.join(
             this.weblabelsOutputDir,
             ...destPath.split("/").slice(0, -1),
         );
-        this.recursiveMkdir(destDir);
+        GenerateWebLabelsPlugin.recursiveMkdir(destDir);
         destPath = path.join(this.weblabelsOutputDir, destPath + ext);
         fs.copyFileSync(srcFilePath, destPath);
         this.copiedFiles.add(srcFilePath);
     }
 
-    recursiveMkdir(destPath) {
+    static recursiveMkdir(destPath) {
         const destPathSplit = destPath.split("/");
         for (let i = 1; i < destPathSplit.length; ++i) {
             const currentPath = path.join(
