@@ -452,6 +452,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         if (globalMapState.map) {
             try {
                 globalMapState.map.remove(); // remove controls
+
+                // Delete the local storage used by Mapbox GL JS.
+                // Enforce my privacy policy that has a zero-storage clause.
+                localStorage.clear();
             } catch {}
         }
     }
