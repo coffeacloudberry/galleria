@@ -6,73 +6,10 @@ import { t } from "../translate";
 import { Header, HeaderAttrs } from "./Header";
 import { StorySubTitle } from "./StoryPage";
 
-/**
- * Check if an element is visible in the viewport.
- * Under MIT, Copyright (c) 2015 Toke Voltelen
- * From: https://github.com/Tokimon/vanillajs-browser-helpers
- * Demo: https://jsfiddle.net/t2L274ty/2/
- */
-function checkVisible(elm: Element, threshold?: number, mode?: string) {
-    threshold = threshold || 0;
-    mode = mode || "visible";
-
-    const rect = elm.getBoundingClientRect();
-    const viewHeight = Math.max(
-        document.documentElement.clientHeight,
-        window.innerHeight,
-    );
-    const above = rect.bottom - threshold < 0;
-    const below = rect.top - viewHeight + threshold >= 0;
-
-    if (mode === "above") {
-        return above;
-    } else {
-        return mode === "below" ? below : !above && !below;
-    }
-}
-
-/**
- * Call on scroll or on first load. Get all story titles in the DOM and load
- * the story title and content if visible or above the viewport.
- */
-function lazyLoadStories(): void {
-    const storyClasses = document.getElementsByClassName("one-story");
-    for (const oneClass of storyClasses) {
-        if (!checkVisible(oneClass, 0, "below")) {
-            const titleId = oneClass.getAttribute("data-id");
-            if (titleId) {
-                void allStories.loadOneStory(titleId);
-            }
-        }
-    }
-}
-
-/** Keep only the first few words of a text. */
-function cutText(longText: string): string {
-    let cutPosition = 140;
-    // cut to the first characters minus the last word, which is probably cut
-    while (longText[cutPosition] != " " && cutPosition) {
-        cutPosition--;
-    }
-    return longText.slice(0, cutPosition);
-}
-
-/**
- * Cut the text and replace all HTML tags to whitespaces.
- * It is easier to remove HTML tags than Markdown elements, that is why the
- * Markdown story is converted to HTML beforehand.
- */
-function cleanUpText(longText: string): string {
-    const result = cutText(longText.replace(/<[^<>]*>/g, "")).trim();
-    // the text should end with exactly three dots
-    const countDots = result.slice(-3).split(".").length - 1;
-    return result + ".".repeat(3 - countDots);
-}
-
 /** Clickable thumbnail. */
 const ThumbnailComponent: m.Component<OneStory> = {
     view({ attrs }: m.Vnode<OneStory>): m.Vnode<m.RouteLinkAttrs> | null {
-        if (attrs.metadata === null) {
+        if (attrs.metadata === null || !attrs.metadata.mostRecentPhoto) {
             return null;
         }
         const photoId = attrs.metadata.mostRecentPhoto as `${number}`;
@@ -94,9 +31,65 @@ const ThumbnailComponent: m.Component<OneStory> = {
     },
 };
 
+class StoryAppetizer implements m.ClassComponent<OneStory> {
+    /** Keep only the first few words of a text. */
+    static cutText(longText: string): string {
+        let cutPosition = 140;
+        // cut to the first characters minus the last word,
+        // which is probably cut
+        while (longText[cutPosition] != " " && cutPosition) {
+            cutPosition--;
+        }
+        return longText.slice(0, cutPosition);
+    }
+
+    /**
+     * Cut the text and replace all HTML tags to whitespaces.
+     * It is easier to remove HTML tags than Markdown elements, that is why the
+     * Markdown story is converted to HTML beforehand.
+     */
+    static cleanUpText(longText: string): string {
+        const result = StoryAppetizer.cutText(
+            longText.replace(/<[^<>]*>/g, ""),
+        ).trim();
+        // the text should end with exactly three dots
+        const countDots = result.slice(-3).split(".").length - 1;
+        return result + ".".repeat(3 - countDots);
+    }
+
+    view({ attrs }: m.CVnode<OneStory>): m.Vnode | null | "" {
+        return (
+            attrs.content &&
+            m("span.appetizer", StoryAppetizer.cleanUpText(attrs.content))
+        );
+    }
+}
+
+const OneStoryRow: m.Component<OneStory> = {
+    view({ attrs }: m.Vnode<OneStory>): m.Vnode[] | null {
+        if (attrs.metadata === null) {
+            return null;
+        }
+        return [
+            m(".two-thirds.column.p-0", [
+                m(StorySubTitle, {
+                    start: story.strToEasyDate("" + attrs.metadata.start),
+                    season: attrs.metadata.season || null,
+                    duration: attrs.metadata.duration || null,
+                }),
+                m("p", attrs.content && m(StoryAppetizer, attrs)),
+            ]),
+            m(
+                ".one-third.column.lazy-thumbnail-container.p-0",
+                attrs.title && m(ThumbnailComponent, attrs),
+            ),
+        ];
+    },
+};
+
 /** One story container, either loaded or not. */
-class OneStoryComponent implements m.ClassComponent<OneStory> {
-    view({ attrs }: m.CVnode<OneStory>): m.Vnode[] | null {
+const OneStoryComponent: m.Component<OneStory> = {
+    view({ attrs }: m.Vnode<OneStory>): m.Vnode[] | null {
         if (attrs.metadata === null) {
             return null;
         }
@@ -122,48 +115,70 @@ class OneStoryComponent implements m.ClassComponent<OneStory> {
             ),
             m(
                 ".container.p-0",
-                attrs.title &&
-                    m(".row", [
-                        m(".two-thirds.column.p-0", [
-                            m(StorySubTitle, {
-                                start: story.strToEasyDate(
-                                    "" + attrs.metadata.start,
-                                ),
-                                season: attrs.metadata.season || null,
-                                duration: attrs.metadata.duration || null,
-                            }),
-                            m(
-                                "p",
-                                attrs.content &&
-                                    m(
-                                        "span.appetizer",
-                                        cleanUpText(attrs.content),
-                                    ),
-                            ),
-                        ]),
-                        m(
-                            ".one-third.column.lazy-thumbnail-container.p-0",
-                            attrs.title &&
-                                attrs.metadata.mostRecentPhoto &&
-                                m(ThumbnailComponent, attrs),
-                        ),
-                    ]),
+                attrs.title && m(".row", m(OneStoryRow, attrs)),
             ),
         ];
-    }
-}
+    },
+};
 
 /** The body content containing all stories if any. */
 class AllStoriesComponent implements m.ClassComponent {
     oncreate({ dom }: m.CVnodeDOM): void {
         const element = dom as HTMLElement;
-        element.onscroll = lazyLoadStories;
+        element.onscroll = () => {
+            AllStoriesComponent.lazyLoadStories(element);
+        };
     }
 
-    onupdate(): void {
+    onupdate({ dom }: m.CVnodeDOM): void {
         if (allStories.noOneRequested()) {
-            lazyLoadStories();
+            const element = dom as HTMLElement;
+            AllStoriesComponent.lazyLoadStories(element);
         }
+    }
+
+    /**
+     * Check if an element is visible in the viewport.
+     * Under MIT, Copyright (c) 2015 Toke Voltelen
+     * From: https://github.com/Tokimon/vanillajs-browser-helpers
+     * Demo: https://jsfiddle.net/t2L274ty/2/
+     */
+    static checkVisible(elm: Element, threshold?: number, mode?: string) {
+        threshold = threshold || 0;
+        mode = mode || "visible";
+
+        const rect = elm.getBoundingClientRect();
+        const viewHeight = Math.max(
+            document.documentElement.clientHeight,
+            window.innerHeight,
+        );
+        const above = rect.bottom - threshold < 0;
+        const below = rect.top - viewHeight + threshold >= 0;
+
+        if (mode === "above") {
+            return above;
+        } else {
+            return mode === "below" ? below : !above && !below;
+        }
+    }
+
+    /** Load the story title and content. */
+    static lazyLoadStories(dom: HTMLElement): void {
+        const storyClasses = dom.getElementsByClassName("one-story");
+        for (const oneClass of storyClasses) {
+            if (!AllStoriesComponent.checkVisible(oneClass, 0, "below")) {
+                const titleId = oneClass.getAttribute("data-id");
+                if (titleId) {
+                    void allStories.loadOneStory(titleId);
+                }
+            }
+        }
+    }
+
+    fullList(): m.Vnode<OneStory>[] {
+        return allStories.fullList.map((oneStory: OneStory) => {
+            return m(OneStoryComponent, oneStory);
+        });
     }
 
     view(): m.Vnode {
@@ -173,13 +188,7 @@ class AllStoriesComponent implements m.ClassComponent {
                 ".container",
                 m(
                     ".row",
-                    m(
-                        ".one.column",
-                        allStories.fullList &&
-                            allStories.fullList.map((oneStory: OneStory) => {
-                                return m(OneStoryComponent, oneStory);
-                            }),
-                    ),
+                    m(".one.column", allStories.fullList && this.fullList()),
                 ),
             ),
         );
