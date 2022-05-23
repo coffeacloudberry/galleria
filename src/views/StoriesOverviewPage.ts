@@ -155,6 +155,17 @@ class OneStoryComponent implements m.ClassComponent<OneStory> {
 
 /** The body content containing all stories if any. */
 class AllStoriesComponent implements m.ClassComponent {
+    oncreate({ dom }: m.CVnodeDOM): void {
+        const element = dom as HTMLElement;
+        element.onscroll = lazyLoadStories;
+    }
+
+    onupdate(): void {
+        if (allStories.noOneRequested()) {
+            lazyLoadStories();
+        }
+    }
+
     view(): m.Vnode {
         return m(
             "section#stories",
@@ -184,10 +195,6 @@ export default function StoriesOverviewPage(): m.Component {
         oncreate(): void {
             document.title = t("stories.title");
             t.createTippies();
-            const scrollingEl = document.getElementById("stories");
-            if (scrollingEl) {
-                scrollingEl.onscroll = lazyLoadStories;
-            }
         },
         onupdate(): void {
             const futureLang = t.getLang();
@@ -195,12 +202,9 @@ export default function StoriesOverviewPage(): m.Component {
                 allStories.reload();
                 currentLang = futureLang;
             }
-            if (allStories.noOneRequested) {
-                lazyLoadStories();
-            }
             t.createTippies();
         },
-        view(): m.Vnode<HeaderAttrs>[] {
+        view(): (m.Vnode<HeaderAttrs> | m.Vnode)[] {
             return [
                 m(Header, {
                     aboutButton: true,

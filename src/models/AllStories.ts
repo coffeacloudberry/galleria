@@ -26,7 +26,6 @@ export interface OneStory extends OneJsonStory, ProcessedStoryFile {
  */
 class AllStories {
     protected _fullList: OneStory[] = [];
-    protected _noOneRequested = true;
 
     /** Get all stories and application states. */
     get fullList(): OneStory[] {
@@ -34,8 +33,10 @@ class AllStories {
     }
 
     /** Return true if no one markdown story has started to load. */
-    get noOneRequested(): boolean {
-        return this._noOneRequested;
+    noOneRequested(): boolean {
+        return !this._fullList.some((element) => {
+            return element.loaded || element.loading;
+        });
     }
 
     /**
@@ -67,7 +68,6 @@ class AllStories {
      */
     loadFullList(): void {
         this._fullList = [];
-        this._noOneRequested = true;
         m.request<OneJsonStory[]>({
             method: "GET",
             url: "/all_stories.json",
@@ -110,7 +110,6 @@ class AllStories {
      */
     loadOneStory(id: string): Promise<ProcessedStoryFile> {
         return new Promise<ProcessedStoryFile>((resolve, reject) => {
-            this._noOneRequested = false;
             let theStory: OneStory | null = null;
             for (const oneStory of this.fullList) {
                 if (oneStory.id != id) {
