@@ -7,29 +7,54 @@ import { Header, HeaderAttrs } from "./Header";
 import { StorySubTitle } from "./StoryPage";
 
 /** Clickable thumbnail. */
-const ThumbnailComponent: m.Component<OneStory> = {
-    view({ attrs }: m.Vnode<OneStory>): m.Vnode<m.RouteLinkAttrs> | null {
+class ThumbnailComponent implements m.ClassComponent<OneStory> {
+    /** True when the image is cached and ready to be displayed. */
+    private ready = false;
+
+    /** The preloaded thumbnail. */
+    private image = new Image();
+
+    /** Cache the image to display a link only when the image is ready. */
+    oninit({ attrs }: m.CVnode<OneStory>): void {
+        if (attrs.metadata === null || !attrs.metadata.mostRecentPhoto) {
+            return;
+        }
+        const photoId = attrs.metadata.mostRecentPhoto as `${number}`;
+        this.image.onload = () => {
+            this.ready = true;
+            m.redraw();
+        };
+        this.image.src = `/content/photos/${photoId}/f.webp`;
+    }
+
+    /** Display a clickable thumbnail or an empty space. */
+    view({ attrs }: m.CVnode<OneStory>): m.Vnode<m.RouteLinkAttrs> | null {
         if (attrs.metadata === null || !attrs.metadata.mostRecentPhoto) {
             return null;
         }
         const photoId = attrs.metadata.mostRecentPhoto as `${number}`;
-        return m(
-            m.route.Link,
-            {
-                href: m.buildPathname("/:lang/photo/:title", {
-                    lang: t.getLang(),
-                    title: photoId,
-                }),
-                "data-tippy-content": t("story.open-photo.tooltip"),
-                "data-tippy-offset": "[0,0]",
-                "data-tippy-placement": "bottom",
-            },
-            m("img", {
-                src: `/content/photos/${photoId}/f.webp`,
-            }),
-        );
-    },
-};
+        return this.ready
+            ? m(
+                  m.route.Link,
+                  {
+                      href: m.buildPathname("/:lang/photo/:title", {
+                          lang: t.getLang(),
+                          title: photoId,
+                      }),
+                      "data-tippy-content": t("story.open-photo.tooltip"),
+                      "data-tippy-offset": "[0,0]",
+                      "data-tippy-placement": "bottom",
+                  },
+                  m("img", {
+                      src: this.image.src,
+                      alt: t("story.open-photo.tooltip"),
+                      width: 300,
+                      height: 200,
+                  }),
+              )
+            : m("span");
+    }
+}
 
 class StoryAppetizer implements m.ClassComponent<OneStory> {
     /** Keep only the first few words of a text. */

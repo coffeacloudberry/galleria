@@ -17,7 +17,22 @@ import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
 import { VisitorsBook } from "./VisitorsBook";
 
 /** The big title and text about me. */
-const Intro: m.Component = {
+class Intro implements m.ClassComponent {
+    /** True when the image is cached and ready to be displayed. */
+    private ready = false;
+
+    /** The preloaded image. */
+    private image = new Image();
+
+    /** Cache the image to display it synchronously alongside the credit. */
+    oninit(): void {
+        this.image.onload = () => {
+            this.ready = true;
+            m.redraw();
+        };
+        this.image.src = "/content/me.webp";
+    }
+
     view(): m.Vnode[] {
         return [
             m(
@@ -29,26 +44,28 @@ const Intro: m.Component = {
                 m(".row", [
                     m(".one.column", [
                         m("p", t("about.me")),
-                        m(".me", [
-                            m("img", { src: "/content/me.webp" }),
-                            m("p.credit", [
-                                t("credit"),
-                                m(
-                                    "a",
-                                    {
-                                        href: "https://timokoo.neocities.org/timoindex.html",
-                                    },
-                                    "Timo",
-                                ),
-                            ]),
-                        ]),
+                        this.ready
+                            ? m(".me", [
+                                  m("img", { src: this.image.src }),
+                                  m("p.credit", [
+                                      t("credit"),
+                                      m(
+                                          "a",
+                                          {
+                                              href: "https://timokoo.neocities.org/timoindex.html",
+                                          },
+                                          "Timo",
+                                      ),
+                                  ]),
+                              ])
+                            : null,
                         m("p", t("about.pledge")),
                     ]),
                 ]),
             ),
         ];
-    },
-};
+    }
+}
 
 /** Licenses of home-made content and code. */
 const myCopyrightList = [

@@ -5,14 +5,20 @@
     overflow-y: auto
     height: calc(100vh - #{$nav-bar-height})
     .lazy-thumbnail-container
+        img, span
+            margin-top: calc(#{$p-vertical-margin} / 2)
+            width: 300px
+            height: 200px
+            display: inline-block
         img
             border-radius: 0 $border-radius-lg 0 $border-radius-lg
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
-            margin-top: calc(#{$p-vertical-margin} / 2)
+            /* Only thumbnails are faded-in because animations on large images are not really smooth. */
+            animation: fade-in 0.3s ease
         text-align: center
         @media (min-width: $container-column-threshold)
             text-align: right
-            img
+            img, span
                 /* align to the letters' top */
                 margin-top: calc(#{$p-vertical-margin} * #{$text-line-height})
     .period
