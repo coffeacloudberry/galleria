@@ -6,6 +6,7 @@ node_modules/
 *.pp3
 *.tif
 *.xcf
+public/content/photos/**/*.jpg
 _*
 tests/end_to_end/results
 .vercel
