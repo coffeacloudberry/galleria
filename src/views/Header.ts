@@ -181,9 +181,10 @@ const GoToStoriesButton: m.Component = {
         return m(
             m.route.Link,
             {
-                href: m.buildPathname("/:lang/stories", {
+                href: "/:lang/stories",
+                params: {
                     lang: t.getLang(),
-                }),
+                },
                 onclick: rememberLastContent,
                 "data-tippy-content": t("stories-overview"),
                 class: "nav-item",
