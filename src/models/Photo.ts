@@ -99,6 +99,19 @@ class Photo {
     /** Duration in microseconds of the loading time of the last load. */
     lastLoadingTime: number | null = null;
 
+    /** Return true if the photo has any metadata available. */
+    containsExif(): boolean {
+        return this.meta === null
+            ? false
+            : !!(
+                  this.meta.focalLength35mm ||
+                  this.meta.exposureTime ||
+                  this.meta.fNumber ||
+                  this.meta.iso ||
+                  this.meta.position
+              );
+    }
+
     /**
      * True if the "prev" button should be hidden:
      * no photo or currently the first one.

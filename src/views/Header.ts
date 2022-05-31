@@ -13,6 +13,7 @@ import { photo } from "../models/Photo";
 import { story } from "../models/Story";
 import { Language, t } from "../translate";
 import Icon from "./Icon";
+import PhotoMetadataIcon from "./PhotoMetadata";
 
 const languages = require("../languages"); // skipcq: JS-0359
 const info = new CustomLogging();
@@ -273,6 +274,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                                 ),
                             ]),
                         ]),
+                    photo.containsExif() && m(PhotoMetadataIcon),
                     m(OpenStory, {
                         title: String(attrs.title),
                     }),

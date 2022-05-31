@@ -174,5 +174,13 @@
         "NavigationControl.ZoomIn": "Zoomer",
         "NavigationControl.ZoomOut": "Dézoomer"
     },
-    "verified": "Vérifier les comptes"
+    "verified": "Vérifier les comptes",
+    "cam.setup": "Configuration :",
+    "cam.focal": "Longueur focale (eq. 35mm) :",
+    "cam.exposure": "Temps d'exposition :",
+    "cam.f-number": "F-number :",
+    "cam.iso": "ISO :",
+    "cam.lat": "Latitude :",
+    "cam.lon": "Longitude :",
+    "cam.goto": "Localiser avec :"
 }

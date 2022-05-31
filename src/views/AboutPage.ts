@@ -25,7 +25,7 @@ class Intro implements m.ClassComponent {
     private image = new Image();
 
     /** Cache the image to display it synchronously alongside the credit. */
-    oninit(): void {
+    constructor() {
         this.image.onload = () => {
             this.ready = true;
             m.redraw();
@@ -44,21 +44,20 @@ class Intro implements m.ClassComponent {
                 m(".row", [
                     m(".one.column", [
                         m("p", t("about.me")),
-                        this.ready
-                            ? m(".me", [
-                                  m("img", { src: this.image.src }),
-                                  m("p.credit", [
-                                      t("credit"),
-                                      m(
-                                          "a",
-                                          {
-                                              href: "https://timokoo.neocities.org/timoindex.html",
-                                          },
-                                          "Timo",
-                                      ),
-                                  ]),
-                              ])
-                            : null,
+                        this.ready &&
+                            m(".me", [
+                                m("img", { src: this.image.src }),
+                                m("p.credit", [
+                                    t("credit"),
+                                    m(
+                                        "a",
+                                        {
+                                            href: "https://timokoo.neocities.org/timoindex.html",
+                                        },
+                                        "Timo",
+                                    ),
+                                ]),
+                            ]),
                         m("p", t("about.pledge")),
                     ]),
                 ]),

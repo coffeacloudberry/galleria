@@ -15,7 +15,7 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
     private image = new Image();
 
     /** Cache the image to display a link only when the image is ready. */
-    oninit({ attrs }: m.CVnode<OneStory>): void {
+    constructor({ attrs }: m.CVnode<OneStory>) {
         if (attrs.metadata === null || !attrs.metadata.mostRecentPhoto) {
             return;
         }

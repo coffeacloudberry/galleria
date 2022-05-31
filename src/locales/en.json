@@ -174,5 +174,13 @@
         "NavigationControl.ZoomIn": "Zoom in",
         "NavigationControl.ZoomOut": "Zoom out"
     },
-    "verified": "Check verified accounts"
+    "verified": "Check verified accounts",
+    "cam.setup": "Camera Setup:",
+    "cam.focal": "Focal length (35mm eq.):",
+    "cam.exposure": "Exposure time:",
+    "cam.f-number": "F-number:",
+    "cam.iso": "ISO:",
+    "cam.lat": "Latitude:",
+    "cam.lon": "Longitude:",
+    "cam.goto": "Locate with:"
 }

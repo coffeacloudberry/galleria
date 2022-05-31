@@ -174,5 +174,13 @@
         "NavigationControl.ZoomIn": "Suurenna",
         "NavigationControl.ZoomOut": "Pienennä"
     },
-    "verified": "Tarkista todennetut tilit"
+    "verified": "Tarkista todennetut tilit",
+    "cam.setup": "Kameran asetukset:",
+    "cam.focal": "Fokaalipituus (35mm ekv.):",
+    "cam.exposure": "Valotusaika:",
+    "cam.f-number": "F-number:",
+    "cam.iso": "ISO:",
+    "cam.lat": "Leveysaste:",
+    "cam.lon": "Pituusaste:",
+    "cam.goto": "Paikana:"
 }
