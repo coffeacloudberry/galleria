@@ -4,16 +4,21 @@
             "source": "/(.*)",
             "headers": [
                 {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                }
+            ]
+        },
+        {
+            "source": "/",
+            "headers": [
+                {
                     "key": "Content-Security-Policy",
                     "value": "default-src 'none'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://api.mapbox.com https://cdnjs.cloudflare.com https://unpkg.com https://js.sentry-cdn.com https://browser.sentry-cdn.com; connect-src 'self' https://o618029.ingest.sentry.io https://api.mapbox.com https://api.giphy.com https://api.friendlycaptcha.com; img-src 'self' https://media0.giphy.com data: blob:; style-src 'self' 'unsafe-inline' https://api.mapbox.com; font-src 'self' data:; worker-src blob:; child-src blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
                 },
                 {
-                    "key": "X-Content-Type-Options",
-                    "value": "nosniff"
-                },
-                {
                     "key": "Referrer-Policy",
-                    "value": "same-origin"
+                    "value": "strict-origin"
                 },
                 {
                     "key": "Access-Control-Allow-Origin",
@@ -27,10 +32,6 @@
                 {
                     "key": "Content-Type",
                     "value": "font/otf"
-                },
-                {
-                    "key": "Content-Security-Policy",
-                    "value": "default-src 'none'"
                 }
             ]
         }
