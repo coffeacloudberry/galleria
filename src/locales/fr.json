@@ -178,8 +178,8 @@
     "cam.setup": "Configuration :",
     "cam.focal": "Longueur focale (eq. 35mm) :",
     "cam.exposure": "Temps d'exposition :",
-    "cam.f-number": "F-number :",
-    "cam.iso": "ISO :",
+    "cam.f-number": "Ouverture géométrique :",
+    "cam.iso": "Sensibilité :",
     "cam.lat": "Latitude :",
     "cam.lon": "Longitude :",
     "cam.goto": "Localiser avec :"

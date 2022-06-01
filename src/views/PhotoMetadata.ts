@@ -23,9 +23,9 @@ const CameraSetup: m.Component = {
             m("h4.mt-3", t("cam.setup")),
             m("ul.blabla.mt-3", [
                 focal && m("li", `${t("cam.focal")} ${focal} mm`),
+                fNumber && m("li", `${t("cam.f-number")} f/${fNumber}`),
                 exposure && m("li", `${t("cam.exposure")} ${exposure} s`),
-                fNumber && m("li", `${t("cam.f-number")} ${fNumber}`),
-                iso && m("li", `${t("cam.iso")} ${iso}`),
+                iso && m("li", `${t("cam.iso")} ISO ${iso}`),
             ]),
         ];
     },
@@ -42,7 +42,7 @@ class CameraPosition implements m.ClassComponent {
         if (!photo.meta) {
             return null;
         }
-        const pos = photo.meta.position;
+        const pos = photo.meta.position; // GPS / WGS 84 ellipsoid
         if (!pos) {
             return null;
         }

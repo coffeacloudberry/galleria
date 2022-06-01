@@ -178,8 +178,8 @@
     "cam.setup": "Kameran asetukset:",
     "cam.focal": "Fokaalipituus (35mm ekv.):",
     "cam.exposure": "Valotusaika:",
-    "cam.f-number": "F-number:",
-    "cam.iso": "ISO:",
+    "cam.f-number": "Aukkosuhde:",
+    "cam.iso": "Valoherkkyys:",
     "cam.lat": "Leveysaste:",
     "cam.lon": "Pituusaste:",
     "cam.goto": "Paikana:"
