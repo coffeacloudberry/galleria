@@ -75,6 +75,9 @@ const PhotoMetadataTippyContent: m.Component = {
     },
 };
 
+/** Class member saved out of scope to retain `this`. */
+let lastResizeListener: (() => void) | undefined;
+
 /**
  * Contains both the icon and Tippy content,
  * even though the Tippy content is actually in the body.
@@ -98,6 +101,14 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
             placement: PhotoMetadataIcon.optimalPlacement(),
             appendTo: () => document.body,
         });
+        lastResizeListener = () => {
+            if (this.tippyInstance) {
+                this.tippyInstance.setProps({
+                    placement: PhotoMetadataIcon.optimalPlacement(),
+                });
+            }
+        };
+        window.addEventListener("resize", lastResizeListener);
     }
 
     onbeforeremove(): void {
@@ -107,6 +118,9 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
     }
 
     onremove(): void {
+        if (typeof lastResizeListener === "function") {
+            window.removeEventListener("resize", lastResizeListener);
+        }
         if (this.tippyInstance) {
             this.tippyInstance.destroy();
         }
