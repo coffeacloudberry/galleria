@@ -67,6 +67,7 @@ class LanguageSelectionComponent
             interactiveDebounce: 70,
             content: dom,
             theme: "dropdown-list",
+            appendTo: () => document.body,
         });
     }
 
@@ -299,7 +300,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 ),
                 centeredNav,
                 m(".flex-sides.flex-right", [
-                    t.getLang().toUpperCase(),
+                    m("span.lang-item", t.getLang().toUpperCase()),
                     m(
                         "span",
                         {

@@ -45,6 +45,7 @@ footer
                         bottom: 0.3rem
                         left: calc(#{$nav-bar-height} + 4px) /* 4px to keep distance from the shadow on the nav bar */
                         width: calc(100vw - 2 * (#{$nav-bar-height} + 4px))
+                        padding-bottom: 0.2rem
                 @media (orientation: portrait)
                     .photo-title
                         top: $nav-bar-height
@@ -88,6 +89,11 @@ footer
                 border-radius: 0 $border-radius-lg 0 $border-radius-lg
                 &:focus
                     outline: 1px solid $nav-hover-bg-color
+        .lang-item
+            @media (max-width: 1024px) and (orientation: landscape)
+                display: inline-block
+                width: $nav-bar-height
+                text-align: center
         .photo-metadata-wrapper
             margin-left: 0
             cursor: help
