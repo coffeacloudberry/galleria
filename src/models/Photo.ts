@@ -73,7 +73,7 @@ class Photo {
 
     /**
      * True if the photo is considered loading.
-     * Once the story title is fetched
+     * False once the story title is fetched.
      */
     isLoading = true;
 
