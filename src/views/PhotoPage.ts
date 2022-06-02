@@ -16,10 +16,12 @@ import Icon from "./Icon";
 /** Prev, current, and next photo components. */
 const Gallery: m.Component = {
     view(): m.Vnode {
+        const hideNext = photo.isPreloading;
+        const hidePrev = photo.isFirst() || hideNext;
         return m("section#gallery", [
             m(
                 ".goto-photo-screen-nav.goto-prev-photo" +
-                    (photo.isFirst() || photo.isLoading ? ".invisible" : ""),
+                    (hidePrev ? ".invisible" : ""),
                 {
                     onclick: (): void => {
                         photo.loadPrev();
@@ -29,7 +31,7 @@ const Gallery: m.Component = {
             m("#current-photo", m("img#current-image-element")),
             m(
                 ".goto-photo-screen-nav.goto-next-photo" +
-                    (photo.isLoading ? ".invisible" : ""),
+                    (hideNext ? ".invisible" : ""),
                 {
                     onclick: (): void => {
                         photo.loadNext();
@@ -50,7 +52,7 @@ const RewindButton: m.Component = {
                     e.preventDefault();
                     photo.loadNext();
                 },
-                class: `nav-item ${photo.isLoading ? "invisible" : ""}`,
+                class: `nav-item ${photo.isPreloading ? "invisible" : ""}`,
                 "data-tippy-content":
                     t("rewind.tooltip") +
                     (!isMobile() ? ` (${t("keystroke")} ➡)` : ""),
@@ -70,7 +72,7 @@ const NextButton: m.Component = {
                     e.preventDefault();
                     photo.loadNext();
                 },
-                class: `nav-item ${photo.isLoading ? "invisible" : ""}`,
+                class: `nav-item ${photo.isPreloading ? "invisible" : ""}`,
                 "data-tippy-content":
                     t("next.tooltip") +
                     (!isMobile() ? ` (${t("keystroke")} ➡)` : ""),
@@ -90,7 +92,7 @@ const LastButton: m.Component = {
                     title: config.lastPhotoId,
                 }),
                 class: `nav-item ${
-                    photo.isLast() || photo.isLoading ? "invisible" : ""
+                    photo.isLast() || photo.isPreloading ? "invisible" : ""
                 }`,
                 "data-tippy-content": t("last.tooltip"),
             },
@@ -109,7 +111,7 @@ const FirstButton: m.Component = {
                     title: config.firstPhotoId,
                 }),
                 class: `nav-item ${
-                    photo.isFirst() || photo.isLoading ? "invisible" : ""
+                    photo.isFirst() || photo.isPreloading ? "invisible" : ""
                 }`,
                 "data-tippy-content": t("first.tooltip"),
             },
@@ -129,7 +131,7 @@ const PrevButton: m.Component = {
                     photo.loadPrev();
                 },
                 class: `nav-item ${
-                    photo.isFirst() || photo.isLoading ? "invisible" : ""
+                    photo.isFirst() || photo.isPreloading ? "invisible" : ""
                 }`,
                 "data-tippy-content":
                     t("previous.tooltip") +
@@ -143,7 +145,7 @@ const PrevButton: m.Component = {
 const AnimatedLoading: m.Component = {
     view(): m.Vnode {
         return m(
-            `span.loading-icon.nav-item${photo.isLoading ? "" : ".hide"}`,
+            `span.loading-icon.nav-item${photo.isPreloading ? "" : ".hide"}`,
             {
                 "data-tippy-content": t("loading.tooltip") + "...",
             },
@@ -184,13 +186,13 @@ const Footer: m.Component<FooterAttrs> = {
 function onKeyPressed(e: KeyboardEvent) {
     switch (e.code) {
         case "ArrowRight":
-            if (!photo.isLoading) {
+            if (!photo.isPreloading) {
                 hideAllForce();
                 photo.loadNext();
             }
             break;
         case "ArrowLeft":
-            if (!photo.isFirst() && !photo.isLoading) {
+            if (!photo.isFirst() && !photo.isPreloading) {
                 hideAllForce();
                 photo.loadPrev();
             }

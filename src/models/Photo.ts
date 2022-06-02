@@ -77,6 +77,13 @@ class Photo {
      */
     isLoading = true;
 
+    /**
+     * True on user action to provide instant feedback even though the photo is
+     * really loading after routing and XHR call. Unset synchronised with
+     * isLoading.
+     */
+    isPreloading = true;
+
     /** Folder containing the photos and JSON file. */
     folderName: number | null = null;
 
@@ -162,6 +169,7 @@ class Photo {
         if (this.meta === null || !this.meta.story) {
             this.storyTitle = null;
             this.isLoading = false;
+            this.isPreloading = false;
             m.redraw(); // outside the m.request
             return;
         }
@@ -193,9 +201,11 @@ class Photo {
             .then((storyTitle) => {
                 this.storyTitle = storyTitle;
                 this.isLoading = false;
+                this.isPreloading = false;
             })
             .catch(() => {
                 this.isLoading = false;
+                this.isPreloading = false;
             });
     }
 
@@ -278,6 +288,7 @@ class Photo {
      * or the first one if the previous one is not linked.
      */
     loadPrev(): void {
+        this.isPreloading = true;
         const prevFolderId =
             this.meta === null || this.meta.next === undefined
                 ? config.firstPhotoId
@@ -294,6 +305,7 @@ class Photo {
      * or the first one if the next one is not linked.
      */
     loadNext(replaceHistory = false): void {
+        this.isPreloading = true;
         const nextFolderId =
             this.meta === null || this.meta.prev === undefined
                 ? config.firstPhotoId
