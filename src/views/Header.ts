@@ -298,8 +298,8 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                     ]),
                 ),
                 centeredNav,
-                m(
-                    ".flex-sides.flex-right",
+                m(".flex-sides.flex-right", [
+                    t.getLang().toUpperCase(),
                     m(
                         "span",
                         {
@@ -309,7 +309,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                         },
                         m("span", m(Icon, { src: languageOutline })),
                     ),
-                ),
+                ]),
             ]),
         );
     }
