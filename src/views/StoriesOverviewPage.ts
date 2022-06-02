@@ -72,10 +72,11 @@ class StoryAppetizer implements m.ClassComponent<OneStory> {
      * Cut the text and replace all HTML tags to whitespaces.
      * It is easier to remove HTML tags than Markdown elements, that is why the
      * Markdown story is converted to HTML beforehand.
+     * Titles in the content are removed.
      */
     static cleanUpText(longText: string): string {
         const result = StoryAppetizer.cutText(
-            longText.replace(/<[^<>]*>/g, ""),
+            longText.replace(/<h\d>[^<]*<\/h\d>/g, "").replace(/<[^<>]*>/g, ""),
         ).trim();
         // the text should end with exactly three dots
         const countDots = result.slice(-3).split(".").length - 1;
