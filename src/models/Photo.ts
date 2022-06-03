@@ -106,6 +106,9 @@ class Photo {
     /** Duration in microseconds of the loading time of the last load. */
     lastLoadingTime: number | null = null;
 
+    /** Link to the current image. */
+    currentImageSrc: string | null = null;
+
     /** Return true if the photo has any metadata available. */
     containsExif(): boolean {
         return this.meta === null
@@ -245,14 +248,11 @@ class Photo {
                 },
             })
             .then((result) => {
-                const image = document.getElementById(
-                    "current-image-element",
-                ) as HTMLImageElement;
-                if (image === null) {
-                    return;
-                }
+                const nextImageSrc = this.getImageSrc(id);
+                const image = new Image();
                 const startTime = performance.now();
                 image.onload = () => {
+                    this.currentImageSrc = nextImageSrc;
                     this.lastLoadingTime = performance.now() - startTime;
                     // only update the interface when the photo has changed
                     this.meta = result;
@@ -264,15 +264,7 @@ class Photo {
 
                     this.loadOriginStoryTitle();
                 };
-                let filename = window.innerHeight > 780 ? "l" : "m";
-                if (
-                    filename === "l" &&
-                    this.lastLoadingTime &&
-                    this.lastLoadingTime < 1400
-                ) {
-                    filename += ".hd";
-                }
-                image.src = `/content/photos/${id}/${filename}.webp`;
+                image.src = nextImageSrc;
             })
             .catch((error: Error & { code: number }) => {
                 if (error.code === 404) {
@@ -281,6 +273,19 @@ class Photo {
                     throw error;
                 }
             });
+    }
+
+    /** Return the network-optimized source link of the photo. */
+    protected getImageSrc(id: number): string {
+        let filename = window.innerHeight > 780 ? "l" : "m";
+        if (
+            filename === "l" &&
+            this.lastLoadingTime &&
+            this.lastLoadingTime < 1400
+        ) {
+            filename += ".hd";
+        }
+        return `/content/photos/${id}/${filename}.webp`;
     }
 
     /**

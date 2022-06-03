@@ -28,7 +28,12 @@ const Gallery: m.Component = {
                     },
                 },
             ),
-            m("#current-photo", m("img#current-image-element")),
+            m(
+                "#current-photo",
+                m("img", {
+                    src: photo.currentImageSrc,
+                }),
+            ),
             m(
                 ".goto-photo-screen-nav.goto-next-photo" +
                     (hideNext ? ".invisible" : ""),
