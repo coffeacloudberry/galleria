@@ -239,6 +239,7 @@ class Photo {
      */
     load(id: number): Promise<void> {
         this.isLoading = true;
+        this.isPreloading = true;
         return m
             .request<PhotoInfo>({
                 method: "GET",

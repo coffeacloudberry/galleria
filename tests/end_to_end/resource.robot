@@ -28,7 +28,7 @@ Open Browser To Story With Map
     Open Browser    ${LANDING URL}/#!/en/story/Hetta_Pyhakero    ${BROWSER}
 
 Landing Page Should Be Open
-    Wait Until Element Is Visible    id:current-image-element
+    Wait Until Element Is Visible    xpath://div[@id="current-photo"]//img
 
 About Page Should Be Open
     Wait Until Element Is Visible    id:about
@@ -38,6 +38,10 @@ Story Page Should Be Open
 
 Wait For Loading Content
     Wait Until Element Is Not Visible   class:loading-icon
+
+Wait For Loading Photo
+    Wait For Loading Content
+    Landing Page Should Be Open
 
 Go From About Page To Content
     Click Link    xpath://a[@data-tippy-content="Back to the photography or story"]
