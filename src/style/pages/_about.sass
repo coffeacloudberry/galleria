@@ -55,9 +55,10 @@ table.data
         li
             list-style: none
             display: inline-block
-            margin-top: $block-space
             height: 2rem
-            &:not(:first-child)
-                margin-left: $block-space
+            margin:  $block-space calc(#{$block-space} / 2) 0 calc(#{$block-space} / 2)
+            @media (max-width: 30rem)
+                /* fit 6 icons in a row */
+                margin: $block-space calc(#{$block-space} / 4) 0 calc(#{$block-space} / 4)
             img.icon
                 height: 2rem
