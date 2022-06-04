@@ -276,6 +276,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         const line = data.features[0].geometry as MultiLineString;
         const hasElevation = globalMapState.webtrack.someTracksWithEle();
         globalMapState.hasElevation = hasElevation;
+        globalMapState.multiLineString = line;
 
         injectCode(config.turf.js)
             .then(async () => {
@@ -364,43 +365,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             filter: ["==", "$type", "LineString"],
         });
 
-        const multiLineString = data.features[0].geometry.coordinates;
-        let bounds: mapboxgl.LngLatBounds | null = null;
-
-        /*
-        Center the map to the track:
-        Pass the first coordinates in the MultiLineString to `LngLatBounds`,
-        then wrap each coordinate pair in `extend` to include them
-        in the bounds result.
-        */
-        for (const lineString of multiLineString) {
-            // @ts-ignore
-            bounds = lineString.reduce(
-                function (
-                    bounds: mapboxgl.LngLatBounds,
-                    coordinate: mapboxgl.LngLat,
-                ) {
-                    return bounds.extend(coordinate);
-                },
-                // @ts-ignore
-                new mapboxgl.LngLatBounds(lineString[0], lineString[0]),
-            );
-        }
-        if (bounds !== null) {
-            // workaround to avoid critical error on map reload
-            const sw = bounds.getSouthWest().toArray();
-            const ne = bounds.getNorthEast().toArray();
-            const newBounds: [number, number, number, number] = [
-                sw[0],
-                sw[1],
-                ne[0],
-                ne[1],
-            ];
-            globalMapState.map.fitBounds(newBounds, {
-                padding: 60,
-                animate: false,
-            });
-        }
+        globalMapState.fitToTrack();
 
         // show the map now that it is centered
         const mapCanvas = document.querySelector(".mapboxgl-canvas-container");

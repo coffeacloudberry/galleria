@@ -172,7 +172,8 @@
         "FullscreenControl.Exit": "Exit fullscreen",
         "NavigationControl.ResetBearing": "Reset bearing to north",
         "NavigationControl.ZoomIn": "Zoom in",
-        "NavigationControl.ZoomOut": "Zoom out"
+        "NavigationControl.ZoomOut": "Zoom out",
+        "NavigationControl.Fit": "Fit view to track"
     },
     "verified": "Check verified accounts",
     "cam.setup": "Camera Setup:",

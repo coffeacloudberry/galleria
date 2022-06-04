@@ -1,7 +1,9 @@
 // @ts-nocheck
 
 import type mapboxgl from "mapbox-gl";
+import m from "mithril";
 
+import { globalMapState } from "../models/Map";
 import { t } from "../translate";
 
 /**
@@ -41,6 +43,38 @@ export default function Controls(): ControlsType {
 
     class NavigationControl extends mapboxgl.NavigationControl {
         isEnabled = true;
+
+        /** Button to fit the map viewer to the track. */
+        _fitButton: HTMLButtonElement;
+
+        /**
+         * Override the constructor to add a custom button in the group of
+         * standard buttons.
+         */
+        constructor(options: Options) {
+            super(options);
+            this._fitButton = this._createButton("mapboxgl-ctrl-fit", () => {
+                // move and reset bearing
+                globalMapState.fitToTrack();
+
+                // reset pitch, i.e. put camera on top
+                this._map.easeTo({
+                    pitch: 0,
+                    duration: 0,
+                });
+            });
+
+            // equivalent to the Mapbox GL JS' DOM.create()
+            m.mount(this._fitButton, {
+                view: () => {
+                    return m("span.mapboxgl-ctrl-icon.fit-view-to-track", {
+                        "aria-hidden": true,
+                    });
+                },
+            });
+
+            this._setButtonTitle(this._fitButton, "Fit");
+        }
 
         // override
         _setButtonTitle(button: HTMLButtonElement, title: string) {

@@ -67,7 +67,8 @@ section#story
                 font-family: 'MyBodyFont', sans-serif
                 font-size: 0.8rem
             .mapboxgl-ctrl button.mapboxgl-ctrl-my-autopilot .mapboxgl-ctrl-icon,
-            .mapboxgl-ctrl button.mapboxgl-ctrl-my-layer .mapboxgl-ctrl-icon
+            .mapboxgl-ctrl button.mapboxgl-ctrl-my-layer .mapboxgl-ctrl-icon,
+            .mapboxgl-ctrl button.mapboxgl-ctrl-fit .mapboxgl-ctrl-icon
                 width: 80% !important
                 height: 80% !important
                 margin: auto
@@ -80,6 +81,8 @@ section#story
                     animation: hourglass 4s ease infinite
                 &.rewind-autopilot
                     background-image: url('../icons/play-back-outline.svg')
+                &.fit-view-to-track
+                    background-image: url('../icons/magnet-outline.svg')
                 &.faster
                     background-image: url('../icons/map/rabbit.svg')
                 &.slower
@@ -97,8 +100,8 @@ section#story
             .mapboxgl-canvas
                 width: inherit !important
                 height: inherit !important
-            /* the map does not load if too small */
-            height: calc(max(60vh - #{$nav-bar-height} - #{$block-space}, 300px))
+            /* the map does not load if too small, the minimum should still fit all buttons */
+            height: calc(max(60vh - #{$nav-bar-height} - #{$block-space}, 340px))
             background: #eae8e6 /* for the user to know that something will appear (instead of just a big gap) */
         p.attributions
             font-size: 0.8rem
@@ -109,3 +112,7 @@ section#story
         padding-top: 1rem /* the legend on the bottom adds space that needs to be compensated on the top */
         width: 100%
         height: calc(max(40vh - 1.5 * #{$block-space}, 200px))
+
+.mapboxgl-map
+    /* override Mapbox defaults */
+    font: $global-font-size 'MyBodyFont', sans-serif !important

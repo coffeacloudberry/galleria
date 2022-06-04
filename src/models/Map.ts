@@ -1,6 +1,7 @@
+import type { MultiLineString } from "@turf/helpers";
 import m from "mithril";
 
-import { ControlsType } from "../views/StandardControls";
+import type { ControlsType } from "../views/StandardControls";
 import WebTrack from "../webtrack";
 import { MapTheme, story } from "./Story";
 
@@ -63,6 +64,9 @@ class GlobalMapState {
 
     /** The WebTrack if loaded. */
     public webtrack: WebTrack | undefined;
+
+    /** Multiline string extracted from the WebTrack. */
+    public multiLineString: MultiLineString | undefined;
 
     /** True if the track contains elevation data. */
     public hasElevation: boolean | undefined;
@@ -140,6 +144,47 @@ class GlobalMapState {
             }
             this.currentTimeoutHiker = -1;
         }, this.timeoutHiker);
+    }
+
+    /** Fit the map view to the track and reset bearing. */
+    fitToTrack(): void {
+        const multiLineString = this.multiLineString;
+        if (!multiLineString || !this.map) {
+            return;
+        }
+        let bounds: mapboxgl.LngLatBounds | null = null;
+
+        /*
+        Center the map to the track:
+        Pass the first coordinates in the MultiLineString to `LngLatBounds`,
+        then wrap each coordinate pair in `extend` to include them
+        in the bounds result.
+        */
+        for (const lineString of multiLineString.coordinates) {
+            bounds = lineString.reduce(
+                (bounds, coordinate) => {
+                    // @ts-ignore
+                    return bounds.extend(coordinate);
+                },
+                // @ts-ignore
+                new mapboxgl.LngLatBounds(lineString[0], lineString[0]),
+            );
+        }
+        if (bounds !== null) {
+            // workaround to avoid critical error on map reload
+            const sw = bounds.getSouthWest().toArray();
+            const ne = bounds.getNorthEast().toArray();
+            const newBounds: [number, number, number, number] = [
+                sw[0],
+                sw[1],
+                ne[0],
+                ne[1],
+            ];
+            this.map.fitBounds(newBounds, {
+                padding: 60,
+                animate: false,
+            });
+        }
     }
 }
 

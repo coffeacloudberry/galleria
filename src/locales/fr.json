@@ -172,7 +172,8 @@
         "FullscreenControl.Exit": "Quitter le mode plein écran",
         "NavigationControl.ResetBearing": "Remettre le nord en haut",
         "NavigationControl.ZoomIn": "Zoomer",
-        "NavigationControl.ZoomOut": "Dézoomer"
+        "NavigationControl.ZoomOut": "Dézoomer",
+        "NavigationControl.Fit": "Ajuster la vue au parcours"
     },
     "verified": "Vérifier les comptes",
     "cam.setup": "Configuration :",

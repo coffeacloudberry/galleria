@@ -172,7 +172,8 @@
         "FullscreenControl.Exit": "Poistu koko näytöstä",
         "NavigationControl.ResetBearing": "Nollaa suuntima pohjoiseen",
         "NavigationControl.ZoomIn": "Suurenna",
-        "NavigationControl.ZoomOut": "Pienennä"
+        "NavigationControl.ZoomOut": "Pienennä",
+        "NavigationControl.Fit": "Sovittaa näkymä radalle"
     },
     "verified": "Tarkista todennetut tilit",
     "cam.setup": "Kameran asetukset:",
