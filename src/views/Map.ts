@@ -1,3 +1,4 @@
+import apertureOutline from "@/icons/aperture-outline.svg";
 import type { MultiLineString } from "@turf/helpers";
 import type { Position } from "geojson";
 import m from "mithril";
@@ -9,9 +10,10 @@ import { extraIcons, globalMapState } from "../models/Map";
 import { story } from "../models/Story";
 import { t } from "../translate";
 import { injectCode, isMobile } from "../utils";
-import type { WebTrackGeoJsonFeature } from "../webtrack";
+import type { WebTrackGeoJson, WebTrackGeoJsonFeature } from "../webtrack";
 import WebTrack from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
+import Icon from "./Icon";
 import LayerSelectionControl from "./LayerSelectionControl";
 import Controls from "./StandardControls";
 
@@ -30,7 +32,63 @@ You will be requested to allow images in the canvas. Once allowed, refresh
 the page.
  */
 
-type MouseEnterEvent = mapboxgl.MapMouseEvent & mapboxgl.EventData;
+type MouseEvent = mapboxgl.MapMouseEvent & mapboxgl.EventData;
+
+interface PopupCamAttrs {
+    photoId: number;
+    mapHeight: string;
+    mapboxPopup: mapboxgl.Popup;
+}
+
+/** Component in the tooltip displaying a clickable thumbnail. */
+class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
+    /** True when the image is cached and ready to be displayed. */
+    private ready = false;
+
+    /** The preloaded thumbnail. */
+    private image = new Image();
+
+    constructor({ attrs }: m.CVnode<PopupCamAttrs>) {
+        this.image.onload = () => {
+            this.ready = true;
+            m.redraw();
+        };
+        this.image.src = `/content/photos/${attrs.photoId}/t.webp`;
+    }
+
+    oncreate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
+        attrs.mapboxPopup.setDOMContent(dom);
+    }
+
+    onupdate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
+        attrs.mapboxPopup.setDOMContent(dom);
+    }
+
+    view({ attrs }: m.CVnode<PopupCamAttrs>): m.Vnode<m.RouteLinkAttrs> | null {
+        const photoLink = story.getPhotoPath();
+        if (!photoLink) {
+            return null;
+        }
+        return this.ready
+            ? m(
+                  m.route.Link,
+                  {
+                      href: photoLink,
+                      class: "map-thumbnail",
+                      "data-tippy-content": t("story.open-photo.tooltip"),
+                  },
+                  m("img", {
+                      src: this.image.src,
+                      style: `max-height: ${parseInt(attrs.mapHeight) / 3}px`,
+                      alt: "",
+                  }),
+              )
+            : m(
+                  ".map-thumbnail",
+                  m("span.loading-icon", m(Icon, { src: apertureOutline })),
+              );
+    }
+}
 
 interface MapAttrs {
     storyId: string;
@@ -56,6 +114,12 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     /** Popup displayed on mouse hover containing markers data. */
     popup: mapboxgl.Popup | undefined;
 
+    /** Popup displayed on mouse hover containing a thumbnail. */
+    popupCam: mapboxgl.Popup | undefined;
+
+    /** Data used by the popupCam. */
+    popupCamData: PopupCamAttrs | undefined;
+
     /** The current language of the map interface. */
     currentLang: string;
 
@@ -68,12 +132,8 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     }
 
     /** Display a tooltip when the mouse hovers a marker. */
-    markerOnMouseEnter(e: MouseEnterEvent): void {
-        if (
-            globalMapState.map === undefined ||
-            e === undefined ||
-            e.features === undefined
-        ) {
+    markerOnMouseEnter(e: MouseEvent): void {
+        if (!globalMapState.map || !e || !e.features) {
             return;
         }
         const feature: mapboxgl.MapboxGeoJSONFeature = e.features[0];
@@ -87,10 +147,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         }
         const coordinates =
             feature.geometry.coordinates.slice() as mapboxgl.LngLatLike;
-        const sym = feature.properties.sym;
-
-        // Change the cursor style as a UI indicator.
-        globalMapState.map.getCanvas().style.cursor = "pointer";
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -101,31 +157,70 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        if (this.popup === undefined) {
+        const sym = feature.properties.sym;
+        const photoId = parseInt(feature.properties.name);
+        if (sym === "camera" && !!photoId) {
+            this.addPopupCamToMap(coordinates, photoId);
+        } else {
+            this.addPopupTextToMap(coordinates, t("map.sym", sym));
+        }
+    }
+
+    /** Create the popup and update with new data related to a photo. */
+    addPopupCamToMap(coordinates: mapboxgl.LngLatLike, photoId: number): void {
+        if (!globalMapState.map) {
+            return;
+        }
+        const mapStyle = globalMapState.map.getCanvas().style;
+        if (!this.popupCam) {
+            this.popupCam = new mapboxgl.Popup({
+                closeButton: true,
+                closeOnClick: false,
+                focusAfterOpen: false,
+                className: "tooltip-inside-map",
+                // popup large enough to fit the thumbnail
+                maxWidth: `${parseInt(mapStyle.width)}px`,
+                // positioning a large popup on side has side effect
+                anchor: "center",
+            });
+        }
+        this.popupCamData = {
+            photoId,
+            mapHeight: mapStyle.height,
+            mapboxPopup: this.popupCam,
+        };
+        m.redraw(); // re-render the popup with fresh data
+        this.popupCam.setLngLat(coordinates).addTo(globalMapState.map);
+    }
+
+    /** Create the popup and update the text. */
+    addPopupTextToMap(coordinates: mapboxgl.LngLatLike, text: string): void {
+        if (!globalMapState.map) {
+            return;
+        }
+        if (!this.popup) {
             this.popup = new mapboxgl.Popup({
                 closeButton: false,
                 closeOnClick: false,
                 className: "tooltip-inside-map",
-                offset: 20, // avoid weird cursor effect on mouse leave
+                // avoid weird cursor effect on mouse leave
+                offset: 20,
             });
         }
-
-        // Populate the popup and set its coordinates
-        // based on the feature found.
         this.popup
             .setLngLat(coordinates)
-            .setHTML(t("map.sym", sym))
+            .setText(text)
             .addTo(globalMapState.map);
     }
 
-    /** Remove the tooltip when the mouse leaves a marker. */
+    /**
+     * Remove the tooltip when the mouse leaves a marker.
+     * Only applies to popups from WebTrack data, not the camera.
+     */
     markerOnMouseLeave(): void {
-        if (globalMapState.map === undefined || this.popup === undefined) {
-            return;
+        if (this.popup) {
+            this.popup.remove();
         }
-
-        globalMapState.map.getCanvas().style.cursor = "";
-        this.popup.remove();
     }
 
     /**
@@ -240,8 +335,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     layout: {
                         "icon-image": source,
                         "icon-size": globalMapState.makersRelSize,
-                        "icon-allow-overlap": true,
-                        "text-allow-overlap": true,
                     },
                     filter: [
                         "all",
@@ -250,13 +343,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     ],
                 });
 
-                globalMapState.map.on(
-                    "mouseenter",
-                    source,
-                    (e: MouseEnterEvent) => {
-                        this.markerOnMouseEnter(e);
-                    },
-                );
+                globalMapState.map.on("mouseenter", source, (e: MouseEvent) => {
+                    this.markerOnMouseEnter(e);
+                });
                 globalMapState.map.on("mouseleave", source, () => {
                     this.markerOnMouseLeave();
                 });
@@ -411,6 +500,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     err,
                 );
             });
+        this.addPhoto();
     }
 
     onremove(): void {
@@ -425,12 +515,89 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         }
     }
 
+    /** Add an icon where the selected photo has been taken. */
+    addPhoto(): void {
+        const source = extraIcons["camera"].source;
+        const originPhotoId = story.getActualPhotoId();
+        if (
+            !globalMapState.map ||
+            globalMapState.map.getLayer(source) ||
+            !story.originPhotoMeta ||
+            !story.originPhotoMeta.position ||
+            !originPhotoId
+        ) {
+            return;
+        }
+        globalMapState.map.loadImage(
+            `/assets/map/${source}.png`,
+            (
+                err: Error | undefined,
+                image: HTMLImageElement | ImageBitmap | undefined,
+            ): void => {
+                if (
+                    !globalMapState.map ||
+                    !image ||
+                    globalMapState.map.getLayer(source)
+                ) {
+                    return;
+                }
+                if (err) {
+                    throw err;
+                }
+
+                globalMapState.map.addImage(source, image);
+                globalMapState.map.addLayer({
+                    id: source,
+                    type: "symbol",
+                    source: "camera",
+                    layout: {
+                        "icon-image": source,
+                        "icon-size": globalMapState.makersRelSize,
+                        "icon-allow-overlap": true,
+                    },
+                });
+
+                globalMapState.map.on("click", source, (e: MouseEvent) => {
+                    this.markerOnMouseEnter(e);
+                });
+                globalMapState.map.on("mouseenter", source, () => {
+                    globalMapState.hideHikerForPointer();
+                });
+                globalMapState.map.on("mouseleave", source, () => {
+                    globalMapState.putHikerBack();
+                });
+            },
+        );
+        const { lat, lon } = story.originPhotoMeta.position;
+        const data: WebTrackGeoJson = {
+            type: "FeatureCollection",
+            features: [
+                {
+                    type: "Feature",
+                    geometry: {
+                        type: "Point",
+                        coordinates: [lon, lat],
+                    },
+                    properties: {
+                        sym: "camera",
+                        name: String(originPhotoId),
+                    },
+                },
+            ],
+        };
+        globalMapState.map.addSource("camera", {
+            type: "geojson",
+            data,
+        });
+    }
+
     onupdate(): void {
         const futureLang = t.getLang();
         if (this.currentLang !== futureLang) {
             this.currentLang = futureLang;
             this.resetControls();
         }
+        this.addPhoto();
     }
 
     oncreate({ dom, attrs }: m.CVnodeDOM<MapAttrs>): void {
@@ -530,6 +697,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     }
 
     view(): m.Vnode {
-        return m("#map");
+        return m(
+            "#map",
+            this.popupCamData && m(PopupCamComponent, this.popupCamData),
+        );
     }
 }

@@ -116,3 +116,24 @@ section#story
 .mapboxgl-map
     /* override Mapbox defaults */
     font: $global-font-size 'MyBodyFont', sans-serif !important
+
+.map-thumbnail
+    transition: none !important
+    min-width: 3rem
+    min-height: 3rem
+    text-align: center
+    display: table
+    &:focus
+        border: none
+    img
+        margin-bottom: -4px
+    .loading-icon
+        vertical-align: bottom
+        display: table-cell
+
+button.mapboxgl-popup-close-button
+    margin: 1px
+    padding: 0.1rem 0.5rem 0.3rem !important
+    border-radius: 0 3px 0 3px !important
+    box-shadow: none !important
+    transition: none !important

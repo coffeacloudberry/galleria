@@ -239,6 +239,18 @@ class Story {
         });
     }
 
+    /** Get the photo ID from the URL, otherwise from the story metadata. */
+    getActualPhotoId(): number | null {
+        const originPhotoId = getOriginPhotoId();
+        if (originPhotoId) {
+            return originPhotoId;
+        }
+        if (this.mostRecentPhoto) {
+            return parseInt(this.mostRecentPhoto);
+        }
+        return null;
+    }
+
     /**
      * The origin photo ID is provided by the URL parameter. If not found, it
      * would be the default photo of the story based on the metadata file.
@@ -246,12 +258,9 @@ class Story {
      * story page.
      */
     loadOriginPhotoMeta(): void {
-        let originPhotoId = getOriginPhotoId();
-        if (originPhotoId === null) {
-            if (this.mostRecentPhoto === null) {
-                return;
-            }
-            originPhotoId = parseInt(this.mostRecentPhoto);
+        const originPhotoId = this.getActualPhotoId();
+        if (!originPhotoId) {
+            return;
         }
         m.request<PhotoInfo>({
             method: "GET",
@@ -340,14 +349,9 @@ class Story {
 
     /** Path to the photo of the loaded story. */
     getPhotoPath(): string | null {
-        let originPhoto: number | string | null = getOriginPhotoId();
-
-        if (originPhoto === null) {
-            if (this.mostRecentPhoto) {
-                originPhoto = this.mostRecentPhoto;
-            } else {
-                return null;
-            }
+        const originPhoto = this.getActualPhotoId();
+        if (!originPhoto) {
+            return null;
         }
         return m.buildPathname("/:lang/photo/:id", {
             lang: t.getLang(),

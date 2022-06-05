@@ -146,6 +146,31 @@ class GlobalMapState {
         }, this.timeoutHiker);
     }
 
+    /**
+     * The hiker marker is hidden to make the cursor pointer visible and
+     * to highlight the other element on the map.
+     */
+    hideHikerForPointer(): void {
+        if (!this.map) {
+            return;
+        }
+        this.map.getCanvas().style.cursor = "pointer";
+        if (this.hikerMarker) {
+            this.hikerMarker.remove();
+        }
+    }
+
+    /** Reset the cursor style and put the hiker back if existing. */
+    putHikerBack(): void {
+        if (!this.map) {
+            return;
+        }
+        this.map.getCanvas().style.cursor = "";
+        if (this.hikerMarker) {
+            this.hikerMarker.addTo(this.map);
+        }
+    }
+
     /** Fit the map view to the track and reset bearing. */
     fitToTrack(): void {
         const multiLineString = this.multiLineString;
@@ -181,7 +206,7 @@ class GlobalMapState {
                 ne[1],
             ];
             this.map.fitBounds(newBounds, {
-                padding: 60,
+                padding: 70,
                 animate: false,
             });
         }
