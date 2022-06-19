@@ -4,7 +4,7 @@ import tippy, { Placement, Instance as TippyInstance } from "tippy.js";
 
 import { photo } from "../models/Photo";
 import { t } from "../translate";
-import { getWindowSize } from "../utils";
+import { getWindowSize, isMobile } from "../utils";
 import Icon from "./Icon";
 
 const CameraSetup: m.Component = {
@@ -32,10 +32,18 @@ const CameraSetup: m.Component = {
 };
 
 class CameraPosition implements m.ClassComponent {
+    /** Desktop URL to the OpenStreetMap map. */
     static buildOsmUrl(lat: number, lon: number): string {
         const baseUrl = "https://www.openstreetmap.org";
         const params = `mlat=${lat}&mlon=${lon}#map=15/${lat}/${lon}&layers=C`;
         return `${baseUrl}/?${params}`;
+    }
+
+    /** Mobile URL to the OsmAnd website or smartphone app if installed. */
+    static buildOsmAndUrl(lat: number, lon: number): string {
+        const baseUrl = "https://osmand.net/go";
+        const params = `lat=${lat}&lon=${lon}&z=15`;
+        return `${baseUrl}?${params}`;
     }
 
     view(): m.Vnode[] | null {
@@ -45,6 +53,14 @@ class CameraPosition implements m.ClassComponent {
         const pos = photo.meta.position; // GPS / WGS 84 ellipsoid
         if (!pos) {
             return null;
+        }
+        let appUrl, appName;
+        if (isMobile()) {
+            appUrl = CameraPosition.buildOsmAndUrl(pos.lat, pos.lon);
+            appName = "OsmAnd";
+        } else {
+            appUrl = CameraPosition.buildOsmUrl(pos.lat, pos.lon);
+            appName = "OpenStreetMap";
         }
         return [
             m("h4", t("map.stats.source.pos")),
@@ -59,9 +75,9 @@ class CameraPosition implements m.ClassComponent {
                         {
                             rel: "noopener noreferrer",
                             target: "_blank",
-                            href: CameraPosition.buildOsmUrl(pos.lat, pos.lon),
+                            href: appUrl,
                         },
-                        "OpenStreetMap",
+                        appName,
                     ),
                 ]),
             ]),
