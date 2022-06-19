@@ -5,18 +5,38 @@ class StoriesPlugin {
     static listStories() {
         const combinedStories = [];
         try {
-            const allStories = readdirSync(`${paths.build}/content/stories/`);
-            for (const dirStory of allStories) {
+            const allPhotos = readdirSync(`${paths.build}/content/photos/`);
+            allPhotos.sort();
+            let prevStory = "";
+            let lastStory = undefined;
+            for (const dirPhoto of allPhotos) {
                 try {
+                    const photoMetadata = JSON.parse(
+                        readFileSync(
+                            `${paths.build}/content/photos/${dirPhoto}/i.json`,
+                        ).toString(),
+                    );
+                    const dirStory = photoMetadata["story"];
+                    if (!dirStory) {
+                        continue; // photo not linked to any story
+                    }
                     const storyMetadata = JSON.parse(
                         readFileSync(
                             `${paths.build}/content/stories/${dirStory}/i.json`,
                         ).toString(),
                     );
-                    combinedStories.push({
-                        id: dirStory,
-                        metadata: storyMetadata,
-                    });
+                    if (prevStory !== dirStory) {
+                        lastStory = {
+                            id: dirStory,
+                            metadata: storyMetadata,
+                            totalPhotos: 1,
+                        };
+                        combinedStories.push(lastStory);
+                    } else if (lastStory) {
+                        // TODO: use this information
+                        lastStory.totalPhotos += 1;
+                    }
+                    prevStory = dirStory;
                 } catch (err) {
                     console.error(err);
                 }
