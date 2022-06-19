@@ -9,6 +9,9 @@ interface OneJsonStory {
 
     /** The story metadata, that is everything but the markdown story. */
     metadata: StoryInfo | null;
+
+    /** The amount of photos linked to that story. Can be 1 or more. */
+    totalPhotos: number;
 }
 
 /** The story metadata and content, plus the application state. */
@@ -129,6 +132,7 @@ class AllStories {
                 theStory = {
                     id,
                     metadata: null,
+                    totalPhotos: 0,
                     loaded: false,
                     loading: true,
                     title: null,

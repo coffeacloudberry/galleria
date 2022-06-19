@@ -28,31 +28,40 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
     }
 
     /** Display a clickable thumbnail or an empty space. */
-    view({ attrs }: m.CVnode<OneStory>): m.Vnode<m.RouteLinkAttrs> | null {
+    view({ attrs }: m.CVnode<OneStory>): m.Vnode<m.RouteLinkAttrs>[] | null {
         if (attrs.metadata === null || !attrs.metadata.mostRecentPhoto) {
             return null;
         }
         const photoId = attrs.metadata.mostRecentPhoto as `${number}`;
         return this.ready
-            ? m(
-                  m.route.Link,
-                  {
-                      href: m.buildPathname("/:lang/photo/:title", {
-                          lang: t.getLang(),
-                          title: photoId,
+            ? [
+                  m(
+                      m.route.Link,
+                      {
+                          href: m.buildPathname("/:lang/photo/:title", {
+                              lang: t.getLang(),
+                              title: photoId,
+                          }),
+                          "data-tippy-content": t("story.open-photo.tooltip"),
+                          "data-tippy-offset": "[0,0]",
+                          "data-tippy-placement": "bottom",
+                      },
+                      m("img", {
+                          src: this.image.src,
+                          alt: t("story.open-photo.tooltip"),
+                          width: 300,
+                          height: 200,
                       }),
-                      "data-tippy-content": t("story.open-photo.tooltip"),
-                      "data-tippy-offset": "[0,0]",
-                      "data-tippy-placement": "bottom",
-                  },
-                  m("img", {
-                      src: this.image.src,
-                      alt: t("story.open-photo.tooltip"),
-                      width: 300,
-                      height: 200,
-                  }),
-              )
-            : m("span");
+                  ),
+                  m(
+                      ".total-photo",
+                      `${String(attrs.totalPhotos)} photo${
+                          attrs.totalPhotos > 1 ? "s" : ""
+                      }`,
+                  ),
+              ]
+            : [m("span"), m(".total-photo", m("span"))];
+        // the `span` are to avoid moving blocks on load
     }
 }
 

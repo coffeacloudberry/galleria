@@ -33,7 +33,6 @@ class StoriesPlugin {
                         };
                         combinedStories.push(lastStory);
                     } else if (lastStory) {
-                        // TODO: use this information
                         lastStory.totalPhotos += 1;
                     }
                     prevStory = dirStory;
