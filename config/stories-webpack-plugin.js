@@ -8,9 +8,10 @@ class StoriesPlugin {
             const allPhotos = readdirSync(`${paths.build}/content/photos/`);
             allPhotos.sort();
             let prevStory = "";
-            let lastStory = undefined;
+            let lastStory = null;
             for (const dirPhoto of allPhotos) {
                 try {
+                    // TODO: add photo position in file
                     const photoMetadata = JSON.parse(
                         readFileSync(
                             `${paths.build}/content/photos/${dirPhoto}/i.json`,
@@ -20,6 +21,8 @@ class StoriesPlugin {
                     if (!dirStory) {
                         continue; // photo not linked to any story
                     }
+                    // TODO: add total photos in file
+                    // TODO: add most recent in file
                     const storyMetadata = JSON.parse(
                         readFileSync(
                             `${paths.build}/content/stories/${dirStory}/i.json`,
@@ -29,7 +32,7 @@ class StoriesPlugin {
                         lastStory = {
                             id: dirStory,
                             metadata: storyMetadata,
-                            totalPhotos: 1,
+                            totalPhotos: 1, // TODO: move to metadata
                         };
                         combinedStories.push(lastStory);
                     } else if (lastStory) {
