@@ -17,7 +17,7 @@ class StoriesPlugin {
                             `${paths.build}/content/photos/${dirPhoto}/i.json`,
                         ).toString(),
                     );
-                    const dirStory = photoMetadata["story"];
+                    const dirStory = photoMetadata.story;
                     if (!dirStory) {
                         continue; // photo not linked to any story
                     }
