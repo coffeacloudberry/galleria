@@ -9,7 +9,7 @@ import { chart } from "../models/ElevationProfile";
 import { extraIcons, globalMapState } from "../models/Map";
 import { story } from "../models/Story";
 import { t } from "../translate";
-import { injectCode, isMobile } from "../utils";
+import { injectCode, isCanvasBlocked, isMobile } from "../utils";
 import type { WebTrackGeoJson, WebTrackGeoJsonFeature } from "../webtrack";
 import WebTrack from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
@@ -22,15 +22,6 @@ declare const mapboxgl: typeof import("mapbox-gl");
 
 const warn = new CustomLogging("warning");
 const error = new CustomLogging("error");
-
-/*
-Mapbox requirements on Firefox:
-If privacy.resistFingerprinting = true, then re-configure the following:
-privacy.resistFingerprinting.randomDataOnCanvasExtract = false
-privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts = false
-You will be requested to allow images in the canvas. Once allowed, refresh
-the page.
- */
 
 type MouseEvent = mapboxgl.MapMouseEvent & mapboxgl.EventData;
 
@@ -357,15 +348,16 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
     /** Add the WebTrack with all related layers (points and segments). */
     addWebTrack(webtrackBytes: ArrayBuffer): void {
-        if (globalMapState.map === undefined) {
-            return;
-        }
         globalMapState.webtrack = new WebTrack(webtrackBytes);
         const data = globalMapState.webtrack.toGeoJson();
         const line = data.features[0].geometry as MultiLineString;
         const hasElevation = globalMapState.webtrack.someTracksWithEle();
         globalMapState.hasElevation = hasElevation;
         globalMapState.multiLineString = line;
+
+        if (globalMapState.map === undefined) {
+            return;
+        } // else: continue setting up the map
 
         injectCode(config.turf.js)
             .then(async () => {
@@ -477,7 +469,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
     /** Load sources and layers when the map is ready. */
     loadMap(): void {
-        if (globalMapState.map === undefined || this.storyId === undefined) {
+        if (this.storyId === undefined) {
             return;
         }
 
@@ -602,6 +594,18 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
     oncreate({ dom, attrs }: m.CVnodeDOM<MapAttrs>): void {
         this.storyId = attrs.storyId;
+        if (isCanvasBlocked()) {
+            globalMapState.mapLoadFailure = true;
+            m.render(
+                dom,
+                m(
+                    "p.critical-error.text-center",
+                    "To display the interactive map, allow canvas and refresh this page.",
+                ),
+            );
+            this.loadMap();
+            return; // do not load Mapbox GL JS
+        }
         Promise.all([
             injectCode(config.mapbox.css),
             injectCode(config.mapbox.js),

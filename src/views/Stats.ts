@@ -67,10 +67,6 @@ const Metres: m.Component<MetresAttrs> = {
  */
 export const StatsComponent: m.Component = {
     view(): m.Vnode[] | null {
-        if (globalMapState.mapLoadFailure) {
-            // the map loads the WebTrack containing stats, no map => no stats
-            return null;
-        }
         if (globalMapState.webtrack === undefined) {
             return [m(LoadingStats)];
         }
