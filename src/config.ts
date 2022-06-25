@@ -147,4 +147,6 @@ export const config = {
         /** Public rating of the results provided by GIPHY. */
         rating: "g",
     },
+
+    rev: String(process.env.GIT_VERSION),
 };

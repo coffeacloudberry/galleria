@@ -55,8 +55,8 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
                   ),
                   m(
                       ".total-photo",
-                      `${String(attrs.totalPhotos)} photo${
-                          attrs.totalPhotos > 1 ? "s" : ""
+                      `${String(attrs.metadata.totalPhotos)} photo${
+                          attrs.metadata.totalPhotos > 1 ? "s" : ""
                       }`,
                   ),
               ]

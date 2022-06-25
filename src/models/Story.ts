@@ -100,6 +100,9 @@ export interface StoryInfo {
      * This config is skipped if hasGeodata is false.
      */
     gpsConfig?: GpsConfig[];
+
+    /** Total number of photos linked to this story. Minimum: 1. */
+    totalPhotos: number;
 }
 
 /** Based on the Markdown file. */
@@ -264,9 +267,10 @@ class Story {
         }
         m.request<PhotoInfo>({
             method: "GET",
-            url: "/content/photos/:folderName/i.json",
+            url: "/content/photos/:folderName/:rev/i.json",
             params: {
                 folderName: originPhotoId,
+                rev: `rev_${config.rev}`,
             },
         }).then((result) => {
             this.originPhotoMeta = result;
@@ -303,9 +307,10 @@ class Story {
             });
         m.request<StoryInfo>({
             method: "GET",
-            url: "/content/stories/:folderName/i.json",
+            url: "/content/stories/:folderName/:rev/i.json",
             params: {
                 folderName,
+                rev: `rev_${config.rev}`,
             },
         })
             .then((result) => {

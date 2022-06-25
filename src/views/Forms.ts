@@ -91,8 +91,7 @@ const SubmitButton: m.Component<SubmitButtonAttrs> = {
 
 function getConfForBugReport(): string {
     const windowSize = getWindowSize();
-    return `I'm visiting your website version
-    ${String(process.env.GIT_VERSION)}.
+    return `I'm visiting your website version ${config.rev}.
     My user agent is '${navigator.userAgent}'
     and my window size is ${windowSize.width}x${windowSize.height}px.`.replace(
         /\s+/g,

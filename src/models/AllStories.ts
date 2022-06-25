@@ -43,28 +43,6 @@ class AllStories {
     }
 
     /**
-     * Sort two stories based on the start time. The most recent one will be
-     * the first in the list. A story without start time will be at the end.
-     * @param firstEl One story.
-     * @param secondEl An other story.
-     */
-    static sortTwoStories(
-        firstEl: OneJsonStory,
-        secondEl: OneJsonStory,
-    ): number {
-        if (firstEl.metadata === null || secondEl.metadata === null) {
-            return 0;
-        }
-        if (firstEl.metadata.start === undefined) {
-            return secondEl.metadata.start === undefined ? 0 : 1;
-        }
-        if (secondEl.metadata.start === undefined) {
-            return -1;
-        }
-        return firstEl.metadata.start < secondEl.metadata.start ? 1 : -1;
-    }
-
-    /**
      * Load the JSON file containing the metadata of all stories. The titles,
      * contents, and thumbnails are not yet loaded, this is requested per story
      * with loadOneStory().
@@ -75,8 +53,6 @@ class AllStories {
             method: "GET",
             url: "/all_stories.json",
         }).then((result) => {
-            // skipcq: JS-0387
-            result.sort(AllStories.sortTwoStories);
             for (const oneEntry of result) {
                 this.fullList.push({
                     ...oneEntry,

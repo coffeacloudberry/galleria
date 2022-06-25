@@ -49,6 +49,12 @@ export interface PhotoInfo {
 
     /** Same logic as "next"... but the other way. */
     prev?: number;
+
+    /** Total number of photo in the related story, if any. */
+    photosInStory?: number;
+
+    /** Photo position in the related story if any, 1 for the oldest photo. */
+    storyPhotoIncrement?: number;
 }
 
 /**
@@ -243,9 +249,10 @@ class Photo {
         return m
             .request<PhotoInfo>({
                 method: "GET",
-                url: "/content/photos/:folderName/i.json",
+                url: "/content/photos/:folderName/:rev/i.json",
                 params: {
                     folderName: id,
+                    rev: `rev_${config.rev}`,
                 },
             })
             .then((result) => {

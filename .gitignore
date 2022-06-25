@@ -14,3 +14,6 @@ tests/end_to_end/results
 .idea
 *~
 docs
+
+# Generated files from custom Webpack plugins
+rev_*
