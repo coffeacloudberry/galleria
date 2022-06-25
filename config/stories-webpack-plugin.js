@@ -41,10 +41,10 @@ class StoriesPlugin {
         if (firstEl.metadata === null || secondEl.metadata === null) {
             return 0;
         }
-        if (firstEl.metadata.start === undefined) {
-            return secondEl.metadata.start === undefined ? 0 : 1;
+        if (typeof firstEl.metadata.start === "undefined") {
+            return typeof secondEl.metadata.start === "undefined" ? 0 : 1;
         }
-        if (secondEl.metadata.start === undefined) {
+        if (typeof secondEl.metadata.start === "undefined") {
             return -1;
         }
         return firstEl.metadata.start < secondEl.metadata.start ? 1 : -1;
