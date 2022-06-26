@@ -101,17 +101,15 @@ footer
                 margin-right: .3rem
             .tag
                 position: fixed
-                margin-left: 1rem
                 padding: 0 0.3rem 0.1rem 0.3rem
                 margin-top: 0.3rem
                 font-size: 0.8rem
-                vertical-align: bottom
                 letter-spacing: 0.2px
                 font-family: 'MyBoldFont', sans-serif
                 display: inline-block
-                background-color: $strong-border-color
-                color: white
-                border-radius: 0 $border-radius-lg 0 $border-radius-lg
+                color: black
+                @media (max-width: 1024px) and (orientation: landscape)
+                    display: none
         .photo-metadata-wrapper
             margin-left: 0
             cursor: help

@@ -116,6 +116,7 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
             content: dom.children[1], // PhotoMetadataTippyContent
             placement: PhotoMetadataIcon.optimalPlacement(),
             appendTo: () => document.body,
+            arrow: false, // no arrow on non-clickable element
         });
         lastResizeListener = () => {
             if (this.tippyInstance) {

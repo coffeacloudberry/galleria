@@ -5,6 +5,7 @@ import playBackOutline from "@/icons/play-back-outline.svg";
 import playForwardOutline from "@/icons/play-forward-outline.svg";
 import returnUpBackOutline from "@/icons/return-up-back-outline.svg";
 import m from "mithril";
+import tippy, { Instance as TippyInstance } from "tippy.js";
 
 import { config } from "../config";
 import { photo } from "../models/Photo";
@@ -151,40 +152,86 @@ const PrevButton: m.Component = {
     },
 };
 
-/**
- * Display an animated loading spin or the progress in the current story if
- * the photo is linked to a story.
- */
-const ProgressComponent: m.Component = {
-    view(): m.Vnode {
-        if (
-            !photo.isPreloading &&
-            photo.storyTitle &&
-            photo.meta &&
-            photo.meta.storyPhotoIncrement &&
-            photo.meta.photosInStory
-        ) {
-            const tippy = `${t("album-progress")} ${photo.storyTitle}`;
-            const total = photo.meta.photosInStory;
-            const currInc = photo.meta.storyPhotoIncrement;
-            const showLastTag = currInc === 1 && currInc !== total;
-            const showFirstTag = currInc === total && currInc !== 1;
-            return m(
-                "span.nav-item.album-pagination",
-                {
-                    "data-tippy-content": tippy,
-                },
-                [
-                    total - currInc + 1,
-                    m("span.separator", "/"),
-                    total,
-                    showLastTag && m("span.tag", "last"),
-                    showFirstTag && m("span.tag", "first"),
-                ],
-            );
+/** Display the progress in the current story. */
+class ProgressInAlbumComponent implements m.ClassComponent {
+    private tippyInstance: TippyInstance | undefined;
+
+    /** Put the Tippy content in the right place. */
+    oncreate({ dom }: m.CVnodeDOM): void {
+        this.tippyInstance = tippy(dom, {
+            interactive: true,
+            allowHTML: true,
+            hideOnClick: false,
+            interactiveBorder: 30,
+            maxWidth: "none",
+            content: dom.children[dom.children.length - 1], // tippy content
+            appendTo: () => document.body,
+            arrow: false, // no arrow on non-clickable element
+        });
+    }
+
+    onbeforeremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.unmount();
         }
+    }
+
+    onremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.destroy();
+        }
+    }
+
+    view(): m.Vnode | null {
+        const storyPath = photo.getStoryPath();
+        if (
+            !photo.meta ||
+            !photo.meta.storyPhotoIncrement ||
+            !photo.meta.photosInStory ||
+            !photo.storyTitle ||
+            !storyPath
+        ) {
+            return null; // never expected
+        }
+        const total = photo.meta.photosInStory;
+        const currInc = photo.meta.storyPhotoIncrement;
+        const showLastTag = currInc === 1 && currInc !== total;
+        const showFirstTag = currInc === total && currInc !== 1;
+        return m("span.nav-item.album-pagination", [
+            // actually displayed
+            [
+                total - currInc + 1,
+                m("span.separator", "/"),
+                total,
+                showLastTag && m("span.tag", "last"),
+                showFirstTag && m("span.tag", "first"),
+            ],
+            // tippy content
+            m("span.tooltip", [
+                t("album-progress"),
+                " ",
+                m(
+                    "strong",
+                    m(
+                        m.route.Link,
+                        {
+                            href: storyPath,
+                        },
+                        photo.storyTitle,
+                    ),
+                ),
+            ]),
+        ]);
+    }
+}
+
+const LoadingSpinner: m.Component = {
+    onbeforeremove(): void {
+        hideAllForce();
+    },
+    view(): m.Vnode {
         return m(
-            `span.loading-icon.nav-item${photo.isPreloading ? "" : ".hide"}`,
+            "span.loading-icon.nav-item",
             {
                 "data-tippy-content": t("loading.tooltip") + "...",
             },
@@ -197,13 +244,7 @@ interface FooterAttrs {
     refPage: string;
 }
 
-/**
- * Next/prev buttons and dynamic feedback (loading spin).
- *
- * The tooltip is not displayed as expected on quickly created/deleted
- * elements, the loading/ready state is therefore updated via CSS only
- * (no DOM swap).
- */
+/** Next/prev buttons, album pagination or loading spin. */
 const Footer: m.Component<FooterAttrs> = {
     view({ attrs }: m.Vnode<FooterAttrs>): m.Vnode {
         return m(
@@ -211,7 +252,11 @@ const Footer: m.Component<FooterAttrs> = {
             m("nav" + (attrs.refPage === "photo" ? ".nav-photo" : ""), [
                 // in a span to be grouped
                 m("span", [m(FirstButton), m(PrevButton)]),
-                m(ProgressComponent),
+                photo.isPreloading
+                    ? m(LoadingSpinner)
+                    : photo.storyTitle &&
+                      photo.meta &&
+                      m(ProgressInAlbumComponent),
                 m("span", [
                     photo.isLast() ? m(RewindButton) : m(NextButton),
                     m(LastButton),
