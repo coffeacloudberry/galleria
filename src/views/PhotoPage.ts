@@ -147,7 +147,11 @@ const PrevButton: m.Component = {
     },
 };
 
-const AnimatedLoading: m.Component = {
+/**
+ * Display an animated loading spin or the progress in the current story if
+ * the photo is linked to a story.
+ */
+const ProgressComponent: m.Component = {
     view(): m.Vnode {
         if (
             !photo.isPreloading &&
@@ -156,19 +160,17 @@ const AnimatedLoading: m.Component = {
             photo.meta.storyPhotoIncrement &&
             photo.meta.photosInStory
         ) {
+            const tippy = `${t("album-progress")} ${photo.storyTitle}`;
+            const total = photo.meta.photosInStory;
             return m(
                 "span.nav-item.album-pagination",
                 {
-                    "data-tippy-content": `${t("album-progress")} ${
-                        photo.storyTitle
-                    }`,
+                    "data-tippy-content": tippy,
                 },
                 [
-                    photo.meta.photosInStory -
-                        photo.meta.storyPhotoIncrement +
-                        1,
+                    total - photo.meta.storyPhotoIncrement + 1,
                     m("span.separator", "/"),
-                    photo.meta.photosInStory,
+                    total,
                 ],
             );
         }
@@ -200,7 +202,7 @@ const Footer: m.Component<FooterAttrs> = {
             m("nav" + (attrs.refPage === "photo" ? ".nav-photo" : ""), [
                 // in a span to be grouped
                 m("span", [m(FirstButton), m(PrevButton)]),
-                m(AnimatedLoading),
+                m(ProgressComponent),
                 m("span", [
                     photo.isLast() ? m(RewindButton) : m(NextButton),
                     m(LastButton),
