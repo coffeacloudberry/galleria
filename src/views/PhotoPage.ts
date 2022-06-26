@@ -197,31 +197,37 @@ class ProgressInAlbumComponent implements m.ClassComponent {
         const currInc = photo.meta.storyPhotoIncrement;
         const showLastTag = currInc === 1 && currInc !== total;
         const showFirstTag = currInc === total && currInc !== 1;
-        return m("span.nav-item.album-pagination", [
-            // actually displayed
+        return m(
+            "span.nav-item.album-pagination",
+            {
+                tabindex: 0,
+            },
             [
-                total - currInc + 1,
-                m("span.separator", "/"),
-                total,
-                showLastTag && m("span.tag", t("last")),
-                showFirstTag && m("span.tag", t("first")),
-            ],
-            // tippy content
-            m("span.tooltip", [
-                t("album-progress"),
-                " ",
-                m(
-                    "strong",
+                // actually displayed
+                [
+                    total - currInc + 1,
+                    m("span.separator", "/"),
+                    total,
+                    showLastTag && m("span.tag", t("last")),
+                    showFirstTag && m("span.tag", t("first")),
+                ],
+                // tippy content
+                m("span.tooltip", [
+                    t("album-progress"),
+                    " ",
                     m(
-                        m.route.Link,
-                        {
-                            href: storyPath,
-                        },
-                        photo.storyTitle,
+                        "strong",
+                        m(
+                            m.route.Link,
+                            {
+                                href: storyPath,
+                            },
+                            photo.storyTitle,
+                        ),
                     ),
-                ),
-            ]),
-        ]);
+                ]),
+            ],
+        );
     }
 }
 

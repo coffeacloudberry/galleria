@@ -144,9 +144,15 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
     }
 
     view(): m.Vnode {
-        return m("span.nav-item.photo-metadata-wrapper", [
-            m(Icon, { src: cameraOutline }), // actually displayed
-            m(PhotoMetadataTippyContent), // not visible
-        ]);
+        return m(
+            "span.nav-item.photo-metadata-wrapper",
+            {
+                tabindex: 0,
+            },
+            [
+                m(Icon, { src: cameraOutline }), // actually displayed
+                m(PhotoMetadataTippyContent), // not visible
+            ],
+        );
     }
 }
