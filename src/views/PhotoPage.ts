@@ -166,15 +166,20 @@ const ProgressComponent: m.Component = {
         ) {
             const tippy = `${t("album-progress")} ${photo.storyTitle}`;
             const total = photo.meta.photosInStory;
+            const currInc = photo.meta.storyPhotoIncrement;
+            const showLastTag = currInc === 1 && currInc !== total;
+            const showFirstTag = currInc === total && currInc !== 1;
             return m(
                 "span.nav-item.album-pagination",
                 {
                     "data-tippy-content": tippy,
                 },
                 [
-                    total - photo.meta.storyPhotoIncrement + 1,
+                    total - currInc + 1,
                     m("span.separator", "/"),
                     total,
+                    showLastTag && m("span.tag", "last"),
+                    showFirstTag && m("span.tag", "first"),
                 ],
             );
         }
