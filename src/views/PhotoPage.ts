@@ -149,6 +149,29 @@ const PrevButton: m.Component = {
 
 const AnimatedLoading: m.Component = {
     view(): m.Vnode {
+        if (
+            !photo.isPreloading &&
+            photo.storyTitle &&
+            photo.meta &&
+            photo.meta.storyPhotoIncrement &&
+            photo.meta.photosInStory
+        ) {
+            return m(
+                "span.nav-item.album-pagination",
+                {
+                    "data-tippy-content": `${t("album-progress")} ${
+                        photo.storyTitle
+                    }`,
+                },
+                [
+                    photo.meta.photosInStory -
+                        photo.meta.storyPhotoIncrement +
+                        1,
+                    m("span.separator", "/"),
+                    photo.meta.photosInStory,
+                ],
+            );
+        }
         return m(
             `span.loading-icon.nav-item${photo.isPreloading ? "" : ".hide"}`,
             {

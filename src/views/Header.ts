@@ -170,7 +170,7 @@ const AboutButton: m.Component = {
             [
                 m("span.long-item", [
                     m("span.logo"),
-                    m("span.ml-3", t("about")),
+                    m("span.ml-3", m("strong", t("about"))),
                 ]),
                 m("span.short-item.logo", m("span")),
             ],
@@ -248,7 +248,10 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
             case "story":
                 centeredNav = m("span.limit-width", [
                     story.gotContent &&
-                        m("span", m("em.mr-3.long-item", story.title)),
+                        m(
+                            "span",
+                            m("em.mr-3.long-item", m("strong", story.title)),
+                        ),
                     m(OpenPhoto, {
                         title: String(attrs.title),
                     }),
@@ -263,7 +266,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 centeredNav = m("span.limit-width", [
                     photoTitle &&
                         m("span.photo-title", [
-                            m("em", photoTitle),
+                            m("em", m("strong", photoTitle)),
                             m("span.short-item", [
                                 photo.storyTitle && m("span.ml-3.mr-3", " – "),
                                 m(
@@ -282,7 +285,10 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 ]);
                 break;
             default:
-                centeredNav = m(".nav-item.branding", t("about.title"));
+                centeredNav = m(
+                    ".nav-item.branding",
+                    m("strong", t("about.title")),
+                );
         }
         return m(
             "header",

@@ -77,6 +77,7 @@
     "last.tooltip": "The very first shot",
     "previous.tooltip": "Previous",
     "loading.tooltip": "Loading",
+    "album-progress": "Progress in:",
     "applause.feedback.pass": "Thank you so much for your feedback, I appreciate! 😊",
     "applause.feedback.fail": "Sorry, Something went wrong! \uD83D\uDE15 Try again later.",
     "applause.feedback.fail.429": "Sorry, I couldn't handle so much jubilation! 😱 Try again later.",

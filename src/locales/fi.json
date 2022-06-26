@@ -77,6 +77,7 @@
     "last.tooltip": "Ensimmäinen valokuvaus",
     "previous.tooltip": "Edellinen",
     "loading.tooltip": "Kuormaus",
+    "album-progress": "Edistyminen:",
     "applause.feedback.pass": "Kiitos paljon palautteestasi, arvostan! 😊",
     "applause.feedback.fail": "Anteeksi, jokin meni pieleen! \uD83D\uDE15 Kokeile myöhemmin uudelleen.",
     "applause.feedback.fail.429": "Anteeksi, en pystynyt käsittelemään niin paljon riemua! 😱 Kokeile myöhemmin uudelleen.",

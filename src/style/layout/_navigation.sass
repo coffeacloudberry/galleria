@@ -77,7 +77,6 @@ footer
                     padding: calc(#{$nav-item-space} * 2 * 1.25) 0 0 0
                     margin: 0
                     font-size: calc(#{$nav-font-size} / 1.25)
-            font-family: 'MyBoldFont', sans-serif
             align-items: center
             .icon
                 filter: $filter-body-color
@@ -94,6 +93,12 @@ footer
                 display: inline-block
                 width: $nav-bar-height
                 text-align: center
+        .album-pagination
+            text-align: center
+            .separator
+                display: inline-block
+                margin-left: .3rem
+                margin-right: .3rem
         .photo-metadata-wrapper
             margin-left: 0
             cursor: help
@@ -107,9 +112,10 @@ footer
                     height: $nav-icon-size
         .limit-width,
         .limit-width .nav-item
-            @media (max-width: 1110px)
+            @media (max-width: 1200px)
                 /* reduce size to fit long titles into one line */
                 font-size: calc(#{$nav-font-size} / 1.25)
+                padding: calc(#{$nav-item-space} / (1 + (0.25 / 2))) calc(#{$nav-item-space} / 1.25)
         a:not(.normal-a)
             text-decoration: none
             color: $body-color !important
