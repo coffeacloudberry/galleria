@@ -252,6 +252,7 @@ class Photo {
     load(id: number): Promise<void> {
         this.isLoading = true;
         this.isPreloading = true;
+        this.meta = null; // invalidate obsolete information
         return m
             .request<PhotoInfo>({
                 method: "GET",
