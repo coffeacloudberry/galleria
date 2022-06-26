@@ -233,6 +233,7 @@ const LoadingSpinner: m.Component = {
         return m(
             "span.loading-icon.nav-item",
             {
+                "data-tippy-arrow": "false",
                 "data-tippy-content": t("loading.tooltip") + "...",
             },
             m(Icon, { src: apertureOutline }),
