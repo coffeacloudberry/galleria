@@ -185,5 +185,7 @@
     "cam.iso": "Valoherkkyys:",
     "cam.lat": "Leveysaste:",
     "cam.lon": "Pituusaste:",
-    "cam.goto": "Paikana:"
+    "cam.goto": "Paikana:",
+    "first": "ensimmäinen",
+    "last": "viimeinen"
 }

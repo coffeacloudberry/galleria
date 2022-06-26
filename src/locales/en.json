@@ -185,5 +185,7 @@
     "cam.iso": "Film speed:",
     "cam.lat": "Latitude:",
     "cam.lon": "Longitude:",
-    "cam.goto": "Locate with:"
+    "cam.goto": "Locate with:",
+    "first": "first",
+    "last": "last"
 }

@@ -185,5 +185,7 @@
     "cam.iso": "Sensibilité :",
     "cam.lat": "Latitude :",
     "cam.lon": "Longitude :",
-    "cam.goto": "Localiser avec :"
+    "cam.goto": "Localiser avec :",
+    "first": "première",
+    "last": "dernière"
 }
