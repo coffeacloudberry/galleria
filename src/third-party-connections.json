@@ -38,10 +38,5 @@
         "what": "cdn",
         "who": "Cloudflare, Inc.",
         "link": "https://www.cloudflare.com/privacypolicy/"
-    },
-    {
-        "what": "analytics",
-        "who": "Counter",
-        "link": "https://counter.dev/pages/privacy.html"
     }
 ]

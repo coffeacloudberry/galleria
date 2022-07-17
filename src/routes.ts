@@ -1,7 +1,6 @@
 import m from "mithril";
 
 import languages from "./languages.json";
-import { getWindowSize } from "./utils";
 import AboutPage from "./views/AboutPage";
 import NotFoundPage from "./views/NotFoundPage";
 import PhotoPage from "./views/PhotoPage";
@@ -19,23 +18,9 @@ interface RoutedResolvers {
     [index: string]: m.RouteResolver;
 }
 
-function analytics() {
-    const windowSize = getWindowSize();
-    void m.request<unknown>({
-        url: "https://counter.dev/track",
-        params: {
-            referrer: document.referrer,
-            screen: `${windowSize.width}x${windowSize.height}`,
-            user: "ExploreWilder",
-            utcoffset: "0",
-        },
-    });
-}
-
 function routeResolver(Component: Page): m.RouteResolver {
     return {
         onmatch() {
-            analytics();
             return Component;
         },
         render(vnode) {
