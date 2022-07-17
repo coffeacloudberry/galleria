@@ -212,9 +212,9 @@ class ProgressInAlbumComponent implements m.ClassComponent {
                     showFirstTag && m("span.tag", t("first")),
                 ],
                 // tippy content
-                m("span.tooltip", [
+                m(".text-center", [
                     t("album-progress"),
-                    " ",
+                    m("br"), // looks better on mobile
                     m(
                         "strong",
                         m(
