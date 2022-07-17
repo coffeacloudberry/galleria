@@ -137,16 +137,5 @@ export const config = {
         siteKey: String(process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY),
     },
 
-    giphy: {
-        /** Number of requested gifs to the API. */
-        gifPerSearchRequest: 10,
-
-        /** Public key for the GIPHY API. */
-        apiKey: "41MqyMCPwDMFIgEX78l0YpoJMZ9ddCQR",
-
-        /** Public rating of the results provided by GIPHY. */
-        rating: "g",
-    },
-
     rev: String(process.env.GIT_VERSION),
 };

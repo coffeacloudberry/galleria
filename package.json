@@ -34,7 +34,6 @@
         "sendpulse-api": "github:coffeacloudberry/sendpulse-rest-api-node.js",
         "snarkdown": "github:coffeacloudberry/snarkdown#2.1.1",
         "tippy.js": "^6.3.7",
-        "toastify-js": "^1.11.2",
         "translate.js": "^1.3.2"
     },
     "devDependencies": {

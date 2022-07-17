@@ -1,8 +1,6 @@
 import m from "mithril";
-import Toastify from "toastify-js";
 
 import { config } from "./config";
-import { LogType } from "./CustomLogging";
 import { injector } from "./models/Injector";
 
 /** Deselect text. */
@@ -135,24 +133,6 @@ export function getWindowSize(): { width: number; height: number } {
         width: window.innerWidth || docElem.clientWidth || body.clientWidth,
         height: window.innerHeight || docElem.clientHeight || body.clientHeight,
     };
-}
-
-/**
- * Display an ephemeral toast.
- * @param message A text string.
- * @param type Can be info or error.
- */
-export function toast(message: string, type: LogType = LogType.info): void {
-    /*
-    Documentation:
-    https://github.com/apvarun/toastify-js/blob/master/README.md
-     */
-    Toastify({
-        text: message,
-        duration: config.ephemeralDisplayTimeout * 1000,
-        close: true,
-        className: `custom-toast-${LogType[type]}`,
-    }).showToast();
 }
 
 /**

@@ -14,7 +14,6 @@ import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import { ModalSize, modal } from "./Modal";
 import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
-import { VisitorsBook } from "./VisitorsBook";
 
 /** The big title and text about me. */
 class Intro implements m.ClassComponent {
@@ -250,7 +249,6 @@ export default function AboutPage(): m.Component {
                         m(
                             ".row",
                             m(".one.column.yydchtxork", m(SocialNetworks)),
-                            m(".one.column", m(VisitorsBook)),
                             m(".one.column", m(CopyrightNotice)),
                         ),
                     ),
