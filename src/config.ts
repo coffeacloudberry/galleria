@@ -33,7 +33,7 @@ export const config = {
              * Cross-check SRI from other sources:
              * https://www.jsdelivr.com/package/npm/chart.js?path=dist
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.1/chart.min.js",
 
             /**
              * Subresource Integrity.
@@ -41,7 +41,7 @@ export const config = {
              * `openssl dgst -sha512 -binary FILENAME.js | openssl base64 -A`
              * More details: https://www.srihash.org/
              */
-            sri: "sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==",
+            sri: "sha512-ymysWHuTOgC1h8/MdSMcEyWmmjtfSh/7PYIDCZYIjW9sfS5Lfs5VBGbkPYZSM11L+JzJ3+id+gXDF4ImKcnxgA==",
         },
     },
 
