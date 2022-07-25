@@ -27,17 +27,6 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
         error.log("Failed to solve the Captcha", err.error);
     }
 
-    /**
-     * Return the intersection between the language in the page:
-     * "en" | "fr" | "fi"
-     * with the ones available in the widget:
-     * "en" | "fr" | "de" | "nl" | "it" | "pt" | "es" | "ca" | "ja" | "da"
-     */
-    getLang(): "en" | "fr" {
-        const currentLang = t.getLang();
-        return currentLang == "fr" ? "fr" : "en";
-    }
-
     oncreate({ dom, attrs }: m.CVnodeDOM<CaptchaAttrs>): void {
         injectCode(config.captcha.js)
             .then(async () => {
@@ -52,7 +41,7 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
                     {
                         startMode: "auto",
                         sitekey: config.captcha.siteKey,
-                        language: this.getLang(),
+                        language: t.getLang(),
                         doneCallback: attrs.doneCallback,
                         errorCallback: (err) => {
                             this.errorCallback(err);

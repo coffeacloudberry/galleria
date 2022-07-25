@@ -9,7 +9,7 @@ export interface Language {
 }
 
 interface Translatable {
-    getLang(): string;
+    getLang(): "en" | "fi" | "fr";
     init(lang?: string): void;
     prependLang(path: string): string;
     replaceLang(lang: string, originHref?: string): string;
@@ -41,8 +41,9 @@ const t: Translatable = (key, subKey, params) => {
     return subKey ? translate(key, subKey, params) : translate(key);
 };
 
-t.getLang = (): string => {
+t.getLang = (): "en" | "fi" | "fr" => {
     const inputLang = m.parsePathname(m.route.get()).path.split("/")[1];
+    // @ts-ignore
     return Object.prototype.hasOwnProperty.call(translations, inputLang)
         ? inputLang
         : "en";
