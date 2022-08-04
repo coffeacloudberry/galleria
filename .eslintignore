@@ -8,3 +8,7 @@ input_data
 docs
 *.html
 _*
+*.md
+*.ejs
+LICENSE
+AUTHORS
