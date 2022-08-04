@@ -682,7 +682,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             return;
         }
 
-        for (const control in globalMapState.controls) {
+        for (const control of Object.keys(globalMapState.controls)) {
             try {
                 globalMapState.map.removeControl(
                     globalMapState.controls[control],
@@ -695,7 +695,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         Object.assign(globalMapState.controls, Controls());
         globalMapState.controls.layer = new LayerSelectionControl();
 
-        for (const control in globalMapState.controls) {
+        for (const control of Object.keys(globalMapState.controls)) {
             globalMapState.map.addControl(globalMapState.controls[control]);
         }
     }
