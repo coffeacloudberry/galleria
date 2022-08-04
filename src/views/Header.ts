@@ -28,7 +28,7 @@ interface LanguageSelectionAttrs {
 interface LanguageLinkAttrs {
     language: Language;
     refPage: string;
-    tippy: TippyInstance[] | undefined;
+    tippy?: TippyInstance[];
 }
 
 const LanguageLink: m.Component<LanguageLinkAttrs> = {
@@ -40,7 +40,7 @@ const LanguageLink: m.Component<LanguageLinkAttrs> = {
                 onclick: () => {
                     t.init(attrs.language.slug);
                     document.title = String(t(attrs.refPage + ".title"));
-                    if (attrs.tippy !== undefined) {
+                    if (attrs.tippy) {
                         attrs.tippy[0].hide();
                     }
                 },
