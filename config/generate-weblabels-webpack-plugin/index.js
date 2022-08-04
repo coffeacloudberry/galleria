@@ -127,7 +127,8 @@ class GenerateWebLabelsPlugin {
 
                     // init the chunk to source files mapping if needed
                     if (
-                        !this.chunkJsAssetToSrcFiles.hasOwnProperty(
+                        !Object.prototype.hasOwnProperty.call(
+                            this.chunkJsAssetToSrcFiles,
                             chunkJsAsset,
                         )
                     ) {
@@ -137,7 +138,10 @@ class GenerateWebLabelsPlugin {
                     // check if the source file needs to be replaces
                     if (
                         this.options.srcReplace &&
-                        this.options.srcReplace.hasOwnProperty(srcFilePath)
+                        Object.prototype.hasOwnProperty.call(
+                            this.options.srcReplace,
+                            srcFilePath,
+                        )
                     ) {
                         srcFilePath = this.options.srcReplace[srcFilePath];
                     }
@@ -346,7 +350,12 @@ class GenerateWebLabelsPlugin {
     }
 
     findLicenseFile(packageJsonDir) {
-        if (!this.packageLicenseFile.hasOwnProperty(packageJsonDir)) {
+        if (
+            !Object.prototype.hasOwnProperty.call(
+                this.packageLicenseFile,
+                packageJsonDir,
+            )
+        ) {
             let foundLicenseFile = null;
             fs.readdirSync(packageJsonDir).forEach((file) => {
                 if (foundLicenseFile) {
@@ -382,7 +391,12 @@ class GenerateWebLabelsPlugin {
     }
 
     parsePackageJson(packageJsonPath) {
-        if (!this.packageJsonCache.hasOwnProperty(packageJsonPath)) {
+        if (
+            !Object.prototype.hasOwnProperty.call(
+                this.packageJsonCache,
+                packageJsonPath,
+            )
+        ) {
             const packageJsonStr = fs
                 .readFileSync(packageJsonPath)
                 .toString("utf8");
@@ -445,10 +459,15 @@ class GenerateWebLabelsPlugin {
         // TODO: Handle licenses combination properly once LibreJS has a
         //  spec for it.
         let ret = [];
-        if (spdxLicenses.hasOwnProperty("license")) {
+        if (Object.prototype.hasOwnProperty.call(spdxLicenses, "license")) {
             ret.push(this.spdxToWebLabelsLicense(spdxLicenses.license));
-        } else if (spdxLicenses.hasOwnProperty("left")) {
-            if (spdxLicenses.left.hasOwnProperty("license")) {
+        } else if (Object.prototype.hasOwnProperty.call(spdxLicenses, "left")) {
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    spdxLicenses.left,
+                    "license",
+                )
+            ) {
                 const licenseData = this.spdxToWebLabelsLicense(
                     spdxLicenses.left.license,
                 );
@@ -465,9 +484,11 @@ class GenerateWebLabelsPlugin {
 
     extractLicenseInformation(packageJson) {
         let spdxLicenseExpression = null;
-        if (packageJson.hasOwnProperty("license")) {
+        if (Object.prototype.hasOwnProperty.call(packageJson, "license")) {
             spdxLicenseExpression = packageJson.license;
-        } else if (packageJson.hasOwnProperty("licenses")) {
+        } else if (
+            Object.prototype.hasOwnProperty.call(packageJson, "licenses")
+        ) {
             // for node packages using deprecated licenses property
             const licenses = packageJson.licenses;
             if (Array.isArray(licenses)) {
