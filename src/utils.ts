@@ -197,3 +197,27 @@ export function isCanvasBlocked() {
     }
     return blocked;
 }
+
+/**
+ * This procedure redirects the user to a clean location if the location
+ * contains noise. That is to avoid visitors spreading tracked links.
+ * The parameters are expected to be in the hash part, not the search part.
+ * Anything in the search part is considered noise. Noise can be identifiers
+ * added by tracking companies. One example of tracker is the 'fbclid'
+ * automatically added on links shared on Facebook.
+ */
+export function removeNoiseFromLocation() {
+    const locationHasNoise = !!location.search;
+    if (locationHasNoise) {
+        const pos = location.href.indexOf(
+            location.search,
+            location.origin.length,
+        );
+        if (pos > 0) {
+            const noiseLength = location.search.length;
+            location.href =
+                location.href.slice(0, pos) +
+                location.href.slice(pos + noiseLength);
+        }
+    }
+}
