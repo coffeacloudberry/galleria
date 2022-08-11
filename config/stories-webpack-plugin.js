@@ -117,7 +117,13 @@ class StoriesPlugin {
             const allStories = this.getAllStories();
             for (const storyId of allStories) {
                 const storyDir = `${this.rootDir}/content/stories/${storyId}`;
-                this.writeInfoFile(storyDir, photosInStories[storyId]);
+                let contentObject = photosInStories[storyId];
+                if (!contentObject) {
+                    // In case a story has no photo.
+                    // The story would be accessible but not listed.
+                    contentObject = this.readInfoFile("stories", storyId);
+                }
+                this.writeInfoFile(storyDir, contentObject);
             }
 
             // skipcq: JS-0387
