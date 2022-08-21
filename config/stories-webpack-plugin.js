@@ -141,14 +141,14 @@ class StoriesPlugin {
         compiler.hooks.compilation.tap(plugin, (compilation) => {
             compilation.hooks.additionalAssets.tapPromise(plugin, () => {
                 return new Promise((resolve) => {
-                    const s = JSON.stringify(this.listStories());
+                    const out_str = JSON.stringify(this.listStories());
 
                     const source = {
                         source() {
-                            return s;
+                            return out_str;
                         },
                         size() {
-                            return s.length;
+                            return out_str.length;
                         },
                     };
 
@@ -159,7 +159,7 @@ class StoriesPlugin {
                         compilation.assets["all_stories.json"] = source;
                     }
 
-                    resolve(s);
+                    resolve(out_str);
                 });
             });
         });

@@ -492,11 +492,11 @@ class GenerateWebLabelsPlugin {
             // for node packages using deprecated licenses property
             const licenses = packageJson.licenses;
             if (Array.isArray(licenses)) {
-                const l = [];
+                const all_licenses_type = [];
                 licenses.forEach((license) => {
-                    l.push(license.type);
+                    all_licenses_type.push(license.type);
                 });
-                spdxLicenseExpression = l.join(" OR ");
+                spdxLicenseExpression = all_licenses_type.join(" OR ");
             } else {
                 spdxLicenseExpression = licenses.type;
             }

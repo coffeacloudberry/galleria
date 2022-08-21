@@ -24,35 +24,35 @@ class HumanstxtPlugin {
         compiler.hooks.compilation.tap(plugin, (compilation) => {
             compilation.hooks.additionalAssets.tapPromise(plugin, () => {
                 return new Promise((resolve) => {
-                    let s = "/* TEAM */\n";
+                    let out_str = "/* TEAM */\n";
                     this.options.team.forEach((teamMember) => {
-                        s += `\t${teamMember.type}: ${teamMember.name}\n`;
+                        out_str += `\t${teamMember.type}: ${teamMember.name}\n`;
 
                         if (teamMember.twitter) {
-                            s += `\tTwitter: @${teamMember.twitter}\n`;
+                            out_str += `\tTwitter: @${teamMember.twitter}\n`;
                         }
-                        s += "\n";
+                        out_str += "\n";
                     });
 
-                    s += "/* SITE */\n";
+                    out_str += "/* SITE */\n";
                     const date = new Date()
                         .toISOString()
                         .split("T")[0]
                         .split("-")
                         .join("/");
-                    s += `\tLast update: ${date}\n`;
+                    out_str += `\tLast update: ${date}\n`;
                     if (this.options.languages) {
-                        s += `\tLanguage: ${this.options.languages.join(
+                        out_str += `\tLanguage: ${this.options.languages.join(
                             " / ",
                         )}\n`;
                     }
 
                     const source = {
                         source() {
-                            return s;
+                            return out_str;
                         },
                         size() {
-                            return s.length;
+                            return out_str.length;
                         },
                     };
 
@@ -63,7 +63,7 @@ class HumanstxtPlugin {
                         compilation.assets["humans.txt"] = source;
                     }
 
-                    resolve(s);
+                    resolve(out_str);
                 });
             });
         });
