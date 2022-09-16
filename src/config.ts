@@ -56,8 +56,8 @@ export const config = {
              * Cross-check SRI:
              * https://www.jsdelivr.com/package/npm/chartjs-plugin-annotation?path=dist
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.0.0/chartjs-plugin-annotation.min.js",
-            sri: "sha512-sLZhA8NE4bIPKMnsROQpJTBKVOQf8ie2GMFVXVfcg90tJ0aNhAWxhPyN0BRjwvZ35dSQF7kSzXtCU11KvWvNwQ==",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.0.1/chartjs-plugin-annotation.min.js",
+            sri: "sha512-LZEOcU8s74hwWva82MJux7GgFNjfeExXG9yZPQrKz567Od4O2D/6UX3oGoZiRDOdbMtH33NBq7vonH4VOUPA/Q==",
         },
     },
 
@@ -69,12 +69,12 @@ export const config = {
     mapbox: {
         /** Mapbox GL JS from the CDN. */
         css: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css",
+            src: "https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css",
             sri: "sha512-99lKnAhTbFMSryZ/lPTtxDDRT1GAHB/dmYXUcW8dWaa9AIWZ7zQeWILgJGSe+LZsaEHJBpwq6z29ZOcwhkOntA==",
         },
         js: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js",
-            sri: "sha512-o8aOcq28mXioH4jcyx+L0rurVKmb0Ttl10rZ2bewSWHmGdiy/YKEE0OkaQRxgLA+BgHbvaNJ7uV02Yzz2oCi7g==",
+            src: "https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js",
+            sri: "sha512-Ng2G2b+M7GB/LdvmgLol5XSBBlyNWTagosRZfNQmZv4eNu5GT6WX3NYxXxNBZoeAN6p/bTf3FwCwsUZ53tW1Tg==",
         },
 
         /** Either official Mapbox style or custom style from Mapbox Studio. */
@@ -127,10 +127,10 @@ export const config = {
         js: {
             /**
              * Cross-check SRI:
-             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.5/widget.module.min.js
+             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.6/widget.module.min.js
              */
-            src: "https://unpkg.com/friendly-challenge@0.9.5/widget.module.min.js",
-            sri: "sha512-Tj7b4Bf794yAwsez9Bv3ziDa0RmY5VpMtOfgJLJV+HjSooVNn6+nuL+LUHODi/EmqFbnK5R0dB8Y7L/nSRM+Jw==",
+            src: "https://unpkg.com/friendly-challenge@0.9.6/widget.module.min.js",
+            sri: "sha512-0LXhqFajIDIkEhQgNL0K4S0o/ltyneZlK9ge1GY7tLj7khLp1K7+eIRKN1zjoRXhGjyUNFKXHAa46nkeUCbOQA==",
             isModule: true,
         },
 
