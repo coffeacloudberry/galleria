@@ -208,8 +208,8 @@ class ProgressInAlbumComponent implements m.ClassComponent {
                     total - currInc + 1,
                     m("span.separator", "/"),
                     total,
-                    showLastTag && m("span.tag", t("last")),
-                    showFirstTag && m("span.tag", t("first")),
+                    showLastTag && m("span.tag.flash", t("last")),
+                    showFirstTag && m("span.tag.flash", t("first")),
                 ],
                 // tippy content
                 m(".text-center", [
