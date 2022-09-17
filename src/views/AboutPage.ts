@@ -1,8 +1,11 @@
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoMatrix from "@/icons/logo-matrix.svg";
+import logoOdysee from "@/icons/logo-odysee.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
+import logoPlume from "@/icons/logo-plume.svg";
 import logoRss from "@/icons/logo-rss.svg";
+import logoThreema from "@/icons/logo-threema.svg";
 import logoXmpp from "@/icons/logo-xmpp.svg";
 import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
@@ -190,6 +193,16 @@ const SocialNetworks: m.Component = {
                 logo: logoPixelfed,
             },
             {
+                tooltip: "Odysee",
+                link: "https://odysee.com/@ExploreWilder:b",
+                logo: logoOdysee,
+            },
+            {
+                tooltip: "Plume",
+                link: "https://fediverse.blog/~/ExploreWilder",
+                logo: logoPlume,
+            },
+            {
                 tooltip: "Matrix",
                 link: "https://matrix.to/#/@beebeecoffee:matrix.org",
                 logo: logoMatrix,
@@ -198,6 +211,11 @@ const SocialNetworks: m.Component = {
                 tooltip: "XMPP/Jabber",
                 link: "xmpp:frozenveggies@nixnet.services",
                 logo: logoXmpp,
+            },
+            {
+                tooltip: "Threema",
+                link: "https://threema.id/26ZJEA5A",
+                logo: logoThreema,
             },
         ];
         return [
