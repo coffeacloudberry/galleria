@@ -24,30 +24,24 @@ const Gallery: m.Component = {
         const hideNext = photo.isPreloading;
         const hidePrev = photo.isFirst() || hideNext;
         return m("section#gallery", [
-            m(
-                ".goto-photo-screen-nav.goto-prev-photo" +
-                    (hidePrev ? ".invisible" : ""),
-                {
-                    onclick: (): void => {
-                        photo.loadPrev();
-                    },
+            m(".goto-photo-screen-nav.goto-prev-photo", {
+                class: hidePrev ? "invisible" : "",
+                onclick: (): void => {
+                    photo.loadPrev();
                 },
-            ),
+            }),
             m(
                 "#current-photo",
                 m("img", {
                     src: photo.currentImageSrc,
                 }),
             ),
-            m(
-                ".goto-photo-screen-nav.goto-next-photo" +
-                    (hideNext ? ".invisible" : ""),
-                {
-                    onclick: (): void => {
-                        photo.loadNext();
-                    },
+            m(".goto-photo-screen-nav.goto-next-photo", {
+                class: hideNext ? "invisible" : "",
+                onclick: (): void => {
+                    photo.loadNext();
                 },
-            ),
+            }),
         ]);
     },
 };
@@ -240,7 +234,7 @@ const LoadingSpinner: m.Component = {
             "span.loading-icon.nav-item",
             {
                 "data-tippy-arrow": "false",
-                "data-tippy-content": t("loading.tooltip") + "...",
+                "data-tippy-content": `${t("loading.tooltip")}...`,
             },
             m(Icon, { src: apertureOutline }),
         );
@@ -256,19 +250,25 @@ const Footer: m.Component<FooterAttrs> = {
     view({ attrs }: m.Vnode<FooterAttrs>): m.Vnode {
         return m(
             "footer",
-            m("nav" + (attrs.refPage === "photo" ? ".nav-photo" : ""), [
-                // in a span to be grouped
-                m("span", [m(FirstButton), m(PrevButton)]),
-                photo.isPreloading
-                    ? m(LoadingSpinner)
-                    : photo.storyTitle &&
-                      photo.meta &&
-                      m(ProgressInAlbumComponent),
-                m("span", [
-                    photo.isLast() ? m(RewindButton) : m(NextButton),
-                    m(LastButton),
-                ]),
-            ]),
+            m(
+                "nav",
+                {
+                    class: attrs.refPage === "photo" ? "nav-photo" : "",
+                },
+                [
+                    // in a span to be grouped
+                    m("span", [m(FirstButton), m(PrevButton)]),
+                    photo.isPreloading
+                        ? m(LoadingSpinner)
+                        : photo.storyTitle &&
+                          photo.meta &&
+                          m(ProgressInAlbumComponent),
+                    m("span", [
+                        photo.isLast() ? m(RewindButton) : m(NextButton),
+                        m(LastButton),
+                    ]),
+                ],
+            ),
         );
     },
 };
@@ -334,9 +334,9 @@ function documentTitle(): string {
             photo.storyTitle &&
             photoTitle !== photo.storyTitle &&
             photo.storyLang === t.getLang()
-                ? photo.storyTitle + " - "
+                ? `${photo.storyTitle} - `
                 : "";
-        return `${photoTitle + " - " + additionalInfo}${t("photo.title")}`;
+        return `${photoTitle} - ${additionalInfo}${t("photo.title")}`;
     }
     return t("photo.title");
 }
