@@ -19,7 +19,6 @@ const GenerateWebLabelsPlugin = require("./generate-weblabels-webpack-plugin");
 const languages = require("../src/languages.json");
 const { readdirSync } = require("fs");
 const path = require("path");
-const child_process = require("child_process");
 const address = "https://www.explorewilder.com";
 const allStories = readdirSync(`${paths.build}/content/stories/`);
 const allPhotos = readdirSync(`${paths.build}/content/photos/`);
@@ -34,12 +33,6 @@ const plainRoutes = [
 
 if (!("MAPBOX_ACCESS_TOKEN" in process.env)) {
     require("dotenv").config();
-}
-
-function sentry_release() {
-    return child_process
-        .execSync(`sentry-cli releases propose-version`, { encoding: "utf8" })
-        .trim();
 }
 
 module.exports = merge(common, {
@@ -75,7 +68,6 @@ module.exports = merge(common, {
             filename: "index.html", // output file
             templateParameters: {
                 prod: true,
-                sentry_release: sentry_release(),
             },
             minify: {
                 minifyCSS: true,

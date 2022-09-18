@@ -78,8 +78,6 @@
         <script>
             Sentry.onLoad(function() {
                 Sentry.init({
-                    release: "galleria-frontend@<%= sentry_release %>",
-                    environment: "production",
                     autoSessionTracking: false
                 });
             });
