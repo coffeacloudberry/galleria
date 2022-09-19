@@ -1,0 +1,24 @@
+{
+    "title": {
+        "en": "Patchy Peace",
+        "fi": "Epätasainen rauha",
+        "fr": "Une paix inégale"
+    },
+    "description": {
+        "en": "HDR composed of 3 shots",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 67.755581,
+        "lon": 29.254998
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-08-31T19:40:08",
+    "focalLength35mm": 27,
+    "exposureTime": "1/500",
+    "fNumber": 3.5,
+    "iso": 125,
+    "prev": 220829162545,
+    "next": 220902160359
+}
