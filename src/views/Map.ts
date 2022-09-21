@@ -415,7 +415,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         });
 
         // add the DEM source as a terrain layer without exaggerated height
-        globalMapState.map.setTerrain({ source: "mapbox-dem" });
+        globalMapState.map.setTerrain({
+            source: "mapbox-dem",
+            exaggeration: hasPreciseDem ? 1 : 3,
+        });
 
         globalMapState.map.addSource("webtrack", {
             type: "geojson",
@@ -641,6 +644,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     attributionControl: false, // outside the map widget to control the style and language
                     logoPosition: "bottom-right",
                     cooperativeGestures: isMobile(),
+                    projection: { name: "globe" },
                 });
 
                 globalMapState.controls.scale = new mapboxgl.ScaleControl({

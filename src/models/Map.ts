@@ -205,6 +205,9 @@ class GlobalMapState {
                 ne[0],
                 ne[1],
             ];
+            // fitBounds may not behave as expected in globe projection:
+            // https://docs.mapbox.com/mapbox-gl-js/guides/globe/#limitations-of-globe
+            // But, it does not behave as expected anyway in mobile.
             this.map.fitBounds(newBounds, {
                 padding: 70,
                 animate: false,
