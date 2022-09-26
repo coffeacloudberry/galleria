@@ -189,8 +189,6 @@ class ProgressInAlbumComponent implements m.ClassComponent {
         }
         const total = photo.meta.photosInStory;
         const currInc = photo.meta.storyPhotoIncrement;
-        const showLastTag = currInc === 1 && currInc !== total;
-        const showFirstTag = currInc === total && currInc !== 1;
         return m(
             "span.nav-item.album-pagination",
             {
@@ -198,13 +196,7 @@ class ProgressInAlbumComponent implements m.ClassComponent {
             },
             [
                 // actually displayed
-                [
-                    total - currInc + 1,
-                    m("span.separator", "/"),
-                    total,
-                    showLastTag && m("span.tag.flash", t("last")),
-                    showFirstTag && m("span.tag.flash", t("first")),
-                ],
+                [total - currInc + 1, m("span.separator", "/"), total],
                 // tippy content
                 m(".text-center", [
                     t("album-progress"),
