@@ -69,23 +69,22 @@ class Intro implements m.ClassComponent {
     }
 }
 
-/** Licenses of home-made content and code. */
-const myCopyrightList = [
-    {
-        what: "content",
-        short: "CC BY-SA 4.0",
-        href: "https://creativecommons.org/licenses/by-sa/4.0/",
-    },
-    {
-        what: "source",
-        short: "AGPL-3.0+",
-        href: "/jssources/jslicenses.html",
-    },
-];
-
 /** The copyright notice including the opener to the dependencies. */
 const CopyrightNotice: m.Component = {
     view(): m.Vnode[] {
+        /** Licenses of home-made content and code. */
+        const myCopyrightList = [
+            {
+                what: "content",
+                short: "CC BY-SA 4.0",
+                href: `https://creativecommons.org/licenses/by-sa/4.0/deed.${t.getLang()}`,
+            },
+            {
+                what: "source",
+                short: "AGPL-3.0+",
+                href: "/jssources/jslicenses.html",
+            },
+        ];
         return [
             m("h1", t("copyright.title")),
             m("p", [
