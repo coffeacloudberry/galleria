@@ -76,8 +76,8 @@ const CopyrightNotice: m.Component = {
         const myCopyrightList = [
             {
                 what: "content",
-                short: "CC BY-SA 4.0",
-                href: `https://creativecommons.org/licenses/by-sa/4.0/deed.${t.getLang()}`,
+                short: "CC BY-NC-SA 4.0",
+                href: `https://creativecommons.org/licenses/by-nc-sa/4.0/deed.${t.getLang()}`,
             },
             {
                 what: "source",
