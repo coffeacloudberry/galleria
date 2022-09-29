@@ -31,7 +31,7 @@ const IconDetailComponent: m.Component<ExtraIconsInfo> = {
                     attrs.attributions[0],
                 ),
                 " ",
-                t("copyright.third-parties.icon.distributor"),
+                t("from"),
                 " ",
                 m(
                     "a",

@@ -12,9 +12,10 @@ button:not([class^='mapboxgl-ctrl-']):not(.light-icon-button),
     transition: all 0.2s ease-in
     &.critical
         background: #973737
-    &[disabled]
-        background: #979797
-        cursor: no-drop
+    &[disabled],
+    &.disabled
+        background: #979797 !important
+        cursor: not-allowed
     img.icon
         filter: $filter-white
         vertical-align: -0.13rem
@@ -42,7 +43,7 @@ a.button
 form
     max-width: 500px
 
-input:not([type='radio']),
+input:not([type='radio']):not([type='checkbox']),
 textarea
     display: block
     padding: 0.5rem
@@ -97,6 +98,7 @@ textarea
 label
     display: block
     color: #808080
-    &.radio
+    &.radio,
+    &.checkbox
         display: inline-block
         margin: 0 0 0 0.5rem

@@ -1,11 +1,16 @@
+import apertureOutline from "@/icons/aperture-outline.svg";
 import cameraOutline from "@/icons/camera-outline.svg";
+import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
+import locationOutline from "@/icons/location-outline.svg";
 import m from "mithril";
 import tippy, { Placement, Instance as TippyInstance } from "tippy.js";
 
+import { config } from "../config";
 import { photo } from "../models/Photo";
 import { t } from "../translate";
 import { getWindowSize, isMobile } from "../utils";
 import Icon from "./Icon";
+import { modal } from "./Modal";
 
 const CameraSetup: m.Component = {
     view(): m.Vnode[] | null {
@@ -20,8 +25,11 @@ const CameraSetup: m.Component = {
             return null;
         }
         return [
-            m("h4.mt-3", t("cam.setup")),
-            m("ul.blabla.mt-3", [
+            m("h4.mt-3", [
+                m("span.mr-3.vab", m(Icon, { src: apertureOutline })),
+                t("cam.setup"),
+            ]),
+            m("ul.blabla.mt-3.ml-9", [
                 focal && m("li", `${t("cam.focal")} ${focal} mm`),
                 fNumber && m("li", `${t("cam.f-number")} f/${fNumber}`),
                 exposure && m("li", `${t("cam.exposure")} ${exposure} s`),
@@ -63,8 +71,11 @@ class CameraPosition implements m.ClassComponent {
             appName = "OpenStreetMap";
         }
         return [
-            m("h4", t("map.stats.source.pos")),
-            m("ul.blabla.mt-3", [
+            m("h4", [
+                m("span.mr-3.vab", m(Icon, { src: locationOutline })),
+                t("map.stats.source.pos"),
+            ]),
+            m("ul.blabla.mt-3.ml-9", [
                 m("li", [t("cam.lat"), " ", pos.lat.toFixed(4)]),
                 m("li", [t("cam.lon"), " ", pos.lon.toFixed(4)]),
                 m("li", [
@@ -85,9 +96,115 @@ class CameraPosition implements m.ClassComponent {
     }
 }
 
+interface DownloadModalAttrs {
+    okCopyright: boolean;
+    okNoBulk: boolean;
+}
+
+const DownloadModal: m.Component<DownloadModalAttrs> = {
+    view({ attrs }: m.Vnode<DownloadModalAttrs>): m.Vnode[] {
+        if (!photo.id) {
+            return [];
+        }
+        const holder = config.contentLicense.holder;
+        return [
+            m(
+                "p.text-center",
+                m("img.round-corners", {
+                    src: `/content/photos/${photo.id}/t.webp`,
+                    alt: "",
+                    width: 300,
+                    height: 200,
+                }),
+            ),
+            m("p", [
+                `${t("copyright")} © ${holder} ${t("from")} `,
+                m(
+                    m.route.Link,
+                    {
+                        href: m.buildPathname("/:lang/photo/:title", {
+                            lang: t.getLang(),
+                            title: photo.id,
+                        }),
+                    },
+                    "explorewilder.com",
+                ),
+                ` ${t("copyright.under")} `,
+                m(
+                    "a",
+                    {
+                        href: `${config.contentLicense.url}deed.${t.getLang()}`,
+                    },
+                    config.contentLicense.shortName,
+                ),
+            ]),
+            m("p", [
+                m("input[type=checkbox][id=ok-copyright]", {
+                    onclick: (e: { currentTarget: HTMLInputElement }): void => {
+                        attrs.okCopyright = e.currentTarget.checked;
+                    },
+                }),
+                m("label.checkbox[for=ok-copyright]", t("copyright.agreed")),
+            ]),
+            m("p", [
+                m("input[type=checkbox][id=ok-no-bulk]", {
+                    onclick: (e: { currentTarget: HTMLInputElement }): void => {
+                        attrs.okNoBulk = e.currentTarget.checked;
+                    },
+                }),
+                m("label.checkbox[for=ok-no-bulk]", t("download.condition")),
+            ]),
+        ];
+    },
+};
+
+const Download: m.Component<DownloadModalAttrs> = {
+    view({ attrs }: m.Vnode<DownloadModalAttrs>): m.Vnode {
+        return m(
+            "h4.mt-3.mb-3",
+            m(
+                "a",
+                {
+                    href: "#",
+                    onclick: (e: Event): void => {
+                        e.preventDefault();
+                        modal({
+                            title: t("download.title"),
+                            content: {
+                                view: () => {
+                                    return m(DownloadModal, attrs);
+                                },
+                            },
+                            cancelable: true,
+                            cloudLinkFn: () => {
+                                return (
+                                    attrs.okCopyright &&
+                                    attrs.okNoBulk &&
+                                    !!photo.id &&
+                                    `https://sunbeam.s3.fr-par.scw.cloud/photos/photo_${photo.id}_from_explorewilder.com.tif`
+                                );
+                            },
+                        });
+                    },
+                },
+                [
+                    m("span.mr-3.vab", m(Icon, { src: cloudDownloadOutline })),
+                    t("download.photo"),
+                ],
+            ),
+        );
+    },
+};
+
 const PhotoMetadataTippyContent: m.Component = {
     view(): m.Vnode {
-        return m("div", [m(CameraSetup), m(CameraPosition)]);
+        return m("div", [
+            m(CameraSetup),
+            m(CameraPosition),
+            photo.meta &&
+                photo.meta.downloadable !== false &&
+                m(Download, { okNoBulk: false, okCopyright: false }),
+        ]);
     },
 };
 
@@ -113,6 +230,8 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
             interactive: true,
             allowHTML: true,
             hideOnClick: false,
+            interactiveBorder: 30,
+            interactiveDebounce: 70,
             content: dom.children[1], // PhotoMetadataTippyContent
             placement: PhotoMetadataIcon.optimalPlacement(),
             appendTo: () => document.body,

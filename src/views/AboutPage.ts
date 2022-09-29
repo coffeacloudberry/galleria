@@ -11,6 +11,7 @@ import logoXmpp from "@/icons/logo-xmpp.svg";
 import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
 
+import { config } from "../config";
 import { t } from "../translate";
 import { transformExternalLinks } from "../utils";
 import { ContactForm, NewsletterForm } from "./Forms";
@@ -76,8 +77,8 @@ const CopyrightNotice: m.Component = {
         const myCopyrightList = [
             {
                 what: "content",
-                short: "CC BY-NC-SA 4.0",
-                href: `https://creativecommons.org/licenses/by-nc-sa/4.0/deed.${t.getLang()}`,
+                short: config.contentLicense.shortName,
+                href: `${config.contentLicense.url}deed.${t.getLang()}`,
             },
             {
                 what: "source",
@@ -86,9 +87,9 @@ const CopyrightNotice: m.Component = {
             },
         ];
         return [
-            m("h1", t("copyright.title")),
+            m("h1", t("copyright")),
             m("p", [
-                "© Clément Fontaine & ",
+                `© ${config.contentLicense.holder} & `,
                 m(
                     "a",
                     {

@@ -20,6 +20,9 @@ export interface PhotoInfo {
         fr: string;
     };
 
+    /** False if the photo is not downloadable. True by default. */
+    downloadable?: boolean;
+
     /** The story folder. No link to the story if this is missing or empty. */
     story?: string;
 

@@ -1,8 +1,10 @@
 import close from "@/icons/close.svg";
+import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
+import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
 
 import { t } from "../translate";
-import { hideAllForce } from "../utils";
+import { hideAllForce, transformExternalLinks } from "../utils";
 import Icon from "./Icon";
 
 function scrollableBody(scrollable: boolean) {
@@ -20,19 +22,42 @@ export enum ModalSize {
     Large,
 }
 
+type CloudLink = string | null | false;
+
+interface LinkToCloudAttrs {
+    cloudLink: CloudLink;
+    text: string;
+    iconSrc: string;
+}
+
+const LinkToCloud: m.Component<LinkToCloudAttrs> = {
+    view({ attrs }: m.Vnode<LinkToCloudAttrs>): m.Vnode {
+        const cloudLink =
+            attrs.text === "download.signature"
+                ? `${String(attrs.cloudLink)}.SHA256.asc`
+                : attrs.cloudLink;
+        return m(
+            "a.button.float-right.mr-3",
+            {
+                href: attrs.cloudLink ? cloudLink : "#",
+                class: attrs.cloudLink ? "" : "disabled",
+                onclick: (e: Event): void => {
+                    if (!attrs.cloudLink) {
+                        e.preventDefault();
+                    }
+                },
+            },
+            [m(Icon, { src: attrs.iconSrc }), t(attrs.text)],
+        );
+    },
+};
+
 interface ModalOptions {
     title: string | m.Vnode;
     content: m.Component;
     size?: ModalSize;
     cancelable?: boolean;
-}
-
-export function closeAllModals(): void {
-    const allModals = document.getElementsByClassName("modal");
-    for (const currentModal of allModals) {
-        currentModal.remove();
-    }
-    scrollableBody(true);
+    cloudLinkFn?: () => CloudLink;
 }
 
 export function modal({
@@ -40,6 +65,7 @@ export function modal({
     content,
     size = ModalSize.Medium,
     cancelable = false,
+    cloudLinkFn = undefined,
 }: ModalOptions): void {
     const modalContainer = document.createElement("div");
 
@@ -60,11 +86,17 @@ export function modal({
     m.mount(modalContainer, {
         oncreate(): void {
             document.addEventListener("keydown", onKeyPressed);
+            transformExternalLinks();
+        },
+        onupdate(): void {
+            transformExternalLinks();
         },
         onremove(): void {
             document.removeEventListener("keydown", onKeyPressed);
         },
         view: () => {
+            const displayCloudLink = !!cloudLinkFn;
+            const cloudLink = displayCloudLink && cloudLinkFn();
             return m(
                 ".modal",
                 {
@@ -85,16 +117,29 @@ export function modal({
                         m("h1.modal-title", title),
                         m(".modal-content", m(content)),
                         m(
-                            "button.modal-close" +
-                                (cancelable ? ".critical" : ""),
+                            "button.modal-close",
                             {
                                 onclick: closeModal,
+                                class: cancelable ? "critical" : "",
                             },
                             [
                                 m(Icon, { src: close }),
                                 cancelable ? t("cancel") : t("close"),
                             ],
                         ),
+                        displayCloudLink &&
+                            m(LinkToCloud, {
+                                cloudLink,
+                                iconSrc: cloudDownloadOutline,
+                                text: "download.photo",
+                            }),
+                        displayCloudLink &&
+                            cloudLink &&
+                            m(LinkToCloud, {
+                                cloudLink,
+                                iconSrc: ShieldCheckmarkOutline,
+                                text: "download.signature",
+                            }),
                     ],
                 ),
             );
