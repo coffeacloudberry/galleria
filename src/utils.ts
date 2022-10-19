@@ -143,12 +143,9 @@ export function getWindowSize(): { width: number; height: number } {
  * Source:
  * https://github.com/johnozbay/canvas-block-detector/blob/master/isCanvasBlocked.js
  *
- * Mapbox requirements on Firefox:
- * If privacy.resistFingerprinting = true, then re-configure the following:
- * privacy.resistFingerprinting.randomDataOnCanvasExtract = false
- * privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts = false
- * You will be requested to allow images in the canvas. Once allowed, refresh
- * the page.
+ * Mapbox limitations:
+ * Firefox: privacy.resistFingerprinting = false
+ * Brave: fingerprinting not aggressively blocked
  */
 export function isCanvasBlocked() {
     // create a 1px image data
