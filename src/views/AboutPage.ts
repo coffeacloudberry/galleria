@@ -8,6 +8,7 @@ import logoPlume from "@/icons/logo-plume.svg";
 import logoRss from "@/icons/logo-rss.svg";
 import logoThreema from "@/icons/logo-threema.svg";
 import logoXmpp from "@/icons/logo-xmpp.svg";
+import logoZcash from "@/icons/logo-zcash.svg";
 import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
 
@@ -222,6 +223,11 @@ const SocialNetworks: m.Component = {
                 tooltip: "Threema",
                 link: "https://threema.id/26ZJEA5A",
                 logo: logoThreema,
+            },
+            {
+                tooltip: t("donate-zcash"),
+                link: "https://free2z.com/explorewilder",
+                logo: logoZcash,
             },
         ];
         return [
