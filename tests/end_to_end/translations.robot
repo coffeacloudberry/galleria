@@ -14,30 +14,30 @@ Valid Dynamic Translation Updates And Retention
     Open Browser To Landing Page
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Read the story"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span[text()="About"]
+    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="About"]
     Switch Language                  Français
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Lire l'aventure"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span[text()="À propos"]
+    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="À propos"]
     Switch Language                  Suomi
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Lue tarina"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span[text()="Tietoja"]
+    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="Tietoja"]
     Switch Language                  English
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Read the story"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span[text()="About"]
+    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="About"]
     Switch Language                  Français
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Lire l'aventure"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span[text()="À propos"]
+    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="À propos"]
     Click Link                       partial link:À propos
     Page Should Be Translated
     Element Should Be Visible        xpath://h1[text()="À propos de moi"]
     Click Link                       Lire la politique de confidentialité
     Page Should Be Translated
     Element Should Be Visible        xpath://h1[@class="modal-title" and text()="La vie privée compte"]
-    Click Button                     xpath://button[@class="modal-close" and contains(text(), "Fermer")]
+    Click Button                     xpath://button[@class="modal-close " and contains(text(), "Fermer")]
     Page Should Be Translated
     Switch Language                  English
     Page Should Be Translated
@@ -45,14 +45,14 @@ Valid Dynamic Translation Updates And Retention
     Click Link                       Read the Privacy Policy
     Page Should Be Translated
     Element Should Be Visible        xpath://h1[@class="modal-title" and text()="Privacy Matters"]
-    Click Button                     xpath://button[@class="modal-close" and contains(text(), "Close")]
+    Click Button                     xpath://button[@class="modal-close " and contains(text(), "Close")]
     Page Should Be Translated
     Switch Language                  Français
     Page Should Be Translated
     Click Link                       xpath://a[@data-tippy-content="revenir à la photographie ou à l'aventure"]
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Lire l'aventure"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span[text()="À propos"]
+    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="À propos"]
     Click Link                       xpath://a[@data-tippy-content="Aperçu des aventures"]
     Wait Until Element Is Visible    class:one-story
     Page Should Be Translated

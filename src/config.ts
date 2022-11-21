@@ -25,6 +25,7 @@ export const config = {
      * Chart.js prod version.
      * Check for new releases:
      * https://github.com/chartjs/Chart.js/releases
+     * Breaking release 4.0.1 has not been minified and injects unverified code!
      */
     chart: {
         js: {
@@ -56,8 +57,8 @@ export const config = {
              * Cross-check SRI:
              * https://www.jsdelivr.com/package/npm/chartjs-plugin-annotation?path=dist
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.0.1/chartjs-plugin-annotation.min.js",
-            sri: "sha512-LZEOcU8s74hwWva82MJux7GgFNjfeExXG9yZPQrKz567Od4O2D/6UX3oGoZiRDOdbMtH33NBq7vonH4VOUPA/Q==",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.0/chartjs-plugin-annotation.min.js",
+            sri: "sha512-1uGDhRiDlpOPrTi54rJHu3oBLizqaadZDDft+j4fVeFih6eQBeRPJuuP3JcxIqJxIjzOmRq57XwwO4FT+/owIg==",
         },
     },
 
@@ -69,12 +70,12 @@ export const config = {
     mapbox: {
         /** Mapbox GL JS from the CDN. */
         css: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css",
-            sri: "sha512-99lKnAhTbFMSryZ/lPTtxDDRT1GAHB/dmYXUcW8dWaa9AIWZ7zQeWILgJGSe+LZsaEHJBpwq6z29ZOcwhkOntA==",
+            src: "https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css",
+            sri: "sha512-7qcFOAtnc7L/Dp5XCPREKktkxyizxJx3JHDkuvXGRidzGWgUBU+6HtUVcZ7/PStqo4bJZoJ8bdWyKEcRHaJvqA==",
         },
         js: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js",
-            sri: "sha512-Ng2G2b+M7GB/LdvmgLol5XSBBlyNWTagosRZfNQmZv4eNu5GT6WX3NYxXxNBZoeAN6p/bTf3FwCwsUZ53tW1Tg==",
+            src: "https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js",
+            sri: "sha512-kH0Kk+oPmZ+F7HbpYS4nQvazGc7ykQJ1+0M2+DfE0mGv0/cLI3QR1IpGCYOVPGc9OlIDm2PWLbjOJBBxoj4L5A==",
         },
 
         /** Either official Mapbox style or custom style from Mapbox Studio. */
@@ -127,10 +128,10 @@ export const config = {
         js: {
             /**
              * Cross-check SRI:
-             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.6/widget.module.min.js
+             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.8/widget.module.min.js
              */
-            src: "https://unpkg.com/friendly-challenge@0.9.6/widget.module.min.js",
-            sri: "sha512-0LXhqFajIDIkEhQgNL0K4S0o/ltyneZlK9ge1GY7tLj7khLp1K7+eIRKN1zjoRXhGjyUNFKXHAa46nkeUCbOQA==",
+            src: "https://unpkg.com/friendly-challenge@0.9.8/widget.module.min.js",
+            sri: "sha512-XqSjljxF4Bi7kgUkktcyHfrZ7HYRB1hgQHTxeWqCL1+vR7E/rFyOjNfF7la5+d0Hg4Ol3hj3mVEz+qJ09tQ4Dw==",
             isModule: true,
         },
 

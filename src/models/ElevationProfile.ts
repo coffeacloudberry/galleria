@@ -20,6 +20,7 @@ type LonLatPoint = { lon: number; lat: number };
  */
 function withLonLatOrNull(el: unknown): LonLatPoint | null {
     if (el instanceof Object) {
+        // @ts-ignore
         return "lon" in el && "lat" in el ? el : null;
     }
     return null;
@@ -32,6 +33,7 @@ type xyPoint = { x: number; y: number };
  */
 function withXYOrNull(el: unknown): xyPoint | null {
     if (el instanceof Object) {
+        // @ts-ignore
         return "x" in el && "y" in el ? el : null;
     }
     return null;

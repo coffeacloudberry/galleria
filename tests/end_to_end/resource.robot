@@ -38,6 +38,7 @@ Story Page Should Be Open
 
 Wait For Loading Content
     Wait Until Element Is Not Visible   class:loading-icon
+    Wait Until Element Is Visible       class:album-pagination
 
 Wait For Loading Photo
     Wait For Loading Content

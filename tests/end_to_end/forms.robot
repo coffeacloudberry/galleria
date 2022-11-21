@@ -59,7 +59,7 @@ Check Bug Report Generator
     Reload Page
     Input Text                       ${CONTACTFORM}//textarea    blabla
     Click Button                     ${CONTACTFORM}//button[@id="bug-report-button"]
-    Click Button                     xpath://button[@class="modal-close"]
+    Click Button                     xpath://button[@class="modal-close "]
     Textarea Should Contain          ${CONTACTFORM}//textarea   blabla
     Textarea Should Contain          ${CONTACTFORM}//textarea   My user agent is 'Mozilla
 
