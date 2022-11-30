@@ -75,9 +75,9 @@ function createAnnotations(waypoints: ChartWaypoint[]): Annotations {
         annotations[wpt.label + String(idx)] = {
             type: "label",
             xValue: wpt.point[2] / 1000,
-            xScaleID: "xAxes",
+            xScaleID: "x",
             yValue: wpt.point[3],
-            yScaleID: "yAxes",
+            yScaleID: "y",
             content: image,
         };
     });
@@ -117,6 +117,7 @@ export function createElevationChart(
 
                     // filling
                     fill: true,
+                    backgroundColor: "rgba(139,147,26,0.63)",
 
                     // no markers on points (too many)
                     radius: 0,
@@ -128,15 +129,14 @@ export function createElevationChart(
 
                     // line width
                     borderWidth: 1,
+                    borderColor: "rgb(0,0,0)",
                 },
             ],
         },
         options: {
-            backgroundColor: "rgba(139,147,26,0.63)",
-            borderColor: "rgb(0,0,0)",
             animation: false,
             scales: {
-                xAxes: {
+                x: {
                     type: "linear",
                     position: "bottom",
                     title: {
@@ -144,7 +144,7 @@ export function createElevationChart(
                         text: t("map.stats.chart.dist.label"),
                     },
                 },
-                yAxes: {
+                y: {
                     type: "linear",
                     position: "left",
                     title: {
