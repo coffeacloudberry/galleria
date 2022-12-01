@@ -64,7 +64,7 @@
         "eslint-plugin-json-es": "^1.5.7",
         "eslint-plugin-prettier": "^4.2.1",
         "file-loader": "^6.2.0",
-        "friendly-challenge": "^0.9.8",
+        "friendly-challenge": "^0.9.9",
         "html-webpack-plugin": "^5.5.0",
         "import-sort-style-module": "^6.0.0",
         "jsdom": "^20.0.3",

@@ -25,7 +25,6 @@ export const config = {
      * Chart.js prod version.
      * Check for new releases:
      * https://github.com/chartjs/Chart.js/releases
-     * Breaking release 4.0.1 has not been minified and injects unverified code!
      */
     chart: {
         js: {
@@ -126,10 +125,10 @@ export const config = {
         js: {
             /**
              * Cross-check SRI:
-             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.8/widget.module.min.js
+             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.9/widget.module.min.js
              */
-            src: "https://unpkg.com/friendly-challenge@0.9.8/widget.module.min.js",
-            sri: "sha512-XqSjljxF4Bi7kgUkktcyHfrZ7HYRB1hgQHTxeWqCL1+vR7E/rFyOjNfF7la5+d0Hg4Ol3hj3mVEz+qJ09tQ4Dw==",
+            src: "https://unpkg.com/friendly-challenge@0.9.9/widget.module.min.js",
+            sri: "sha512-AJy8ALd4v61yR/mhs4KkM83NvPJH4nnSMOJp1u2dl5pah5FjltajhkO1iLJrGydvEcjvZEO3B40dLFHpL//ZCg==",
             isModule: true,
         },
 

@@ -123,7 +123,7 @@ module.exports = merge(common, {
 
         new GenerateWebLabelsPlugin({
             additionalScripts: Object.assign({
-                "https://unpkg.com/friendly-challenge@0.9.8/widget.module.min.js":
+                "https://unpkg.com/friendly-challenge@0.9.9/widget.module.min.js":
                     [
                         {
                             id: "widget.module.min.js",
