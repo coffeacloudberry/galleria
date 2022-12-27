@@ -1,3 +1,3 @@
 # Au Nord de Vaasa
 
-Bientôt disponible ! Veux-tu recevoir des nouvelles lorsque je publie l'aventure ? Inscris-toi à la newsletter (**À propos > Des Nouvelles !**), [suis-moi sur Mastodon](https://photog.social/@explorewilder), ou [télécharge le flux RSS](https://photog.social/@explorewilder.rss).
+La plupart de mes récits portent sur des voyages solitaires de plusieurs jours dans des régions sauvages. Mais cette fois, il s'agissait d'une journée partagée avec une amie. La nature nous a aidés à nous connecter l'un à l'autre.
