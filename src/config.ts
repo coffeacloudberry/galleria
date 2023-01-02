@@ -54,8 +54,8 @@ export const config = {
              * Cross-check SRI:
              * https://www.jsdelivr.com/package/npm/chartjs-plugin-annotation?path=dist
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.0/chartjs-plugin-annotation.min.js",
-            sri: "sha512-1uGDhRiDlpOPrTi54rJHu3oBLizqaadZDDft+j4fVeFih6eQBeRPJuuP3JcxIqJxIjzOmRq57XwwO4FT+/owIg==",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.1/chartjs-plugin-annotation.min.js",
+            sri: "sha512-axEZPNvGiZKwZJ/Lsibs4fL789JgV8GcLTSoYzp1Ck2fGbsmCewi8YzyLBxBaRtiTv9R1LwcAhtcMvIiE02rzw==",
         },
     },
 
