@@ -11,8 +11,10 @@
     "email": "Sähköpostiosoite:",
     "message": "Viesti:",
     "report-bug": "Ilmoita vikaestä",
+    "encrypt-pgp": "Salaus PGP-avaimellani",
     "read-privacy": "Lue tietosuojakäytäntö",
     "send": "Lähetä",
+    "alternative-send": "Vaihtoehtoisesti voit lähettää minulle viestin:",
     "invalid-email": "Virheellinen sähköpostiosoite!",
     "invalid-message": "Sano jotain!",
     "too-many-requests": "Liian monta pyyntöä!",
@@ -184,5 +186,7 @@
     "cam.goto": "Paikana:",
     "first": "ensimmäinen",
     "last": "viimeinen",
-    "donate-zcash": "Lahjoittaa Zcashilla"
+    "donate": "Lahjoita",
+    "donate-zcash": "{{donate}} Zcashilla",
+    "donate-bat": "{{donate}} Brave-selaimella"
 }

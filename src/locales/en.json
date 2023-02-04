@@ -11,8 +11,10 @@
     "email": "Email:",
     "message": "Message:",
     "report-bug": "Report a bug",
+    "encrypt-pgp": "Encrypt with my PGP key",
     "read-privacy": "Read the Privacy Policy",
     "send": "Send",
+    "alternative-send": "Alternatively, send me a message with:",
     "invalid-email": "Invalid email address!",
     "invalid-message": "Say something!",
     "too-many-requests": "Too many requests!",
@@ -184,5 +186,7 @@
     "cam.goto": "Locate with:",
     "first": "first",
     "last": "last",
-    "donate-zcash": "Donate with Zcash"
+    "donate": "Donate",
+    "donate-zcash": "{{donate}} with Zcash",
+    "donate-bat": "{{donate}} with Brave"
 }

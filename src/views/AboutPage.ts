@@ -1,15 +1,13 @@
+import logoBat from "@/icons/logo-bat.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
-import logoMatrix from "@/icons/logo-matrix.svg";
 import logoOdysee from "@/icons/logo-odysee.svg";
 import logoPeertube from "@/icons/logo-peertube.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoPlume from "@/icons/logo-plume.svg";
 import logoRss from "@/icons/logo-rss.svg";
-import logoThreema from "@/icons/logo-threema.svg";
-import logoXmpp from "@/icons/logo-xmpp.svg";
 import logoZcash from "@/icons/logo-zcash.svg";
-import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
+import shieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
@@ -136,7 +134,7 @@ interface SocialNetworkItemAttrs {
 }
 
 /** One social platform. */
-const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
+export const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
     view({ attrs }: m.Vnode<SocialNetworkItemAttrs>): m.Vnode {
         return m(
             "li",
@@ -161,11 +159,11 @@ const ShieldLink: m.Component = {
         return m(
             "a.ml-3",
             {
-                href: "https://keyoxide.org/hkp/FFD0B3DDAD69CB71BAE13B1DDFFF34860D361C52",
+                href: config.id,
                 "data-tippy-content": t("verified"),
                 "data-tippy-placement": "right",
             },
-            m(Icon, { src: ShieldCheckmarkOutline }),
+            m(Icon, { src: shieldCheckmarkOutline }),
         );
     },
 };
@@ -209,29 +207,40 @@ const SocialNetworks: m.Component = {
                 link: "https://fediverse.blog/~/ExploreWilder",
                 logo: logoPlume,
             },
-            {
-                tooltip: "Matrix",
-                link: "https://matrix.to/#/@beebeecoffee:matrix.org",
-                logo: logoMatrix,
-            },
-            {
-                tooltip: "XMPP/Jabber",
-                link: "xmpp:frozenveggies@nixnet.services",
-                logo: logoXmpp,
-            },
-            {
-                tooltip: "Threema",
-                link: "https://threema.id/26ZJEA5A",
-                logo: logoThreema,
-            },
+        ];
+        return [
+            m("h1", [t("social-networks"), m(ShieldLink)]),
+            m(
+                "ul",
+                allItems.map((item) => {
+                    return m(SocialNetworkItem, {
+                        tooltip: item.tooltip,
+                        link: item.link,
+                        logo: item.logo,
+                    });
+                }),
+            ),
+        ];
+    },
+};
+
+/** Link to donation platform. */
+const Donate: m.Component = {
+    view(): m.Vnode[] {
+        const allItems = [
             {
                 tooltip: t("donate-zcash"),
                 link: "https://free2z.com/explorewilder",
                 logo: logoZcash,
             },
+            {
+                tooltip: t("donate-bat"),
+                link: "https://publishers.basicattentiontoken.org",
+                logo: logoBat,
+            },
         ];
         return [
-            m("h1", [t("social-networks"), m(ShieldLink)]),
+            m("h1", t("donate")),
             m(
                 "ul",
                 allItems.map((item) => {
@@ -278,7 +287,14 @@ export default function AboutPage(): m.Component {
                         ".container",
                         m(
                             ".row",
-                            m(".one.column.yydchtxork", m(SocialNetworks)),
+                            m(
+                                ".half.column.bunch-of-icons.yydchtxork",
+                                m(SocialNetworks),
+                            ),
+                            m(
+                                ".half.column.bunch-of-icons.yydchtxork",
+                                m(Donate),
+                            ),
                             m(".one.column", m(CopyrightNotice)),
                         ),
                     ),

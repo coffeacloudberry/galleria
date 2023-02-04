@@ -136,7 +136,7 @@ export const config = {
     },
 
     rev: String(process.env.GIT_VERSION),
-
+    id: "https://keyoxide.org/hkp/FFD0B3DDAD69CB71BAE13B1DDFFF34860D361C52",
     contentLicense: {
         shortName: "CC BY-NC-SA 4.0",
         url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",

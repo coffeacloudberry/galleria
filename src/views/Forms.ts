@@ -1,7 +1,11 @@
 import bugOutline from "@/icons/bug-outline.svg";
 import calendarOutline from "@/icons/calendar-outline.svg";
+import logoMatrix from "@/icons/logo-matrix.svg";
+import logoThreema from "@/icons/logo-threema.svg";
+import logoXmpp from "@/icons/logo-xmpp.svg";
 import newspaperOutline from "@/icons/newspaper-outline.svg";
 import paperPlaneOutline from "@/icons/paper-plane-outline.svg";
+import shieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import trashOutline from "@/icons/trash-outline.svg";
 import m from "mithril";
 
@@ -9,6 +13,7 @@ import { config } from "../config";
 import CustomLogging from "../CustomLogging";
 import { t } from "../translate";
 import { getWindowSize } from "../utils";
+import { SocialNetworkItem } from "./AboutPage";
 import Captcha from "./Captcha";
 import Icon from "./Icon";
 import { modal } from "./Modal";
@@ -246,6 +251,23 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
     }
 
     view(): m.Vnode[] {
+        const allItems = [
+            {
+                tooltip: "Matrix",
+                link: "https://matrix.to/#/@beebeecoffee:matrix.org",
+                logo: logoMatrix,
+            },
+            {
+                tooltip: "XMPP/Jabber",
+                link: "xmpp:frozenveggies@nixnet.services",
+                logo: logoXmpp,
+            },
+            {
+                tooltip: "Threema",
+                link: "https://threema.id/26ZJEA5A",
+                logo: logoThreema,
+            },
+        ];
         return [
             m("h1", t("contact.title")),
             m("p", t("contact.why")),
@@ -297,6 +319,15 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                             },
                             m(Icon, { src: bugOutline }),
                         ),
+                        m(
+                            "a.light-icon-button.float-right.mt-3.mr-3",
+                            {
+                                href: config.id,
+                                "data-tippy-content": t("encrypt-pgp"),
+                                "data-tippy-placement": "right",
+                            },
+                            m(Icon, { src: shieldCheckmarkOutline }),
+                        ),
                         m("label", [
                             t("message"),
                             m("textarea[rows=6]", {
@@ -344,6 +375,20 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                             ? m("span.ml-3.critical-error", t("is-bot"))
                             : "",
                     ]),
+                    m("p", t("alternative-send")),
+                    m(
+                        ".bunch-of-icons",
+                        m(
+                            "ul",
+                            allItems.map((item) => {
+                                return m(SocialNetworkItem, {
+                                    tooltip: item.tooltip,
+                                    link: item.link,
+                                    logo: item.logo,
+                                });
+                            }),
+                        ),
+                    ),
                 ],
             ),
         ];
