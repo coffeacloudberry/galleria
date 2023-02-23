@@ -15,7 +15,7 @@ Walking is more than just moving one step after another. Preliminaries are as im
 * **Day 11:** I enjoyed my own company and sporadically met hunters and hikers. I could have the huts and sauna for myself. It has been quiet so far. But once I crossed Sokosti (718 m), I met countless hikers. Urho is the most popular national park, but most people stays in the official tourist zone, around Saariselkä. However, even the tourist area can be [very quiet in winter](story:Backcountry_Ski_Touring_Urho_Kekkonen).
 * **Day 12:** The scattered rain was rhythming my day: walking under the rain, and photographing or picking berries under the sun.
 * **Day 13:** Feeling colder every day. I went to an unnamed tarn, probably the prettiest. Maybe because it is off track. I continued all the way to Saariselkä. The small lakes were perfectly still and colourful during sunset. I arrived overnight, head torch on.
-* **Day 14:** 4°C in the morning. I caught the bus to Rovaniemi. Side note: the train station has a good vegetarian pizzeria.
+* **Day 14:** 4°C in the morning. I caught the bus to Rovaniemi.
 * This trip in one word? Decent. I hiked more kilometers than usual, spent quite a few days and nights in my wet tent, and crossed a few streams. But no proper challenge in a way that nothing actually pushed my limits. However, the scenery and wildlife was memorable, with interesting terrain and vegetation. It was another point of view of the region compared to [last winter](story:Backcountry_Ski_Touring_Urho_Kekkonen). Hiking under the rain is annoying but rewarding. Hiking off-track is tough but eyes-sharpening.
 
 You could feel scared of remote wilderness, but it is a good way to improve your self-confidence.
