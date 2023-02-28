@@ -188,5 +188,6 @@
     "last": "dernière",
     "donate": "Faire un don",
     "donate-zcash": "{{donate}} en Zcash",
-    "donate-bat": "{{donate}} avec Brave"
+    "donate-bat": "{{donate}} avec Brave",
+    "donate-card": "{{donate}} par carte"
 }

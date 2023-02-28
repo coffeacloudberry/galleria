@@ -1,3 +1,4 @@
+import logoCard from "@/icons/card-outline.svg";
 import logoBat from "@/icons/logo-bat.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
@@ -228,6 +229,11 @@ const SocialNetworks: m.Component = {
 const Donate: m.Component = {
     view(): m.Vnode[] {
         const allItems = [
+            {
+                tooltip: t("donate-card"),
+                link: "https://donate.stripe.com/7sIdU4gpEeN321qbII",
+                logo: logoCard,
+            },
             {
                 tooltip: t("donate-zcash"),
                 link: "https://free2z.com/explorewilder",

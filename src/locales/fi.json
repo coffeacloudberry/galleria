@@ -188,5 +188,6 @@
     "last": "viimeinen",
     "donate": "Lahjoita",
     "donate-zcash": "{{donate}} Zcashilla",
-    "donate-bat": "{{donate}} Brave-selaimella"
+    "donate-bat": "{{donate}} Brave-selaimella",
+    "donate-card": "{{donate}} kortilla"
 }

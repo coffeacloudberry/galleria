@@ -188,5 +188,6 @@
     "last": "last",
     "donate": "Donate",
     "donate-zcash": "{{donate}} with Zcash",
-    "donate-bat": "{{donate}} with Brave"
+    "donate-bat": "{{donate}} with Brave",
+    "donate-card": "{{donate}} with card"
 }
