@@ -38,5 +38,10 @@
         "what": "cdn",
         "who": "Cloudflare, Inc.",
         "link": "https://www.cloudflare.com/privacypolicy/"
+    },
+    {
+        "what": "card",
+        "who": "Stripe",
+        "link": "https://stripe.com/privacy"
     }
 ]
