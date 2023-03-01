@@ -31,7 +31,7 @@ export const config = {
             /**
              * CDN URL
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.min.js",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js",
 
             /**
              * Subresource Integrity.
@@ -39,7 +39,7 @@ export const config = {
              * `openssl dgst -sha512 -binary FILENAME.js | openssl base64 -A`
              * More details: https://www.srihash.org/
              */
-            sri: "sha512-RnIvaWVgsDUVriCOO7ZbDOwPqBY1kdE8KJFmJbCSFTI+a+/s+B1maHN513SFhg1QwAJdSKbF8t2Obb8MIcTwxA==",
+            sri: "sha512-GCiwmzA0bNGVsp1otzTJ4LWQT2jjGJENLGyLlerlzckNI30moi2EQT0AfRI7fLYYYDKR+7hnuh35r3y1uJzugw==",
         },
     },
 
@@ -54,8 +54,8 @@ export const config = {
              * Cross-check SRI:
              * https://www.jsdelivr.com/package/npm/chartjs-plugin-annotation?path=dist
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.1/chartjs-plugin-annotation.min.js",
-            sri: "sha512-axEZPNvGiZKwZJ/Lsibs4fL789JgV8GcLTSoYzp1Ck2fGbsmCewi8YzyLBxBaRtiTv9R1LwcAhtcMvIiE02rzw==",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.2/chartjs-plugin-annotation.min.js",
+            sri: "sha512-6dmCqRV2/iXtbm8z/9+7bzLhOkmXvq9R6WoR+8QgrojgMU0/Nin+/eaWouEGEU5ishyKDYgRoiq7kURCVmwmqw==",
         },
     },
 
@@ -125,10 +125,10 @@ export const config = {
         js: {
             /**
              * Cross-check SRI:
-             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.9/widget.module.min.js
+             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.11/widget.module.min.js
              */
-            src: "https://unpkg.com/friendly-challenge@0.9.9/widget.module.min.js",
-            sri: "sha512-AJy8ALd4v61yR/mhs4KkM83NvPJH4nnSMOJp1u2dl5pah5FjltajhkO1iLJrGydvEcjvZEO3B40dLFHpL//ZCg==",
+            src: "https://unpkg.com/friendly-challenge@0.9.11/widget.module.min.js",
+            sri: "sha512-ABr9LIn5OyOO7eMAEoSHIvossU3zyvZ0YtrJpl/KEhWS6YyRlWXMpVwUUPt7vFhlCRx8d5Bt6WF/Fmo/nQwYcw==",
             isModule: true,
         },
 
