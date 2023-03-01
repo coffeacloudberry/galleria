@@ -231,7 +231,7 @@ const Donate: m.Component = {
         const allItems = [
             {
                 tooltip: t("donate-card"),
-                link: "https://donate.stripe.com/7sIdU4gpEeN321qbII",
+                link: `https://donate.stripe.com/7sIdU4gpEeN321qbII?locale=${t.getLang()}`,
                 logo: logoCard,
             },
             {
