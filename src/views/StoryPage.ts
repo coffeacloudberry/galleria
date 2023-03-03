@@ -165,6 +165,9 @@ export default function StoryPage(): m.Component {
             hideAllForce();
         },
         onupdate(): void {
+            if (story.notFound) {
+                m.route.set(`/${t.getLang()}/lost`);
+            }
             const routeStoryId = getStoryId();
             const futureLang = t.getLang();
             const preTitle = story.title ? story.title + " - " : "";

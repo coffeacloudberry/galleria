@@ -196,6 +196,9 @@ class Story {
     /** JSON file of the linked photo. */
     originPhotoMeta: PhotoInfo | null = null;
 
+    /** True if fetching the story metadata returned 404. */
+    notFound = false;
+
     /** True if a story is available. */
     isLoaded(): boolean {
         return this.gotContent && this.gotStoryMeta;
@@ -295,6 +298,7 @@ class Story {
 
     /** Load a story from a specific folder (fields are null if not found). */
     load(folderName: string): void {
+        this.notFound = false;
         this.gotContent = false;
         this.gotStoryMeta = false;
         this.originPhotoMeta = null;
@@ -354,7 +358,10 @@ class Story {
                 this.gotStoryMeta = true;
                 this.loadOriginPhotoMeta();
             })
-            .catch(() => {
+            .catch((error: Error & { code: number }) => {
+                if (error.code === 404) {
+                    this.notFound = true;
+                }
                 this.start = null;
                 this.gotStoryMeta = true;
                 this.hasGeodata = false;
