@@ -124,6 +124,9 @@ class Photo {
     /** Link to the current image. */
     currentImageSrc: string | null = null;
 
+    /** True if fetching the photo metadata returned 404. */
+    notFound = false;
+
     /** Return true if the photo has any metadata available. */
     containsExif(): boolean {
         return this.meta === null
@@ -255,6 +258,7 @@ class Photo {
     load(id: number): Promise<void> {
         this.isLoading = true;
         this.isPreloading = true;
+        this.notFound = false;
         this.meta = null; // invalidate obsolete information
         return m
             .request<PhotoInfo>({
@@ -286,7 +290,7 @@ class Photo {
             })
             .catch((error: Error & { code: number }) => {
                 if (error.code === 404) {
-                    m.route.set(`/${t.getLang()}/lost`);
+                    this.notFound = true;
                 } else {
                     throw error;
                 }

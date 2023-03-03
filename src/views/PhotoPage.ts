@@ -355,6 +355,9 @@ export default function PhotoPage(): m.Component {
             hideAllForce();
         },
         onupdate(): void {
+            if (photo.notFound) {
+                m.route.set(`/${t.getLang()}/lost`);
+            }
             let routePhotoId = NaN;
             try {
                 routePhotoId = parseInt(m.route.param("title"));

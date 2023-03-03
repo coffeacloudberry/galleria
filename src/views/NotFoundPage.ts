@@ -14,18 +14,12 @@ export default function NotFoundPage(): m.Component {
             hideAllForce();
         },
         view(): m.Vnode {
+            const url = `/?reload${m.route.prefix}${t.prependLang("/photo")}`;
             return m(
                 "section#not-found",
                 m(".content", [
                     m("p", t("not-found.message")),
-                    m(
-                        "p",
-                        m(
-                            m.route.Link,
-                            { href: t.prependLang("/photo") },
-                            t("not-found.action"),
-                        ),
-                    ),
+                    m("p", m("a", { href: url }, t("not-found.action"))),
                 ]),
             );
         },
