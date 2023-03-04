@@ -1,6 +1,8 @@
 import m from "mithril";
+import Toastify from "toastify-js";
 
 import { config } from "./config";
+import { LogType } from "./CustomLogging";
 import { injector } from "./models/Injector";
 
 /** Deselect text. */
@@ -217,4 +219,29 @@ export function removeNoiseFromLocation() {
                 location.href.slice(pos + noiseLength);
         }
     }
+}
+
+export function toast(
+    message: m.Vnode | string,
+    destination?: string,
+    type: LogType = LogType.info,
+): void {
+    const node = document.createElement("span");
+    m.render(node, message);
+    const currentToast = Toastify({
+        node,
+        duration: 3000,
+        offset: {
+            x: 0,
+            y: -4,
+        },
+        onClick: () => {
+            if (destination) {
+                m.route.set(destination);
+                currentToast.hideToast();
+            }
+        },
+        className: `custom-toast-${LogType[type]}`,
+    });
+    currentToast.showToast();
 }
