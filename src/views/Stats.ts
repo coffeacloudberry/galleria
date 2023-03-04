@@ -6,6 +6,7 @@ import { GpsConfig, story } from "../models/Story";
 import { t } from "../translate";
 import { numberWithCommas } from "../utils";
 import Icon from "./Icon";
+import { Duration } from "./StoryPage";
 
 interface ListPositioningComponentAttrs {
     configs: GpsConfig[];
@@ -76,6 +77,17 @@ export const StatsComponent: m.Component = {
         return [
             m("p", m("strong", t("map.stats"))),
             m("ul.blabla", [
+                typeof story.duration === "number" &&
+                    m("li", [
+                        t("story.duration"),
+                        " ",
+                        m(
+                            "strong",
+                            m(Duration, {
+                                duration: story.duration,
+                            }),
+                        ),
+                    ]),
                 typeof stats.length === "number" &&
                     m("li", [
                         t("map.stats.total-length"),

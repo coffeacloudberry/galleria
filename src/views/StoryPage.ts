@@ -26,15 +26,11 @@ interface DurationAttrs {
     duration: number;
 }
 
-const Duration: m.Component<DurationAttrs> = {
+export const Duration: m.Component<DurationAttrs> = {
     view({ attrs }: m.Vnode<DurationAttrs>): string {
         const argTranslate =
             attrs.duration < 1 ? "0" : Math.floor(attrs.duration);
-        return (
-            "" +
-            t("story.duration") +
-            t(attrs.duration % 1 ? "half-days" : "days", argTranslate)
-        );
+        return "" + t(attrs.duration % 1 ? "half-days" : "days", argTranslate);
     },
 };
 
@@ -57,10 +53,12 @@ export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
             attrs.start && attrs.season && " • ",
             attrs.season && t("seasons", attrs.season),
             (attrs.start || attrs.season) && attrs.duration && " • ",
-            attrs.duration &&
+            attrs.duration && [
+                t("story.duration"),
                 m(Duration, {
                     duration: attrs.duration,
                 }),
+            ],
         ]);
     },
 };
