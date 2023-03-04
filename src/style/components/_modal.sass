@@ -17,7 +17,8 @@
         border-radius: 0 $border-radius-lg 0 $border-radius-lg
         padding: 1rem
         .modal-content
-            max-height: calc(100vh - 12rem)
+            /* add extra as quick fix https://stackoverflow.com/a/37113430 */
+            max-height: calc(100vh - 14rem)
             overflow: auto
             margin: 1rem 0 /* margin to the scrollbar */
             padding-right: 0.5rem /* space on the left of the scrollbar */

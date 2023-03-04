@@ -98,7 +98,6 @@ class CameraPosition implements m.ClassComponent {
 
 interface DownloadModalAttrs {
     okCopyright: boolean;
-    okNoBulk: boolean;
 }
 
 const DownloadModal: m.Component<DownloadModalAttrs> = {
@@ -109,16 +108,16 @@ const DownloadModal: m.Component<DownloadModalAttrs> = {
         const holder = config.contentLicense.holder;
         return [
             m(
-                "p.text-center",
+                "p.text-center.mb-0",
                 m("img.round-corners", {
                     src: `/content/photos/${photo.id}/t.webp`,
                     alt: "",
-                    width: 300,
-                    height: 200,
                 }),
             ),
-            m("p", [
-                `${t("copyright")} © ${holder} ${t("from")} `,
+            m("p.text-center", [
+                `${t("copyright")} © ${holder}`,
+                m("br"),
+                m("span.cap", `${t("from")} `),
                 m(
                     m.route.Link,
                     {
@@ -129,7 +128,8 @@ const DownloadModal: m.Component<DownloadModalAttrs> = {
                     },
                     "explorewilder.com",
                 ),
-                ` ${t("copyright.under")} `,
+                m("br"),
+                m("span.cap", `${t("copyright.under")} `),
                 m(
                     "a",
                     {
@@ -138,21 +138,13 @@ const DownloadModal: m.Component<DownloadModalAttrs> = {
                     config.contentLicense.shortName,
                 ),
             ]),
-            m("p", [
+            m("p.text-center", [
                 m("input[type=checkbox][id=ok-copyright]", {
                     onclick: (e: { currentTarget: HTMLInputElement }): void => {
                         attrs.okCopyright = e.currentTarget.checked;
                     },
                 }),
                 m("label.checkbox[for=ok-copyright]", t("copyright.agreed")),
-            ]),
-            m("p", [
-                m("input[type=checkbox][id=ok-no-bulk]", {
-                    onclick: (e: { currentTarget: HTMLInputElement }): void => {
-                        attrs.okNoBulk = e.currentTarget.checked;
-                    },
-                }),
-                m("label.checkbox[for=ok-no-bulk]", t("download.condition")),
             ]),
         ];
     },
@@ -179,7 +171,6 @@ const Download: m.Component<DownloadModalAttrs> = {
                             cloudLinkFn: () => {
                                 return (
                                     attrs.okCopyright &&
-                                    attrs.okNoBulk &&
                                     !!photo.id &&
                                     `https://sunbeam.s3.fr-par.scw.cloud/photos/photo_${photo.id}_from_explorewilder.com.tif`
                                 );
@@ -189,7 +180,7 @@ const Download: m.Component<DownloadModalAttrs> = {
                 },
                 [
                     m("span.mr-3.vab", m(Icon, { src: cloudDownloadOutline })),
-                    t("download.photo"),
+                    t("download"),
                 ],
             ),
         );
@@ -203,7 +194,7 @@ const PhotoMetadataTippyContent: m.Component = {
             m(CameraPosition),
             photo.meta &&
                 photo.meta.downloadable !== false &&
-                m(Download, { okNoBulk: false, okCopyright: false }),
+                m(Download, { okCopyright: false }),
         ]);
     },
 };

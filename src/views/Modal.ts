@@ -37,7 +37,7 @@ const LinkToCloud: m.Component<LinkToCloudAttrs> = {
                 ? `${String(attrs.cloudLink)}.SHA256.asc`
                 : attrs.cloudLink;
         return m(
-            "a.button.float-right.mr-3",
+            "a.button.mr-3",
             {
                 href: attrs.cloudLink ? cloudLink : "#",
                 class: attrs.cloudLink ? "" : "disabled",
@@ -116,6 +116,18 @@ export function modal({
                     [
                         m("h1.modal-title", title),
                         m(".modal-content", m(content)),
+                        displayCloudLink &&
+                            m(LinkToCloud, {
+                                cloudLink,
+                                iconSrc: cloudDownloadOutline,
+                                text: "download",
+                            }),
+                        displayCloudLink &&
+                            m(LinkToCloud, {
+                                cloudLink,
+                                iconSrc: ShieldCheckmarkOutline,
+                                text: "download.signature",
+                            }),
                         m(
                             "button.modal-close",
                             {
@@ -127,19 +139,6 @@ export function modal({
                                 cancelable ? t("cancel") : t("close"),
                             ],
                         ),
-                        displayCloudLink &&
-                            m(LinkToCloud, {
-                                cloudLink,
-                                iconSrc: cloudDownloadOutline,
-                                text: "download.photo",
-                            }),
-                        displayCloudLink &&
-                            cloudLink &&
-                            m(LinkToCloud, {
-                                cloudLink,
-                                iconSrc: ShieldCheckmarkOutline,
-                                text: "download.signature",
-                            }),
                     ],
                 ),
             );
