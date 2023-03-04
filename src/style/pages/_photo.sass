@@ -18,20 +18,20 @@
         justify-content: center
         align-items: center
         margin-top: calc(#{$nav-bar-height} * 3 / 2)
-        height: calc(100vh - 3 * #{$nav-bar-height} - 1px)
-        @media (max-width: 1024px)
-            margin-top: calc(#{$nav-bar-height} * 2.5 / 2)
-            height: calc(100vh - 2.5 * #{$nav-bar-height} - 1px)
-        @media (max-width: 1024px) and (orientation: landscape)
-            margin-top: calc(#{$nav-bar-height} / 8)
-            height: calc(100vh - 2 * #{$nav-bar-height} / 8)
+        $minimal-photo-margin: calc(#{$nav-bar-height} / 8)
+        $photo-description: calc(3 * #{$global-font-size} + 0.4rem)
         img
             max-width: calc(100vw - #{$nav-bar-height})
-            max-height: 100%
-            @media (max-width: 1024px)
-                max-width: calc(100vw - 2 * #{$nav-bar-height} / 8)
-                max-height: calc(100vh - 2.5 * #{$nav-bar-height} - 4 * #{$global-font-size} - 1.6rem)
-            @media (max-width: 1024px) and (orientation: landscape)
-                max-width: calc(100vw - 2.5 * #{$nav-bar-height})
-                max-height: calc(100vh - 4 * #{$global-font-size} - 2.6rem)
+            max-height: calc(100vh - 3 * #{$nav-bar-height} - 1px)
             border-radius: $border-radius-sm
+        @media (max-width: 1024px)
+            $photo-margin-top: calc(#{$nav-bar-height} + #{$photo-description})
+            margin-top: $photo-margin-top
+            img
+                max-width: calc(100vw - 2 * #{$minimal-photo-margin})
+                max-height: calc(100vh - #{$nav-bar-height} - #{$minimal-photo-margin} - #{$photo-margin-top})
+        @media (max-width: 1024px) and (orientation: landscape)
+            margin-top: $minimal-photo-margin
+            img
+                max-width: calc(100vw - 2.3 * #{$nav-bar-height})
+                max-height: calc(100vh - #{$minimal-photo-margin} - #{$photo-description})
