@@ -46,9 +46,9 @@ export const PrivacyButton: m.Component = {
 const Status: m.Component = {
     view(): m.Vnode[] {
         return [
-            m("p.text-center", t("status.notice")),
+            m("p", t("status.notice")),
             m(
-                "p.text-center",
+                "p",
                 m(
                     "a",
                     {
