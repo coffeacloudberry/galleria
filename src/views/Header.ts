@@ -268,14 +268,14 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                         m("span.photo-title", [
                             m("em", m("strong", photoTitle)),
                             m("span.short-item", [
-                                photo.storyTitle && m("span.ml-3.mr-3", " – "),
-                                m(
-                                    m.route.Link,
-                                    {
-                                        href: photo.getStoryPath() || "",
-                                    },
-                                    attrs.title,
-                                ),
+                                photo.storyTitle &&
+                                    m(
+                                        m.route.Link,
+                                        {
+                                            href: photo.getStoryPath() || "",
+                                        },
+                                        attrs.title,
+                                    ),
                             ]),
                         ]),
                     photo.containsExif() && m(PhotoMetadataIcon),

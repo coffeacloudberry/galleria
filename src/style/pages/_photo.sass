@@ -27,9 +27,10 @@
             height: calc(100vh - 2 * #{$nav-bar-height} / 8)
         img
             max-width: calc(100vw - #{$nav-bar-height})
+            max-height: 100%
             @media (max-width: 1024px)
                 max-width: calc(100vw - 2 * #{$nav-bar-height} / 8)
+                max-height: calc(100vh - 2.5 * #{$nav-bar-height} - 4 * #{$global-font-size} - 1.6rem)
             @media (max-width: 1024px) and (orientation: landscape)
                 max-width: calc(100vw - 2.5 * #{$nav-bar-height})
-            max-height: 100%
             border-radius: $border-radius-sm
