@@ -16,12 +16,13 @@
         background-color: rgba(255, 255, 255, 1)
         border-radius: 0 $border-radius-lg 0 $border-radius-lg
         padding: 1rem
+        @media (max-width: 1024px)
+            padding: 1rem 0.5rem 0.5rem
         .modal-content
             /* add extra as quick fix https://stackoverflow.com/a/37113430 */
             max-height: calc(100vh - 14rem)
             overflow: auto
             margin: 1rem 0 /* margin to the scrollbar */
-            padding-right: 0.5rem /* space on the left of the scrollbar */
             *:first-child
                 margin-top: 0 /* reset */
             .container
