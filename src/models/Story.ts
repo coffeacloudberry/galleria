@@ -199,6 +199,9 @@ class Story {
     /** True if fetching the story metadata returned 404. */
     notFound = false;
 
+    /** True when the data source information are expanded/visible. */
+    isDataSourceExpanded = false;
+
     /** True if a story is available. */
     isLoaded(): boolean {
         return this.gotContent && this.gotStoryMeta;

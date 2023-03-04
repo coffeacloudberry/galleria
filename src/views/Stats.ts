@@ -1,4 +1,6 @@
+import addCircleOutline from "@/icons/add-circle-outline.svg";
 import compassOutline from "@/icons/compass-outline.svg";
+import removeCircleOutline from "@/icons/remove-circle-outline.svg";
 import m from "mithril";
 
 import { globalMapState } from "../models/Map";
@@ -62,12 +64,31 @@ const Metres: m.Component<MetresAttrs> = {
     },
 };
 
+const ExpandDataSourceButton: m.Component = {
+    view(): m.Vnode {
+        return m(
+            "button.light-icon-button.ml-3.vatb",
+            {
+                onclick: (): void => {
+                    story.isDataSourceExpanded = !story.isDataSourceExpanded;
+                },
+            },
+            m(Icon, {
+                src: story.isDataSourceExpanded
+                    ? removeCircleOutline
+                    : addCircleOutline,
+                style: "height: 1.3rem",
+            }),
+        );
+    },
+};
+
 /**
  * Statistics about the track, embedded into a tooltip or directly in the page
  * for mobile screen.
  */
 export const StatsComponent: m.Component = {
-    view(): m.Vnode[] | null {
+    view(): (m.Vnode | boolean)[] | null {
         if (globalMapState.webtrack === undefined) {
             return [m(LoadingStats)];
         }
@@ -125,30 +146,34 @@ export const StatsComponent: m.Component = {
                         ")",
                     ]),
             ]),
-            m("p", m("strong", t("map.stats.source"))),
-            m("ul.blabla", [
-                story.gpsConfig instanceof Array &&
-                    m("li", [
-                        t("map.stats.source.pos"),
-                        m(ListPositioningComponent, {
-                            configs: story.gpsConfig,
-                        }),
-                    ]),
-                hasEle &&
-                    m("li", [
-                        t("map.stats.chart.ele.tooltip"),
-                        " ",
-                        m(
-                            "a",
-                            {
-                                href: "https://github.com/coffeacloudberry/WebTrackCLI/blob/main/DEM.md",
-                            },
-                            globalMapState.webtrack
-                                .getElevationSources()
-                                .join(", "),
-                        ),
-                    ]),
+            m("p", [
+                m("strong", t("map.stats.source")),
+                m(ExpandDataSourceButton),
             ]),
+            story.isDataSourceExpanded &&
+                m("ul.blabla", [
+                    story.gpsConfig instanceof Array &&
+                        m("li", [
+                            t("map.stats.source.pos"),
+                            m(ListPositioningComponent, {
+                                configs: story.gpsConfig,
+                            }),
+                        ]),
+                    hasEle &&
+                        m("li", [
+                            t("map.stats.chart.ele.tooltip"),
+                            " ",
+                            m(
+                                "a",
+                                {
+                                    href: "https://github.com/coffeacloudberry/WebTrackCLI/blob/main/DEM.md",
+                                },
+                                globalMapState.webtrack
+                                    .getElevationSources()
+                                    .join(", "),
+                            ),
+                        ]),
+                ]),
         ];
     },
 };
