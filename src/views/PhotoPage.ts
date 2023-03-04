@@ -264,21 +264,66 @@ const Footer: m.Component<FooterAttrs> = {
     },
 };
 
+/**
+ * Load the next photo
+ * based on the custom event listener (keyboard, swipe).
+ */
+function onEventRight() {
+    if (!photo.isPreloading) {
+        hideAllForce();
+        photo.loadNext();
+    }
+}
+
+/**
+ * Load the previous photo
+ * based on the custom event listener (keyboard, swipe).
+ */
+function onEventLeft() {
+    if (!photo.isFirst() && !photo.isPreloading) {
+        hideAllForce();
+        photo.loadPrev();
+    }
+}
+
 /** Go to the previous or next photo with keystrokes. */
 function onKeyPressed(e: KeyboardEvent) {
     switch (e.code) {
         case "ArrowRight":
-            if (!photo.isPreloading) {
-                hideAllForce();
-                photo.loadNext();
-            }
+            onEventRight();
             break;
         case "ArrowLeft":
-            if (!photo.isFirst() && !photo.isPreloading) {
-                hideAllForce();
-                photo.loadPrev();
-            }
+            onEventLeft();
             break;
+    }
+}
+
+/** Touch screen handler for navigating with left/right swipes. */
+class Touch {
+    /** Position on swipe start. */
+    initial = { x: null as number | null, y: null as number | null };
+
+    /** When starting to swipe. */
+    onTouchStarted(e: TouchEvent) {
+        this.initial = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+
+    /** Right after the swipe has been initiated. */
+    onTouchMoved(e: TouchEvent) {
+        if (this.initial.x === null || this.initial.y === null) {
+            return;
+        }
+        const diffX = e.touches[0].clientX - this.initial.x;
+        const diffY = e.touches[0].clientY - this.initial.y;
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            // sliding horizontally
+            if (diffX > 0) {
+                onEventLeft();
+            } else {
+                onEventRight();
+            }
+        }
+        this.initial = { x: null, y: null };
     }
 }
 
@@ -337,6 +382,13 @@ export default function PhotoPage(): m.Component {
     t.init();
     let currentLang = t.getLang();
     const selectedPhotoId = getPhotoId();
+    const touch = new Touch();
+    const touchStarted = (e: TouchEvent) => {
+        touch.onTouchStarted(e);
+    };
+    const touchMoved = (e: TouchEvent) => {
+        touch.onTouchMoved(e);
+    };
     if (selectedPhotoId === null) {
         photo.loadFirst();
     } else {
@@ -348,9 +400,13 @@ export default function PhotoPage(): m.Component {
             document.title = t("photo.title");
             t.createTippies();
             document.addEventListener("keydown", onKeyPressed);
+            document.addEventListener("touchstart", touchStarted);
+            document.addEventListener("touchmove", touchMoved);
         },
         onremove(): void {
             document.removeEventListener("keydown", onKeyPressed);
+            document.removeEventListener("touchstart", touchStarted);
+            document.removeEventListener("touchmove", touchMoved);
             hideAllForce();
         },
         onupdate(): void {
