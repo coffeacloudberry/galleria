@@ -1,5 +1,4 @@
 import arrowUndoOutline from "@/icons/arrow-undo-outline.svg";
-import bookOutline from "@/icons/book-outline.svg";
 import ellipsisHorizontal from "@/icons/ellipsis-horizontal.svg";
 import imageOutline from "@/icons/image-outline.svg";
 import languageOutline from "@/icons/language-outline.svg";
@@ -130,16 +129,13 @@ const OpenStory: m.Component<OpenStoryAttrs> = {
                 m.route.Link,
                 {
                     href: storyPath,
-                    class: "nav-item",
+                    class: "nav-item long-item",
                     "data-tippy-content": t("photo.open-story.tooltip"),
                 },
-                [
-                    m("span.long-item", [
-                        attrs.title && m("span.mr-3", attrs.title),
-                        m(Icon, { src: ellipsisHorizontal }),
-                    ]),
-                    m("span.short-item", m(Icon, { src: bookOutline })),
-                ],
+                m("span", [
+                    attrs.title && m("span.mr-3", attrs.title),
+                    m(Icon, { src: ellipsisHorizontal }),
+                ]),
             )
         );
     },

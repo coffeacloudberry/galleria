@@ -1,6 +1,6 @@
 import apertureOutline from "@/icons/aperture-outline.svg";
-import cameraOutline from "@/icons/camera-outline.svg";
 import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
+import informationCircleOutline from "@/icons/information-circle-outline.svg";
 import locationOutline from "@/icons/location-outline.svg";
 import m from "mithril";
 import tippy, { Placement, Instance as TippyInstance } from "tippy.js";
@@ -269,7 +269,7 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
                 tabindex: 0,
             },
             [
-                m(Icon, { src: cameraOutline }), // actually displayed
+                m(Icon, { src: informationCircleOutline }), // actually displayed
                 m(PhotoMetadataTippyContent), // not visible
             ],
         );
