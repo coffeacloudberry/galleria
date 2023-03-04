@@ -110,9 +110,8 @@ const FirstButton: m.Component = {
         return m(
             m.route.Link,
             {
-                href: m.buildPathname("/:lang/photo/:title", {
+                href: m.buildPathname("/:lang/photo", {
                     lang: t.getLang(),
-                    title: config.firstPhotoId,
                 }),
                 class: `nav-item ${
                     photo.isFirst() || photo.isPreloading ? "invisible" : ""
@@ -362,6 +361,9 @@ export default function PhotoPage(): m.Component {
             try {
                 routePhotoId = parseInt(m.route.param("title"));
             } catch {}
+            if (isNaN(routePhotoId)) {
+                routePhotoId = config.firstPhotoId;
+            }
 
             // if the URL has been updated through the browser navigation
             // buttons or the address bar or m.route.set() which triggers

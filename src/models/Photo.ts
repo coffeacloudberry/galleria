@@ -171,13 +171,13 @@ class Photo {
      * no one photo has already been loaded. Use Photo.load(config.firstPhotoId)
      * for loading the first photo at any time. The history is replaced because
      * the root path is meaningless.
+     * The URL is not updated so that if the visitor bookmarks the page, it will
+     * show the most recent photo for the next visit.
      */
     loadFirst(): void {
         if (this.meta === null) {
             // skipcq: JS-0328
-            this.load(config.firstPhotoId).then(() => {
-                this.loadNext(true);
-            });
+            void this.load(config.firstPhotoId);
         }
     }
 
