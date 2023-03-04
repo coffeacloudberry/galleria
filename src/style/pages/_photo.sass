@@ -29,7 +29,8 @@
             margin-top: $photo-margin-top
             img
                 max-width: calc(100vw - 2 * #{$minimal-photo-margin})
-                max-height: calc(100vh - #{$nav-bar-height} - #{$minimal-photo-margin} - #{$photo-margin-top})
+                /* add extra nav-bar-height as quick fix https://stackoverflow.com/a/37113430 */
+                max-height: calc(100vh - 2 * (#{$nav-bar-height} + #{$minimal-photo-margin}) - #{$photo-margin-top})
         @media (max-width: 1024px) and (orientation: landscape)
             margin-top: $minimal-photo-margin
             img
