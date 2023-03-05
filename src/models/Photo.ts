@@ -238,20 +238,26 @@ class Photo {
      * recorded. If it is shorter than 1400 ms and if the photo is large, then
      * the next large photo will be high-def.
      *
-     * The photo is in the WebP format, converted from the TIF format.
-     * The WebP converter is libwebp-1.2.0-linux-x86-64. The WebP configuration
-     * is: `-preset photo -mt -m 6 -q {quality} -af -resize 0 {height}`
-     * with `{quality}` = 90 for `t.webp` (thumbnail) and `m.webp`
-     * (medium-size), 86 for `l.webp` (large), 98 for `l.hd.webp` (large
-     * high-def), and `{height}` = 200 for `t.webp`, 760 for `m.webp`, and 1030
-     * for `l(.hd).webp`.
+     * The photo is in the WebP format, converted from the TIF/JPG format.
+     * The WebP converter is libwebp-1. The WebP configuration is:
+     * `-preset photo -mt -m 6 -q {quality} -af -resize 0 {height} | {width} 0`
+     * with `{quality}` = 90 for `f.webp` (thumbnail of fixed size, 300x200)
+     * and `t.webp` (thumbnail) and `m.webp` (medium-size) and `s.*.webp` (small
+     * screen), 86 for `l.webp` (large), 98 for `l.hd.webp` (large high-def),
+     * and `{height}` = 200 for `t.webp` and `f.webp`, 760 for `m.webp`,
+     * 1030 for `l(.hd).webp`, 375 for `s.l.webp` (small for landscape screen),
+     * and `{width}` = 300 for `f.webp`, 375 for `s.p.webp` (small for portrait
+     * screen).
      *
-     * Statistics for the 233 photos:
+     * Statistics for the 300 photos:
      *
-     * * Thumbnail: 4.4 MiB, 19 KiB per photo,
-     * * Medium: 43 MiB, 185 KiB per photo,
-     * * Large: 56 MiB, 243 KiB per photo,
-     * * Large high-def: 130 MiB, 569 KiB per photo.
+     * * Thumbnail: 5.4 MiB, 19 KiB per photo,
+     * * Thumbnail of fixed size, 300x200px: 5.5 MiB, 19 KiB per photo,
+     * * Small for portrait screen: 8.8 MiB, 30 KiB per photo,
+     * * Small for landscape screen: 16 MiB, 52 KiB per photo,
+     * * Medium: 53 MiB, 179 KiB per photo,
+     * * Large: 69 MiB, 236 KiB per photo,
+     * * Large high-def: 162 MiB, 551 KiB per photo.
      *
      * Howto: `find public/content/photos/ -iname 'l.hd.webp' -print0 | du
      * --files0-from - -c -h | sort -h`
@@ -298,15 +304,19 @@ class Photo {
             });
     }
 
-    /** Return the network-optimized source link of the photo. */
+    /** Return the screen/network-optimized source link of the photo. */
     protected getImageSrc(id: number): string {
-        let filename = window.innerHeight > 780 ? "l" : "m";
-        if (
-            filename === "l" &&
-            this.lastLoadingTime &&
-            this.lastLoadingTime < 1400
-        ) {
-            filename += ".hd";
+        let filename = "m";
+        console.log(window.innerHeight);
+        if (window.innerWidth <= 375) {
+            filename = "s.p";
+        } else if (window.innerHeight <= 375) {
+            filename = "s.l";
+        } else if (window.innerHeight > 780) {
+            filename = "l";
+            if (this.lastLoadingTime && this.lastLoadingTime < 1400) {
+                filename += ".hd";
+            }
         }
         return `/content/photos/${id}/${filename}.webp`;
     }
