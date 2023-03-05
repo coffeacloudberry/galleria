@@ -4,6 +4,7 @@ import m from "mithril";
 
 import CustomLogging from "../CustomLogging";
 import { t } from "../translate";
+import { toast } from "../utils";
 import type { WebTrackGeoJson } from "../webtrack";
 import { setInteractions } from "./InteractionsControl";
 
@@ -52,6 +53,9 @@ class AutoPilotControlComponent
 
     /** Progress between 0 (start) and 1 (end). */
     phase = 0;
+
+    /** One item contains the elevation of the target for one frame. */
+    localEleProfile: number[] = new Array(100).fill(Number.MIN_VALUE);
 
     /** Distance on the ground between the camera position and its target. */
     readonly dPosToTarget: number;
@@ -155,7 +159,9 @@ class AutoPilotControlComponent
         // phase is normalized between 0 and 1, stop just before the end
         if (this.phase > 1 - AutoPilotControlComponent.phaseMargin) {
             this.reset();
+            this.changeState();
             m.redraw(); // refresh the autopilot button
+            toast(t("map.control.finished-autopilot"));
             return;
         }
 
@@ -179,13 +185,23 @@ class AutoPilotControlComponent
             lat: cameraPos[1],
         };
 
-        // Elevation is above the mean sea level.
+        // Elevation is above the mean sea level taking into account the map
+        // exaggeration.
         // Query a visible point on the screen (target). Querying a point
         // outside the viewport (such as the current camera position) may
-        // return null.
+        // return null, keeping a record of terrain elevation queries (local
+        // elevation profile) reduce the risk of null elevation.
         let elevation = this.map.queryTerrainElevation(targetLngLat, {
-            exaggerated: false,
+            exaggerated: true,
         });
+        if (elevation !== null) {
+            // add the target elevation at the end
+            this.localEleProfile.push(elevation);
+            // remove the oldest entry
+            this.localEleProfile.shift();
+        }
+        // choose the highest point to ensure enough altitude
+        elevation = Math.max(...this.localEleProfile);
         if (elevation !== null || this.eleFirstPoint !== null) {
             if (this.eleFirstPoint === null) {
                 // remember the value that may not be available later on

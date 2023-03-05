@@ -237,6 +237,7 @@ export function toast(
             x: 0,
             y: -4,
         },
+        style: { cursor: destination ? "pointer" : "default" },
         onClick: () => {
             if (destination) {
                 m.route.set(destination);

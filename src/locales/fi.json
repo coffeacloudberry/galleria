@@ -127,6 +127,7 @@
     "map.control.pause-autopilot": "Pysäytä autopilotti",
     "map.control.loading-autopilot": "Tietojen hankkiminen... Klikkaa kiertääksesi",
     "map.control.rewind-autopilot": "Takaisin lähtökohtaan",
+    "map.control.finished-autopilot": "Kierros on juuri päättynyt!",
     "map.control.faster": "Nopeammin",
     "map.control.slower": "Hitaammin",
     "map.control.select-layer": "Vaihda kartan teemaksi: ",

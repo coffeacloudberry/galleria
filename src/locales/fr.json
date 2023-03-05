@@ -127,6 +127,7 @@
     "map.control.pause-autopilot": "Pause le pilote automatique",
     "map.control.loading-autopilot": "Acquisition de données... Clique pour te promener",
     "map.control.rewind-autopilot": "Retour au point de départ",
+    "map.control.finished-autopilot": "Tu viens de terminer ton vol !",
     "map.control.faster": "Aller plus vite",
     "map.control.slower": "Aller plus lentement",
     "map.control.select-layer": "Changer le thème de la carte en : ",
