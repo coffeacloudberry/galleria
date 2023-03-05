@@ -14,7 +14,7 @@ export function clearSelection(): void {
 }
 
 /**
- * Return true if the navigator is mobile.
+ * Return true if the navigator is mobile or tablet.
  * NOTE: Due to user agent spoofing, the result SHALL NOT be trusted.
  */
 export function isMobile(): boolean {
@@ -24,7 +24,9 @@ export function isMobile(): boolean {
         /iPhone/i.test(navigator.userAgent) ||
         /iPad/i.test(navigator.userAgent) ||
         /iPod/i.test(navigator.userAgent) ||
-        /BlackBerry/i.test(navigator.userAgent)
+        /BlackBerry/i.test(navigator.userAgent) ||
+        /Tablet/i.test(navigator.userAgent) ||
+        /Mobile/i.test(navigator.userAgent)
     );
 }
 

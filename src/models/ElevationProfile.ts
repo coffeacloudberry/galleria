@@ -7,6 +7,7 @@ import type { AnnotationOptions } from "chartjs-plugin-annotation";
 import type { Position } from "geojson";
 
 import { t } from "../translate";
+import { isMobile } from "../utils";
 import { extraIcons, globalMapState } from "./Map";
 
 declare const Chart: typeof import("chart.js");
@@ -69,7 +70,7 @@ function createAnnotations(waypoints: ChartWaypoint[]): Annotations {
             return;
         }
         const source = extraIcons[wpt.label].source;
-        const iconSize = 28; // px
+        const iconSize = isMobile() ? 20 : 28; // px
         const image = new Image(iconSize, iconSize);
         image.src = `/assets/map/${source}.png`;
         annotations[wpt.label + String(idx)] = {
