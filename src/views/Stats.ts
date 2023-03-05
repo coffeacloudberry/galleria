@@ -21,9 +21,11 @@ const ListPositioningComponent: m.Component<ListPositioningComponentAttrs> = {
             ...attrs.configs.map((oneConfig) =>
                 m(
                     "li",
+                    m("small", oneConfig.model),
+                    m("br.small-screen"),
                     m(
                         "small",
-                        `${String(oneConfig.model)} (${
+                        ` (${
                             oneConfig.multiBandEnabled
                                 ? t("multi-band")
                                 : t("single-band")
@@ -139,6 +141,7 @@ export const StatsComponent: m.Component = {
                         t("map.stats.total-ele"),
                         " ",
                         m(Metres, { value: stats.gain + stats.loss }),
+                        m("br.small-screen"),
                         ` (${t("map.stats.gain")} `,
                         m(Metres, { value: stats.gain }),
                         `, ${t("map.stats.loss")} `,

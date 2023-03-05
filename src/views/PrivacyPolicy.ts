@@ -26,6 +26,7 @@ export const PrivacyPolicy: m.Component = {
                 thirdParties.map((partner) => {
                     return m("li", [
                         t(`privacy.third-parties.${partner.what}`),
+                        m("br.small-screen"),
                         " ",
                         m(
                             "a",

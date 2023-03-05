@@ -50,9 +50,17 @@ export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
                         day: attrs.start.day,
                         year: attrs.start.year,
                     }),
-            attrs.start && attrs.season && " • ",
+            attrs.start &&
+                attrs.season && [
+                    m("span.large-screen", " • "),
+                    m("br.small-screen"),
+                ],
             attrs.season && t("seasons", attrs.season),
-            (attrs.start || attrs.season) && attrs.duration && " • ",
+            (attrs.start || attrs.season) &&
+                attrs.duration && [
+                    m("span.large-screen", " • "),
+                    m("br.small-screen"),
+                ],
             attrs.duration && [
                 t("story.duration"),
                 m(Duration, {
