@@ -171,7 +171,7 @@ export function sendEmail(
  *
  * @param solution The solution value that the user submitted.
  */
-export async function checkCaptcha(solution: string): Promise<boolean> {
+export function checkCaptcha(solution: string): Promise<boolean> {
     const data = JSON.stringify({
         solution,
         secret: process.env.FRIENDLY_CAPTCHA_SECRET_KEY,
