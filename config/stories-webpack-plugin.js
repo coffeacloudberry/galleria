@@ -72,7 +72,7 @@ class StoriesPlugin {
             let prevStory = "";
             let lastStory = null;
             for (const photoId of allPhotos) {
-                const id = parseInt(photoId);
+                const id = parseInt(photoId, 10);
                 const photoMetadata = this.readInfoFile("photos", photoId);
                 const storyId = photoMetadata.story;
                 if (storyId) {
