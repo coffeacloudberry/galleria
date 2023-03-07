@@ -72,6 +72,7 @@ class StoriesPlugin {
             let prevStory = "";
             let lastStory = null;
             for (const photoId of allPhotos) {
+                const id = parseInt(photoId);
                 const photoMetadata = this.readInfoFile("photos", photoId);
                 const storyId = photoMetadata.story;
                 if (storyId) {
@@ -82,14 +83,21 @@ class StoriesPlugin {
                             metadata: {
                                 ...storyMetadata,
                                 totalPhotos: 1,
-                                mostRecentPhoto: photoId,
+                                mostRecentPhoto: id,
+                                geocodedPhotos: [],
                             },
                         };
                         combinedStories.push(lastStory);
                     } else if (lastStory) {
                         // update
                         lastStory.metadata.totalPhotos += 1;
-                        lastStory.metadata.mostRecentPhoto = photoId;
+                        lastStory.metadata.mostRecentPhoto = id;
+                        if (typeof photoMetadata.position === "object") {
+                            lastStory.metadata.geocodedPhotos.push({
+                                id,
+                                position: photoMetadata.position,
+                            });
+                        }
                     }
                     photosInStories[storyId] = lastStory.metadata;
                     prevStory = storyId;

@@ -9,7 +9,7 @@ import { chart } from "../models/ElevationProfile";
 import { extraIcons, globalMapState } from "../models/Map";
 import { story } from "../models/Story";
 import { t } from "../translate";
-import { injectCode, isCanvasBlocked, isMobile } from "../utils";
+import { hideAllForce, injectCode, isCanvasBlocked, isMobile } from "../utils";
 import type { WebTrackGeoJson, WebTrackGeoJsonFeature } from "../webtrack";
 import WebTrack from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
@@ -39,32 +39,38 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
     /** The preloaded thumbnail. */
     private image = new Image();
 
-    constructor({ attrs }: m.CVnode<PopupCamAttrs>) {
-        this.image.onload = () => {
-            this.ready = true;
-            m.redraw();
-        };
-        this.image.src = `/content/photos/${attrs.photoId}/t.webp`;
+    /** Latest provided photo. */
+    private currentPhoto: number | null = null;
+
+    /** Reload the photo if different from the current one. */
+    updateImage(photoId: number): void {
+        if (photoId !== this.currentPhoto) {
+            this.ready = false;
+            this.image.onload = () => {
+                this.ready = true;
+                m.redraw();
+            };
+            this.image.src = `/content/photos/${photoId}/t.webp`;
+            this.currentPhoto = photoId;
+        }
     }
 
-    oncreate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
-        attrs.mapboxPopup.setDOMContent(dom);
-    }
-
+    /** Add the ready DOM to the map via the Mapbox API. */
     onupdate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
+        hideAllForce();
         attrs.mapboxPopup.setDOMContent(dom);
     }
 
     view({ attrs }: m.CVnode<PopupCamAttrs>): m.Vnode<m.RouteLinkAttrs> | null {
-        const photoLink = story.getPhotoPath();
-        if (!photoLink) {
-            return null;
-        }
+        this.updateImage(attrs.photoId);
         return this.ready
             ? m(
                   m.route.Link,
                   {
-                      href: photoLink,
+                      href: m.buildPathname("/:lang/photo/:id", {
+                          lang: t.getLang(),
+                          id: this.currentPhoto,
+                      }),
                       class: "map-thumbnail",
                       "data-tippy-content": t("story.open-photo.tooltip"),
                   },
@@ -164,6 +170,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         }
         const mapStyle = globalMapState.map.getCanvas().style;
         if (!this.popupCam) {
+            // instantiate only one for all photos
             this.popupCam = new mapboxgl.Popup({
                 closeButton: true,
                 closeOnClick: false,
@@ -178,10 +185,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         this.popupCamData = {
             photoId,
             mapHeight: mapStyle.height,
-            mapboxPopup: this.popupCam,
+            mapboxPopup: this.popupCam, // to access from attrs
         };
-        m.redraw(); // re-render the popup with fresh data
         this.popupCam.setLngLat(coordinates).addTo(globalMapState.map);
+        m.redraw(); // re-render the popup with fresh data
     }
 
     /** Create the popup and update the text. */
@@ -495,7 +502,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     err,
                 );
             });
-        this.addPhoto();
+        this.addPhotos();
     }
 
     onremove(): void {
@@ -511,15 +518,12 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     }
 
     /** Add an icon where the selected photo has been taken. */
-    addPhoto(): void {
+    addPhotos(): void {
         const source = extraIcons["camera"].source;
-        const originPhotoId = story.getActualPhotoId();
         if (
             !globalMapState.map ||
             globalMapState.map.getLayer(source) ||
-            !story.originPhotoMeta ||
-            !story.originPhotoMeta.position ||
-            !originPhotoId
+            story.geocodedPhotos === null
         ) {
             return;
         }
@@ -531,6 +535,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             ): void => {
                 if (
                     !globalMapState.map ||
+                    !story.geocodedPhotos ||
                     !image ||
                     globalMapState.map.getLayer(source)
                 ) {
@@ -541,6 +546,27 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 }
 
                 globalMapState.map.addImage(source, image);
+                const data: WebTrackGeoJson = {
+                    type: "FeatureCollection",
+                    features: story.geocodedPhotos.map((geocodedPhoto) => {
+                        const { lat, lon } = geocodedPhoto.position;
+                        return {
+                            type: "Feature",
+                            geometry: {
+                                type: "Point",
+                                coordinates: [lon, lat],
+                            },
+                            properties: {
+                                sym: "camera",
+                                name: String(geocodedPhoto.id),
+                            },
+                        };
+                    }),
+                };
+                globalMapState.map.addSource("camera", {
+                    type: "geojson",
+                    data,
+                });
                 globalMapState.map.addLayer({
                     id: source,
                     type: "symbol",
@@ -548,7 +574,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     layout: {
                         "icon-image": source,
                         "icon-size": globalMapState.makersRelSize,
-                        "icon-allow-overlap": true,
                     },
                 });
 
@@ -563,27 +588,6 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 });
             },
         );
-        const { lat, lon } = story.originPhotoMeta.position;
-        const data: WebTrackGeoJson = {
-            type: "FeatureCollection",
-            features: [
-                {
-                    type: "Feature",
-                    geometry: {
-                        type: "Point",
-                        coordinates: [lon, lat],
-                    },
-                    properties: {
-                        sym: "camera",
-                        name: String(originPhotoId),
-                    },
-                },
-            ],
-        };
-        globalMapState.map.addSource("camera", {
-            type: "geojson",
-            data,
-        });
     }
 
     onupdate(): void {
@@ -592,7 +596,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             this.currentLang = futureLang;
             this.resetControls();
         }
-        this.addPhoto();
+        this.addPhotos();
     }
 
     oncreate({ dom, attrs }: m.CVnodeDOM<MapAttrs>): void {

@@ -5,6 +5,8 @@ import { t } from "../translate";
 import { clearSelection, toast } from "../utils";
 import { story } from "./Story";
 
+export type PhotoPosition = { lat: number; lon: number };
+
 /** JSON metadata of the photo. */
 export interface PhotoInfo {
     /** Main photo title. */
@@ -43,10 +45,7 @@ export interface PhotoInfo {
     iso?: number;
 
     /** GPS coordinates. */
-    position?: {
-        lat: number;
-        lon: number;
-    };
+    position?: PhotoPosition;
 
     /** Each photo folder links to the next one, except the last one. */
     next?: number;
@@ -307,7 +306,6 @@ class Photo {
     /** Return the screen/network-optimized source link of the photo. */
     protected getImageSrc(id: number): string {
         let filename = "m";
-        console.log(window.innerHeight);
         if (window.innerWidth <= 375) {
             filename = "s.p";
         } else if (window.innerHeight <= 375) {

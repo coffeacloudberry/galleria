@@ -19,7 +19,7 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
         if (attrs.metadata === null || !attrs.metadata.mostRecentPhoto) {
             return;
         }
-        const photoId = attrs.metadata.mostRecentPhoto as `${number}`;
+        const photoId = String(attrs.metadata.mostRecentPhoto);
         this.image.onload = () => {
             this.ready = true;
             m.redraw();
@@ -32,7 +32,6 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
         if (attrs.metadata === null || !attrs.metadata.mostRecentPhoto) {
             return null;
         }
-        const photoId = attrs.metadata.mostRecentPhoto as `${number}`;
         return this.ready
             ? [
                   m(
@@ -40,7 +39,7 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
                       {
                           href: m.buildPathname("/:lang/photo/:title", {
                               lang: t.getLang(),
-                              title: photoId,
+                              title: attrs.metadata.mostRecentPhoto,
                           }),
                           "data-tippy-content": t("story.open-photo.tooltip"),
                           "data-tippy-offset": "[0,0]",
