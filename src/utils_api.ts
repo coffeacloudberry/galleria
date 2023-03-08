@@ -113,7 +113,7 @@ export class Monitoring {
         Sentry.init({
             integrations: [new Sentry.Integrations.Http({ tracing: true })],
             tracesSampleRate: 1.0,
-            debug: process.env.VERCEL_ENV == "development",
+            debug: process.env.VERCEL_ENV === "development",
             environment: process.env.VERCEL_ENV,
             release: `galleria-frontend@${String(
                 process.env.VERCEL_GIT_COMMIT_SHA,

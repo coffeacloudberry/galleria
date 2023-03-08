@@ -70,7 +70,7 @@ class StoryAppetizer implements m.ClassComponent<OneStory> {
         let cutPosition = 140;
         // cut to the first characters minus the last word,
         // which is probably cut
-        while (longText[cutPosition] != " " && cutPosition) {
+        while (longText[cutPosition] !== " " && cutPosition) {
             cutPosition--;
         }
         return longText.slice(0, cutPosition);

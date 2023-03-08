@@ -91,7 +91,7 @@ class AllStories {
         return new Promise<ProcessedStoryFile>((resolve, reject) => {
             let theStory: OneStory | null = null;
             for (const oneStory of this.fullList) {
-                if (oneStory.id != id) {
+                if (oneStory.id !== id) {
                     continue;
                 }
                 if (oneStory.loaded || oneStory.loading) {

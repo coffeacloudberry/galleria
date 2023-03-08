@@ -298,7 +298,7 @@ export default class WebTrack {
             0,
             WebTrack.fmtText.length,
         );
-        return WebTrack.fmtText == dec.decode(fmtInput);
+        return WebTrack.fmtText === dec.decode(fmtInput);
     }
 
     /**
@@ -339,7 +339,7 @@ export default class WebTrack {
             let arr = [];
             for (
                 let c = this._rUint8();
-                c != this.encoded.separator;
+                c !== this.encoded.separator;
                 c = this._rUint8()
             ) {
                 arr.push(c);
@@ -350,7 +350,7 @@ export default class WebTrack {
             arr = [];
             for (
                 let c = this._rUint8();
-                c != this.encoded.separator;
+                c !== this.encoded.separator;
                 c = this._rUint8()
             ) {
                 arr.push(c);

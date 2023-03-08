@@ -211,14 +211,11 @@ export async function checkVisitor(
     solution: string,
     timeGap = minTimeGap,
 ): Promise<void> {
-    // check CAPTCHA if not in testing mode
-    if (solution != "") {
-        await checkCaptcha(solution).then((is_human: boolean) => {
-            if (!is_human) {
-                throw new Error("418");
-            }
-        });
-    }
+    await checkCaptcha(solution).then((is_human: boolean) => {
+        if (!is_human) {
+            throw new Error("418");
+        }
+    });
 
     const client = await utils.initClient();
     const cHashedIp = utils.anonymizeClient(clientIp);

@@ -349,7 +349,7 @@ class Photo {
 
         if (
             this.meta !== null &&
-            this.meta.storyPhotoIncrement == 1 &&
+            this.meta.storyPhotoIncrement === 1 &&
             this.storyTitle !== null &&
             (story.folderName === null || story.folderName !== this.meta.story)
         ) {

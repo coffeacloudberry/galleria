@@ -297,7 +297,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                         attrs.aboutButton
                             ? m(AboutButton)
                             : m(BackToContentButton),
-                        attrs.refPage == "stories"
+                        attrs.refPage === "stories"
                             ? m(BackToContentButton)
                             : m(GoToStoriesButton),
                     ]),
