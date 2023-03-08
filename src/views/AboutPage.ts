@@ -1,4 +1,5 @@
 import logoCard from "@/icons/card-outline.svg";
+import logoCardRecurrent from "@/icons/card-recurrent-outline.svg";
 import logoBat from "@/icons/logo-bat.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
@@ -233,6 +234,11 @@ const Donate: m.Component = {
                 tooltip: t("donate-card"),
                 link: `https://donate.stripe.com/7sIdU4gpEeN321qbII?locale=${t.getLang()}`,
                 logo: logoCard,
+            },
+            {
+                tooltip: t("donate-recurrent"),
+                link: `https://${t.getLang()}.liberapay.com/ExploreWilder/`,
+                logo: logoCardRecurrent,
             },
             {
                 tooltip: t("donate-zcash"),

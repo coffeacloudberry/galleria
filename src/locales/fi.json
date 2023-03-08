@@ -190,6 +190,7 @@
     "donate": "Lahjoita",
     "donate-zcash": "{{donate}} Zcashilla",
     "donate-bat": "{{donate}} Brave-selaimella",
-    "donate-card": "{{donate}} kortilla",
+    "donate-card": "Kertalahjoitus kortilla",
+    "donate-recurrent": "Toistuva lahjoitus kortilla",
     "finished-album": "Olet juuri lopettanut albumin, klikkaa tästä lukea "
 }

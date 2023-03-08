@@ -190,6 +190,7 @@
     "donate": "Faire un don",
     "donate-zcash": "{{donate}} en Zcash",
     "donate-bat": "{{donate}} avec Brave",
-    "donate-card": "{{donate}} par carte",
+    "donate-card": "Don unique par carte",
+    "donate-recurrent": "Don récurrent par carte",
     "finished-album": "Tu viens de terminer l'album, clique là pour lire "
 }
