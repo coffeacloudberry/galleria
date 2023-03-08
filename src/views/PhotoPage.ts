@@ -416,7 +416,9 @@ export default function PhotoPage(): m.Component {
             let routePhotoId = NaN;
             try {
                 routePhotoId = parseInt(m.route.param("title"));
-            } catch {}
+            } catch {
+                // continue regardless of error
+            }
             if (isNaN(routePhotoId)) {
                 routePhotoId = config.firstPhotoId;
             }

@@ -212,5 +212,8 @@ export function createElevationChart(
 
     try {
         chart = new Chart.Chart(ctx, myChartConfig);
-    } catch {} // may occur when updating a chart not displayed at this time
+    } catch {
+        // continue regardless of error
+        // may occur when updating a chart not displayed at this time
+    }
 }

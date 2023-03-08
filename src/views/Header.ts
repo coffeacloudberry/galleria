@@ -258,7 +258,9 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 try {
                     // @ts-ignore
                     photoTitle = photo.meta.title[t.getLang()];
-                } catch {}
+                } catch {
+                    // continue regardless of error
+                }
                 centeredNav = m("span.limit-width", [
                     photoTitle &&
                         m("span.photo-title", [
