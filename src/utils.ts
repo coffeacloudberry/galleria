@@ -80,7 +80,7 @@ export function injectCode(path: {
         }
         const ext = String(path.src.split(".").pop());
         switch (ext) {
-            case "js":
+            case "js": {
                 const script = document.createElement("script");
                 script.type = path.isModule ? "module" : "text/javascript";
                 script.onload = () => {
@@ -92,7 +92,8 @@ export function injectCode(path: {
                 script.src = path.src;
                 document.head.append(script);
                 break;
-            case "css":
+            }
+            case "css": {
                 const style = document.createElement("link");
                 style.rel = "stylesheet";
                 style.type = "text/css";
@@ -105,6 +106,7 @@ export function injectCode(path: {
                 style.href = path.src;
                 document.head.append(style);
                 break;
+            }
             default:
                 throw TypeError(`Unhandled source file (got '${ext}')`);
         }

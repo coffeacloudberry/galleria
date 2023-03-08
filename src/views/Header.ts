@@ -239,6 +239,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
     view({ attrs }: m.CVnode<HeaderAttrs>): m.Vnode {
         // skipcq: JS-0309
         let centeredNav: m.Vnode<OpenPhotoAttrs | OpenStoryAttrs> | null;
+        let photoTitle = null;
 
         switch (attrs.refPage) {
             case "story":
@@ -254,7 +255,6 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 ]);
                 break;
             case "photo":
-                let photoTitle = null;
                 try {
                     // @ts-ignore
                     photoTitle = photo.meta.title[t.getLang()];
