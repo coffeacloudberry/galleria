@@ -131,12 +131,12 @@ class Photo {
     containsExif(): boolean {
         return this.meta === null
             ? false
-            : !!(
+            : Boolean(
                   this.meta.focalLength35mm ||
-                  this.meta.exposureTime ||
-                  this.meta.fNumber ||
-                  this.meta.iso ||
-                  this.meta.position
+                      this.meta.exposureTime ||
+                      this.meta.fNumber ||
+                      this.meta.iso ||
+                      this.meta.position,
               );
     }
 

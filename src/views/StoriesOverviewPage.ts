@@ -107,7 +107,7 @@ const OneStoryRow: m.Component<OneStory> = {
         return [
             m(".two-thirds.column.p-0", [
                 m(StorySubTitle, {
-                    start: story.strToEasyDate("" + attrs.metadata.start),
+                    start: story.strToEasyDate(attrs.metadata.start),
                     season: attrs.metadata.season || null,
                     duration: attrs.metadata.duration || null,
                 }),

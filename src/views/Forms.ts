@@ -80,7 +80,7 @@ const SubmitButton: m.Component<SubmitButtonAttrs> = {
         } else if (attrs.tooManyRequests) {
             status = `${t("wait-minute")}...`;
         } else {
-            status = "" + t(attrs.okText);
+            status = String(t(attrs.okText));
         }
         return m(
             "button[type=submit]",
@@ -205,7 +205,7 @@ class BaseForm {
      */
     static isEmail(emailAddress: string): boolean {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-        return !!emailAddress && emailFormat.test(emailAddress);
+        return Boolean(emailAddress) && emailFormat.test(emailAddress);
     }
 
     /**

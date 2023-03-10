@@ -171,7 +171,7 @@ const Download: m.Component<DownloadModalAttrs> = {
                             cloudLinkFn: () => {
                                 return (
                                     attrs.okCopyright &&
-                                    !!photo.id &&
+                                    Boolean(photo.id) &&
                                     `https://sunbeam.s3.fr-par.scw.cloud/photos/photo_${photo.id}_from_explorewilder.com.tif`
                                 );
                             },

@@ -95,8 +95,9 @@ export function modal({
             document.removeEventListener("keydown", onKeyPressed);
         },
         view: () => {
-            const displayCloudLink = !!cloudLinkFn;
-            const cloudLink = displayCloudLink && cloudLinkFn();
+            const displayCloudLink = Boolean(cloudLinkFn);
+            const cloudLink =
+                displayCloudLink && cloudLinkFn ? cloudLinkFn() : null;
             return m(
                 ".modal",
                 {

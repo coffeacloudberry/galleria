@@ -156,7 +156,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
         const sym = feature.properties.sym;
         const photoId = parseInt(feature.properties.name);
-        if (sym === "camera" && !!photoId) {
+        if (sym === "camera" && Boolean(photoId)) {
             this.addPopupCamToMap(coordinates, photoId);
         } else {
             this.addPopupTextToMap(coordinates, t("map.sym", sym));

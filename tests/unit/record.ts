@@ -12,7 +12,7 @@ import nock from "nock";
 export default function (name: string) {
     const fixture = path.join("fixtures", `_${name}.js`);
     const fp = path.join("tests", "unit", fixture);
-    const forceRecording = !!process.env.NOCK_RECORD;
+    const forceRecording = Boolean(process.env.NOCK_RECORD);
     let hasFixtures = false;
 
     return {

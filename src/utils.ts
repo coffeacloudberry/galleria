@@ -210,7 +210,7 @@ export function isCanvasBlocked() {
  * automatically added on links shared on Facebook.
  */
 export function removeNoiseFromLocation() {
-    const locationHasNoise = !!location.search;
+    const locationHasNoise = Boolean(location.search);
     if (locationHasNoise) {
         const pos = location.href.indexOf(
             location.search,

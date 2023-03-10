@@ -156,7 +156,9 @@ function mdProcessor(text: string): ProcessedStoryFile {
 }
 
 function getOriginPhotoId(): number | null {
-    const id = parseInt("" + m.parsePathname(m.route.get()).params.from_photo);
+    const id = parseInt(
+        String(m.parsePathname(m.route.get()).params.from_photo),
+    );
     return isNaN(id) || id > config.firstPhotoId ? null : id;
 }
 
@@ -219,7 +221,7 @@ class Story {
     }
 
     /** Static method converting a string date like 2020-10-25. */
-    strToEasyDate(strDate: string): EasyDate | null {
+    strToEasyDate(strDate: string | undefined): EasyDate | null {
         if (!strDate) {
             return null;
         }

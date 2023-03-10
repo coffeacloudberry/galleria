@@ -30,7 +30,9 @@ export const Duration: m.Component<DurationAttrs> = {
     view({ attrs }: m.Vnode<DurationAttrs>): string {
         const argTranslate =
             attrs.duration < 1 ? "0" : Math.floor(attrs.duration);
-        return "" + t(attrs.duration % 1 ? "half-days" : "days", argTranslate);
+        return String(
+            t(attrs.duration % 1 ? "half-days" : "days", argTranslate),
+        );
     },
 };
 
@@ -44,12 +46,13 @@ export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
     view({ attrs }: m.Vnode<StorySubTitleAttrs>): m.Vnode {
         return m(".period", [
             attrs.start &&
-                "" +
+                String(
                     t("story.start") +
-                    t("date", attrs.start.month, {
-                        day: attrs.start.day,
-                        year: attrs.start.year,
-                    }),
+                        t("date", attrs.start.month, {
+                            day: attrs.start.day,
+                            year: attrs.start.year,
+                        }),
+                ),
             attrs.start &&
                 attrs.season && [
                     m("span.large-screen", " • "),
