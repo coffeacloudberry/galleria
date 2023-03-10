@@ -26,8 +26,6 @@
     "license": "AGPL-3.0-or-later",
     "dependencies": {
         "mithril": "^2.2.2",
-        "redis": "^4.6.5",
-        "request-ip": "^3.3.0",
         "ress": "^5.0.2",
         "sendpulse-api": "github:coffeacloudberry/sendpulse-rest-api-node.js",
         "snarkdown": "github:coffeacloudberry/snarkdown#2.1.1",

@@ -64,7 +64,6 @@ const Status: m.Component = {
 interface SubmitButtonAttrs {
     processing: boolean;
     success: boolean;
-    tooManyRequests: boolean;
     icon: string;
     okText: string;
 }
@@ -77,14 +76,12 @@ const SubmitButton: m.Component<SubmitButtonAttrs> = {
             status = `${t("wait")}...`;
         } else if (attrs.success) {
             status = t("thanks");
-        } else if (attrs.tooManyRequests) {
-            status = `${t("wait-minute")}...`;
         } else {
             status = String(t(attrs.okText));
         }
         return m(
             "button[type=submit]",
-            attrs.processing || attrs.success || attrs.tooManyRequests
+            attrs.processing || attrs.success
                 ? {
                       disabled: "disabled",
                   }
@@ -106,9 +103,6 @@ function getConfForBugReport(): string {
 
 /** Base form for the contact and newsletter forms. */
 class BaseForm {
-    /** True to highlight a detected bruteforce attempt. */
-    tooManyRequests = false;
-
     /** True if the CAPTCHA is missing/empty/invalid. */
     isBot = false;
 
@@ -158,7 +152,6 @@ class BaseForm {
             .then(() => {
                 this.processing = false;
                 this.success = true;
-                this.tooManyRequests = false;
                 this.isBot = false;
             })
             .catch((error) => {
@@ -167,14 +160,6 @@ class BaseForm {
                     `${String(error.code)}: ${String(error.response)}`,
                 );
                 switch (error.code) {
-                    case 429:
-                        this.tooManyRequests = true;
-                        // skipcq: JS-0328
-                        BaseForm.handleTooManyRequests().then(() => {
-                            this.tooManyRequests = false;
-                            this.success = false;
-                        });
-                        break;
                     case 418:
                         this.success = false;
                         this.isBot = true;
@@ -184,19 +169,6 @@ class BaseForm {
                         throw fmt_error;
                 }
             });
-    }
-
-    /**
-     * Promise returned after some time.
-     * A 'redraw' is made to refresh the UI.
-     */
-    static handleTooManyRequests(): Promise<void> {
-        return new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve();
-                m.redraw();
-            }, config.minTimeGapBetweenContactRequest * 1000);
-        });
     }
 
     /**
@@ -352,7 +324,6 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                         m(SubmitButton, {
                             processing: this.processing,
                             success: this.success,
-                            tooManyRequests: this.tooManyRequests,
                             icon: paperPlaneOutline,
                             okText: "send",
                         }),
@@ -363,12 +334,6 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                             ? m(
                                   "span.ml-3.critical-error",
                                   t("invalid-message"),
-                              )
-                            : "",
-                        this.tooManyRequests
-                            ? m(
-                                  "span.ml-3.critical-error",
-                                  t("too-many-requests"),
                               )
                             : "",
                         this.isBot
@@ -492,7 +457,6 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
                         m(SubmitButton, {
                             processing: this.processing,
                             success: this.success,
-                            tooManyRequests: this.tooManyRequests,
                             icon: this.subscribe
                                 ? newspaperOutline
                                 : trashOutline,
@@ -502,12 +466,6 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
                         }),
                         this.invalidEmailAddress
                             ? m("span.ml-3.critical-error", t("invalid-email"))
-                            : "",
-                        this.tooManyRequests
-                            ? m(
-                                  "span.ml-3.critical-error",
-                                  t("too-many-requests"),
-                              )
                             : "",
                         this.isBot
                             ? m("span.ml-3.critical-error", t("is-bot"))

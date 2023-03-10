@@ -5,11 +5,6 @@
         "link": "https://vercel.com/legal/privacy-policy#customers"
     },
     {
-        "what": "tmpdb",
-        "who": "Upstash, Inc. / AWS (eu-west-1)",
-        "link": "https://www.upstash.com/static/trust/privacy.pdf"
-    },
-    {
         "what": "emails",
         "who": "SendPulse Inc.",
         "link": "https://sendpulse.com/legal/pp"

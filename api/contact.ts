@@ -1,19 +1,12 @@
 import { tmpdir } from "os";
 
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { getClientIp } from "request-ip";
 import sendpulse, { BookInfo, ReturnError } from "sendpulse-api";
 
 import * as utils from "../src/utils_api";
 
 /** Address book name as defined in the SendPulse admin panel. */
 export const newsletterAddressBookName = "Newsletter";
-
-/**
- * The same user cannot do the same action twice
- * within this time gap in seconds.
- */
-export const minTimeGap = 60;
 
 /** Get the address book ID from the address book name. */
 export function getNewsletterIdFromList(
@@ -200,35 +193,12 @@ export function checkCaptcha(solution: string): Promise<boolean> {
     });
 }
 
-/**
- * Check if the visitor has recently done the same action in a specific time
- * laps. If that is the case, an error is thrown, otherwise a new volatile entry
- * is created.
- */
-export async function checkVisitor(
-    listName: string,
-    clientIp: string,
-    solution: string,
-    timeGap = minTimeGap,
-): Promise<void> {
+export async function checkVisitor(solution: string): Promise<void> {
     await checkCaptcha(solution).then((is_human: boolean) => {
         if (!is_human) {
             throw new Error("418");
         }
     });
-
-    const client = await utils.initClient();
-    const cHashedIp = utils.anonymizeClient(clientIp);
-    const userKey = process.env.VERCEL_ENV + listName + cHashedIp;
-
-    // abort if the visitor has recently been recorded
-    if (await client.exists(userKey)) {
-        throw new Error("429");
-    }
-
-    // the value is meaningless, what matters is the key existence
-    await client.set(userKey, "");
-    await client.expire(userKey, timeGap);
 }
 
 interface FriendlyCapthaResponse {
@@ -273,36 +243,29 @@ export default async (request: VercelRequest, response: VercelResponse) => {
             response.status(400).json("Bad email address format.");
             return;
         }
-        const ip = getClientIp(request);
-        if (ip === null) {
-            response.status(418).json(undefined);
-            return;
-        }
         switch (action) {
             case "subscribe": {
-                try {
-                    await checkVisitor("subscriber", ip, captchaSolution).then(
-                        async () => {
-                            await manageEmail(email)
-                                .then(() => {
-                                    response.status(200).json(undefined);
-                                })
-                                .catch(() => {
-                                    response.status(500).json(undefined);
-                                });
-                        },
-                    );
-                } catch (status_code) {
-                    let n_status_code = parseInt(String(status_code));
-                    if (isNaN(n_status_code)) {
-                        n_status_code = 500;
-                    }
-                    response.status(n_status_code).json(undefined);
-                }
+                await checkVisitor(captchaSolution)
+                    .then(async () => {
+                        await manageEmail(email)
+                            .then(() => {
+                                response.status(200).json(undefined);
+                            })
+                            .catch(() => {
+                                response.status(500).json(undefined);
+                            });
+                    })
+                    .catch((status_code) => {
+                        let n_status_code = parseInt(status_code);
+                        if (isNaN(n_status_code)) {
+                            n_status_code = 500;
+                        }
+                        response.status(n_status_code).json(undefined);
+                    });
                 return;
             }
             case "unsubscribe": {
-                await checkVisitor("unsubscriber", ip, captchaSolution)
+                await checkVisitor(captchaSolution)
                     .then(async () => {
                         await manageEmail(email, false)
                             .then(() => {
@@ -323,7 +286,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 return;
             }
             case "send": {
-                await checkVisitor("sender", ip, captchaSolution)
+                await checkVisitor(captchaSolution)
                     .then(async () => {
                         await sendEmail(email, message)
                             .then(() => {

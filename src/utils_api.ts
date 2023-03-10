@@ -1,19 +1,6 @@
-import { createHash } from "crypto";
 import https from "https";
 
 import { VercelRequest } from "@vercel/node";
-import { createClient } from "redis";
-
-const client = createClient({ url: process.env.REDIS_URL });
-type RedisClientType = typeof client;
-
-/** Initialize the Redis connection. Remember to close it. */
-export async function initClient(): Promise<RedisClientType> {
-    if (!client.isOpen) {
-        await client.connect();
-    }
-    return client;
-}
 
 /**
  * Check if the request comes from the same website.
@@ -69,22 +56,4 @@ export function doRequest(
         req.write(data);
         req.end();
     });
-}
-
-/**
- * Hash the client IP to anonymize the client and avoid disclosing the IP
- * to the database. A salt is applied to the IP address but that salt should
- * be changed on a regular basis to ensure a zero-knowledge solution.
- */
-export function anonymizeClient(clientIp: string | null): string {
-    if (clientIp === null) {
-        return "";
-    }
-    if (!("SALT" in process.env)) {
-        throw new Error("Salt is required to avoid rainbow table attacks");
-    }
-    return createHash("sha1")
-        .update(`${String(clientIp)}${String(process.env.SALT)}`)
-        .digest("base64")
-        .slice(0, 24);
 }
