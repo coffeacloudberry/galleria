@@ -278,25 +278,19 @@ export default async (request: VercelRequest, response: VercelResponse) => {
             response.status(418).json(undefined);
             return;
         }
-        const trace = new utils.Monitoring("Contact & Newsletter", action);
         switch (action) {
             case "subscribe": {
                 await checkVisitor("subscriber", ip, captchaSolution)
                     .then(async () => {
                         await manageEmail(email)
-                            .then(async () => {
-                                await trace.close();
+                            .then(() => {
                                 response.status(200).json(undefined);
                             })
-                            .catch(async (error) => {
-                                trace.except(error);
-                                await trace.close();
+                            .catch(() => {
                                 response.status(500).json(undefined);
                             });
                     })
-                    .catch(async (status_code) => {
-                        trace.except(status_code);
-                        await trace.close();
+                    .catch((status_code) => {
                         let n_status_code = parseInt(status_code);
                         if (isNaN(n_status_code)) {
                             n_status_code = 500;
@@ -309,20 +303,15 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 await checkVisitor("unsubscriber", ip, captchaSolution)
                     .then(async () => {
                         await manageEmail(email, false)
-                            .then(async () => {
-                                await trace.close();
+                            .then(() => {
                                 response.status(200).json(undefined);
                             })
-                            .catch(async (error) => {
-                                trace.except(error);
-                                await trace.close();
+                            .catch(() => {
                                 // silent to avoid disclosing subscribers
                                 response.status(200).json(undefined);
                             });
                     })
-                    .catch(async (status_code) => {
-                        trace.except(status_code);
-                        await trace.close();
+                    .catch((status_code) => {
                         let n_status_code = parseInt(status_code);
                         if (isNaN(n_status_code)) {
                             n_status_code = 500;
@@ -335,19 +324,14 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                 await checkVisitor("sender", ip, captchaSolution)
                     .then(async () => {
                         await sendEmail(email, message)
-                            .then(async () => {
-                                await trace.close();
+                            .then(() => {
                                 response.status(200).json(undefined);
                             })
-                            .catch(async (error) => {
-                                trace.except(error);
-                                await trace.close();
+                            .catch(() => {
                                 response.status(500).json(undefined);
                             });
                     })
-                    .catch(async (status_code) => {
-                        trace.except(status_code);
-                        await trace.close();
+                    .catch((status_code) => {
                         let n_status_code = parseInt(status_code);
                         if (isNaN(n_status_code)) {
                             n_status_code = 500;

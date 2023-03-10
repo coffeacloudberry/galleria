@@ -25,8 +25,6 @@
     "private": true,
     "license": "AGPL-3.0-or-later",
     "dependencies": {
-        "@sentry/node": "^7.40.0",
-        "@sentry/tracing": "^7.40.0",
         "mithril": "^2.2.2",
         "redis": "^4.6.5",
         "request-ip": "^3.3.0",
