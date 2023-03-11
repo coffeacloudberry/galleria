@@ -65,14 +65,17 @@ function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
 
 /** Element containing the canvas used by the chart. */
 export class ChartContainer implements m.ClassComponent {
+    // skipcq: JS-0105
     async oncreate({ dom }: m.VnodeDOM): Promise<void> {
         return await createChart(dom as HTMLCanvasElement);
     }
 
+    // skipcq: JS-0105
     async onupdate({ dom }: m.VnodeDOM): Promise<void> {
         return await createChart(dom as HTMLCanvasElement);
     }
 
+    // skipcq: JS-0105
     view(): m.Vnode {
         return m(".chart-container");
     }

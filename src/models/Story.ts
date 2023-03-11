@@ -166,7 +166,7 @@ function getOriginPhotoId(): number | null {
  * Model handling one story.
  * @notExported
  */
-class Story {
+export class Story {
     /** Story title retrieved from the Markdown file. */
     title: string | null = null;
 
@@ -221,7 +221,7 @@ class Story {
     }
 
     /** Static method converting a string date like 2020-10-25. */
-    strToEasyDate(strDate: string | undefined): EasyDate | null {
+    static strToEasyDate(strDate: string | undefined): EasyDate | null {
         if (!strDate) {
             return null;
         }
@@ -238,7 +238,9 @@ class Story {
     }
 
     /** Static method fetching the story title and content. */
-    getStoryTitleContent(folderName: string): Promise<ProcessedStoryFile> {
+    static getStoryTitleContent(
+        folderName: string,
+    ): Promise<ProcessedStoryFile> {
         return new Promise((resolve, reject) => {
             m.request<ProcessedStoryFile>({
                 method: "GET",
@@ -313,7 +315,7 @@ class Story {
         this.originPhotoMeta = null;
         this.geocodedPhotos = null;
         this.folderName = folderName;
-        this.getStoryTitleContent(folderName)
+        Story.getStoryTitleContent(folderName)
             .then((result) => {
                 this.title = result.title;
                 this.content = result.content;
@@ -338,7 +340,7 @@ class Story {
         })
             .then((result) => {
                 if (result.start) {
-                    this.start = this.strToEasyDate(result.start);
+                    this.start = Story.strToEasyDate(result.start);
                 } else {
                     this.start = null;
                 }

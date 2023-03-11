@@ -40,6 +40,7 @@ class LayerSelectionControlComponent
         );
     }
 
+    // skipcq: JS-0105
     onupdate(): void {
         t.createTippies();
     }

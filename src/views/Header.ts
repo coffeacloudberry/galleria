@@ -226,6 +226,7 @@ export interface HeaderAttrs {
 }
 
 export class Header implements m.ClassComponent<HeaderAttrs> {
+    // skipcq: JS-0105
     oncreate({ attrs }: m.CVnode<HeaderAttrs>): void {
         m.mount(document.createElement("div"), {
             view: () => {
@@ -236,6 +237,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
         });
     }
 
+    // skipcq: JS-0105
     view({ attrs }: m.CVnode<HeaderAttrs>): m.Vnode {
         // skipcq: JS-0309
         let centeredNav: m.Vnode<OpenPhotoAttrs | OpenStoryAttrs> | null;

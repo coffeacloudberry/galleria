@@ -54,6 +54,7 @@ class CameraPosition implements m.ClassComponent {
         return `${baseUrl}?${params}`;
     }
 
+    // skipcq: JS-0105
     view(): m.Vnode[] | null {
         if (!photo.meta) {
             return null;
@@ -152,6 +153,13 @@ const DownloadModal: m.Component<DownloadModalAttrs> = {
 
 const Download: m.Component<DownloadModalAttrs> = {
     view({ attrs }: m.Vnode<DownloadModalAttrs>): m.Vnode {
+        const cloudLinkFn = () => {
+            return (
+                attrs.okCopyright &&
+                typeof photo.id === "number" &&
+                `https://sunbeam.s3.fr-par.scw.cloud/photos/photo_${photo.id}_from_explorewilder.com.tif`
+            );
+        };
         return m(
             "h4.mt-3.mb-3",
             m(
@@ -168,13 +176,7 @@ const Download: m.Component<DownloadModalAttrs> = {
                                 },
                             },
                             cancelable: true,
-                            cloudLinkFn: () => {
-                                return (
-                                    attrs.okCopyright &&
-                                    Boolean(photo.id) &&
-                                    `https://sunbeam.s3.fr-par.scw.cloud/photos/photo_${photo.id}_from_explorewilder.com.tif`
-                                );
-                            },
+                            cloudLinkFn,
                         });
                     },
                 },
@@ -253,6 +255,7 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
         }
     }
 
+    // skipcq: JS-0105
     view(): m.Vnode {
         return m(
             "span.nav-item.photo-metadata-wrapper",

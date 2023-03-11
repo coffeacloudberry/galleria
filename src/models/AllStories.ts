@@ -1,6 +1,6 @@
 import m from "mithril";
 
-import { ProcessedStoryFile, StoryInfo, story } from "./Story";
+import { ProcessedStoryFile, Story, StoryInfo } from "./Story";
 
 /** One story item of the JSON list. */
 interface OneJsonStory {
@@ -119,8 +119,7 @@ class AllStories {
                 this.fullList.push(theStory);
             }
 
-            story
-                .getStoryTitleContent(id)
+            Story.getStoryTitleContent(id)
                 .then((result: ProcessedStoryFile) => {
                     if (theStory) {
                         AllStories.onPromiseThen(result, theStory);
@@ -151,8 +150,7 @@ class AllStories {
             oneStory.loading = true;
             oneStory.title = null;
             oneStory.content = null;
-            story
-                .getStoryTitleContent(oneStory.id)
+            Story.getStoryTitleContent(oneStory.id)
                 .then((result: ProcessedStoryFile) => {
                     AllStories.onPromiseThen(result, oneStory);
                 })

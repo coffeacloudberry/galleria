@@ -1,7 +1,7 @@
 import m from "mithril";
 
 import { OneStory, allStories } from "../models/AllStories";
-import { story } from "../models/Story";
+import { Story } from "../models/Story";
 import { t } from "../translate";
 import { Header, HeaderAttrs } from "./Header";
 import { StorySubTitle } from "./StoryPage";
@@ -91,6 +91,7 @@ class StoryAppetizer implements m.ClassComponent<OneStory> {
         return result + ".".repeat(3 - countDots);
     }
 
+    // skipcq: JS-0105
     view({ attrs }: m.CVnode<OneStory>): m.Vnode | null | "" {
         return (
             attrs.content &&
@@ -107,7 +108,7 @@ const OneStoryRow: m.Component<OneStory> = {
         return [
             m(".two-thirds.column.p-0", [
                 m(StorySubTitle, {
-                    start: story.strToEasyDate(attrs.metadata.start),
+                    start: Story.strToEasyDate(attrs.metadata.start),
                     season: attrs.metadata.season || null,
                     duration: attrs.metadata.duration || null,
                 }),
@@ -157,6 +158,7 @@ const OneStoryComponent: m.Component<OneStory> = {
 
 /** The body content containing all stories if any. */
 class AllStoriesComponent implements m.ClassComponent {
+    // skipcq: JS-0105
     oncreate({ dom }: m.CVnodeDOM): void {
         const element = dom as HTMLElement;
         element.onscroll = () => {
@@ -164,6 +166,7 @@ class AllStoriesComponent implements m.ClassComponent {
         };
     }
 
+    // skipcq: JS-0105
     onupdate({ dom }: m.CVnodeDOM): void {
         if (allStories.noOneRequested()) {
             const element = dom as HTMLElement;
@@ -209,12 +212,13 @@ class AllStoriesComponent implements m.ClassComponent {
         }
     }
 
-    fullList(): m.Vnode<OneStory>[] {
+    static fullList(): m.Vnode<OneStory>[] {
         return allStories.fullList.map((oneStory: OneStory) => {
             return m(OneStoryComponent, oneStory);
         });
     }
 
+    // skipcq: JS-0105
     view(): m.Vnode {
         return m(
             "section#stories",
@@ -222,7 +226,10 @@ class AllStoriesComponent implements m.ClassComponent {
                 ".container",
                 m(
                     ".row",
-                    m(".one.column", allStories.fullList && this.fullList()),
+                    m(
+                        ".one.column",
+                        allStories.fullList && AllStoriesComponent.fullList(),
+                    ),
                 ),
             ),
         );

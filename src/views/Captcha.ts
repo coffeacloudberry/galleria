@@ -23,7 +23,7 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
      * changing frequently. Consider this experimental.
      * @param err Exception.
      */
-    errorCallback(err: { error: Error }): void {
+    static errorCallback(err: { error: Error }): void {
         error.log("Failed to solve the Captcha", err.error);
     }
 
@@ -44,7 +44,7 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
                         language: t.getLang(),
                         doneCallback: attrs.doneCallback,
                         errorCallback: (err) => {
-                            this.errorCallback(err);
+                            Captcha.errorCallback(err);
                         },
                     },
                 );
@@ -60,6 +60,7 @@ export default class Captcha implements m.ClassComponent<CaptchaAttrs> {
         }
     }
 
+    // skipcq: JS-0105
     view(): m.Vnode {
         return m("p.captcha");
     }

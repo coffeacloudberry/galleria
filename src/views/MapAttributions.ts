@@ -63,6 +63,7 @@ class MapAttributionsIcon implements m.ClassComponent {
         });
     }
 
+    // skipcq: JS-0105
     onupdate(): void {
         transformExternalLinks();
     }
@@ -79,6 +80,7 @@ class MapAttributionsIcon implements m.ClassComponent {
         }
     }
 
+    // skipcq: JS-0105
     view(): m.Vnode {
         return m("span.vat", [
             m(Icon, { src: informationCircleOutline }), // actually displayed

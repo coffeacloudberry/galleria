@@ -56,6 +56,7 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
     }
 
     /** Add the ready DOM to the map via the Mapbox API. */
+    // skipcq: JS-0105
     onupdate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
         hideAllForce();
         attrs.mapboxPopup.setDOMContent(dom);
@@ -230,7 +231,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
      * This procedure has no effect if the chart is not loaded, i.e. if the
      * track has no elevation profile.
      */
-    mouseMove(path: MultiLineString, e: mapboxgl.MapMouseEvent): void {
+    static mouseMove(path: MultiLineString, e: mapboxgl.MapMouseEvent): void {
         if (!(globalMapState.webtrack instanceof WebTrack)) {
             return;
         }
@@ -390,7 +391,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                         globalMapState.map.on(
                             "mousemove",
                             (e: mapboxgl.MapMouseEvent) => {
-                                this.mouseMove(line, e);
+                                Map.mouseMove(line, e);
                             },
                         );
                     }
@@ -505,6 +506,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         this.addPhotos();
     }
 
+    // skipcq: JS-0105
     onremove(): void {
         if (globalMapState.map) {
             try {
@@ -596,7 +598,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         const futureLang = t.getLang();
         if (this.currentLang !== futureLang) {
             this.currentLang = futureLang;
-            this.resetControls();
+            Map.resetControls();
         }
         this.addPhotos();
     }
@@ -657,7 +659,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     maxWidth: 120,
                     unit: "metric",
                 });
-                this.resetControls();
+                Map.resetControls();
 
                 globalMapState.map.on("load", () => {
                     this.loadMap();
@@ -687,7 +689,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     /**
      * Re-add all controls in one place to control the order.
      */
-    resetControls(): void {
+    static resetControls(): void {
         if (globalMapState.map === undefined) {
             return;
         }

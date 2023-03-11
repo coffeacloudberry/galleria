@@ -175,6 +175,7 @@ class ProgressInAlbumComponent implements m.ClassComponent {
         }
     }
 
+    // skipcq: JS-0105
     view(): m.Vnode | null {
         const storyPath = photo.getStoryPath();
         if (
