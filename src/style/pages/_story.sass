@@ -111,7 +111,7 @@ section#story
     .chart-container
         padding-top: 1rem /* the legend on the bottom adds space that needs to be compensated on the top */
         width: 100%
-        height: calc(max(40vh - 1.5 * #{$block-space}, 200px))
+        height: calc(max(40vh - 1.5 * #{$block-space} - #{$nav-bar-height} / 2, 200px))
 
 .mapboxgl-map
     /* override Mapbox defaults */
