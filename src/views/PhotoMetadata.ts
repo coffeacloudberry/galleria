@@ -109,7 +109,7 @@ const DownloadModal: m.Component<DownloadModalAttrs> = {
         const holder = config.contentLicense.holder;
         return [
             m(
-                "p.text-center.mb-0",
+                "p.text-center.mb-0[style=min-width:calc(300px + 0.1rem)]",
                 m("img.round-corners", {
                     src: `/content/photos/${photo.id}/t.webp`,
                     alt: "",
