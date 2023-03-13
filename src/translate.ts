@@ -65,15 +65,17 @@ t.replaceLang = (lang, originHref) => {
     if (!originHref) {
         originHref = m.route.get();
     }
-    const params = m.parsePathname(originHref).params;
-    const fromPhoto = params["from_photo"];
-    return (
-        [
-            "",
-            lang,
-            ...m.parsePathname(originHref).path.split("/").splice(2),
-        ].join("/") + (fromPhoto ? "?from_photo=" + fromPhoto : "")
-    );
+    const oldPath = m.parsePathname(originHref);
+    const newPath = ["", lang, ...oldPath.path.split("/").splice(2)].join("/");
+
+    // If there is any query parameters.
+    // Use the Mithril API instead of the URL API
+    // because the params are located after the hashbang.
+    if (Object.keys(oldPath.params).length > 0) {
+        return `${newPath}?${m.buildQueryString(oldPath.params)}`;
+    }
+
+    return newPath;
 };
 
 t.createTippies = () => {
