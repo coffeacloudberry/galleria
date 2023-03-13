@@ -39,6 +39,8 @@ Story Page Should Be Open
 Wait For Loading Content
     Wait Until Element Is Not Visible   class:loading-icon
     Wait Until Element Is Visible       class:album-pagination
+    # a toast could hide a link/button required to continue navigating
+    Wait Until Element Is Not Visible   class:toastify
 
 Wait For Loading Photo
     Wait For Loading Content
