@@ -179,7 +179,7 @@ export default function StoryPage(): m.Component {
             }
             const routeStoryId = getStoryId();
             const futureLang = t.getLang();
-            const preTitle = story.title ? story.title + " - " : "";
+            const preTitle = story.title ? `${story.title} - ` : "";
             document.title = `${preTitle}${t("story.title")}`;
             if (routeStoryId !== story.folderName) {
                 story.load(routeStoryId);

@@ -38,7 +38,7 @@ const LanguageLink: m.Component<LanguageLinkAttrs> = {
                 href: t.replaceLang(attrs.language.slug),
                 onclick: () => {
                     t.init(attrs.language.slug);
-                    document.title = String(t(attrs.refPage + ".title"));
+                    document.title = String(t(`${attrs.refPage}.title`));
                     if (attrs.tippy) {
                         attrs.tippy[0].hide();
                     }
@@ -292,32 +292,38 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
         }
         return m(
             "header",
-            m("nav" + (attrs.refPage === "photo" ? ".nav-photo" : ""), [
-                m(
-                    ".flex-sides",
-                    m("span", [
-                        attrs.aboutButton
-                            ? m(AboutButton)
-                            : m(BackToContentButton),
-                        attrs.refPage === "stories"
-                            ? m(BackToContentButton)
-                            : m(GoToStoriesButton),
-                    ]),
-                ),
-                centeredNav,
-                m(".flex-sides.flex-right", [
-                    m("span.lang-item", t.getLang().toUpperCase()),
+            m(
+                "nav",
+                {
+                    class: attrs.refPage === "photo" ? "nav-photo" : "",
+                },
+                [
                     m(
-                        "span",
-                        {
-                            id: "language-selection",
-                            class: "nav-item",
-                            tabindex: 0, // make it selectable
-                        },
-                        m("span", m(Icon, { src: languageOutline })),
+                        ".flex-sides",
+                        m("span", [
+                            attrs.aboutButton
+                                ? m(AboutButton)
+                                : m(BackToContentButton),
+                            attrs.refPage === "stories"
+                                ? m(BackToContentButton)
+                                : m(GoToStoriesButton),
+                        ]),
                     ),
-                ]),
-            ]),
+                    centeredNav,
+                    m(".flex-sides.flex-right", [
+                        m("span.lang-item", t.getLang().toUpperCase()),
+                        m(
+                            "span",
+                            {
+                                id: "language-selection",
+                                class: "nav-item",
+                                tabindex: 0, // make it selectable
+                            },
+                            m("span", m(Icon, { src: languageOutline })),
+                        ),
+                    ]),
+                ],
+            ),
         );
     }
 }

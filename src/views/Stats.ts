@@ -51,7 +51,7 @@ const LoadingStats: m.Component = {
     view(): m.Vnode {
         return m(".loading-icon.text-center.m-30", [
             m("", m(Icon, { src: compassOutline, style: "height: 1.6rem" })),
-            t("loading.tooltip") + "...",
+            `${t("loading.tooltip")}...`,
         ]);
     },
 };

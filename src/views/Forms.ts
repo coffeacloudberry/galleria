@@ -93,12 +93,13 @@ const SubmitButton: m.Component<SubmitButtonAttrs> = {
 
 function getConfForBugReport(): string {
     const windowSize = getWindowSize();
-    return `I'm visiting your website version ${config.rev}.
+    const debugInfo = `I'm visiting your website version ${config.rev}.
     My user agent is '${navigator.userAgent}'
-    and my window size is ${windowSize.width}x${windowSize.height}px.`.replace(
+    and my window size is ${windowSize.width}x${windowSize.height}px.`;
+    return `Hi!\n\nThe bug is...\n\n${debugInfo.replace(
         /\s+/g,
         " ",
-    );
+    )}\n\nGood luck!`;
 }
 
 /** Base form for the contact and newsletter forms. */
@@ -253,11 +254,7 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                                 title: t("status.title"),
                                 content: Status,
                             });
-                            this.message +=
-                                "Hi!\n\n" +
-                                "The bug is...\n\n" +
-                                getConfForBugReport() +
-                                "\n\nGood luck!";
+                            this.message += getConfForBugReport();
                         } else {
                             this.onSubmit();
                         }

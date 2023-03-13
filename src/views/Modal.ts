@@ -105,10 +105,9 @@ export function modal({
                     onclick: closeModal,
                 },
                 m(
-                    ".modal-box" +
-                        ".modal-box-" +
-                        ModalSize[size].toLowerCase(),
+                    ".modal-box",
                     {
+                        class: `modal-box-${ModalSize[size].toLowerCase()}`,
                         onclick: (event: Event) => {
                             // do not close the modal when clicking inside
                             event.stopPropagation();
