@@ -125,13 +125,13 @@ class AllStories {
                         AllStories.onPromiseThen(result, theStory);
                         resolve(result);
                     }
-                    reject();
+                    reject(new Error("Expected story"));
                 })
-                .catch(() => {
+                .catch((error) => {
                     if (theStory) {
                         AllStories.onPromiseCatch(theStory);
                     }
-                    reject();
+                    reject(error);
                 });
         });
     }

@@ -264,7 +264,7 @@ export class Story {
             })
                 .then((result) => {
                     if (!result.title || !result.content) {
-                        reject();
+                        reject(new Error("Missing title or content"));
                     }
                     resolve(result);
                 })

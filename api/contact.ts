@@ -142,7 +142,7 @@ export function sendEmail(
                         } else if ("message" in data) {
                             reject(data.message);
                         } else {
-                            reject("Failed to send the email.");
+                            reject(new Error("Failed to send the email."));
                         }
                     },
                     email,
