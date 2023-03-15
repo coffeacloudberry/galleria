@@ -12,7 +12,7 @@ import { extraIcons, globalMapState } from "./Map";
 
 declare const Chart: typeof import("chart.js");
 
-export let chart: TypeChart | undefined = undefined;
+export let chart: TypeChart | undefined;
 
 type LonLatPoint = { lon: number; lat: number };
 
