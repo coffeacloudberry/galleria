@@ -296,6 +296,8 @@ function onKeyPressed(e: KeyboardEvent) {
         case "ArrowLeft":
             onEventLeft();
             break;
+        default:
+            break;
     }
 }
 
