@@ -119,7 +119,7 @@ export function injectCode(path: {
  */
 export function transformExternalLinks(): void {
     const allExternalLinks = document.querySelectorAll("a[href^='http']");
-    allExternalLinks.forEach(function (node) {
+    allExternalLinks.forEach((node) => {
         const relAttr = node.getAttribute("rel");
         const allRels = relAttr ? relAttr.split(" ") : [];
         ["noopener", "noreferrer"].forEach((attr) => {
