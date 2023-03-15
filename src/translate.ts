@@ -34,6 +34,7 @@ const options: Options = {
 
 let messages: Messages = translations.en;
 
+// skipcq: JS-C1002
 const t: Translatable = (key, subKey, params) => {
     const translate = tjs(messages, options);
     // false positive on type
