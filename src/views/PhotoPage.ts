@@ -384,7 +384,6 @@ function documentTitle(): string {
 export default function PhotoPage(): m.Component {
     t.init();
     let currentLang = t.getLang();
-    const selectedPhotoId = getPhotoId();
     const touch = new Touch();
     const touchStarted = (e: TouchEvent) => {
         touch.onTouchStarted(e);
@@ -392,19 +391,15 @@ export default function PhotoPage(): m.Component {
     const touchMoved = (e: TouchEvent) => {
         touch.onTouchMoved(e);
     };
-    if (selectedPhotoId === null) {
-        photo.loadFirst();
-    } else {
-        void photo.load(selectedPhotoId);
-    }
 
     return {
         oncreate(): void {
             document.title = t("photo.title");
-            t.createTippies();
             document.addEventListener("keydown", onKeyPressed);
             document.addEventListener("touchstart", touchStarted);
             document.addEventListener("touchmove", touchMoved);
+            void photo.load(getPhotoId());
+            t.createTippies();
         },
         onremove(): void {
             document.removeEventListener("keydown", onKeyPressed);
@@ -416,15 +411,7 @@ export default function PhotoPage(): m.Component {
             if (photo.notFound) {
                 m.route.set(`/${t.getLang()}/lost`);
             }
-            let routePhotoId = NaN;
-            try {
-                routePhotoId = parseInt(m.route.param("title"));
-            } catch {
-                // continue regardless of error
-            }
-            if (isNaN(routePhotoId)) {
-                routePhotoId = config.firstPhotoId;
-            }
+            const selectedPhotoId = getPhotoId();
 
             // if the URL has been updated through the browser navigation
             // buttons or the address bar or m.route.set() which triggers
@@ -432,12 +419,12 @@ export default function PhotoPage(): m.Component {
             // path and load the photo consequently.
             if (
                 !photo.isLoading &&
-                !isNaN(routePhotoId) &&
-                routePhotoId <= config.firstPhotoId &&
+                selectedPhotoId &&
+                selectedPhotoId <= config.firstPhotoId &&
                 photo.id !== null &&
-                routePhotoId !== photo.id
+                selectedPhotoId !== photo.id
             ) {
-                void photo.load(routePhotoId);
+                void photo.load(selectedPhotoId);
             }
 
             const futureLang = t.getLang();

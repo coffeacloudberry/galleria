@@ -166,22 +166,6 @@ class Photo {
     }
 
     /**
-     * Called when the user first visits the website without specifying any
-     * photo ID. Load the first photo only if it is the really first time -- if
-     * no one photo has already been loaded. Use Photo.load(config.firstPhotoId)
-     * for loading the first photo at any time. The history is replaced because
-     * the root path is meaningless.
-     * The URL is not updated so that if the visitor bookmarks the page, it will
-     * show the most recent photo for the next visit.
-     */
-    loadFirst(): void {
-        if (this.meta === null) {
-            // skipcq: JS-0328
-            void this.load(config.firstPhotoId);
-        }
-    }
-
-    /**
      * Load the story metadata. Once fetched, the interface would be updated
      * consequently. That would trigger an additional onupdate event on which
      * the image is considered loaded.

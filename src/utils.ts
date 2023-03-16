@@ -30,15 +30,17 @@ export function isMobile(): boolean {
     );
 }
 
-/** Get the photo ID from the path or return null. */
-export function getPhotoId(): number | null {
+/** Get the photo ID from the path or the first one. */
+export function getPhotoId(): number {
     try {
-        const splitPath = m.parsePathname(m.route.get()).path.split("/");
-        const id = parseInt(splitPath[splitPath.length - 1]);
-        return isNaN(id) || id > config.firstPhotoId ? null : id;
+        const routePhotoId = parseInt(m.route.param("title"));
+        if (routePhotoId) {
+            return routePhotoId;
+        }
     } catch {
-        return null;
+        // continue regardless of error
     }
+    return config.firstPhotoId;
 }
 
 /**
