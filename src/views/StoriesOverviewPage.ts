@@ -3,6 +3,7 @@ import m from "mithril";
 import { OneStory, allStories } from "../models/AllStories";
 import { Story } from "../models/Story";
 import { t } from "../translate";
+import { hideAllForce } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
 import { StorySubTitle } from "./StoryPage";
 
@@ -101,9 +102,19 @@ class StoryAppetizer implements m.ClassComponent<OneStory> {
 }
 
 const OneStoryRow: m.Component<OneStory> = {
-    view({ attrs }: m.Vnode<OneStory>): m.Vnode[] | null {
+    view({ attrs }: m.Vnode<OneStory>): m.Vnode[] | m.Vnode | null {
         if (attrs.metadata === null) {
             return null;
+        }
+        if (attrs.metadata.totalPhotos === 0) {
+            return m(".column.p-0", [
+                m(StorySubTitle, {
+                    start: Story.strToEasyDate(attrs.metadata.start),
+                    season: attrs.metadata.season || null,
+                    duration: attrs.metadata.duration || null,
+                }),
+                m("p", attrs.content && m(StoryAppetizer, attrs)),
+            ]);
         }
         return [
             m(".two-thirds.column.p-0", [
@@ -245,6 +256,9 @@ export default function StoriesOverviewPage(): m.Component {
         oncreate(): void {
             document.title = t("stories.title");
             t.createTippies();
+        },
+        onremove(): void {
+            hideAllForce();
         },
         onupdate(): void {
             const futureLang = t.getLang();

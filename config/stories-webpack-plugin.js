@@ -63,7 +63,7 @@ class StoriesPlugin {
     }
 
     listStories() {
-        const combinedStories = [];
+        const storiesWithPhoto = [];
         const photosInStories = {};
         const genPhotos = {};
         try {
@@ -87,7 +87,7 @@ class StoriesPlugin {
                                 geocodedPhotos: [],
                             },
                         };
-                        combinedStories.push(lastStory);
+                        storiesWithPhoto.push(lastStory);
                     } else if (lastStory) {
                         // update
                         lastStory.metadata.totalPhotos += 1;
@@ -121,15 +121,37 @@ class StoriesPlugin {
                 this.writeInfoFile(photoDir, PhotoData);
             }
 
+            const combinedStories = storiesWithPhoto.map((entry) => {
+                // keep only the essential
+                return {
+                    id: entry.id,
+                    metadata: {
+                        duration: entry.metadata.duration,
+                        season: entry.metadata.season,
+                        start: entry.metadata.start,
+                        totalPhotos: entry.metadata.totalPhotos,
+                        mostRecentPhoto: entry.metadata.mostRecentPhoto,
+                    },
+                };
+            });
+
             // generate story info files
             const allStories = this.getAllStories();
             for (const storyId of allStories) {
                 const storyDir = `${this.rootDir}/content/stories/${storyId}`;
                 let contentObject = photosInStories[storyId];
                 if (!contentObject) {
-                    // In case a story has no photo.
-                    // The story would be accessible but not listed.
+                    // In case a story has no photo
                     contentObject = this.readInfoFile("stories", storyId);
+                    combinedStories.push({
+                        id: storyId,
+                        metadata: {
+                            duration: contentObject.duration,
+                            season: contentObject.season,
+                            start: contentObject.start,
+                            totalPhotos: 0,
+                        },
+                    });
                 }
                 this.writeInfoFile(storyDir, contentObject);
             }
