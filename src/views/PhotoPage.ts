@@ -306,14 +306,26 @@ class Touch {
     /** Position on swipe start. */
     initial = { x: null as number | null, y: null as number | null };
 
+    /** True if the event should be skipped. */
+    static _skipEvent(): boolean {
+        // don't want to swipe when a modal is open
+        return document.getElementsByClassName("modal").length > 0;
+    }
+
     /** When starting to swipe. */
     onTouchStarted(e: TouchEvent) {
-        this.initial = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        if (!Touch._skipEvent()) {
+            this.initial = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
     }
 
     /** Right after the swipe has been initiated. */
     onTouchMoved(e: TouchEvent) {
-        if (this.initial.x === null || this.initial.y === null) {
+        if (
+            Touch._skipEvent() ||
+            this.initial.x === null ||
+            this.initial.y === null
+        ) {
             return;
         }
         const diffX = e.touches[0].clientX - this.initial.x;

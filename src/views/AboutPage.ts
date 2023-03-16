@@ -14,7 +14,7 @@ import m from "mithril";
 
 import { config } from "../config";
 import { t } from "../translate";
-import { transformExternalLinks } from "../utils";
+import { hideAllForce, transformExternalLinks } from "../utils";
 import { ContactForm, NewsletterForm } from "./Forms";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
@@ -279,6 +279,9 @@ export default function AboutPage(): m.Component {
         onupdate(): void {
             t.createTippies();
             transformExternalLinks();
+        },
+        onremove(): void {
+            hideAllForce();
         },
         view(): m.Vnode<HeaderAttrs>[] {
             return [
