@@ -2,7 +2,6 @@
     "start": "2023-02-09",
     "duration": 12,
     "season": "winter",
-    "hasGeodata": true,
     "mapTheme": "whiteSnow",
     "gpsConfig": [
         {

@@ -23,6 +23,11 @@ class StoriesPlugin {
         return JSON.parse(fs.readFileSync(`${photoDir}/i.json`).toString());
     }
 
+    storyContainsWebtrack(storyId) {
+        const webtrackPath = `${this.rootDir}/content/stories/${storyId}/t.webtrack`;
+        return fs.existsSync(webtrackPath);
+    }
+
     writeInfoFile(docFolder, contentObject) {
         // delete old directories
         fs.readdirSync(docFolder)
@@ -82,6 +87,7 @@ class StoriesPlugin {
                             id: storyId,
                             metadata: {
                                 ...storyMetadata,
+                                hasGeodata: this.storyContainsWebtrack(storyId),
                                 totalPhotos: 1,
                                 mostRecentPhoto: id,
                                 geocodedPhotos: [],

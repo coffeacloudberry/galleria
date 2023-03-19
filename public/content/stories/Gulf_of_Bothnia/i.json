@@ -2,6 +2,5 @@
     "start": "2021-12-04",
     "duration": 1.5,
     "season": "winter",
-    "mapTheme": "whiteSnow",
-    "hasGeodata": true
+    "mapTheme": "whiteSnow"
 }

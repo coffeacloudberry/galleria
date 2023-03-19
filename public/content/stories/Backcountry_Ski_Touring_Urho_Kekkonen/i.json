@@ -2,7 +2,6 @@
     "start": "2021-12-30",
     "duration": 8,
     "season": "winter",
-    "hasGeodata": true,
     "mapTheme": "darkSnow",
     "gpsConfig": [
         {

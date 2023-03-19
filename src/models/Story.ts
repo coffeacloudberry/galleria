@@ -87,10 +87,7 @@ export interface StoryInfo {
      */
     season?: SeasonStrings;
 
-    /**
-     * True if there is a WebTrack to load.
-     * TODO: Use the Webpack plugin to find out the value automatically.
-     */
+    /** True if there is a WebTrack to load. */
     hasGeodata?: boolean;
 
     /** The theme used for the map if the story has geodata. */
