@@ -24,8 +24,8 @@ class StoriesPlugin {
     }
 
     storyContainsWebtrack(storyId) {
-        const webtrackPath = `${this.rootDir}/content/stories/${storyId}/t.webtrack`;
-        return fs.existsSync(webtrackPath);
+        const webtrackDir = `${this.rootDir}/content/stories/${storyId}`;
+        return fs.existsSync(`${webtrackDir}/t.webtrack`);
     }
 
     writeInfoFile(docFolder, contentObject) {
