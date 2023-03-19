@@ -241,6 +241,7 @@ export function toast(
             x: 0,
             y: -4,
         },
+        close: true,
         style: { cursor: destination ? "pointer" : "default" },
         onClick: () => {
             if (destination) {

@@ -10,9 +10,9 @@ import trashOutline from "@/icons/trash-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
-import CustomLogging from "../CustomLogging";
+import CustomLogging, { LogType } from "../CustomLogging";
 import { t } from "../translate";
-import { getWindowSize } from "../utils";
+import { getWindowSize, toast } from "../utils";
 import { SocialNetworkItem } from "./AboutPage";
 import Captcha from "./Captcha";
 import Icon from "./Icon";
@@ -110,6 +110,9 @@ class BaseForm {
     /** True to set the form has successfully processed. */
     success = false;
 
+    /** True if a handled exception happened. */
+    unhandledError = false;
+
     /** True to display a spin as a request is in process. */
     processing = false;
 
@@ -154,6 +157,7 @@ class BaseForm {
                 this.processing = false;
                 this.success = true;
                 this.isBot = false;
+                this.unhandledError = false;
             })
             .catch((error) => {
                 this.processing = false;
@@ -178,6 +182,8 @@ class BaseForm {
                         throw fmt_error;
                     default:
                         this.success = false;
+                        this.unhandledError = true;
+                        toast(t("unknown-error-verbose"), "", LogType.error);
                         throw fmt_error;
                 }
             });
@@ -347,6 +353,9 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                         this.isBot
                             ? m("span.ml-3.critical-error", t("is-bot"))
                             : "",
+                        this.unhandledError
+                            ? m("span.ml-3.critical-error", t("unknown-error"))
+                            : "",
                     ]),
                     m("p", t("alternative-send")),
                     m(
@@ -477,6 +486,9 @@ export class NewsletterForm extends BaseForm implements m.ClassComponent {
                             : "",
                         this.isBot
                             ? m("span.ml-3.critical-error", t("is-bot"))
+                            : "",
+                        this.unhandledError
+                            ? m("span.ml-3.critical-error", t("unknown-error"))
                             : "",
                     ]),
                 ],

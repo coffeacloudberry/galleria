@@ -19,6 +19,8 @@
     "invalid-message": "Dis quelque chose !",
     "too-many-requests": "Trop de demandes !",
     "is-bot": "Es-tu humain ? \uD83E\uDD16",
+    "unknown-error": "Réessayer plus tard.",
+    "unknown-error-verbose": "Une erreur de serveur inattendue s'est produite ! \uD83D\uDE35",
     "wait": "Minute papillon",
     "thanks": "Merci !",
     "newsletter": "Des Nouvelles !",
