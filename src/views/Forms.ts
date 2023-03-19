@@ -165,6 +165,17 @@ class BaseForm {
                         this.success = false;
                         this.isBot = true;
                         throw fmt_error;
+                    case 410:
+                        // re-instantiate expired challenge
+                        this.instantiateCaptcha = false;
+                        this.captchaSolution = "";
+                        this.success = false;
+                        this.isBot = true;
+                        window.setTimeout(() => {
+                            this.instantiateCaptcha = true;
+                            m.redraw();
+                        });
+                        throw fmt_error;
                     default:
                         this.success = false;
                         throw fmt_error;

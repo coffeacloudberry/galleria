@@ -38,8 +38,8 @@ describe("Contact Forms", () => {
 
     it("should invalidate empty CAPTCHA", (done) => {
         // skipcq: JS-0328
-        contact.checkCaptcha("").then((is_human) => {
-            if (is_human) {
+        contact.checkCaptcha("").then((payload) => {
+            if (payload.success) {
                 done("Should not be considered human");
             } else {
                 done();
@@ -51,8 +51,8 @@ describe("Contact Forms", () => {
         const solution =
             "3a08aca851577f174e30ed347f20428b.YYQhnDH8BJdVJgFkAQwzggAAAAAAAAAA1DDSM8F3nGI=.AAAAAPwyAAABAAAAbU8DAAIAAACmcAIAAwAAAC8mAAAEAAAAOzsAAAUAAADvagAABgAAAG6fAgAHAAAA0BADAAgAAABvAQAACQAAACePAQAKAAAAhiMAAAsAAAD6twAADAAAADKdAAANAAAAN1wBAA4AAAC4zAAADwAAAE4WAAAQAAAA6kQBABEAAADJ5QAAEgAAAKFjAAATAAAAp4wAABQAAAB23AAAFQAAAFNdAAAWAAAAL3wDABcAAAB5dwQAGAAAAMpjAAAZAAAAWLIAABoAAACZGAAAGwAAANXeAQAcAAAAbVsCAB0AAAAn1wAAHgAAACExAQAfAAAAw2sAACAAAAB/gQAAIQAAAGNbAwAiAAAAYxIAACMAAABzWAAAJAAAADcTAAAlAAAA9Q0AACYAAADxAQAAJwAAAEE+AQAoAAAA7loAACkAAAD8FwEAKgAAAHOsAQArAAAA7JcBACwAAADlRQAALQAAAFCuAQAuAAAA7PAAAC8AAACyYgEAMAAAAIZuAQAxAAAAnWUBADIAAAACSgAA.AgAA";
         // skipcq: JS-0328
-        contact.checkCaptcha(solution).then((is_human) => {
-            if (is_human) {
+        contact.checkCaptcha(solution).then((payload) => {
+            if (payload.success) {
                 done("Should not be considered human");
             } else {
                 done();

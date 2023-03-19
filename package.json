@@ -93,7 +93,7 @@
         "webpack-merge": "^5.8.0"
     },
     "engines": {
-        "node": "^14.18.0",
+        "node": "^18.12.1",
         "npm": "^8.0.0"
     },
     "importSort": {

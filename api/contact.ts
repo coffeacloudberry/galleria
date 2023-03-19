@@ -140,7 +140,7 @@ export function sendEmail(
                         if ("result" in data && data.result) {
                             resolve("Email sent.");
                         } else if ("message" in data) {
-                            reject(data.message);
+                            reject(new Error(data.message));
                         } else {
                             reject(new Error("Failed to send the email."));
                         }
@@ -164,7 +164,9 @@ export function sendEmail(
  *
  * @param solution The solution value that the user submitted.
  */
-export function checkCaptcha(solution: string): Promise<boolean> {
+export function checkCaptcha(
+    solution: string,
+): Promise<FriendlyCaptchaResponse> {
     const data = JSON.stringify({
         solution,
         secret: process.env.FRIENDLY_CAPTCHA_SECRET_KEY,
@@ -180,30 +182,35 @@ export function checkCaptcha(solution: string): Promise<boolean> {
             "Content-Length": Buffer.byteLength(data, "utf8"),
         },
     };
-    return new Promise<boolean>((resolve) => {
+    return new Promise<FriendlyCaptchaResponse>((resolve) => {
         utils
             .doRequest(options, data)
             .then((responseBody: unknown) => {
-                const payload = responseBody as FriendlyCapthaResponse;
-                resolve(payload["success"]);
+                resolve(responseBody as FriendlyCaptchaResponse);
             })
             .catch(() => {
-                resolve(true);
+                resolve({ success: true });
             });
     });
 }
 
 export async function checkVisitor(solution: string): Promise<void> {
-    await checkCaptcha(solution).then((is_human: boolean) => {
-        if (!is_human) {
+    await checkCaptcha(solution).then((payload) => {
+        if (!payload.success) {
+            if (
+                "errors" in payload &&
+                payload.errors instanceof Array &&
+                payload.errors.includes("solution_timeout_or_duplicate")
+            ) {
+                throw new Error("410");
+            }
             throw new Error("418");
         }
     });
 }
 
-interface FriendlyCapthaResponse {
+interface FriendlyCaptchaResponse {
     success: boolean;
-    details?: string;
     errors?: string[];
 }
 
@@ -256,7 +263,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                             });
                     })
                     .catch((status_code) => {
-                        let n_status_code = parseInt(status_code);
+                        let n_status_code = parseInt(status_code.message);
                         if (isNaN(n_status_code)) {
                             n_status_code = 500;
                         }
@@ -277,7 +284,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                             });
                     })
                     .catch((status_code) => {
-                        let n_status_code = parseInt(status_code);
+                        let n_status_code = parseInt(status_code.message);
                         if (isNaN(n_status_code)) {
                             n_status_code = 500;
                         }
@@ -297,7 +304,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                             });
                     })
                     .catch((status_code) => {
-                        let n_status_code = parseInt(status_code);
+                        let n_status_code = parseInt(status_code.message);
                         if (isNaN(n_status_code)) {
                             n_status_code = 500;
                         }

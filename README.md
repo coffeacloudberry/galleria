@@ -49,10 +49,7 @@ Clone this repo, install Node.js 14, and run `npm i`.
 * Use the [PhotosManagerCLI](https://github.com/coffeacloudberry/PhotosManagerCLI) to put a new picture,
 * Use the [WebTrackCLI](https://github.com/coffeacloudberry/WebTrackCLI) to get elevation data and convert GPX to webtrack.
 
-Notices:
-
-* The list of stories and photos metadata are statically generated at build time (by a custom Webpack plugins) as well as the [Web Labels](config/generate-weblabels-webpack-plugin/README.md). Rebuild or rerun the local server to apply the changes.
-* A story without photo will not be included in the list of stories.
+Notice: the list of stories and photos metadata are statically generated at build time (by a custom Webpack plugins) as well as the [Web Labels](config/generate-weblabels-webpack-plugin/README.md). Rebuild or rerun the local server to apply the changes.
 
 ### Running
 
@@ -75,11 +72,13 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 2. Pull the environment variables: `vercel env pull`,
 3. Check that the *.env* file has been created,
 4. Run the server on port 3000: `vercel dev`,
-5. Visit [localhost:3000](http://localhost:3000).
+5. Visit the frontend at [localhost:3000](http://localhost:3000) or backend at [localhost:3000/api/health](http://localhost:3000/api/health).
 
-> `vercel dev` is for development purpose, it runs the prod version of the application with the dev environment variables.
+Notes:
 
-> Do not try `127.0.0.1:3000` when running `vercel dev`, the API only works with `localhost:3000`.
+* `vercel dev` is for development purpose, it runs the prod version of the application with the dev environment variables.
+* Do not try `127.0.0.1:3000` when running `vercel dev`, the API only works with `localhost:3000`.
+* If the response of `ping localhost` is `::1` and you get `ECONNREFUSED` errors, [disable IPv6 for localhost](https://www.xmodulo.com/disable-ipv6-linux.html).
 
 </details>
 <details>
