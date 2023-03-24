@@ -200,7 +200,8 @@ class AllStoriesComponent implements m.ClassComponent {
         if (!storyId) {
             return;
         }
-        const targetEl = document.querySelector(`h1[data-id='${storyId}']`);
+        const selector = `h1[data-id='${String(storyId)}']`;
+        const targetEl = document.querySelector(selector);
         if (!targetEl) {
             return;
         }

@@ -4,6 +4,8 @@ import { MapThemeStrings } from "./models/Story";
 const mostRecentPhotoId = parseInt(String(process.env.MOST_RECENT_PHOTO_ID));
 const oldestPhotoId = parseInt(String(process.env.OLDEST_PHOTO_ID));
 
+const openpgp4fpr = "FFD0B3DDAD69CB71BAE13B1DDFFF34860D361C52";
+
 /**
  * Project configuration with values used by multiple files or requiring
  * special attention (regularly updated).
@@ -136,7 +138,8 @@ export const config = {
     },
 
     rev: String(process.env.GIT_VERSION),
-    id: "https://keyoxide.org/hkp/FFD0B3DDAD69CB71BAE13B1DDFFF34860D361C52",
+    openpgp4fpr,
+    id: `https://keyoxide.org/hkp/${openpgp4fpr}`,
     contentLicense: {
         shortName: "CC BY-NC-SA 4.0",
         url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",

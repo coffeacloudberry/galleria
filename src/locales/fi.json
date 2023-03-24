@@ -11,7 +11,7 @@
     "email": "Sähköpostiosoite:",
     "message": "Viesti:",
     "report-bug": "Ilmoita vikaestä",
-    "encrypt-pgp": "Salaus PGP-avaimellani",
+    "encrypt-pgp": "PGP:llä salattu sähköposti",
     "read-privacy": "Lue tietosuojakäytäntö",
     "send": "Lähetä",
     "alternative-send": "Vaihtoehtoisesti voit lähettää minulle viestin:",

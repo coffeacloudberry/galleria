@@ -3,9 +3,9 @@ import calendarOutline from "@/icons/calendar-outline.svg";
 import logoMatrix from "@/icons/logo-matrix.svg";
 import logoThreema from "@/icons/logo-threema.svg";
 import logoXmpp from "@/icons/logo-xmpp.svg";
+import logoMail from "@/icons/mail-outline.svg";
 import newspaperOutline from "@/icons/newspaper-outline.svg";
 import paperPlaneOutline from "@/icons/paper-plane-outline.svg";
-import shieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import trashOutline from "@/icons/trash-outline.svg";
 import m from "mithril";
 
@@ -243,6 +243,11 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
     view(): m.Vnode[] {
         const allItems = [
             {
+                tooltip: t("encrypt-pgp"),
+                link: `https://keys.openpgp.org/pks/lookup?op=get&options=mr&search=0x${config.openpgp4fpr}`,
+                logo: logoMail,
+            },
+            {
                 tooltip: "Matrix",
                 link: "https://matrix.to/#/@beebeecoffee:matrix.org",
                 logo: logoMatrix,
@@ -304,15 +309,6 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                                 "data-tippy-placement": "right",
                             },
                             m(Icon, { src: bugOutline }),
-                        ),
-                        m(
-                            "a.light-icon-button.float-right.mt-3.mr-3",
-                            {
-                                href: config.id,
-                                "data-tippy-content": t("encrypt-pgp"),
-                                "data-tippy-placement": "right",
-                            },
-                            m(Icon, { src: shieldCheckmarkOutline }),
                         ),
                         m("label", [
                             t("message"),

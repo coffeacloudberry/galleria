@@ -11,7 +11,7 @@
     "email": "Couriel :",
     "message": "Message :",
     "report-bug": "Signaler un bogue",
-    "encrypt-pgp": "Chiffrer avec ma clé PGP",
+    "encrypt-pgp": "Email chiffré avec PGP",
     "read-privacy": "Lire la politique de confidentialité",
     "send": "Envoyer",
     "alternative-send": "Tu peux aussi m'envoyer un message via :",

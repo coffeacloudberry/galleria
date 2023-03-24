@@ -11,7 +11,7 @@
     "email": "Email:",
     "message": "Message:",
     "report-bug": "Report a bug",
-    "encrypt-pgp": "Encrypt with my PGP key",
+    "encrypt-pgp": "Email encrypted with PGP",
     "read-privacy": "Read the Privacy Policy",
     "send": "Send",
     "alternative-send": "Alternatively, send me a message with:",
