@@ -4,7 +4,6 @@ import logoBat from "@/icons/logo-bat.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoOdysee from "@/icons/logo-odysee.svg";
-import logoPeertube from "@/icons/logo-peertube.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoPlume from "@/icons/logo-plume.svg";
 import logoRss from "@/icons/logo-rss.svg";
@@ -198,11 +197,6 @@ const SocialNetworks: m.Component = {
                 tooltip: "Odysee",
                 link: "https://odysee.com/@ExploreWilder:b",
                 logo: logoOdysee,
-            },
-            {
-                tooltip: "PeerTube",
-                link: "https://p.lu/c/explorewilder/videos",
-                logo: logoPeertube,
             },
             {
                 tooltip: "Plume",
