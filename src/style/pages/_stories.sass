@@ -29,6 +29,8 @@
         margin-top: -0.4rem
         font-size: 0.9rem
     .story-preview
-        height: 65vh /* enough space to handle all possible small screens */
+        height: 55vh /* enough space to handle all possible small screens */
+        @media (max-width: 768px) /* small/large screen limit */
+            height: 70vh
         @media (min-width: $container-column-threshold)
             height: calc(2 * #{$p-vertical-margin} * #{$text-line-height} + 200px)
