@@ -6,7 +6,6 @@ import { config } from "../config";
 import { AttribUrls, Attribution, globalMapState } from "../models/Map";
 import { MapTheme, MapThemeStrings } from "../models/Story";
 import { t } from "../translate";
-import { transformExternalLinks } from "../utils";
 import Icon from "./Icon";
 
 const MapAttributionsTippyContent: m.Component = {
@@ -61,11 +60,6 @@ class MapAttributionsIcon implements m.ClassComponent {
             arrow: false,
             maxWidth: "none",
         });
-    }
-
-    // skipcq: JS-0105
-    onupdate(): void {
-        transformExternalLinks();
     }
 
     onbeforeremove(): void {

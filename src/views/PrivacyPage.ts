@@ -1,7 +1,6 @@
 import m from "mithril";
 
 import { t } from "../translate";
-import { transformExternalLinks } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
 import { PrivacyPolicy } from "./PrivacyPolicy";
 
@@ -12,10 +11,6 @@ export default function PrivacyPage(): m.Component {
         oncreate(): void {
             document.title = t("privacy.title");
             t.createTippies();
-            transformExternalLinks();
-        },
-        onupdate(): void {
-            transformExternalLinks();
         },
         view(): m.Vnode<HeaderAttrs>[] {
             return [

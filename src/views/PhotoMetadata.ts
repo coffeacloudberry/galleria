@@ -82,15 +82,7 @@ class CameraPosition implements m.ClassComponent {
                 m("li", [
                     t("cam.goto"),
                     " ",
-                    m(
-                        "a.normal-a",
-                        {
-                            rel: "noopener noreferrer",
-                            target: "_blank",
-                            href: appUrl,
-                        },
-                        appName,
-                    ),
+                    m("a.normal-a", { href: appUrl }, appName),
                 ]),
             ]),
         ];

@@ -115,25 +115,6 @@ export function injectCode(path: {
     });
 }
 
-/**
- * Open all external links in a new tab. It does not watch for new nodes, so
- * it should be called on vnode creation and update.
- */
-export function transformExternalLinks(): void {
-    const allExternalLinks = document.querySelectorAll("a[href^='http']");
-    allExternalLinks.forEach((node) => {
-        const relAttr = node.getAttribute("rel");
-        const allRels = relAttr ? relAttr.split(" ") : [];
-        ["noopener", "noreferrer"].forEach((attr) => {
-            if (allRels.indexOf(attr) === -1) {
-                allRels.push(attr);
-            }
-        });
-        node.setAttribute("rel", allRels.join(" "));
-        node.setAttribute("target", "_blank");
-    });
-}
-
 export function getWindowSize(): { width: number; height: number } {
     const docElem = document.documentElement;
     const body = document.getElementsByTagName("body")[0];

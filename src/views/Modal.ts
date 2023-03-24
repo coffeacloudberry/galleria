@@ -4,7 +4,7 @@ import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
 
 import { t } from "../translate";
-import { hideAllForce, transformExternalLinks } from "../utils";
+import { hideAllForce } from "../utils";
 import Icon from "./Icon";
 
 function scrollableBody(scrollable: boolean) {
@@ -86,10 +86,6 @@ export function modal({
     m.mount(modalContainer, {
         oncreate(): void {
             document.addEventListener("keydown", onKeyPressed);
-            transformExternalLinks();
-        },
-        onupdate(): void {
-            transformExternalLinks();
         },
         onremove(): void {
             document.removeEventListener("keydown", onKeyPressed);

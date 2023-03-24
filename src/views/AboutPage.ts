@@ -14,7 +14,7 @@ import m from "mithril";
 
 import { config } from "../config";
 import { t } from "../translate";
-import { hideAllForce, transformExternalLinks } from "../utils";
+import { hideAllForce } from "../utils";
 import { ContactForm, NewsletterForm } from "./Forms";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
@@ -274,11 +274,9 @@ export default function AboutPage(): m.Component {
         oncreate(): void {
             document.title = t("about");
             t.createTippies();
-            transformExternalLinks();
         },
         onupdate(): void {
             t.createTippies();
-            transformExternalLinks();
         },
         onremove(): void {
             hideAllForce();

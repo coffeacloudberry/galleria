@@ -10,7 +10,7 @@ import {
     story,
 } from "../models/Story";
 import { t } from "../translate";
-import { hideAllForce, transformExternalLinks } from "../utils";
+import { hideAllForce } from "../utils";
 import { ChartContainer } from "./ElevationProfile";
 import { Header, HeaderAttrs } from "./Header";
 import Map from "./Map";
@@ -168,7 +168,6 @@ export default function StoryPage(): m.Component {
         oncreate(): void {
             document.title = t("story.title");
             t.createTippies();
-            transformExternalLinks();
         },
         onremove(): void {
             hideAllForce();
@@ -200,7 +199,6 @@ export default function StoryPage(): m.Component {
                     theme: "abbr",
                 });
             }
-            transformExternalLinks();
         },
         view(): (m.Vnode<HeaderAttrs> | boolean)[] {
             const lang = t.getLang();
