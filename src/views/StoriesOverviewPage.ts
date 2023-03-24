@@ -149,18 +149,22 @@ const OneStoryComponent: m.Component<OneStory> = {
                 {
                     "data-id": attrs.id,
                 },
-                m(
-                    m.route.Link,
-                    {
-                        href: storyLink,
-                        "data-tippy-content": t("photo.open-story.tooltip"),
-                        "data-tippy-placement": "right",
-                    },
-                    attrs.title,
-                ),
+                attrs.title
+                    ? m(
+                          m.route.Link,
+                          {
+                              href: storyLink,
+                              "data-tippy-content": t(
+                                  "photo.open-story.tooltip",
+                              ),
+                              "data-tippy-placement": "right",
+                          },
+                          attrs.title,
+                      )
+                    : "...",
             ),
             m(
-                ".container.p-0",
+                ".container.p-0.story-preview",
                 attrs.title && m(".row", m(OneStoryRow, attrs)),
             ),
         ];

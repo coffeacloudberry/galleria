@@ -28,3 +28,7 @@
     .total-photo
         margin-top: -0.4rem
         font-size: 0.9rem
+    .story-preview
+        height: 62vh /* enough space to handle all possible small screens */
+        @media (min-width: $container-column-threshold)
+            height: calc(2 * #{$p-vertical-margin} * #{$text-line-height} + 200px)
