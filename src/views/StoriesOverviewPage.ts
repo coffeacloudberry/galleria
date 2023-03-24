@@ -186,7 +186,30 @@ class AllStoriesComponent implements m.ClassComponent {
         if (allStories.noOneRequested()) {
             const element = dom as HTMLElement;
             AllStoriesComponent.lazyLoadStories(element);
+            AllStoriesComponent.scrollToStory();
         }
+    }
+
+    /**
+     * Scroll to a story if one is specified.
+     * That is to go straight to the previous position in the story list
+     * so that the user does not have to scroll again all the way down.
+     */
+    static scrollToStory() {
+        const storyId = m.parsePathname(m.route.get()).params.goto_story;
+        if (!storyId) {
+            return;
+        }
+        const targetEl = document.querySelector(`h1[data-id='${storyId}']`);
+        if (!targetEl) {
+            return;
+        }
+        const target = targetEl.getBoundingClientRect().top;
+        const scrollableEl = document.getElementById("stories");
+        if (!scrollableEl) {
+            return;
+        }
+        scrollableEl.scroll({ top: target - 60 });
     }
 
     /**

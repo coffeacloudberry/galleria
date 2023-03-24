@@ -174,14 +174,31 @@ const AboutButton: m.Component = {
     },
 };
 
-const GoToStoriesButton: m.Component = {
-    view(): m.Vnode<m.RouteLinkAttrs> {
+export interface HeaderAttrs {
+    title?: string; // only used if refPage is story or photo
+    aboutButton: boolean;
+    refPage: string;
+}
+
+const GoToStoriesButton: m.Component<HeaderAttrs> = {
+    view({ attrs }: m.Vnode<HeaderAttrs>): m.Vnode<m.RouteLinkAttrs> {
+        // find out what story to move into when going back to the listing
+        let goto_story = {};
+        if (attrs.refPage === "photo") {
+            if (photo.meta && photo.meta.story) {
+                goto_story = { goto_story: photo.meta.story };
+            }
+        } else if (story.folderName) {
+            goto_story = { goto_story: story.folderName };
+        }
+
         return m(
             m.route.Link,
             {
                 href: "/:lang/stories",
                 params: {
                     lang: t.getLang(),
+                    ...goto_story,
                 },
                 onclick: rememberLastContent,
                 "data-tippy-content": t("stories-overview"),
@@ -218,12 +235,6 @@ const BackToContentButton: m.Component = {
         );
     },
 };
-
-export interface HeaderAttrs {
-    title?: string; // only used if refPage is story or photo
-    aboutButton: boolean;
-    refPage: string;
-}
 
 export class Header implements m.ClassComponent<HeaderAttrs> {
     // skipcq: JS-0105
@@ -306,7 +317,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                                 : m(BackToContentButton),
                             attrs.refPage === "stories"
                                 ? m(BackToContentButton)
-                                : m(GoToStoriesButton),
+                                : m(GoToStoriesButton, attrs),
                         ]),
                     ),
                     centeredNav,
