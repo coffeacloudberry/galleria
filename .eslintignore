@@ -5,7 +5,6 @@ fonts
 style
 end_to_end
 input_data
-docs
 *.html
 _*
 *.md

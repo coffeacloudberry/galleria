@@ -9,8 +9,7 @@
         "lint": "eslint . api/**/* src/**/* tests/**/* config/**/* --quiet --fix --no-error-on-unmatched-pattern",
         "stylelint": "stylelint src/style/**/*.sass",
         "test": "mocha -r ts-node/register tests/unit/*.test.ts --timeout 15000 --require tests/unit/mocha.env.js",
-        "bundle-analysis": "webpack --config config/webpack.analysis.js",
-        "doc": "typedoc --tsconfig tsconfig.json"
+        "bundle-analysis": "webpack --config config/webpack.analysis.js"
     },
     "repository": {
         "type": "git",
@@ -82,8 +81,6 @@
         "stylelint": "^15.3.0",
         "ts-loader": "^9.4.2",
         "ts-node": "^10.9.1",
-        "typedoc": "^0.23.28",
-        "typedoc-plugin-not-exported": "^0.1.6",
         "typescript": "^5.0.2",
         "webpack": "^5.76.3",
         "webpack-bundle-analyzer": "^4.8.0",

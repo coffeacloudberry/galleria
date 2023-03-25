@@ -14,7 +14,6 @@ tests/end_to_end/results
 .scannerwork/
 .idea
 *~
-docs
 
 # Generated files from custom Webpack plugins
 rev_*
