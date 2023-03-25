@@ -134,24 +134,30 @@ function onShowStoryTippy(instance: TippyInstance) {
         });
 }
 
+function addTippyToLinkedStories(dom: Element) {
+    dom.querySelectorAll("a[data-story]").forEach((targetNode: Element) => {
+        const tippyNode = targetNode as HTMLElement & { _tippy: TippyInstance };
+        if (!tippyNode._tippy) {
+            // Create only if not existing to avoid duplication
+            tippy(tippyNode, {
+                content: `${t("loading.tooltip")}...`,
+                onShow: onShowStoryTippy,
+                inlinePositioning: true,
+                plugins: [inlinePositioning],
+                offset: [0, 0],
+            });
+        }
+    });
+}
+
 /** Print the story content. Create dynamically translated tippies. */
 const StoryContent: m.Component = {
     onupdate({ dom }: m.VnodeDOM): void {
-        dom.querySelectorAll("a[data-story]").forEach((targetNode: Element) => {
-            const tippyNode = targetNode as HTMLElement & {
-                _tippy: TippyInstance;
-            };
-            if (!tippyNode._tippy) {
-                // Create only if not existing to avoid duplication
-                tippy(tippyNode, {
-                    content: `${t("loading.tooltip")}...`,
-                    onShow: onShowStoryTippy,
-                    inlinePositioning: true,
-                    plugins: [inlinePositioning],
-                    offset: [0, 0],
-                });
-            }
-        });
+        addTippyToLinkedStories(dom);
+    },
+
+    oncreate({ dom }: m.VnodeDOM): void {
+        addTippyToLinkedStories(dom);
     },
 
     view(): m.Vnode {
