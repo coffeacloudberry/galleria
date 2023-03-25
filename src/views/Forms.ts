@@ -10,7 +10,7 @@ import trashOutline from "@/icons/trash-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
-import CustomLogging, { LogType } from "../CustomLogging";
+import { LogType } from "../CustomLogging";
 import { t } from "../translate";
 import { getWindowSize, toast } from "../utils";
 import { SocialNetworkItem } from "./AboutPage";
@@ -18,8 +18,6 @@ import Captcha from "./Captcha";
 import Icon from "./Icon";
 import { modal } from "./Modal";
 import { PrivacyPolicy } from "./PrivacyPolicy";
-
-const info = new CustomLogging();
 
 type SubmitEvent = Event & { submitter: HTMLElement };
 
@@ -133,12 +131,6 @@ class BaseForm {
      * @param solution New solution.
      */
     doneCallback(solution: string): void {
-        info.log(
-            `Captcha successfully solved - solution '${solution.slice(
-                0,
-                5,
-            )}...'`,
-        );
         this.captchaSolution = solution;
     }
 

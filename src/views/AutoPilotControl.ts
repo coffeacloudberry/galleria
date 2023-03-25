@@ -11,7 +11,6 @@ import { setInteractions } from "./InteractionsControl";
 declare const turf: typeof import("@turf/turf");
 declare const mapboxgl: typeof import("mapbox-gl");
 const error = new CustomLogging("error");
-const info = new CustomLogging();
 
 interface AutoPilotControlAttrs {
     cameraRoute: Feature<LineString>;
@@ -256,7 +255,6 @@ class AutoPilotControlComponent
      */
     pause(): void {
         if (!this.isLoading) {
-            info.log("Pausing autopilot for terrain acquisition.");
             this.isLoading = true;
             m.redraw();
         }
@@ -268,7 +266,6 @@ class AutoPilotControlComponent
      */
     play(): void {
         if (this.isLoading) {
-            info.log("Resume autopilot.");
             this.isLoading = false;
             m.redraw();
         }

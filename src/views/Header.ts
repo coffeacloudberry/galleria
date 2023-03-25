@@ -7,7 +7,6 @@ import m from "mithril";
 import tippy, { Instance as TippyInstance } from "tippy.js";
 
 import { config } from "../config";
-import CustomLogging from "../CustomLogging";
 import { photo } from "../models/Photo";
 import { story } from "../models/Story";
 import { Language, t } from "../translate";
@@ -15,7 +14,6 @@ import Icon from "./Icon";
 import PhotoMetadataIcon from "./PhotoMetadata";
 
 const languages = require("../languages"); // skipcq: JS-0359
-const info = new CustomLogging();
 
 /** The link to the page before landing to the about page. */
 let prevHref: string | undefined; // skipcq: JS-0309
@@ -149,7 +147,6 @@ function rememberLastContent() {
     const contentPath = m.route.get();
     if (contentPath.includes("/story/") || contentPath.includes("/photo/")) {
         prevHref = contentPath;
-        info.log(`Remember path ${contentPath}`);
     }
 }
 
