@@ -10,8 +10,8 @@
         "fr": ""
     },
     "position": {
-        "lat": 68.040630,
-        "lon": 28.870950
+        "lat": 68.04063,
+        "lon": 28.87095
     },
     "story": "Hiking_Eastern_Lapland",
     "dateTaken": "2022-09-02T16:03:59",
@@ -20,5 +20,7 @@
     "fNumber": 3.5,
     "iso": 100,
     "prev": 220831194008,
-    "next": 220904165626
+    "next": 220904165626,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
 }
