@@ -8,6 +8,9 @@ node_modules/
 *.xcf
 *.dng
 public/content/photos/**/*.jpg
+public/content/photos/**/*.JPG
+public/content/photos/**/*.pto
+public/content/photos/**/*.rtc
 _*
 tests/end_to_end/results
 .vercel
