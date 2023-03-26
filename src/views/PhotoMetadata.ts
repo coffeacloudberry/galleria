@@ -33,7 +33,7 @@ const CameraSetup: m.Component = {
             ]),
             m("ul.blabla.mt-3.ml-9", [
                 body && m("li", `${t("cam.body")} ${body}`),
-                lens && m("li", `${t("cam.lens")} ${lens}`),
+                lens && m("li", [`${t("cam.lens")} `, m("small", lens)]),
                 focal && m("li", `${t("cam.focal")} ${focal} mm`),
                 fNumber && m("li", `${t("cam.f-number")} f/${fNumber}`),
                 exposure && m("li", `${t("cam.exposure")} ${exposure} s`),
