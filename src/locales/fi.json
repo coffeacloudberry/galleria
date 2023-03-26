@@ -178,6 +178,8 @@
     },
     "verified": "Tarkista todennetut tilit",
     "cam.setup": "Kameran asetukset:",
+    "cam.body": "Kamera:",
+    "cam.lens": "Objektiivi:",
     "cam.focal": "Fokaalipituus (35mm ekv.):",
     "cam.exposure": "Valotusaika:",
     "cam.f-number": "Aukkosuhde:",

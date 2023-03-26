@@ -178,6 +178,8 @@
     },
     "verified": "Vérifier les comptes",
     "cam.setup": "Configuration :",
+    "cam.body": "Appareil :",
+    "cam.lens": "Objectif :",
     "cam.focal": "Longueur focale (eq. 35mm) :",
     "cam.exposure": "Temps d'exposition :",
     "cam.f-number": "Ouverture géométrique :",

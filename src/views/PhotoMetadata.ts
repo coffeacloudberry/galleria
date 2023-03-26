@@ -17,6 +17,8 @@ const CameraSetup: m.Component = {
         if (!photo.meta) {
             return null;
         }
+        const body = photo.meta.body;
+        const lens = photo.meta.lens;
         const focal = photo.meta.focalLength35mm;
         const exposure = photo.meta.exposureTime;
         const fNumber = photo.meta.fNumber;
@@ -30,6 +32,8 @@ const CameraSetup: m.Component = {
                 t("cam.setup"),
             ]),
             m("ul.blabla.mt-3.ml-9", [
+                body && m("li", `${t("cam.body")} ${body}`),
+                lens && m("li", `${t("cam.lens")} ${lens}`),
                 focal && m("li", `${t("cam.focal")} ${focal} mm`),
                 fNumber && m("li", `${t("cam.f-number")} f/${fNumber}`),
                 exposure && m("li", `${t("cam.exposure")} ${exposure} s`),
@@ -221,6 +225,7 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
             placement: PhotoMetadataIcon.optimalPlacement(),
             appendTo: () => document.body,
             arrow: false, // no arrow on non-clickable element
+            maxWidth: "none",
         });
         lastResizeListener = () => {
             if (this.tippyInstance) {

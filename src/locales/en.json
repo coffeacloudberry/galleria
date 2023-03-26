@@ -178,6 +178,8 @@
     },
     "verified": "Check verified accounts",
     "cam.setup": "Camera Setup:",
+    "cam.body": "Camera:",
+    "cam.lens": "Lens:",
     "cam.focal": "Focal length (35mm eq.):",
     "cam.exposure": "Exposure time:",
     "cam.f-number": "Focal ratio:",
