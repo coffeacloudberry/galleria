@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Natural Portrait",
+        "fi": "Luonnollinen muotokuva",
+        "fr": "Portrait au naturel"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.938178,
+        "lon": 26.73617
+    },
+    "downloadable": false,
+    "story": "Winter_Immersion_in_Lapland",
+    "dateTaken": "2023-02-12T14:41:49",
+    "focalLength35mm": 300,
+    "exposureTime": "1/200",
+    "fNumber": 5.6,
+    "iso": 500,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 55-300mm f/4.5-5.6G ED VR",
+    "prev": 230212143733,
+    "next": 230212163200
+}
