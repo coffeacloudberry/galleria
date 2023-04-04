@@ -8,13 +8,13 @@ Valid Photo Story About Navigation
     Landing Page Should Be Open
     Go From Content To About Page
     About Page Should Be Open
-    Go From About Page To Content
+    Go Back
     Landing Page Should Be Open
     Click Link    xpath://a[@data-tippy-content="Read the story"]
     Story Page Should Be Open
     Go From Content To About Page
     About Page Should Be Open
-    Go From About Page To Content
+    Go Back
     Story Page Should Be Open
     Click Link    xpath://a[@data-tippy-content="See the photography"]
     Landing Page Should Be Open
@@ -39,11 +39,6 @@ Valid Browser History
     Click Link    xpath://a[@data-tippy-content="Read the story"]
     Wait Until Element Is Visible    id:story
     Go From Content To About Page
-    Wait Until Element Is Visible    id:about
-    Go From About Page To Content
-    Wait Until Element Is Visible    id:story
-
-    Go Back
     Wait Until Element Is Visible    id:about
     Go Back
     Wait Until Element Is Visible    id:story

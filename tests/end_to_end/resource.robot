@@ -46,9 +46,6 @@ Wait For Loading Photo
     Wait For Loading Content
     Landing Page Should Be Open
 
-Go From About Page To Content
-    Click Link    xpath://a[@data-tippy-content="Back to the photography or story"]
-
 Go From Content To About Page
     Click Link    partial link:About
 

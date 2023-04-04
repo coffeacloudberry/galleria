@@ -1,4 +1,3 @@
-import arrowUndoOutline from "@/icons/arrow-undo-outline.svg";
 import ellipsisHorizontal from "@/icons/ellipsis-horizontal.svg";
 import imageOutline from "@/icons/image-outline.svg";
 import languageOutline from "@/icons/language-outline.svg";
@@ -6,7 +5,6 @@ import listOutline from "@/icons/list-outline.svg";
 import m from "mithril";
 import tippy, { Instance as TippyInstance } from "tippy.js";
 
-import { config } from "../config";
 import { photo } from "../models/Photo";
 import { story } from "../models/Story";
 import { Language, t } from "../translate";
@@ -14,9 +12,6 @@ import Icon from "./Icon";
 import PhotoMetadataIcon from "./PhotoMetadata";
 
 const languages = require("../languages"); // skipcq: JS-0359
-
-/** The link to the page before landing to the about page. */
-let prevHref: string | undefined; // skipcq: JS-0309
 
 interface LanguageSelectionAttrs {
     refPage: string;
@@ -139,24 +134,12 @@ const OpenStory: m.Component<OpenStoryAttrs> = {
     },
 };
 
-/**
- * Remember the current path so that we could go back later one thanks to the
- * "back to the photography or story" button.
- */
-function rememberLastContent() {
-    const contentPath = m.route.get();
-    if (contentPath.includes("/story/") || contentPath.includes("/photo/")) {
-        prevHref = contentPath;
-    }
-}
-
 const AboutButton: m.Component = {
     view(): m.Vnode<m.RouteLinkAttrs> {
         return m(
             m.route.Link,
             {
                 href: t.prependLang("/about"),
-                onclick: rememberLastContent,
                 class: "nav-item",
                 "data-tippy-content": t("about.tooltip"),
             },
@@ -186,38 +169,10 @@ const GoToStoriesButton: m.Component = {
                 params: {
                     lang: t.getLang(),
                 },
-                onclick: rememberLastContent,
                 "data-tippy-content": t("stories-overview"),
                 class: "nav-item",
             },
             m(Icon, { src: listOutline }),
-        );
-    },
-};
-
-const BackToContentButton: m.Component = {
-    view(): m.Vnode<m.RouteLinkAttrs> {
-        return m(
-            m.route.Link,
-            {
-                // previous page with updated lang or default
-                href:
-                    prevHref !== undefined
-                        ? t.replaceLang(t.getLang(), prevHref)
-                        : "",
-                onclick: (e: Event) => {
-                    if (prevHref === undefined) {
-                        e.preventDefault();
-                        m.route.set("/:lang/photo/:id", {
-                            lang: t.getLang(),
-                            id: config.firstPhotoId,
-                        });
-                    }
-                },
-                class: "nav-item",
-                "data-tippy-content": t("back-to-photo.tooltip"),
-            },
-            m("span", m(Icon, { src: arrowUndoOutline })),
         );
     },
 };
@@ -300,9 +255,9 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                         m("span", [
                             attrs.aboutButton
                                 ? m(AboutButton)
-                                : m(BackToContentButton),
+                                : null,
                             attrs.refPage === "stories"
-                                ? m(BackToContentButton)
+                                ? null
                                 : m(GoToStoriesButton),
                         ]),
                     ),
