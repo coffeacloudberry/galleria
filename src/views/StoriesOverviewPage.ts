@@ -182,6 +182,15 @@ class AllStoriesComponent implements m.ClassComponent {
     }
 
     // skipcq: JS-0105
+    onremove(): void {
+        const domStories = document.getElementById("stories");
+        if (domStories) {
+            // remember where we are to go back there on next update
+            allStories.scrollTop = domStories.scrollTop;
+        }
+    }
+
+    // skipcq: JS-0105
     onupdate({ dom }: m.CVnodeDOM): void {
         if (allStories.noOneRequested()) {
             const element = dom as HTMLElement;
@@ -196,21 +205,12 @@ class AllStoriesComponent implements m.ClassComponent {
      * so that the user does not have to scroll again all the way down.
      */
     static scrollToStory() {
-        const storyId = m.parsePathname(m.route.get()).params.goto_story;
-        if (!storyId) {
-            return;
+        if (allStories.scrollTop) {
+            const scrollableEl = document.getElementById("stories");
+            if (scrollableEl) {
+                scrollableEl.scroll({ top: allStories.scrollTop });
+            }
         }
-        const selector = `h1[data-id='${String(storyId)}']`;
-        const targetEl = document.querySelector(selector);
-        if (!targetEl) {
-            return;
-        }
-        const target = targetEl.getBoundingClientRect().top;
-        const scrollableEl = document.getElementById("stories");
-        if (!scrollableEl) {
-            return;
-        }
-        scrollableEl.scroll({ top: target - 60 });
     }
 
     /**

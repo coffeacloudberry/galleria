@@ -177,25 +177,14 @@ export interface HeaderAttrs {
     refPage: string;
 }
 
-const GoToStoriesButton: m.Component<HeaderAttrs> = {
-    view({ attrs }: m.Vnode<HeaderAttrs>): m.Vnode<m.RouteLinkAttrs> {
-        // find out what story to move into when going back to the listing
-        let goto_story = {};
-        if (attrs.refPage === "photo") {
-            if (photo.meta && photo.meta.story) {
-                goto_story = { goto_story: photo.meta.story };
-            }
-        } else if (story.folderName) {
-            goto_story = { goto_story: story.folderName };
-        }
-
+const GoToStoriesButton: m.Component = {
+    view(): m.Vnode<m.RouteLinkAttrs> {
         return m(
             m.route.Link,
             {
                 href: "/:lang/stories",
                 params: {
                     lang: t.getLang(),
-                    ...goto_story,
                 },
                 onclick: rememberLastContent,
                 "data-tippy-content": t("stories-overview"),
@@ -314,7 +303,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                                 : m(BackToContentButton),
                             attrs.refPage === "stories"
                                 ? m(BackToContentButton)
-                                : m(GoToStoriesButton, attrs),
+                                : m(GoToStoriesButton),
                         ]),
                     ),
                     centeredNav,

@@ -29,6 +29,7 @@ export interface OneStory extends OneJsonStory, ProcessedStoryFile {
  */
 class AllStories {
     protected _fullList: OneStory[] = [];
+    public scrollTop = NaN;
 
     /** Get all stories and application states. */
     get fullList(): OneStory[] {
