@@ -80,7 +80,7 @@ describe("Contact Forms", () => {
                             );
                         }
 
-                        const newEmailAddress = `test1646576043243@explorewilder.com`;
+                        const newEmailAddress = "test1646576043243@explorewilder.com";
                         contact
                             .manageEmail(newEmailAddress)
                             .then(() => {
@@ -153,7 +153,7 @@ describe("Contact Forms", () => {
                             );
                         }
 
-                        const newEmailAddress = `test1646576044243@explorewilder.com`;
+                        const newEmailAddress = "test1646576044243@explorewilder.com";
                         sendpulse.addEmails(
                             (
                                 addEmailsResult:
@@ -217,7 +217,7 @@ describe("Contact Forms", () => {
 
     it("should send an email", (done) => {
         contact
-            .sendEmail(`test1646576045243@explorewilder.com`, "Blåblä")
+            .sendEmail("test1646576045243@explorewilder.com", "Blåblä")
             .then(() => {
                 done();
             })

@@ -486,7 +486,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
         m.request<ArrayBuffer>({
             method: "GET",
-            url: `/content/stories/:storyId/t.webtrack`,
+            url: "/content/stories/:storyId/t.webtrack",
             params: {
                 storyId: this.storyId,
             },

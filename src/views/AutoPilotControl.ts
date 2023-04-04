@@ -320,13 +320,13 @@ class AutoPilotControlComponent
                     "button.mapboxgl-ctrl-my-autopilot",
                     {
                         type: "button",
-                        "data-tippy-content": t(`map.control.faster`),
+                        "data-tippy-content": t("map.control.faster"),
                         "data-tippy-placement": "left",
                         onclick: () => {
                             this.msPerDay /= 2;
                         },
                     },
-                    m(`span.mapboxgl-ctrl-icon.faster`),
+                    m("span.mapboxgl-ctrl-icon.faster"),
                 ),
             this.autoPiloting &&
                 !this.isLoading &&
@@ -334,13 +334,13 @@ class AutoPilotControlComponent
                     "button.mapboxgl-ctrl-my-autopilot",
                     {
                         type: "button",
-                        "data-tippy-content": t(`map.control.slower`),
+                        "data-tippy-content": t("map.control.slower"),
                         "data-tippy-placement": "left",
                         onclick: () => {
                             this.msPerDay *= 2;
                         },
                     },
-                    m(`span.mapboxgl-ctrl-icon.slower`),
+                    m("span.mapboxgl-ctrl-icon.slower"),
                 ),
             // refresh is not dynamic but on click
             this.phase > AutoPilotControlComponent.phaseMargin &&
@@ -348,7 +348,7 @@ class AutoPilotControlComponent
                     "button.mapboxgl-ctrl-my-autopilot",
                     {
                         type: "button",
-                        "data-tippy-content": t(`map.control.rewind-autopilot`),
+                        "data-tippy-content": t("map.control.rewind-autopilot"),
                         "data-tippy-placement": "left",
                         onclick: () => {
                             this.reset();
