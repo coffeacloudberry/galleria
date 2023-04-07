@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Together Whatever",
+        "fi": "Yhdessä mitä tahansa",
+        "fr": "Ensemble quoi qu'il arrive"
+    },
+    "description": {
+        "en": "Black and white",
+        "fi": "Mustavalkoinen",
+        "fr": "Noir et blanc"
+    },
+    "position": {
+        "lat": 68.603224,
+        "lon": 25.595915
+    },
+    "downloadable": false,
+    "story": "Winter_Immersion_in_Lapland",
+    "dateTaken": "2023-02-17T16:01:18",
+    "focalLength35mm": 30,
+    "exposureTime": "1/40",
+    "fNumber": 11,
+    "iso": 200,
+    "body": "D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM",
+    "prev": 230215164520
+}
