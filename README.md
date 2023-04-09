@@ -212,7 +212,7 @@ The Mapbox Studio styles are public:
 * *Sunny Tundra* theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwuwtmkeeb1p15p2zbawe8u5.html?title=view&access_token=YOURTOKEN&zoomwheel=true&fresh=true#15.12/68.667283/27.535102/-20/66), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwuwtmkeeb1p15p2zbawe8u5.html?title=copy&access_token=YOURTOKEN&zoomwheel=true&fresh=true#15.12/68.667283/27.535102/-20/66),
 * *Dark Tundra* theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr.html?title=view&access_token=YOURTOKEN&zoomwheel=true&fresh=true#12.34/68.42216/27.41957/20.8/63), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr.html?title=copy&access_token=YOURTOKEN&zoomwheel=true&fresh=true#12.34/68.42216/27.41957/20.8/63).
 
-In the above links, replace YOURTOKEN with your token. Use a Mapbox token with the `styles:read` and `fonts:read` scopes. URL restrictions should not be enforced due to some [limitations](https://docs.mapbox.com/accounts/guides/tokens/#requirements-and-limitations).
+In the above links, replace YOURTOKEN with your token. Use a Mapbox token with the `styles:read` and `fonts:read` scopes.
 
 </details>
 
