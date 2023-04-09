@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Exposed",
+        "fi": "Altistunut",
+        "fr": "Mise à nu"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.647889,
+        "lon": 26.02006
+    },
+    "downloadable": false,
+    "story": "Winter_Immersion_in_Lapland",
+    "dateTaken": "2023-02-15T14:10:54",
+    "focalLength35mm": 82,
+    "exposureTime": "1/320",
+    "fNumber": 11,
+    "iso": 100,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 55-300mm f/4.5-5.6G ED VR",
+    "prev": 230215104405,
+    "next": 230215160949
+}
