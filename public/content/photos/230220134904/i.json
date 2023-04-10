@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Sunbath",
+        "fi": "Aurinkokylpy",
+        "fr": "Bain de soleil"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.529968,
+        "lon": 24.876168
+    },
+    "downloadable": false,
+    "story": "Winter_Immersion_in_Lapland",
+    "dateTaken": "2023-02-20T13:49:04",
+    "focalLength35mm": 82,
+    "exposureTime": "1/800",
+    "fNumber": 9,
+    "iso": 100,
+    "body": "D7100",
+    "lens": "AF-S DX Nikkor 55-300mm f/4.5-5.6G ED VR",
+    "prev": 230220113719
+}
