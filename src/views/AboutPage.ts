@@ -4,6 +4,7 @@ import logoBat from "@/icons/logo-bat.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoOdysee from "@/icons/logo-odysee.svg";
+import logoOMDS from "@/icons/logo-omds.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoPlume from "@/icons/logo-plume.svg";
 import logoRss from "@/icons/logo-rss.svg";
@@ -202,6 +203,11 @@ const SocialNetworks: m.Component = {
                 tooltip: "Plume",
                 link: "https://fediverse.blog/~/ExploreWilder",
                 logo: logoPlume,
+            },
+            {
+                tooltip: "OM Digital Solutions",
+                link: "https://my.omsystem.com/members/explorewilder",
+                logo: logoOMDS,
             },
         ];
         return [
