@@ -253,9 +253,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                     m(
                         ".flex-sides",
                         m("span", [
-                            attrs.aboutButton
-                                ? m(AboutButton)
-                                : null,
+                            attrs.aboutButton ? m(AboutButton) : null,
                             attrs.refPage === "stories"
                                 ? null
                                 : m(GoToStoriesButton),
