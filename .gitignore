@@ -23,3 +23,6 @@ tests/end_to_end/results
 
 # Generated files from custom Webpack plugins
 rev_*
+
+# Generated files
+raw/
