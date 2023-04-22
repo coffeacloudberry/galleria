@@ -5,7 +5,6 @@ import playBackOutline from "@/icons/play-back-outline.svg";
 import playForwardOutline from "@/icons/play-forward-outline.svg";
 import returnUpBackOutline from "@/icons/return-up-back-outline.svg";
 import m from "mithril";
-import tippy, { Instance as TippyInstance } from "tippy.js";
 
 import { config } from "../config";
 import { photo } from "../models/Photo";
@@ -13,6 +12,7 @@ import { t } from "../translate";
 import { getPhotoId, hideAllForce, isMobile } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
+import PhotoMetadataIcon from "./PhotoMetadata";
 
 /** Prev, current, and next photo components. */
 const Gallery: m.Component = {
@@ -145,78 +145,6 @@ const PrevButton: m.Component = {
     },
 };
 
-/** Display the progress in the current story. */
-class ProgressInAlbumComponent implements m.ClassComponent {
-    private tippyInstance: TippyInstance | undefined;
-
-    /** Put the Tippy content in the right place. */
-    oncreate({ dom }: m.CVnodeDOM): void {
-        this.tippyInstance = tippy(dom, {
-            interactive: true,
-            allowHTML: true,
-            hideOnClick: false,
-            interactiveBorder: 30,
-            maxWidth: "none",
-            content: dom.children[dom.children.length - 1], // tippy content
-            appendTo: () => document.body,
-            arrow: false, // no arrow on non-clickable element
-        });
-    }
-
-    onbeforeremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.unmount();
-        }
-    }
-
-    onremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.destroy();
-        }
-    }
-
-    // skipcq: JS-0105
-    view(): m.Vnode | null {
-        const storyPath = photo.getStoryPath();
-        if (
-            !photo.meta ||
-            !photo.meta.storyPhotoIncrement ||
-            !photo.meta.photosInStory ||
-            !photo.storyTitle ||
-            !storyPath
-        ) {
-            return null; // never expected
-        }
-        const total = photo.meta.photosInStory;
-        const currInc = photo.meta.storyPhotoIncrement;
-        return m(
-            "span.nav-item.album-pagination",
-            {
-                tabindex: 0,
-            },
-            [
-                // actually displayed
-                [total - currInc + 1, m("span.separator", "/"), total],
-                // tippy content
-                m(".text-center", [
-                    t("album-progress"),
-                    m("br"), // looks better on mobile
-                    m(
-                        "strong",
-                        m(
-                            m.route.Link,
-                            {
-                                href: storyPath,
-                            },
-                            photo.storyTitle,
-                        ),
-                    ),
-                ]),
-            ],
-        );
-    }
-}
-
 const LoadingSpinner: m.Component = {
     onbeforeremove(): void {
         hideAllForce();
@@ -237,9 +165,16 @@ interface FooterAttrs {
     refPage: string;
 }
 
-/** Next/prev buttons, album pagination or loading spin. */
+/** Next/prev buttons and loading spin. */
 const Footer: m.Component<FooterAttrs> = {
     view({ attrs }: m.Vnode<FooterAttrs>): m.Vnode {
+        let photoTitle = null;
+        try {
+            // @ts-ignore
+            photoTitle = photo.meta.title[t.getLang()];
+        } catch {
+            // continue regardless of error
+        }
         return m(
             "footer",
             m(
@@ -250,11 +185,11 @@ const Footer: m.Component<FooterAttrs> = {
                 [
                     // in a span to be grouped
                     m("span", [m(FirstButton), m(PrevButton)]),
-                    photo.isPreloading
-                        ? m(LoadingSpinner)
-                        : photo.storyTitle &&
-                          photo.meta &&
-                          m(ProgressInAlbumComponent),
+                    photo.isPreloading && m(LoadingSpinner),
+                    !photo.isPreloading && photoTitle && m(".long-item", m("span", [
+                        m("em", m("strong", photoTitle)),
+                        photo.containsExif() && m(PhotoMetadataIcon),
+                    ])),
                     m("span", [
                         photo.isLast() ? m(RewindButton) : m(NextButton),
                         m(LastButton),

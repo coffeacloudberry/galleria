@@ -9,7 +9,6 @@ import { photo } from "../models/Photo";
 import { story } from "../models/Story";
 import { Language, t } from "../translate";
 import Icon from "./Icon";
-import PhotoMetadataIcon from "./PhotoMetadata";
 
 const languages = require("../languages"); // skipcq: JS-0359
 
@@ -215,22 +214,21 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 } catch {
                     // continue regardless of error
                 }
-                centeredNav = m("span.limit-width", [
+                centeredNav = m("span", [
                     photoTitle &&
-                        m("span.photo-title", [
+                        m(".photo-title", [
                             m("em", m("strong", photoTitle)),
-                            m("span.short-item", [
-                                photo.storyTitle &&
-                                    m(
-                                        m.route.Link,
-                                        {
-                                            href: photo.getStoryPath() || "",
-                                        },
-                                        attrs.title,
-                                    ),
-                            ]),
+                            photo.storyTitle && [
+                                m("br"),
+                                m(
+                                    m.route.Link,
+                                    {
+                                        href: photo.getStoryPath() || "",
+                                    },
+                                    attrs.title,
+                                ),
+                            ],
                         ]),
-                    photo.containsExif() && m(PhotoMetadataIcon),
                     m(OpenStory, {
                         title: String(attrs.title),
                     }),

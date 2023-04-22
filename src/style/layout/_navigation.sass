@@ -18,15 +18,16 @@ footer
             min-width: max-content
         &.nav-photo
             .photo-title
-                display: inline-block
-                margin-top: $nav-item-space
-                padding: $nav-item-space calc(#{$nav-item-space} * 3 / 2) 0 0 0
+                display: none
             @media (max-width: 1024px)
                 .photo-title
+                    display: block
+                    margin-top: $nav-item-space
+                    padding: $nav-item-space calc(#{$nav-item-space} * 3 / 2) 0 0 0
                     position: absolute
                     text-align: center
                     color: #000
-                    .short-item a
+                    a
                         color: #000 !important
                         text-decoration: rgba(0, 0, 0, 0.4) underline
                         &:hover,
@@ -115,12 +116,6 @@ footer
                 @media (max-width: 1024px)
                     vertical-align: calc(#{$nav-font-size} - #{$nav-icon-size} + 1.5px)
                     height: $nav-icon-size
-        .limit-width,
-        .limit-width .nav-item
-            @media (max-width: 1200px)
-                /* reduce size to fit long titles into one line */
-                font-size: calc(#{$nav-font-size} / 1.25)
-                padding: calc(#{$nav-item-space} / (1 + (0.25 / 2))) calc(#{$nav-item-space} / 1.25)
         a:not(.normal-a)
             text-decoration: none
             color: $body-color !important

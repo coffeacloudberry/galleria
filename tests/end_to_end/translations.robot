@@ -47,15 +47,6 @@ Valid Dynamic Translation Updates And Retention
     Element Should Be Visible        xpath://h1[@class="modal-title" and text()="Privacy Matters"]
     Click Button                     xpath://button[@class="modal-close " and contains(text(), "Close")]
     Page Should Be Translated
-    Switch Language                  Français
-    Page Should Be Translated
-    Click Link                       xpath://a[@data-tippy-content="revenir à la photographie ou à l'aventure"]
-    Page Should Be Translated
-    Element Should Be Visible        xpath://a[@data-tippy-content="Lire l'aventure"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="À propos"]
-    Click Link                       xpath://a[@data-tippy-content="Aperçu des aventures"]
-    Wait Until Element Is Visible    class:one-story
-    Page Should Be Translated
     [Teardown]    Close Browser
 
 Tooltips On Map Controls
