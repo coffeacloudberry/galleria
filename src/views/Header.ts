@@ -196,16 +196,12 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
 
         switch (attrs.refPage) {
             case "story":
-                centeredNav = m("span.limit-width", [
-                    story.gotContent &&
-                        m(
-                            "span",
-                            m("em.mr-3.long-item", m("strong", story.title)),
-                        ),
+                centeredNav = m(
+                    "span.limit-width",
                     m(OpenPhoto, {
                         title: String(attrs.title),
                     }),
-                ]);
+                );
                 break;
             case "photo":
                 try {

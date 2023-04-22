@@ -2,8 +2,7 @@ import m from "mithril";
 
 import { config } from "../config";
 import { t } from "../translate";
-import { clearSelection, toast } from "../utils";
-import { story } from "./Story";
+import { clearSelection } from "../utils";
 
 export type PhotoPosition = { lat: number; lon: number };
 
@@ -338,28 +337,6 @@ class Photo {
             this.meta === null || this.meta.prev === undefined
                 ? config.firstPhotoId
                 : this.meta.prev;
-
-        if (
-            this.meta !== null &&
-            this.meta.storyPhotoIncrement === 1 &&
-            this.storyTitle !== null &&
-            (story.folderName === null || story.folderName !== this.meta.story)
-        ) {
-            const storyLink = m.buildPathname("/:lang/story/:title", {
-                lang: t.getLang(),
-                title: this.meta.story,
-            });
-            toast(
-                m("span", [
-                    t("finished-album"),
-                    m(
-                        "em",
-                        m(m.route.Link, { href: storyLink }, this.storyTitle),
-                    ),
-                ]),
-                storyLink,
-            );
-        }
 
         m.route.set(
             "/:lang/photo/:title",

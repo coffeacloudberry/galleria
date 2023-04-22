@@ -75,11 +75,6 @@
     "last.tooltip": "The very first shot",
     "previous.tooltip": "Previous",
     "loading.tooltip": "Loading",
-    "album-progress": "Your progress in the photo album:",
-    "applause.feedback.pass": "Thank you so much for your feedback, I appreciate! 😊",
-    "applause.feedback.fail": "Sorry, Something went wrong! \uD83D\uDE15 Try again later.",
-    "applause.feedback.fail.429": "Sorry, I couldn't handle so much jubilation! 😱 Try again later.",
-    "no-result-try-sth-else": "No result, please try something else.",
     "not-found.message": "The page you try to see does not exist or I failed to find its content.",
     "not-found.action": "Visit the main page",
     "photo.title": "Photography",
@@ -192,6 +187,5 @@
     "donate-zcash": "{{donate}} with Zcash",
     "donate-bat": "{{donate}} with Brave",
     "donate-card": "One-time donation with card",
-    "donate-recurrent": "Recurrent donation with card",
-    "finished-album": "You have just finished the album, click here to read "
+    "donate-recurrent": "Recurrent donation with card"
 }

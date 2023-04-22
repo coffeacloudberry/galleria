@@ -75,11 +75,6 @@
     "last.tooltip": "Ensimmäinen valokuvaus",
     "previous.tooltip": "Edellinen",
     "loading.tooltip": "Kuormaus",
-    "album-progress": "Edistyminen valokuva-albumissa:",
-    "applause.feedback.pass": "Kiitos paljon palautteestasi, arvostan! 😊",
-    "applause.feedback.fail": "Anteeksi, jokin meni pieleen! \uD83D\uDE15 Kokeile myöhemmin uudelleen.",
-    "applause.feedback.fail.429": "Anteeksi, en pystynyt käsittelemään niin paljon riemua! 😱 Kokeile myöhemmin uudelleen.",
-    "no-result-try-sth-else": "Ei tulosta, kokeile jotain muuta.",
     "not-found.message": "Sivua, jota yrität tarkastella, ei ole olemassa tai en löytänyt sen sisältöä.",
     "not-found.action": "Käy pääsivulla",
     "photo.title": "Valokuvaus",
@@ -192,6 +187,5 @@
     "donate-zcash": "{{donate}} Zcashilla",
     "donate-bat": "{{donate}} Brave-selaimella",
     "donate-card": "Kertalahjoitus kortilla",
-    "donate-recurrent": "Toistuva lahjoitus kortilla",
-    "finished-album": "Olet juuri lopettanut albumin, klikkaa tästä lukea "
+    "donate-recurrent": "Toistuva lahjoitus kortilla"
 }

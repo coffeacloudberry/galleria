@@ -75,11 +75,6 @@
     "last.tooltip": "La toute première photo",
     "previous.tooltip": "Précédent",
     "loading.tooltip": "Chargement",
-    "album-progress": "Progression dans l'album photo :",
-    "applause.feedback.pass": "Merci de tes applaudissements ! 😊",
-    "applause.feedback.fail": "Arf, quelque chose à mal tourné ! \uD83D\uDE15 Essaie à nouveau plus tard.",
-    "applause.feedback.fail.429": "Désolé, c'est trop d'amour pour un seul homme ! 😱 Essaie plus tard.",
-    "no-result-try-sth-else": "Pas de bol, aucun résultat... essaye autre chose.",
     "not-found.message": "La page que t'essaies de voir n'existe pas ou je n'ai pas réussi à trouver son contenu.",
     "not-found.action": "Visites la page principale",
     "photo.title": "Photographie",
@@ -192,6 +187,5 @@
     "donate-zcash": "{{donate}} en Zcash",
     "donate-bat": "{{donate}} avec Brave",
     "donate-card": "Don unique par carte",
-    "donate-recurrent": "Don récurrent par carte",
-    "finished-album": "Tu viens de terminer l'album, clique là pour lire "
+    "donate-recurrent": "Don récurrent par carte"
 }
