@@ -185,7 +185,11 @@
     "last": "last",
     "donate": "Donate",
     "donate-zcash": "{{donate}} with Zcash",
+    "donate-monero": "{{donate}} with Monero",
+    "donate-nano": "{{donate}} with Nano",
     "donate-bat": "{{donate}} with Brave",
     "donate-card": "One-time donation with card",
-    "donate-recurrent": "Recurrent donation with card"
+    "donate-recurrent": "Recurrent donation with card",
+    "copy": "Copy address to clipboard",
+    "copied": "Address copied to clipboard"
 }

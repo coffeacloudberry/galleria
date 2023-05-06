@@ -33,7 +33,7 @@ export const config = {
             /**
              * CDN URL
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js",
+            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.min.js",
 
             /**
              * Subresource Integrity.
@@ -41,7 +41,7 @@ export const config = {
              * `openssl dgst -sha512 -binary FILENAME.js | openssl base64 -A`
              * More details: https://www.srihash.org/
              */
-            sri: "sha512-GCiwmzA0bNGVsp1otzTJ4LWQT2jjGJENLGyLlerlzckNI30moi2EQT0AfRI7fLYYYDKR+7hnuh35r3y1uJzugw==",
+            sri: "sha512-TJ7U6JRJx5IpyvvO9atNnBzwJIoZDaQnQhb0Wmw32Rj5BQHAmJG16WzaJbDns2Wk5VG6gMt4MytZApZG47rCdg==",
         },
     },
 

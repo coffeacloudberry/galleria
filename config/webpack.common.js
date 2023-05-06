@@ -110,6 +110,17 @@ module.exports = {
                     noErrorOnMissing: false,
                 },
                 {
+                    from: path.posix.join(
+                        path.resolve(paths.src, "qr_codes").replace(/\\/g, "/"),
+                        "*.{png,svg}",
+                    ),
+                    to: `${paths.build}/assets/qr_codes/[name][ext]`,
+                    globOptions: {
+                        caseSensitiveMatch: false,
+                    },
+                    noErrorOnMissing: false,
+                },
+                {
                     from: "src/404.html",
                     to: `${paths.build}/`,
                 },

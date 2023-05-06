@@ -1,8 +1,11 @@
 import logoCard from "@/icons/card-outline.svg";
 import logoCardRecurrent from "@/icons/card-recurrent-outline.svg";
+import copyOutline from "@/icons/copy-outline.svg";
 import logoBat from "@/icons/logo-bat.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
+import logoMonero from "@/icons/logo-monero.svg";
+import logoNano from "@/icons/logo-nano.svg";
 import logoOdysee from "@/icons/logo-odysee.svg";
 import logoOMDS from "@/icons/logo-omds.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
@@ -14,7 +17,7 @@ import m from "mithril";
 
 import { config } from "../config";
 import { t } from "../translate";
-import { hideAllForce } from "../utils";
+import { hideAllForce, toast } from "../utils";
 import { ContactForm, NewsletterForm } from "./Forms";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
@@ -130,10 +133,52 @@ const CopyrightNotice: m.Component = {
 };
 
 interface SocialNetworkItemAttrs {
+    /** Translated tooltip content as text. */
     tooltip: string;
+
+    /** URL to social platform. */
     link: string;
+
+    /** Crypto wallet address. */
+    address?: string;
+
+    /** Encoded icon. */
     logo: string;
 }
+
+/** Wallet information. */
+const CryptoCode: m.Component<SocialNetworkItemAttrs> = {
+    view({ attrs }: m.Vnode<SocialNetworkItemAttrs>): m.Vnode | null {
+        if (!attrs.address) {
+            return null;
+        }
+        const [currency, address] = attrs.address.split(":");
+        return m(".text-center", [
+            m("img", { src: `/assets/qr_codes/${currency}.png` }),
+            m("p.address", [
+                m("input[type=text][readonly]", { value: address }),
+                m(
+                    "span.copy-button",
+                    {
+                        "data-tippy-content": t("copy"),
+                        "data-tippy-placement": "right",
+                        onclick: (e: Event): void => {
+                            e.preventDefault();
+                            if (address) {
+                                navigator.clipboard
+                                    .writeText(address)
+                                    .then((): void => {
+                                        toast(t("copied"));
+                                    });
+                            }
+                        },
+                    },
+                    m(Icon, { src: copyOutline }),
+                ),
+            ]),
+        ]);
+    },
+};
 
 /** One social platform. */
 export const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
@@ -148,6 +193,19 @@ export const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
                 {
                     href: attrs.link,
                     rel: "me",
+                    onclick: (e: Event): void => {
+                        if (attrs.address) {
+                            e.preventDefault();
+                            modal({
+                                title: attrs.tooltip,
+                                content: {
+                                    view: () => {
+                                        return m(CryptoCode, attrs);
+                                    },
+                                },
+                            });
+                        }
+                    },
                 },
                 m(Icon, { src: attrs.logo }),
             ),
@@ -246,6 +304,20 @@ const Donate: m.Component = {
                 logo: logoZcash,
             },
             {
+                tooltip: t("donate-monero"),
+                link: "#",
+                address:
+                    "monero:8Bzm9pp36LES13YcP631eaV8tKs2iX3mpfpWwUmGAUUC8MPUoNCKMm4c24poa8QfspVfS83xxvfvSZ74TK1SqPD5UjPUp8a",
+                logo: logoMonero,
+            },
+            {
+                tooltip: t("donate-nano"),
+                link: "#",
+                address:
+                    "nano:nano_3i6d6o8k9ypczju6i1r6zrkrspqdp4wiuxtmt6acnuyxsscyju6nsk1yf3if",
+                logo: logoNano,
+            },
+            {
                 tooltip: t("donate-bat"),
                 link: "https://publishers.basicattentiontoken.org",
                 logo: logoBat,
@@ -259,6 +331,7 @@ const Donate: m.Component = {
                     return m(SocialNetworkItem, {
                         tooltip: item.tooltip,
                         link: item.link,
+                        address: item.address,
                         logo: item.logo,
                     });
                 }),

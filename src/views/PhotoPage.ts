@@ -186,10 +186,15 @@ const Footer: m.Component<FooterAttrs> = {
                     // in a span to be grouped
                     m("span", [m(FirstButton), m(PrevButton)]),
                     photo.isPreloading && m(LoadingSpinner),
-                    !photo.isPreloading && photoTitle && m(".long-item", m("span", [
-                        m("em", m("strong", photoTitle)),
-                        photo.containsExif() && m(PhotoMetadataIcon),
-                    ])),
+                    !photo.isPreloading &&
+                        photoTitle &&
+                        m(
+                            ".long-item",
+                            m("span", [
+                                m("em", m("strong", photoTitle)),
+                                photo.containsExif() && m(PhotoMetadataIcon),
+                            ]),
+                        ),
                     m("span", [
                         photo.isLast() ? m(RewindButton) : m(NextButton),
                         m(LastButton),

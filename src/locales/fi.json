@@ -185,7 +185,11 @@
     "last": "viimeinen",
     "donate": "Lahjoita",
     "donate-zcash": "{{donate}} Zcashilla",
+    "donate-monero": "{{donate}} Moneron avulla",
+    "donate-nano": "{{donate}} Nanon kanssa",
     "donate-bat": "{{donate}} Brave-selaimella",
     "donate-card": "Kertalahjoitus kortilla",
-    "donate-recurrent": "Toistuva lahjoitus kortilla"
+    "donate-recurrent": "Toistuva lahjoitus kortilla",
+    "copy": "Kopioi osoite leikepöydälle",
+    "copied": "Osoite kopioitu leikepöydälle"
 }
