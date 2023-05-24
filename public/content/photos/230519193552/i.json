@@ -1,0 +1,23 @@
+{
+    "title": {
+        "en": "Through the Looking-Glass",
+        "fi": "Seikkailut peilimaailmassa",
+        "fr": "De l'autre côté du miroir"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Birgitan_Polku",
+    "dateTaken": "2023-05-19T19:35:52",
+    "focalLength35mm": 105,
+    "exposureTime": "1/8000",
+    "fNumber": 4.5,
+    "iso": 320,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 55-300mm f/4.5-5.6G ED VR",
+    "prev": 230501125835,
+    "next": 230520121746
+}
