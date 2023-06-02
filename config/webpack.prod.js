@@ -11,7 +11,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
 const HumanstxtPlugin = require("./humanstxt-webpack-plugin");
 const SitemapPlugin = require("sitemap-webpack-plugin").default;
-const SentryCliPlugin = require("@sentry/webpack-plugin");
+const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
 const { merge } = require("webpack-merge");
 const paths = require("./paths");
 const common = require("./webpack.common.js");
@@ -123,7 +123,7 @@ module.exports = merge(common, {
 
         new GenerateWebLabelsPlugin({
             additionalScripts: Object.assign({
-                "https://unpkg.com/friendly-challenge@0.9.11/widget.module.min.js":
+                "https://unpkg.com/friendly-challenge@0.9.12/widget.module.min.js":
                     [
                         {
                             id: "widget.module.min.js",
@@ -138,11 +138,12 @@ module.exports = merge(common, {
         }),
 
         // Push source maps to Sentry
-        new SentryCliPlugin({
-            include: path.resolve(paths.build, "js"),
-            ignoreFile: path.resolve(paths.root, ".gitignore"),
-            urlPrefix: "~/js",
-            dryRun: !("SENTRY_AUTH_TOKEN" in process.env),
+        sentryWebpackPlugin({
+            sourcemaps: {
+                assets: [path.resolve(paths.build, "js")],
+            },
+            disable: !("SENTRY_AUTH_TOKEN" in process.env),
+            telemetry: false,
         }),
     ],
     optimization: {
