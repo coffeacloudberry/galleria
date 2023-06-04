@@ -9,6 +9,7 @@ import { photo } from "../models/Photo";
 import { story } from "../models/Story";
 import { Language, t } from "../translate";
 import Icon from "./Icon";
+import PhotoMetadataComponent from "./PhotoMetadata";
 
 const languages = require("../languages"); // skipcq: JS-0359
 
@@ -212,8 +213,8 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 }
                 centeredNav = m("span", [
                     photoTitle &&
-                        m(".photo-title", [
-                            m("em", m("strong", photoTitle)),
+                        m(".photo-page-header", [
+                            m(PhotoMetadataComponent),
                             photo.storyTitle && [
                                 m("br"),
                                 m(

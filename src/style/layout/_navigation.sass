@@ -17,10 +17,10 @@ footer
             width: 0
             min-width: max-content
         &.nav-photo
-            .photo-title
+            .photo-page-header
                 display: none
             @media (max-width: 1024px)
-                .photo-title
+                .photo-page-header
                     display: block
                     margin-top: $nav-item-space
                     padding: $nav-item-space calc(#{$nav-item-space} * 3 / 2) 0 0 0
@@ -39,13 +39,13 @@ footer
                     width: calc(#{$nav-bar-height} + 1px)
                     flex-direction: column
                     height: 100vh
-                    .photo-title
+                    .photo-page-header
                         bottom: 0.3rem
                         left: calc(#{$nav-bar-height} + 4px) /* 4px to keep distance from the shadow on the nav bar */
                         width: calc(100vw - 2 * (#{$nav-bar-height} + 4px))
                         padding-bottom: 0.2rem
                 @media (orientation: portrait)
-                    .photo-title
+                    .photo-page-header
                         top: $nav-bar-height
                         left: 0
                         width: 100vw
@@ -107,15 +107,8 @@ footer
                     display: block
         .photo-metadata-wrapper
             margin-left: 0
-            cursor: help
             @media (max-width: 1024px)
                 margin-left: $nav-item-space
-            .icon
-                vertical-align: middle
-                height: 1rem
-                @media (max-width: 1024px)
-                    vertical-align: calc(#{$nav-font-size} - #{$nav-icon-size} + 1.5px)
-                    height: $nav-icon-size
         a:not(.normal-a)
             text-decoration: none
             color: $body-color !important

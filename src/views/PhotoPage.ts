@@ -12,7 +12,7 @@ import { t } from "../translate";
 import { getPhotoId, hideAllForce, isMobile } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
-import PhotoMetadataIcon from "./PhotoMetadata";
+import PhotoMetadataComponent from "./PhotoMetadata";
 
 /** Prev, current, and next photo components. */
 const Gallery: m.Component = {
@@ -190,10 +190,7 @@ const Footer: m.Component<FooterAttrs> = {
                         photoTitle &&
                         m(
                             ".long-item",
-                            m("span", [
-                                m("em", m("strong", photoTitle)),
-                                photo.containsExif() && m(PhotoMetadataIcon),
-                            ]),
+                            m("span.nav-item", m(PhotoMetadataComponent)),
                         ),
                     m("span", [
                         photo.isLast() ? m(RewindButton) : m(NextButton),

@@ -1,14 +1,13 @@
 import apertureOutline from "@/icons/aperture-outline.svg";
 import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
-import informationCircleOutline from "@/icons/information-circle-outline.svg";
 import locationOutline from "@/icons/location-outline.svg";
 import m from "mithril";
-import tippy, { Placement, Instance as TippyInstance } from "tippy.js";
+import tippy, { Instance as TippyInstance } from "tippy.js";
 
 import { config } from "../config";
 import { photo } from "../models/Photo";
 import { t } from "../translate";
-import { getWindowSize, isMobile } from "../utils";
+import { isMobile } from "../utils";
 import Icon from "./Icon";
 import { modal } from "./Modal";
 
@@ -197,21 +196,12 @@ const PhotoMetadataTippyContent: m.Component = {
     },
 };
 
-/** Class member saved out of scope to retain `this`. */
-let lastResizeListener: (() => void) | undefined;
-
 /**
  * Contains both the icon and Tippy content,
  * even though the Tippy content is actually in the body.
  */
-export default class PhotoMetadataIcon implements m.ClassComponent {
+export default class PhotoMetadataComponent implements m.ClassComponent {
     private tippyInstance: TippyInstance | undefined;
-
-    /** The placement is opposite to the icon position. */
-    static optimalPlacement(): Placement {
-        const { width, height } = getWindowSize();
-        return width <= 1024 && width > height ? "right" : "bottom";
-    }
 
     /** Put the Tippy content in the right place. */
     oncreate({ dom }: m.CVnodeDOM): void {
@@ -222,19 +212,11 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
             interactiveBorder: 30,
             interactiveDebounce: 70,
             content: dom.children[1], // PhotoMetadataTippyContent
-            placement: PhotoMetadataIcon.optimalPlacement(),
+            placement: "bottom",
             appendTo: () => document.body,
             arrow: false, // no arrow on non-clickable element
             maxWidth: "none",
         });
-        lastResizeListener = () => {
-            if (this.tippyInstance) {
-                this.tippyInstance.setProps({
-                    placement: PhotoMetadataIcon.optimalPlacement(),
-                });
-            }
-        };
-        window.addEventListener("resize", lastResizeListener);
     }
 
     onbeforeremove(): void {
@@ -244,23 +226,41 @@ export default class PhotoMetadataIcon implements m.ClassComponent {
     }
 
     onremove(): void {
-        if (typeof lastResizeListener === "function") {
-            window.removeEventListener("resize", lastResizeListener);
-        }
         if (this.tippyInstance) {
             this.tippyInstance.destroy();
         }
     }
 
+    onupdate(): void {
+        if (this.tippyInstance) {
+            if (photo.containsExif()) {
+                this.tippyInstance.enable();
+            } else {
+                this.tippyInstance.disable();
+            }
+        }
+    }
+
     // skipcq: JS-0105
     view(): m.Vnode {
+        let photoTitle = null;
+        try {
+            // @ts-ignore
+            photoTitle = photo.meta.title[t.getLang()];
+        } catch {
+            // continue regardless of error
+        }
         return m(
-            "span.nav-item.photo-metadata-wrapper",
+            "span.photo-metadata-wrapper",
             {
                 tabindex: 0,
             },
             [
-                m(Icon, { src: informationCircleOutline }), // actually displayed
+                m(
+                    "em.photo-title",
+                    { class: photo.containsExif() ? "helper" : "" },
+                    m("strong", photoTitle),
+                ), // actually displayed
                 m(PhotoMetadataTippyContent), // not visible
             ],
         );
