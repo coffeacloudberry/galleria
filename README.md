@@ -182,7 +182,7 @@ ncu -u
 npm install
 ```
 
-Also update the lazy-loaded scripts listed in the [configuration file](src/config.ts) (the lazy-loaded Sentry SDK is automatically updated) as well as FriendlyCaptcha in the [webpack config](config/webpack.prod.js).
+Also update the lazy-loaded scripts listed in the [configuration file](src/config.ts) as well as FriendlyCaptcha in the [webpack config](config/webpack.prod.js).
 
 </details>
 <details>

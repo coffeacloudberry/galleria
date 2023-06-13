@@ -1,5 +1,3 @@
-declare const Sentry: typeof import("@sentry/browser");
-
 export enum LogType {
     info,
     warning,
@@ -41,7 +39,7 @@ export default class CustomLogging {
     /**
      * Actually log the message.
      * @param what Message to print in the log.
-     * @param err If set, the error will be thrown, and caught by Sentry.
+     * @param err If set, the error will be thrown.
      */
     log(what: string, err?: Error): void {
         this.fLog(
@@ -51,7 +49,7 @@ export default class CustomLogging {
             background: black`,
         );
         if (err) {
-            Sentry.captureException(err);
+            throw err;
         } else if (this.type === "error") {
             console.trace(); // skipcq: JS-0002
         }

@@ -25,11 +25,6 @@
         "link": "https://www.mapbox.com/legal/privacy"
     },
     {
-        "what": "bugs",
-        "who": "Functional Software, Inc. dba Sentry",
-        "link": "https://sentry.io/privacy/"
-    },
-    {
         "what": "cdn",
         "who": "Cloudflare, Inc.",
         "link": "https://www.cloudflare.com/privacypolicy/"

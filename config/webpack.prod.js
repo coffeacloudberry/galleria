@@ -11,14 +11,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
 const HumanstxtPlugin = require("./humanstxt-webpack-plugin");
 const SitemapPlugin = require("sitemap-webpack-plugin").default;
-const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
 const { merge } = require("webpack-merge");
 const paths = require("./paths");
 const common = require("./webpack.common.js");
 const GenerateWebLabelsPlugin = require("./generate-weblabels-webpack-plugin");
 const languages = require("../src/languages.json");
 const { readdirSync } = require("fs");
-const path = require("path");
 const address = "https://www.explorewilder.com";
 const allStories = readdirSync(`${paths.build}/content/stories/`);
 const allPhotos = readdirSync(`${paths.build}/content/photos/`);
@@ -135,15 +133,6 @@ module.exports = merge(common, {
                     ],
                 // Mapbox GL JS is not OSI compliant
             }),
-        }),
-
-        // Push source maps to Sentry
-        sentryWebpackPlugin({
-            sourcemaps: {
-                assets: [path.resolve(paths.build, "js")],
-            },
-            disable: !("SENTRY_AUTH_TOKEN" in process.env),
-            telemetry: false,
         }),
     ],
     optimization: {
