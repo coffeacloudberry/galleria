@@ -18,7 +18,7 @@ import m from "mithril";
 import { config } from "../config";
 import { t } from "../translate";
 import { hideAllForce, toast } from "../utils";
-import { ContactForm, NewsletterForm } from "./Forms";
+import { ContactForm } from "./Forms";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import { ModalSize, modal } from "./Modal";
@@ -340,7 +340,7 @@ const Donate: m.Component = {
     },
 };
 
-/** About page including contact form and newsletter subscription. */
+/** About page including contact form. */
 export default function AboutPage(): m.Component {
     t.init();
     return {
@@ -366,23 +366,18 @@ export default function AboutPage(): m.Component {
                         ".container",
                         m(".row", [
                             m(".half.column", m(ContactForm)),
-                            m(".half.column", m(NewsletterForm)),
+                            m(".half.column", [
+                                m(
+                                    ".bunch-of-icons.yydchtxork",
+                                    m(SocialNetworks),
+                                ),
+                                m(".bunch-of-icons.yydchtxork", m(Donate)),
+                            ]),
                         ]),
                     ),
                     m(
                         ".container",
-                        m(
-                            ".row",
-                            m(
-                                ".half.column.bunch-of-icons.yydchtxork",
-                                m(SocialNetworks),
-                            ),
-                            m(
-                                ".half.column.bunch-of-icons.yydchtxork",
-                                m(Donate),
-                            ),
-                            m(".one.column", m(CopyrightNotice)),
-                        ),
+                        m(".row", m(".one.column", m(CopyrightNotice))),
                     ),
                 ]),
             ];

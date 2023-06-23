@@ -1,101 +1,9 @@
 import { tmpdir } from "os";
 
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import sendpulse, { BookInfo, ReturnError } from "sendpulse-api";
+import sendpulse, { ReturnError } from "sendpulse-api";
 
 import * as utils from "../src/utils_api";
-
-/** Address book name as defined in the SendPulse admin panel. */
-export const newsletterAddressBookName = "Newsletter";
-
-/** Get the address book ID from the address book name. */
-export function getNewsletterIdFromList(
-    dataList: BookInfo[],
-): number | undefined {
-    let newsletterId: number | undefined; // skipcq: JS-0309
-    for (const listItem of dataList) {
-        if (listItem.name === newsletterAddressBookName) {
-            newsletterId = listItem.id;
-            break;
-        }
-    }
-    return newsletterId;
-}
-
-function manageEmailInAddressBook(
-    dataAddressBooks: BookInfo[],
-    emailAddress: string,
-    subscribe: boolean,
-    resolve: (value: string) => void,
-    reject: (value: string) => void,
-) {
-    const newsletterId = getNewsletterIdFromList(dataAddressBooks);
-    const transaction = `'${emailAddress}' in '${newsletterAddressBookName}'`;
-
-    if (newsletterId === undefined) {
-        reject(`'${newsletterAddressBookName}' not found.`);
-    }
-
-    if (subscribe) {
-        sendpulse.addEmails(
-            (dataEmails: ReturnError | { result: boolean }) => {
-                if ("result" in dataEmails && dataEmails.result) {
-                    resolve(`Successfully added ${transaction}.`);
-                } else {
-                    reject(`Failed to add ${transaction}.`);
-                }
-            },
-            newsletterId as number,
-            [{ email: emailAddress, variables: {} }],
-        );
-    } else {
-        sendpulse.removeEmails(
-            (dataEmails: ReturnError | { result: boolean }) => {
-                if ("result" in dataEmails && dataEmails.result) {
-                    resolve(`Successfully removed ${transaction}.`);
-                } else {
-                    reject(`Failed to remove ${transaction}.`);
-                }
-            },
-            newsletterId as number,
-            [emailAddress],
-        );
-    }
-}
-
-/** Add/remove one new email address to/from address book. */
-export function manageEmail(
-    emailAddress: string,
-    subscribe = true,
-): Promise<string> {
-    return new Promise((resolve, reject) => {
-        if (emailAddress === process.env.SENDER_EMAIL) {
-            resolve("Done nothing with the sender email address.");
-        }
-        sendpulse.init(
-            String(process.env.SMTP_USER),
-            String(process.env.SMTP_PASSWORD),
-            tmpdir(),
-            () => {
-                sendpulse.listAddressBooks(
-                    (dataAddressBooks: ReturnError | BookInfo[]) => {
-                        if (dataAddressBooks instanceof Array) {
-                            manageEmailInAddressBook(
-                                dataAddressBooks,
-                                emailAddress,
-                                subscribe,
-                                resolve,
-                                reject,
-                            );
-                        } else {
-                            reject(dataAddressBooks.message);
-                        }
-                    },
-                );
-            },
-        );
-    });
-}
 
 /** Sanitize and replace new lines. */
 export function textToHtml(text: string): string {
@@ -250,72 +158,28 @@ export default async (request: VercelRequest, response: VercelResponse) => {
             response.status(400).json("Bad email address format.");
             return;
         }
-        switch (action) {
-            case "subscribe": {
-                await checkVisitor(captchaSolution)
-                    .then(async () => {
-                        await manageEmail(email)
-                            .then(() => {
-                                response.status(200).json(undefined);
-                            })
-                            .catch(() => {
-                                response.status(500).json(undefined);
-                            });
-                    })
-                    .catch((status_code) => {
-                        let n_status_code = parseInt(status_code.message);
-                        if (isNaN(n_status_code)) {
-                            n_status_code = 500;
-                        }
-                        response.status(n_status_code).json(undefined);
-                    });
-                return;
-            }
-            case "unsubscribe": {
-                await checkVisitor(captchaSolution)
-                    .then(async () => {
-                        await manageEmail(email, false)
-                            .then(() => {
-                                response.status(200).json(undefined);
-                            })
-                            .catch(() => {
-                                // silent to avoid disclosing subscribers
-                                response.status(200).json(undefined);
-                            });
-                    })
-                    .catch((status_code) => {
-                        let n_status_code = parseInt(status_code.message);
-                        if (isNaN(n_status_code)) {
-                            n_status_code = 500;
-                        }
-                        response.status(n_status_code).json(undefined);
-                    });
-                return;
-            }
-            case "send": {
-                await checkVisitor(captchaSolution)
-                    .then(async () => {
-                        await sendEmail(email, message)
-                            .then(() => {
-                                response.status(200).json(undefined);
-                            })
-                            .catch(() => {
-                                response.status(500).json(undefined);
-                            });
-                    })
-                    .catch((status_code) => {
-                        let n_status_code = parseInt(status_code.message);
-                        if (isNaN(n_status_code)) {
-                            n_status_code = 500;
-                        }
-                        response.status(n_status_code).json(undefined);
-                    });
-                return;
-            }
-            default: {
-                // Bad Request
-                response.status(400).json(undefined);
-            }
+        if (action === "send") {
+            await checkVisitor(captchaSolution)
+                .then(async () => {
+                    await sendEmail(email, message)
+                        .then(() => {
+                            response.status(200).json(undefined);
+                        })
+                        .catch(() => {
+                            response.status(500).json(undefined);
+                        });
+                })
+                .catch((status_code) => {
+                    let n_status_code = parseInt(status_code.message);
+                    if (isNaN(n_status_code)) {
+                        n_status_code = 500;
+                    }
+                    response.status(n_status_code).json(undefined);
+                });
+            return;
+        } else {
+            // Bad Request
+            response.status(400).json(undefined);
         }
     } else {
         // Method Not Allowed

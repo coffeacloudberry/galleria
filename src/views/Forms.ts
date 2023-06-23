@@ -1,12 +1,9 @@
 import bugOutline from "@/icons/bug-outline.svg";
-import calendarOutline from "@/icons/calendar-outline.svg";
 import logoMatrix from "@/icons/logo-matrix.svg";
 import logoThreema from "@/icons/logo-threema.svg";
 import logoXmpp from "@/icons/logo-xmpp.svg";
 import logoMail from "@/icons/mail-outline.svg";
-import newspaperOutline from "@/icons/newspaper-outline.svg";
 import paperPlaneOutline from "@/icons/paper-plane-outline.svg";
-import trashOutline from "@/icons/trash-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
@@ -100,7 +97,7 @@ function getConfForBugReport(): string {
     )}\n\nGood luck!`;
 }
 
-/** Base form for the contact and newsletter forms. */
+/** Base form for the contact form. */
 class BaseForm {
     /** True if the CAPTCHA is missing/empty/invalid. */
     isBot = false;
@@ -359,126 +356,6 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
                             }),
                         ),
                     ),
-                ],
-            ),
-        ];
-    }
-}
-
-/** Newsletter form containing the UI and state. */
-export class NewsletterForm extends BaseForm implements m.ClassComponent {
-    subscribe = true;
-
-    onSubmit(event: Event): void {
-        event.preventDefault();
-        if (BaseForm.isEmail(this.email)) {
-            this.processRequest({
-                action: this.subscribe ? "subscribe" : "unsubscribe",
-                email: this.email,
-                "frc-captcha-solution": this.captchaSolution,
-            });
-        } else {
-            this.invalidEmailAddress = true;
-        }
-    }
-
-    view(): m.Vnode[] {
-        return [
-            m("h1", t("newsletter")),
-            m("p", [
-                m(Icon, { src: newspaperOutline }),
-                " ",
-                t("newsletter.what"),
-                m("br"),
-                m(Icon, { src: calendarOutline }),
-                " ",
-                t("newsletter.when"),
-                m("br"),
-                m(Icon, { src: trashOutline }),
-                " ",
-                t("newsletter.trash"),
-            ]),
-            m(
-                "form#newsletter-form",
-                {
-                    onsubmit: (e: Event): void => {
-                        this.onSubmit(e);
-                    },
-                },
-                [
-                    m("label", [
-                        t("email"),
-                        m("input[type=text]", {
-                            oninput: (e: {
-                                currentTarget: HTMLInputElement;
-                            }): void => {
-                                this.onEmailInput(e);
-                            },
-                            value: this.email,
-                            class: this.invalidEmailAddress ? "invalid" : "",
-                        }),
-                    ]),
-                    m("p", [
-                        m("input[type=radio]", {
-                            name: "subscription-action",
-                            id: "form-subscribe",
-                            checked: this.subscribe,
-                            onchange: (e: {
-                                currentTarget: HTMLInputElement;
-                            }): void => {
-                                this.subscribe = e.currentTarget.checked;
-                            },
-                        }),
-                        m(
-                            "label.radio",
-                            { for: "form-subscribe" },
-                            t("subscribe"),
-                        ),
-                        m("br"),
-                        m("input[type=radio]", {
-                            name: "subscription-action",
-                            id: "form-unsubscribe",
-                            checked: !this.subscribe,
-                            onchange: (e: {
-                                currentTarget: HTMLInputElement;
-                            }): void => {
-                                this.subscribe = !e.currentTarget.checked;
-                            },
-                        }),
-                        m(
-                            "label.radio",
-                            { for: "form-unsubscribe" },
-                            t("unsubscribe"),
-                        ),
-                    ]),
-                    this.instantiateCaptcha &&
-                        m(Captcha, {
-                            doneCallback: (solution) => {
-                                this.doneCallback(solution);
-                            },
-                        }),
-                    m("p", m(PrivacyButton)),
-                    m("p", [
-                        m(SubmitButton, {
-                            processing: this.processing,
-                            success: this.success,
-                            icon: this.subscribe
-                                ? newspaperOutline
-                                : trashOutline,
-                            okText: this.subscribe
-                                ? "subscribe"
-                                : "unsubscribe",
-                        }),
-                        this.invalidEmailAddress
-                            ? m("span.ml-3.critical-error", t("invalid-email"))
-                            : "",
-                        this.isBot
-                            ? m("span.ml-3.critical-error", t("is-bot"))
-                            : "",
-                        this.unhandledError
-                            ? m("span.ml-3.critical-error", t("unknown-error"))
-                            : "",
-                    ]),
                 ],
             ),
         ];

@@ -26,7 +26,7 @@ I could not find anything cheap complying to the above requirements, and I was i
 - [x] Interactive 3D maps,
 - [x] Interactive charts,
 - [x] Home-made track format including elevation profile,
-- [x] Newsletter system and contact form,
+- [x] Contact form,
 - [x] Fully translated in English, Finnish, and French,
 - [x] [Privacy by design](https://en.wikipedia.org/wiki/Privacy_by_design),
 - [x] [Humane by design](https://humanebydesign.com/),
