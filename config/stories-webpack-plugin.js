@@ -148,7 +148,10 @@ class StoriesPlugin {
                 let contentObject = photosInStories[storyId];
                 if (!contentObject) {
                     // In case a story has no photo
-                    contentObject = this.readInfoFile("stories", storyId);
+                    contentObject = {
+                        ...this.readInfoFile("stories", storyId),
+                        hasGeodata: this.storyContainsWebtrack(storyId),
+                    };
                     combinedStories.push({
                         id: storyId,
                         metadata: {
