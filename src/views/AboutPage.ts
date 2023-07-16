@@ -8,7 +8,6 @@ import logoMonero from "@/icons/logo-monero.svg";
 import logoNano from "@/icons/logo-nano.svg";
 import logoOdysee from "@/icons/logo-odysee.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
-import logoPlume from "@/icons/logo-plume.svg";
 import logoRss from "@/icons/logo-rss.svg";
 import logoZcash from "@/icons/logo-zcash.svg";
 import shieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
@@ -255,11 +254,6 @@ const SocialNetworks: m.Component = {
                 tooltip: "Odysee",
                 link: "https://odysee.com/@ExploreWilder:b",
                 logo: logoOdysee,
-            },
-            {
-                tooltip: "Plume",
-                link: "https://fediverse.blog/~/ExploreWilder",
-                logo: logoPlume,
             },
         ];
         return [
