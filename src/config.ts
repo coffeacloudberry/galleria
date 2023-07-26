@@ -33,7 +33,7 @@ export const config = {
             /**
              * CDN URL
              */
-            src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.min.js",
+            src: "https://unpkg.com/chart.js@4.3.2/dist/chart.umd.js",
 
             /**
              * Subresource Integrity.
@@ -41,7 +41,7 @@ export const config = {
              * `openssl dgst -sha512 -binary FILENAME.js | openssl base64 -A`
              * More details: https://www.srihash.org/
              */
-            sri: "sha512-TJ7U6JRJx5IpyvvO9atNnBzwJIoZDaQnQhb0Wmw32Rj5BQHAmJG16WzaJbDns2Wk5VG6gMt4MytZApZG47rCdg==",
+            sri: "sha512-KIq/d78rZMlPa/mMe2W/QkRgg+l0/GAAu4mGBacU0OQyPV/7EPoGQChDb269GigVoPQit5CqbNRFbgTjXHHrQg==",
         },
     },
 
@@ -127,10 +127,10 @@ export const config = {
         js: {
             /**
              * Cross-check SRI:
-             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.12/widget.module.min.js
+             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.13/widget.module.min.js
              */
-            src: "https://unpkg.com/friendly-challenge@0.9.12/widget.module.min.js",
-            sri: "sha512-bnEjPspLsO8gvV3BKfHePE1XO5UZaYABwX9umXt7CByBMRZbGXFa9TYvHTksYkaABpwETMCWGkBwkpN/bxEp2A==",
+            src: "https://unpkg.com/friendly-challenge@0.9.13/widget.module.min.js",
+            sri: "sha512-n9mxIGcVQOy5SQY/La9aqoUHEnovQZfGl6ZqAKj/IpZg+4yuUTqnW5GFh1TqSNJV4lTDCOtE3Ul7Gn7AOwOb4w==",
             isModule: true,
         },
 
