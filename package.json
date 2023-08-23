@@ -8,7 +8,7 @@
         "build": "webpack --config config/webpack.prod.js",
         "lint": "eslint . api/**/* src/**/* tests/**/* config/**/* --quiet --fix --no-error-on-unmatched-pattern",
         "stylelint": "stylelint src/style/**/*.sass",
-        "test": "mocha -r ts-node/register tests/unit/*.test.ts --timeout 15000 --require tests/unit/mocha.env.js",
+        "test": "mocha -r ts-node/register tests/unit/*.test.ts --require tests/unit/mocha.env.js",
         "bundle-analysis": "webpack --config config/webpack.analysis.js"
     },
     "repository": {
