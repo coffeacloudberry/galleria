@@ -1,0 +1,10 @@
+# Python stuff
+*.pyc
+Pipfile.lock
+
+# All hidden stuff
+.*
+*~
+
+libwebp/libwebp-*
+tests/fixtures/vcr_cassettes

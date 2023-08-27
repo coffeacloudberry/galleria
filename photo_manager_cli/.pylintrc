@@ -1,0 +1,7 @@
+[MESSAGES CONTROL]
+disable=
+    too-few-public-methods
+    invalid-name
+
+[FORMAT]
+max-line-length=150

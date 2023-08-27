@@ -1,0 +1,6 @@
+black
+mypy
+isort
+pylint
+pytest
+coverage
