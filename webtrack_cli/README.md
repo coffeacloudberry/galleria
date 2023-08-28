@@ -1,7 +1,5 @@
 # GPX to WebTrack
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/) [![Checked with mypy](https://camo.githubusercontent.com/34b3a249cd6502d0a521ab2f42c8830b7cfd03fa/687474703a2f2f7777772e6d7970792d6c616e672e6f72672f7374617469632f6d7970795f62616467652e737667)](https://mypy.readthedocs.io/en/stable/introduction.html "Mypy is an optional static type checker for Python") [![CodeQL](https://github.com/coffeacloudberry/WebTrackCLI/workflows/CodeQL/badge.svg)](https://github.com/coffeacloudberry/WebTrackCLI/actions/workflows/codeql-analysis.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=coffeacloudberry_WebTrackCLI&metric=alert_status)](https://sonarcloud.io/dashboard?id=coffeacloudberry_WebTrackCLI)
-
 ## Why The WebTrack Format?
 
 **What GPS data interchange format should you use for a web application?**
