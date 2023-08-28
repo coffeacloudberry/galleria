@@ -169,7 +169,7 @@ export const StatsComponent: m.Component = {
                             m(
                                 "a",
                                 {
-                                    href: "https://github.com/coffeacloudberry/WebTrackCLI/blob/main/DEM.md",
+                                    href: "https://github.com/coffeacloudberry/galleria/blob/master/webtrack_cli/DEM.md",
                                 },
                                 globalMapState.webtrack
                                     .getElevationSources()
