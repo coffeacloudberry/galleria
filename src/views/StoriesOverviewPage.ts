@@ -299,7 +299,6 @@ export default function StoriesOverviewPage(): m.Component {
         view(): (m.Vnode<HeaderAttrs> | m.Vnode)[] {
             return [
                 m(Header, {
-                    aboutButton: true,
                     refPage: "stories",
                 }),
                 m(AllStoriesComponent),

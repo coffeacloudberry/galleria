@@ -13,14 +13,14 @@ import PhotoMetadataComponent from "./PhotoMetadata";
 
 const languages = require("../languages"); // skipcq: JS-0359
 
-interface LanguageSelectionAttrs {
+interface MainMenuAttrs {
     refPage: string;
 }
 
 interface LanguageLinkAttrs {
     language: Language;
     refPage: string;
-    tippy?: TippyInstance[];
+    tippy?: TippyInstance;
 }
 
 const LanguageLink: m.Component<LanguageLinkAttrs> = {
@@ -33,52 +33,65 @@ const LanguageLink: m.Component<LanguageLinkAttrs> = {
                     t.init(attrs.language.slug);
                     document.title = String(t(`${attrs.refPage}.title`));
                     if (attrs.tippy) {
-                        attrs.tippy[0].hide();
+                        attrs.tippy.hide();
                     }
                 },
                 options: { replace: true },
-                tabindex: 0,
-                class: "lang-item",
+                class: "menu-item",
             },
             attrs.language.name,
         );
     },
 };
 
-class LanguageSelectionComponent
-    implements m.ClassComponent<LanguageSelectionAttrs>
-{
-    tippyInstances: TippyInstance[] | undefined;
+class LanguageSelection implements m.ClassComponent<MainMenuAttrs> {
+    private tippyInstance: TippyInstance | undefined;
 
-    oncreate({ dom }: m.CVnodeDOM<LanguageSelectionAttrs>) {
-        this.tippyInstances = tippy("#language-selection", {
+    oncreate({ dom }: m.CVnodeDOM<MainMenuAttrs>) {
+        this.tippyInstance = tippy(dom, {
             interactive: true,
             allowHTML: true,
             hideOnClick: false,
             interactiveBorder: 30,
             interactiveDebounce: 70,
-            content: dom,
+            content: dom.children[1],
             theme: "dropdown-list",
             appendTo: () => document.body,
+            maxWidth: "none",
         });
     }
 
-    view({ attrs }: m.CVnode<LanguageSelectionAttrs>): m.Vnode {
-        return m(
-            "ul",
-            languages.map((language: Language) =>
-                m(
-                    "li",
-                    language.slug === t.getLang()
-                        ? m(".lang-item", language.name)
-                        : m(LanguageLink, {
-                              language,
-                              refPage: attrs.refPage,
-                              tippy: this.tippyInstances,
-                          }),
+    onbeforeremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.unmount();
+        }
+    }
+
+    onremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.destroy();
+        }
+    }
+
+    view({ attrs }: m.CVnode<MainMenuAttrs>): m.Vnode {
+        return m("span[tabindex=0].nav-item#rf-lang", [
+            m(Icon, { src: languageOutline }), // actually displayed
+            m(
+                "ul",
+                languages.map((language: Language) =>
+                    m(
+                        "li",
+                        language.slug === t.getLang()
+                            ? m(".menu-item", language.name)
+                            : m(LanguageLink, {
+                                  language,
+                                  refPage: attrs.refPage,
+                                  tippy: this.tippyInstance,
+                              }),
+                    ),
                 ),
             ),
-        );
+        ]);
     }
 }
 
@@ -134,61 +147,95 @@ const OpenStory: m.Component<OpenStoryAttrs> = {
     },
 };
 
-const AboutButton: m.Component = {
-    view(): m.Vnode<m.RouteLinkAttrs> {
-        return m(
-            m.route.Link,
-            {
-                href: t.prependLang("/about"),
-                class: "nav-item",
-                "data-tippy-content": t("about.tooltip"),
-            },
-            [
-                m("span.long-item", [
-                    m("span.logo"),
-                    m("span.ml-3", m("strong", t("about"))),
-                ]),
-                m("span.short-item.logo", m("span")),
-            ],
-        );
-    },
-};
-
-export interface HeaderAttrs {
-    title?: string; // only used if refPage is story or photo
-    aboutButton: boolean;
+interface MainMenuItemAttrs {
     refPage: string;
+    href: string;
 }
 
-const GoToStoriesButton: m.Component = {
-    view(): m.Vnode<m.RouteLinkAttrs> {
-        return m(
-            m.route.Link,
+const MainMenuTippyContent: m.Component<MainMenuAttrs> = {
+    view({ attrs }: m.CVnode<MainMenuAttrs>): m.Vnode {
+        const links: MainMenuItemAttrs[] = [
             {
-                href: "/:lang/stories",
-                params: {
-                    lang: t.getLang(),
-                },
-                "data-tippy-content": t("stories-overview"),
-                class: "nav-item",
+                refPage: "about",
+                href: t.prependLang("/about"),
             },
-            m(Icon, { src: listOutline }),
+            {
+                refPage: "stories",
+                href: t.prependLang("/stories"),
+            },
+            {
+                refPage: "photo",
+                href: m.buildPathname("/:lang/photo/:title", {
+                    lang: t.getLang(),
+                    title: photo.id || "",
+                }),
+            },
+        ];
+        return m(
+            "ul",
+            links.map((link: MainMenuItemAttrs) =>
+                m(
+                    "li",
+                    attrs.refPage == link.refPage
+                        ? m(".menu-item", t(link.refPage))
+                        : m(
+                              m.route.Link,
+                              {
+                                  href: link.href,
+                                  class: "menu-item",
+                              },
+                              t(link.refPage),
+                          ),
+                ),
+            ),
         );
     },
 };
 
-export class Header implements m.ClassComponent<HeaderAttrs> {
-    // skipcq: JS-0105
-    oncreate({ attrs }: m.CVnode<HeaderAttrs>): void {
-        m.mount(document.createElement("div"), {
-            view: () => {
-                return m(LanguageSelectionComponent, {
-                    refPage: attrs.refPage,
-                });
-            },
+class MainMenu implements m.ClassComponent<MainMenuAttrs> {
+    private tippyInstance: TippyInstance | undefined;
+
+    /** Put the Tippy content in the right place. */
+    oncreate({ dom }: m.CVnodeDOM<MainMenuAttrs>): void {
+        this.tippyInstance = tippy(dom, {
+            interactive: true,
+            allowHTML: true,
+            hideOnClick: false,
+            interactiveBorder: 30,
+            interactiveDebounce: 70,
+            content: dom.children[1], // MainMenuTippyContent
+            theme: "dropdown-list",
+            appendTo: () => document.body,
+            maxWidth: "none",
         });
     }
 
+    onbeforeremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.unmount();
+        }
+    }
+
+    onremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.destroy();
+        }
+    }
+
+    view({ attrs }: m.CVnode<MainMenuAttrs>): m.Vnode {
+        return m("span[tabindex=0].nav-item#rf-menu", [
+            m(Icon, { src: listOutline }), // actually displayed
+            m(MainMenuTippyContent, attrs), // not visible
+        ]);
+    }
+}
+
+export interface HeaderAttrs {
+    title?: string; // only used if refPage is story or photo
+    refPage: string;
+}
+
+export class Header implements m.ClassComponent<HeaderAttrs> {
     // skipcq: JS-0105
     view({ attrs }: m.CVnode<HeaderAttrs>): m.Vnode {
         // skipcq: JS-0309
@@ -247,26 +294,23 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 [
                     m(
                         ".flex-sides",
-                        m("span", [
-                            attrs.aboutButton ? m(AboutButton) : null,
-                            attrs.refPage === "stories"
-                                ? null
-                                : m(GoToStoriesButton),
-                        ]),
-                    ),
-                    centeredNav,
-                    m(".flex-sides.flex-right", [
-                        m("span.lang-item", t.getLang().toUpperCase()),
                         m(
                             "span",
-                            {
-                                id: "language-selection",
-                                class: "nav-item",
-                                tabindex: 0, // make it selectable
-                            },
-                            m("span", m(Icon, { src: languageOutline })),
+                            m(MainMenu, {
+                                refPage: attrs.refPage,
+                            }),
                         ),
-                    ]),
+                    ),
+                    centeredNav,
+                    m(
+                        ".flex-sides.flex-right",
+                        m(
+                            "span",
+                            m(LanguageSelection, {
+                                refPage: attrs.refPage,
+                            }),
+                        ),
+                    ),
                 ],
             ),
         );

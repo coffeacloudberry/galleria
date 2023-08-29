@@ -250,19 +250,13 @@ export default class PhotoMetadataComponent implements m.ClassComponent {
         } catch {
             // continue regardless of error
         }
-        return m(
-            "span.photo-metadata-wrapper",
-            {
-                tabindex: 0,
-            },
-            [
-                m(
-                    "em.photo-title",
-                    { class: photo.containsExif() ? "helper" : "" },
-                    m("strong", photoTitle),
-                ), // actually displayed
-                m(PhotoMetadataTippyContent), // not visible
-            ],
-        );
+        return m("span[tabindex=0].photo-metadata-wrapper", [
+            m(
+                "em.photo-title",
+                { class: photo.containsExif() ? "helper" : "" },
+                m("strong", photoTitle),
+            ), // actually displayed
+            m(PhotoMetadataTippyContent), // not visible
+        ]);
     }
 }

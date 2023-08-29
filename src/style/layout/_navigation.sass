@@ -80,17 +80,16 @@ footer
                 filter: $filter-body-color
                 height: $nav-icon-size
                 vertical-align: calc(#{$nav-font-size} - #{$nav-icon-size} + 1.5px)
-            &#language-selection
+            &[tabindex='0']
                 cursor: default
                 transition: all 0.2s ease-in
                 border-radius: 0 $border-radius-lg 0 $border-radius-lg
                 &:focus
                     outline: 1px solid $nav-hover-bg-color
-        .lang-item
+        .menu-item
             @media (max-width: 1024px) and (orientation: landscape)
                 display: inline-block
                 width: $nav-bar-height
-                text-align: center
         .album-pagination
             cursor: help
             text-align: center
@@ -120,17 +119,16 @@ footer
 .tippy-box[data-theme~='dropdown-list']
     ul
         list-style: none
-        text-align: center
         li
-            .lang-item
+            .menu-item
                 font-size: 1rem
                 padding: 5px 9px /* same as the tippy style */
                 margin: 5px 0
-                border-radius: 0 $border-radius-lg 0 $border-radius-lg
                 $mute-color: #6d6d6d
                 border: 1px solid $mute-color
+                /* no border radius due to artifacts in Brave */
                 color: $mute-color
-            a.lang-item
+            a.menu-item
                 color: #fff !important
                 display: block
                 text-decoration: none

@@ -215,7 +215,6 @@ export default function StoryPage(): m.Component {
             return [
                 m(Header, {
                     title: photoTitle,
-                    aboutButton: true,
                     refPage: "story",
                 }),
                 story.isLoaded() &&

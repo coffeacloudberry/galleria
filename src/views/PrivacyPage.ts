@@ -15,7 +15,6 @@ export default function PrivacyPage(): m.Component {
         view(): m.Vnode<HeaderAttrs>[] {
             return [
                 m(Header, {
-                    aboutButton: false,
                     refPage: "about",
                 }),
                 m(

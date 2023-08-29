@@ -193,8 +193,7 @@ Also update the lazy-loaded scripts listed in the [configuration file](src/confi
 From a new SVG file:
 
 * Generate PNG files of different sizes and generate the .ico with Gimp: File > Open as Layers, File > Export As...,
-* Generate an apple-touch-icon file (PNG, 192x192, without alpha channel),
-* Generate a compressed version with Inkscape: File > Save As... > Optimized SVG.
+* Generate an apple-touch-icon file (PNG, 192x192, without alpha channel).
 
 </details>
 <details>

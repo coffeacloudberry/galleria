@@ -46,11 +46,12 @@ Wait For Loading Photo
     Landing Page Should Be Open
 
 Go From Content To About Page
+    Mouse Over    id:rf-menu
     Click Link    partial link:About
 
 Switch Language
     [Arguments]    ${language}
-    Mouse Over    id:language-selection
+    Mouse Over    id:rf-lang
     Click Link    ${language}
-    Mouse Out     id:language-selection
+    Mouse Out     id:rf-lang
     Wait Until Element Is Not Visible   link:${language}

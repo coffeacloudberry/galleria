@@ -345,7 +345,6 @@ export default function AboutPage(): m.Component {
         view(): m.Vnode<HeaderAttrs>[] {
             return [
                 m(Header, {
-                    aboutButton: false,
                     refPage: "about",
                 }),
                 m("section#about", [

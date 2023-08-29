@@ -388,7 +388,6 @@ export default function PhotoPage(): m.Component {
             return [
                 m(Header, {
                     title: pageTitle(),
-                    aboutButton: true,
                     refPage: "photo",
                 }),
                 m(Gallery),
