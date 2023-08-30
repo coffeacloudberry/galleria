@@ -2,12 +2,12 @@ import apertureOutline from "@/icons/aperture-outline.svg";
 import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
 import locationOutline from "@/icons/location-outline.svg";
 import m from "mithril";
-import tippy, { Instance as TippyInstance } from "tippy.js";
+import { Placement } from "tippy.js";
 
 import { config } from "../config";
 import { photo } from "../models/Photo";
 import { t } from "../translate";
-import { isMobile } from "../utils";
+import { InteractiveTippy, isMobile } from "../utils";
 import Icon from "./Icon";
 import { modal } from "./Modal";
 
@@ -196,40 +196,9 @@ const PhotoMetadataTippyContent: m.Component = {
     },
 };
 
-/**
- * Contains both the icon and Tippy content,
- * even though the Tippy content is actually in the body.
- */
-export default class PhotoMetadataComponent implements m.ClassComponent {
-    private tippyInstance: TippyInstance | undefined;
-
-    /** Put the Tippy content in the right place. */
-    oncreate({ dom }: m.CVnodeDOM): void {
-        this.tippyInstance = tippy(dom, {
-            interactive: true,
-            allowHTML: true,
-            hideOnClick: false,
-            interactiveBorder: 30,
-            interactiveDebounce: 70,
-            content: dom.children[1], // PhotoMetadataTippyContent
-            placement: "bottom",
-            appendTo: () => document.body,
-            arrow: false, // no arrow on non-clickable element
-            maxWidth: "none",
-        });
-    }
-
-    onbeforeremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.unmount();
-        }
-    }
-
-    onremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.destroy();
-        }
-    }
+export default class PhotoMetadataComponent extends InteractiveTippy<void> {
+    placement = "bottom" as Placement;
+    arrow = false;
 
     onupdate(): void {
         if (this.tippyInstance) {

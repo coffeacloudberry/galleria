@@ -3,13 +3,14 @@ import imageOutline from "@/icons/image-outline.svg";
 import languageOutline from "@/icons/language-outline.svg";
 import listOutline from "@/icons/list-outline.svg";
 import m from "mithril";
-import tippy, { Instance as TippyInstance } from "tippy.js";
+import { Instance as TippyInstance, Placement } from "tippy.js";
 
 import { photo } from "../models/Photo";
 import { story } from "../models/Story";
 import { Language, t } from "../translate";
 import Icon from "./Icon";
 import PhotoMetadataComponent from "./PhotoMetadata";
+import { InteractiveTippy } from "../utils";
 
 const languages = require("../languages"); // skipcq: JS-0359
 
@@ -44,34 +45,9 @@ const LanguageLink: m.Component<LanguageLinkAttrs> = {
     },
 };
 
-class LanguageSelection implements m.ClassComponent<MainMenuAttrs> {
-    private tippyInstance: TippyInstance | undefined;
-
-    oncreate({ dom }: m.CVnodeDOM<MainMenuAttrs>) {
-        this.tippyInstance = tippy(dom, {
-            interactive: true,
-            allowHTML: true,
-            hideOnClick: false,
-            interactiveBorder: 30,
-            interactiveDebounce: 70,
-            content: dom.children[1],
-            theme: "dropdown-list",
-            appendTo: () => document.body,
-            maxWidth: "none",
-        });
-    }
-
-    onbeforeremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.unmount();
-        }
-    }
-
-    onremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.destroy();
-        }
-    }
+class LanguageSelection extends InteractiveTippy<MainMenuAttrs> {
+    placement = "bottom" as Placement;
+    arrow = true;
 
     view({ attrs }: m.CVnode<MainMenuAttrs>): m.Vnode {
         return m("span[tabindex=0].nav-item#rf-lang", [
@@ -192,35 +168,9 @@ const MainMenuTippyContent: m.Component<MainMenuAttrs> = {
     },
 };
 
-class MainMenu implements m.ClassComponent<MainMenuAttrs> {
-    private tippyInstance: TippyInstance | undefined;
-
-    /** Put the Tippy content in the right place. */
-    oncreate({ dom }: m.CVnodeDOM<MainMenuAttrs>): void {
-        this.tippyInstance = tippy(dom, {
-            interactive: true,
-            allowHTML: true,
-            hideOnClick: false,
-            interactiveBorder: 30,
-            interactiveDebounce: 70,
-            content: dom.children[1], // MainMenuTippyContent
-            theme: "dropdown-list",
-            appendTo: () => document.body,
-            maxWidth: "none",
-        });
-    }
-
-    onbeforeremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.unmount();
-        }
-    }
-
-    onremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.destroy();
-        }
-    }
+class MainMenu extends InteractiveTippy<MainMenuAttrs> {
+    placement = "bottom" as Placement;
+    arrow = true;
 
     view({ attrs }: m.CVnode<MainMenuAttrs>): m.Vnode {
         return m("span[tabindex=0].nav-item#rf-menu", [

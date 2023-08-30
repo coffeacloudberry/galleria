@@ -1,4 +1,5 @@
 import m from "mithril";
+import tippy, { Instance as TippyInstance, Placement } from "tippy.js";
 import Toastify from "toastify-js";
 
 import { config } from "./config";
@@ -233,4 +234,51 @@ export function toast(
         className: `custom-toast-${LogType[type]}`,
     });
     currentToast.showToast();
+}
+
+/** A dropdown menu as a tippy activated on mouse over or on touch. */
+export abstract class InteractiveTippy<Type> implements m.ClassComponent<Type> {
+    /** Individual tippy object. */
+    protected tippyInstance: TippyInstance | undefined;
+
+    /** The preferred placement of the tippy. */
+    protected abstract placement: Placement;
+
+    /** Determines if the tippy has an arrow. */
+    protected abstract arrow: boolean;
+
+    oncreate({ dom }: m.CVnodeDOM<Type>): void {
+        this.tippyInstance = tippy(dom, {
+            interactive: true,
+            allowHTML: true,
+            hideOnClick: false,
+            interactiveBorder: 30,
+            interactiveDebounce: 70,
+            content: dom.children[1], // the second nested node
+            placement: this.placement,
+            arrow: this.arrow,
+            theme: "dropdown-list",
+            appendTo: () => document.body,
+            maxWidth: "none",
+        });
+    }
+
+    onbeforeremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.unmount();
+        }
+    }
+
+    onremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.destroy();
+        }
+    }
+
+    /**
+     * The view shall contain an array of 2 nodes nested inside one.
+     * The first nested node is the visible element to activate the tippy.
+     * When active, the second nested element is visible as a tippy.
+     */
+    abstract view({ attrs }: m.CVnode<Type>): m.Vnode;
 }

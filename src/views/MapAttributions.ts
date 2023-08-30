@@ -1,12 +1,13 @@
 import informationCircleOutline from "@/icons/information-circle-outline.svg";
 import m from "mithril";
-import tippy, { Instance as TippyInstance } from "tippy.js";
+import { Placement } from "tippy.js";
 
 import { config } from "../config";
 import { AttribUrls, Attribution, globalMapState } from "../models/Map";
 import { MapTheme, MapThemeStrings } from "../models/Story";
 import { t } from "../translate";
 import Icon from "./Icon";
+import { InteractiveTippy } from "../utils";
 
 const MapAttributionsTippyContent: m.Component = {
     view(): m.Vnode {
@@ -43,36 +44,9 @@ const MapAttributionsTippyContent: m.Component = {
  * Contains both the icon and Tippy content,
  * even though the Tippy content is actually in the body.
  */
-class MapAttributionsIcon implements m.ClassComponent {
-    private tippyInstance: TippyInstance | undefined;
-
-    /** Put the Tippy content in the right place. */
-    oncreate({ dom }: m.CVnodeDOM): void {
-        this.tippyInstance = tippy(dom, {
-            interactive: true,
-            allowHTML: true,
-            hideOnClick: false,
-            interactiveBorder: 30,
-            interactiveDebounce: 70,
-            content: dom.children[1], // MapAttributionsTippyContent
-            placement: "top",
-            appendTo: () => document.body,
-            arrow: false,
-            maxWidth: "none",
-        });
-    }
-
-    onbeforeremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.unmount();
-        }
-    }
-
-    onremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.destroy();
-        }
-    }
+class MapAttributionsIcon extends InteractiveTippy<void> {
+    placement = "top" as Placement;
+    arrow = false;
 
     // skipcq: JS-0105
     view(): m.Vnode {
