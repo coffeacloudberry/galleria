@@ -20,9 +20,17 @@ tests/end_to_end/results
 .idea
 *.trash.local
 *~
+photo_manager_cli/libwebp/libwebp-*
+photo_manager_cli/tests/fixtures/vcr_cassettes
 
 # Generated files from custom Webpack plugins
 rev_*
 
 # Generated files
 raw/
+cache/
+htmlcov/
+
+# Python stuff
+*.pyc
+venv/
