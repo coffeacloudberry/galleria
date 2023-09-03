@@ -17,18 +17,18 @@ import subprocess
 import tarfile
 from fractions import Fraction
 from html.parser import HTMLParser
+from math import sqrt
 from shutil import copy2
 from typing import Dict
 from typing import List
 from typing import Optional
 from typing import Tuple
 from typing import Union
-from math import sqrt
 
 import click
+import exiftool
 import requests
 from PIL import Image
-import exiftool
 
 TYPICAL_WIDTH = 6028
 TYPICAL_HEIGHT = 4012
@@ -40,9 +40,13 @@ GOOGLE_REPO_LISTING_ENDPOINT = (
 LIBWEBP_DIRNAME = os.path.join(os.path.dirname(__file__), "..", "libwebp")
 
 LENS_IDS = {}
-with open("NikonLensID.json", "r") as nikon_lens_id:
+with open(
+    os.path.join(os.path.dirname(__file__), "NikonLensID.json"), "r"
+) as nikon_lens_id:
     LENS_IDS["NIKON CORPORATION"] = json.load(nikon_lens_id)
-with open("OlympusLensType.json", "r") as olympus_lens_id:
+with open(
+    os.path.join(os.path.dirname(__file__), "OlympusLensType.json"), "r"
+) as olympus_lens_id:
     LENS_IDS["OM Digital Solutions"] = json.load(olympus_lens_id)
 
 
@@ -94,7 +98,11 @@ class WebPUpdater:
         sub_folders = next(os.walk(LIBWEBP_DIRNAME))[1]
         prefix = "libwebp-"
         found_release = WebPUpdater.find_latest(
-            [version[len(prefix) :] for version in sub_folders if version.startswith(prefix)]
+            [
+                version[len(prefix) :]
+                for version in sub_folders
+                if version.startswith(prefix)
+            ]
         )
         return prefix + found_release if found_release else None
 
@@ -210,6 +218,8 @@ class WebPUpdater:
 def get_image_exif(path: str) -> List:
     """
     Get EXIF data.
+    TODO: get computational process (LiveND on? HighRes mode?)
+    TODO: get GPS metadata
 
     Args:
         path (str): Path to the image (tiff or jpg).
@@ -246,26 +256,31 @@ def get_image_exif(path: str) -> List:
                 body_model = d["EXIF:Model"]
                 # Nikon: NIKON D7100
                 # OM Digital Solutions: OM-5 (the manufacturer is in the EXIF:Make field)
-                if " " not in body_model:
-                    body_model = f'{maker} {body_model}'
+                if body_model and " " not in body_model:
+                    body_model = f"{maker} {body_model}"
             except KeyError:
                 pass
             try:
-                date_taken = datetime.datetime.strptime(d["EXIF:DateTimeOriginal"], "%Y:%m:%d %H:%M:%S")
+                date_taken = datetime.datetime.strptime(
+                    d["EXIF:DateTimeOriginal"], "%Y:%m:%d %H:%M:%S"
+                )
             except KeyError:
                 pass
             try:
-                if "EXIF:FocalLengthIn35mmFormat" in d:
-                    focal_length_35mm = d["EXIF:FocalLengthIn35mmFormat"]
-                else:
+                focal_length_35mm = round(d["EXIF:FocalLengthIn35mmFormat"])
+            except KeyError:
+                try:
                     focal_length = d["EXIF:FocalLength"]
-                    focal_plane_diagonal = d["MakerNotes:FocalPlaneDiagonal"]
-                    focal_length_35mm = focal_length * FOCAL_PLANE_DIAGONAL_FULL_FRAME / focal_plane_diagonal
-                focal_length_35mm = round(focal_length_35mm)
-            except KeyError:
-                pass
+                    diagonal = d["MakerNotes:FocalPlaneDiagonal"]
+                    focal_length_35mm = round(
+                        focal_length * FOCAL_PLANE_DIAGONAL_FULL_FRAME / diagonal
+                    )
+                except KeyError:
+                    pass
             try:
-                exposure_time_s = str(Fraction(d["EXIF:ExposureTime"]).limit_denominator())
+                exposure_time_s = str(
+                    Fraction(d["EXIF:ExposureTime"]).limit_denominator()
+                )
             except KeyError:
                 pass
             try:
@@ -276,7 +291,15 @@ def get_image_exif(path: str) -> List:
                 iso = d["EXIF:ISO"]
             except KeyError:
                 pass
-    return [date_taken, focal_length_35mm, exposure_time_s, f_number, iso, body_model, lens_model]
+    return [
+        date_taken,
+        focal_length_35mm,
+        exposure_time_s,
+        f_number,
+        iso,
+        body_model,
+        lens_model,
+    ]
 
 
 def get_image_size(path: str) -> Tuple[int, int]:
@@ -447,7 +470,11 @@ def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
             if not local_lib:
                 raise WebPUpdaterException("Failed again to find libwebp locally")
         cwebp_path = os.path.join(LIBWEBP_DIRNAME, local_lib, "bin", "cwebp")
-    all_photos = [dirname for dirname in os.listdir(album_path) if os.path.isdir(os.path.join(album_path, dirname))]
+    all_photos = [
+        dirname
+        for dirname in os.listdir(album_path)
+        if os.path.isdir(os.path.join(album_path, dirname))
+    ]
     all_photos.sort()
     all_photos = all_photos[1:]
 
@@ -532,7 +559,11 @@ def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
                         ]
                     )
             else:
-                resize = [str(curr_config[1]), "0"] if curr_config[2] is None else ["0", str(curr_config[2])]
+                resize = (
+                    [str(curr_config[1]), "0"]
+                    if curr_config[2] is None
+                    else ["0", str(curr_config[2])]
+                )
                 subprocess.run(  # just resize
                     [
                         cwebp_path,
@@ -545,7 +576,9 @@ def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
                         str(curr_config[3]),
                         "-af",
                         "-resize",
-                    ] + resize + [
+                    ]
+                    + resize
+                    + [
                         input_image_path,
                         "-o",
                         webp_path,
@@ -566,7 +599,11 @@ def guess_original(dir_path: str) -> str:
     for file in os.listdir(dir_path):
         if os.path.isfile(os.path.join(dir_path, file)):
             for ext, priority in priorities:
-                if len(file.split(".")) < 3 and file.lower().endswith("." + ext) and priority > best_priority:
+                if (
+                    len(file.split(".")) < 3
+                    and file.lower().endswith("." + ext)
+                    and priority > best_priority
+                ):
                     best_priority, best_file = priority, file
     if best_file:
         return best_file

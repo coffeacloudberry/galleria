@@ -12,7 +12,6 @@ pylint:
 .PHONY: check
 check: mypy pylint
 
-# documentation: https://github.com/PyCQA/isort/wiki/isort-Settings
 .PHONY: isort
 isort:
 	python -m isort --force-single-line \
@@ -31,16 +30,6 @@ black:
 
 .PHONY: format
 format: isort black
-
-# for debug purpose, add the --setup-show flag to pytest
-.PHONY: test
-test:
-	python -m pytest --capture=tee-sys
-
-.PHONY: coverage
-coverage:
-	python -m coverage run -m pytest && \
-	python -m coverage html --include="photo_manager_cli/src/*,webtrack_cli/src/*"
 
 .PHONY: update
 update:

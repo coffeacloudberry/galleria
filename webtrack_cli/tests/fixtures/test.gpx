@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd " xmlns="http://www.topografix.com/GPX/1/1">
+ <metadata>
+  <name>test</name>
+ </metadata>
+ <wpt lon="17.11415650" lat="67.62379419">
+  <name>Waypoint 1</name>
+  <sym>Campground</sym>
+ </wpt>
+ <wpt lon="17.18016164" lat="67.50689101">
+  <name>Waypoint 2</name>
+ </wpt>
+ <trk>
+  <name>Track 1</name>
+  <trkseg>
+   <trkpt lon="17.08274515" lat="67.71678466"/>
+   <trkpt lon="17.10746439" lat="67.69383905"/>
+   <trkpt lon="17.11845072" lat="67.67922560"/>
+   <trkpt lon="17.10197123" lat="67.66669254"/>
+   <trkpt lon="17.07587870" lat="67.65676579"/>
+   <trkpt lon="17.06626566" lat="67.64474359"/>
+   <trkpt lon="17.07038554" lat="67.63219213"/>
+   <trkpt lon="17.11433085" lat="67.62382076"/>
+   <trkpt lon="17.05527933" lat="67.61439942"/>
+   <trkpt lon="16.99622782" lat="67.60864008"/>
+   <trkpt lon="16.93168314" lat="67.60287933"/>
+   <trkpt lon="16.99897440" lat="67.60706910"/>
+   <trkpt lon="17.04978617" lat="67.61230528"/>
+   <trkpt lon="17.11415919" lat="67.62378806"/>
+   <trkpt lon="17.12154063" lat="67.61034185"/>
+   <trkpt lon="17.11948069" lat="67.59122259"/>
+   <trkpt lon="17.12222727" lat="67.57654525"/>
+   <trkpt lon="17.12222727" lat="67.56080939"/>
+   <trkpt lon="17.12840708" lat="67.54059966"/>
+  </trkseg>
+ </trk>
+ <trk>
+  <name>Track 2</name>
+  <trkseg>
+   <trkpt lon="17.12840708" lat="67.54059966"/>
+   <trkpt lon="17.15106638" lat="67.52483983"/>
+   <trkpt lon="17.17990549" lat="67.50696599"/>
+   <trkpt lon="17.17424067" lat="67.50558546"/>
+   <trkpt lon="17.16608675" lat="67.50413911"/>
+   <trkpt lon="17.15904864" lat="67.50292279"/>
+   <trkpt lon="17.16643008" lat="67.50407336"/>
+   <trkpt lon="17.17415484" lat="67.50558546"/>
+   <trkpt lon="17.17990013" lat="67.50696599"/>
+   <trkpt lon="17.19111713" lat="67.50131189"/>
+   <trkpt lon="17.19111713" lat="67.50137764"/>
+  </trkseg>
+ </trk>
+</gpx>

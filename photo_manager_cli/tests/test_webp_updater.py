@@ -1,5 +1,6 @@
 import vcr
-from src.photos_manager import WebPUpdater
+
+from photo_manager_cli.src.photos_manager import WebPUpdater
 
 
 @vcr.use_cassette("fixtures/vcr_cassettes/repo_list.yaml")
@@ -18,7 +19,9 @@ def test_find_latest():
     assert WebPUpdater.find_latest(["1.2.3", "1.1.4"]) == "1.2.3"
     assert WebPUpdater.find_latest(["1.2.3", "0.1.4"]) == "1.2.3"
     assert WebPUpdater.find_latest(["1.2.3", "1.2.4"]) == "1.2.4"
-    assert WebPUpdater.find_latest(["1.2.5", "1.2.5-rc2", "1.2.4-rc1", "1.2.4"]) == "1.2.5"
+    assert (
+        WebPUpdater.find_latest(["1.2.5", "1.2.5-rc2", "1.2.4-rc1", "1.2.4"]) == "1.2.5"
+    )
 
 
 @vcr.use_cassette("fixtures/vcr_cassettes/release.yaml")

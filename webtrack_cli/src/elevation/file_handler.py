@@ -30,8 +30,6 @@ class FileHandler:
 
     def get_srtm_dir(self) -> str:
         """The default path to store files."""
-        # Local cache path:
-        result = ""
         if "HOME" in mod_os.environ:
             result = mod_os.sep.join([mod_os.environ["HOME"], ".cache", "srtm"])
         elif "HOMEPATH" in mod_os.environ:

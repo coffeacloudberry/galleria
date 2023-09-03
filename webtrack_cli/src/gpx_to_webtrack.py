@@ -3,9 +3,12 @@ GPX to WebTrack convertor.
 """
 import glob
 import os
+import re
+from collections import defaultdict
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Tuple
 
 import click
 import gpxpy
@@ -13,19 +16,30 @@ import gpxpy.gpx
 
 try:
     import elevation
+    from webtrack import Activity
     from webtrack import WebTrack
 except ImportError:  # when testing
     from . import elevation
+    from .webtrack import Activity
     from .webtrack import WebTrack
 
 USERNAME = None
 PASSWORD = None
+ACTIVITY_PATTERN = re.compile(
+    r".*\(webtrack activity: ([a-z ]+)\).*", re.IGNORECASE | re.DOTALL
+)
 DEM_DATASETS = (
     ("SRTMGL1v3", "SRTMGL1v3", "E"),
     ("ASTGTMv3", "ASTGTMv3", "G"),
     ('Jonathan de Ferranti 1"', "JdF1", "J"),
     ('Jonathan de Ferranti 3"', "JdF3", "K"),
 )
+
+# Distance where the position is approaching the track closely
+CLOSE_ENOUGH_METERS = 500
+
+# Distance where the position is leaving the track far enough
+FAR_ENOUGH_METERS = CLOSE_ENOUGH_METERS * 2
 
 
 def absolute_path(filename: str, curr_file: str = __file__) -> str:
@@ -58,22 +72,6 @@ def good_webtrack_version(file_path: str) -> bool:
     current_format = webtrack.get_format_information()
     file_format = webtrack.get_format_information(file_path)
     return current_format == file_format
-
-
-class CustomFileHandler(elevation.FileHandler):
-    """
-    The custom file handler to choose the cache directory.
-    """
-
-    def get_srtm_dir(self) -> str:
-        """The default path to store files."""
-        # Local cache path:
-        result = absolute_path("../cache")
-
-        if not os.path.exists(result):
-            os.makedirs(result)  # pragma: no cover
-
-        return result
 
 
 def replace_extension(filename_src: str, new_ext: str) -> str:
@@ -133,7 +131,7 @@ def replace_extension(filename_src: str, new_ext: str) -> str:
 def with_elevation(
     gpx: str,
     recursive: bool,
-    username: str,
+    username: Optional[str],
     simplify: bool,
     verbose: bool,
     fallback: bool,
@@ -151,7 +149,7 @@ def with_elevation(
 
 def gpx_to_webtrack(
     gpx: str,
-    username: str,
+    username: Optional[str],
     simplify: bool,
     verbose: bool,
     dem: str,
@@ -186,6 +184,10 @@ def print_transcompilation_summary(
     click.echo("WebTrack file:")
     click.echo("\tTotal segments: %d" % len(data["segments"]))
     click.echo("\tTotal waypoints: %d" % len(data["waypoints"]))
+    click.echo(
+        "\tTotal activities: %d"
+        % len(data["trackInformation"]["lengths"]["activities"])
+    )
     verbose_dem = "None"
     if dem_dataset:
         for dem in DEM_DATASETS:
@@ -201,6 +203,45 @@ def print_transcompilation_summary(
         "\tCompression: %d -> %d bytes => %d %%"
         % (gpx_size, webtrack_size, 100 * (gpx_size - webtrack_size) / gpx_size)
     )
+
+
+def guess_activity(description: Optional[str]) -> Activity:
+    if not description:
+        return Activity.UNDEFINED
+    try:
+        match = ACTIVITY_PATTERN.match(description)
+        if match:
+            return Activity[match.group(1).upper().replace(" ", "_")]
+    except TypeError:
+        pass
+    return Activity.UNDEFINED
+
+
+def guess_close_enough(gpx: gpxpy.gpx.GPX, waypoint: gpxpy.gpx.GPXWaypoint) -> int:
+    """Find out the first closest point."""
+    min_dist = 1.0 + 2**32
+    idx_closest_point = 0
+    idx_point = 0
+    entered_close_enough = False
+    for track in gpx.tracks:
+        for segment in track.segments:
+            for point in segment.points:
+                idx_point += 1
+                dist = gpxpy.geo.haversine_distance(
+                    point.latitude,
+                    point.longitude,
+                    waypoint.latitude,
+                    waypoint.longitude,
+                )
+                if dist < CLOSE_ENOUGH_METERS:
+                    entered_close_enough = True
+                    if dist < min_dist:
+                        min_dist = dist
+                        idx_closest_point = idx_point
+                # hysteresis
+                elif dist > FAR_ENOUGH_METERS and entered_close_enough:
+                    return idx_closest_point
+    return idx_closest_point
 
 
 def gpx_to_webtrack_without_elevation(
@@ -228,30 +269,36 @@ def gpx_to_webtrack_without_elevation(
         if simplify:
             gpx.simplify()
         current_length = 0
-        all_points: List = []
-        gps_prev_point = None
+        all_points: List[Tuple[List[Tuple[float, float, float]], Activity]] = []
+        activities: Dict[Activity, float] = defaultdict(float)
         for track in gpx.tracks:
-            all_points.append([])
+            activity = guess_activity(track.description)
+            all_points.append(([], activity))
+            track_length = 0
+            gps_prev_point = None
             for segment in track.segments:
                 for gps_curr_point in segment.points:
                     if gps_prev_point is not None:
-                        current_length += gpxpy.geo.haversine_distance(
+                        dist = gpxpy.geo.haversine_distance(
                             gps_curr_point.latitude,
                             gps_curr_point.longitude,
                             gps_prev_point.latitude,
                             gps_prev_point.longitude,
                         )
+                        current_length += dist
+                        track_length += dist
                     gps_prev_point = gpxpy.geo.Location(
                         gps_curr_point.latitude,
                         gps_curr_point.longitude,
                     )
-                    all_points[-1].append(
-                        [
+                    all_points[-1][0].append(
+                        (
                             gps_curr_point.longitude,
                             gps_curr_point.latitude,
                             current_length,
-                        ]
+                        )
                     )
+            activities[activity] += track_length
 
         waypoints = []
         for waypoint in gpx.waypoints:
@@ -263,14 +310,31 @@ def gpx_to_webtrack_without_elevation(
                     None,
                     waypoint.symbol,
                     waypoint.name,
+                    guess_close_enough(gpx, waypoint),
                 ]
             )
 
         full_profile = {
-            "segments": [{"withEle": False, "points": seg} for seg in all_points],
+            "segments": [
+                {
+                    "activity": seg[1],
+                    "withEle": False,
+                    "points": seg[0],
+                }
+                for seg in all_points
+            ],
             "waypoints": waypoints,
             "trackInformation": {
-                "length": current_length,
+                "lengths": {
+                    "total": current_length,
+                    "activities": [
+                        {
+                            "activity": activity,
+                            "length": length,
+                        }
+                        for activity, length in activities.items()
+                    ],
+                },
             },
         }
 
@@ -291,7 +355,7 @@ def get_webtrack_source(dem_dataset: str) -> str:
 def gpx_to_webtrack_with_elevation(
     gpx_path: str,
     webtrack_path: str,
-    username: str,
+    username: Optional[str],
     simplify: bool,
     dem_dataset: str,
     verbose: bool,
@@ -330,14 +394,15 @@ def gpx_to_webtrack_with_elevation(
     Returns:
         The result is saved into a file, nothing is returned.
     """
+    needs_creds = "JdF" not in dem_dataset
     global USERNAME
     if USERNAME is None:
-        if not username:
+        if needs_creds and not username:
             USERNAME = click.prompt("Earthdata Username", prompt_suffix="? ")
         else:
             USERNAME = username
     global PASSWORD
-    if PASSWORD is None and "JdF" not in dem_dataset:
+    if PASSWORD is None and needs_creds:
         PASSWORD = click.prompt(
             "Earthdata Password", prompt_suffix="? ", hide_input=True
         )
@@ -346,39 +411,47 @@ def gpx_to_webtrack_with_elevation(
         version=dem_dataset,
         earth_data_user=username,
         earth_data_password=password,
-        file_handler=CustomFileHandler(),
     )
     with open(gpx_path, "r") as input_gpx_file:
         gpx = gpxpy.parse(input_gpx_file)
         if simplify:
             gpx.simplify()
         elevation_data.add_elevations(gpx, smooth=True)
-        elevation_profiles: List = []
+        elevation_profiles: List[
+            Tuple[List[Tuple[float, float, float, float]], Activity]
+        ] = []
+        activities: Dict[Activity, float] = defaultdict(float)
         elevation_min = 10000
         elevation_max = -elevation_min
         elevation_total_gain = 0
         elevation_total_loss = 0
         current_length = 0
         for track in gpx.tracks:
+            activity = guess_activity(track.description)
+            elevation_profiles.append(([], activity))  # add one WebTrack segment
+            track_length = 0
             delta_h = None
-            elevation_profiles.append([])  # add one WebTrack segment
             for segment in track.segments:
                 for gps_curr_point in segment.points:
+                    if gps_curr_point.elevation is None:
+                        raise ValueError("Expected elevation")
                     # add point to segment:
                     if delta_h is not None:
-                        current_length += gpxpy.geo.haversine_distance(
+                        dist = gpxpy.geo.haversine_distance(
                             gps_curr_point.latitude,
                             gps_curr_point.longitude,
                             gps_prev_point.latitude,
                             gps_prev_point.longitude,
                         )
-                    elevation_profiles[-1].append(
-                        [
+                        current_length += dist
+                        track_length += dist
+                    elevation_profiles[-1][0].append(
+                        (
                             gps_curr_point.longitude,
                             gps_curr_point.latitude,
                             current_length,
                             gps_curr_point.elevation,
-                        ]
+                        )
                     )
 
                     # statistics:
@@ -404,6 +477,7 @@ def gpx_to_webtrack_with_elevation(
                         gps_curr_point.longitude,
                         gps_curr_point.elevation,
                     )
+            activities[activity] += track_length
 
         elevation_source = get_webtrack_source(dem_dataset)
         waypoints = []
@@ -419,17 +493,32 @@ def gpx_to_webtrack_with_elevation(
                     point_ele,
                     waypoint.symbol,
                     waypoint.name,
+                    guess_close_enough(gpx, waypoint),
                 ]
             )
 
         full_profile = {
             "segments": [
-                {"withEle": elevation_source, "points": one_profile}
-                for one_profile in elevation_profiles
+                {
+                    "activity": seg[1],
+                    "withEle": elevation_source,
+                    "points": seg[0],
+                }
+                for seg in elevation_profiles
             ],
             "waypoints": waypoints,
             "trackInformation": {
-                "length": current_length,
+                "activity": Activity.UNDEFINED,
+                "lengths": {
+                    "total": current_length,
+                    "activities": [
+                        {
+                            "activity": activity,
+                            "length": length,
+                        }
+                        for activity, length in activities.items()
+                    ],
+                },
                 "minimumAltitude": elevation_min,
                 "maximumAltitude": elevation_max,
                 "elevationGain": elevation_total_gain,

@@ -13,7 +13,9 @@ The DEM is mainly based on SRTM 3" with a custom voidfill algorithm and the comb
 * File Format: HGT
 * Datum: WGS84/EGM96
 
-More information: [3"](http://viewfinderpanoramas.org/dem3.html) and [1"](http://viewfinderpanoramas.org/dem1.html) links.
+More information: [3"](http://viewfinderpanoramas.org/dem3.html) (or about 93 meters) and [1"](http://viewfinderpanoramas.org/dem1.html) (or about 31 meters) links.
+
+Handle ZIP files: `find . -name "*.zip" | while read filename; do unzip -j "$filename"; done; rename -v .hgt _JdF1.hgt *.hgt; rm *.zip`
 
 ## SRTMGL1 v3 [![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788629198-fb02c8547f60cd66a8245b6b)](https://stats.uptimerobot.com/3JW84TmQoB/788629198)
 

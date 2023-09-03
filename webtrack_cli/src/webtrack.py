@@ -1,7 +1,51 @@
+from enum import Enum
 from typing import Any
 from typing import Dict
+from typing import Literal
 from typing import Tuple
 from typing import Union
+
+
+class Activity(Enum):
+    UNDEFINED = b"??"
+    PACKRAFT = b"A?"
+    BUS = b"B?"
+    CAR = b"C?"
+    SLED_DOG = b"D?"
+    ELECTRIC_BICYCLE = b"E?"
+    WALK = b"F?"
+    SUNDAY_SCHOOL_PICNIC_WALK = b"F1"
+    EASY_WALK = b"F2"
+    MODERATE_WALK = b"F3"
+    DIFFICULT_WALK = b"F4"
+    CHALLENGING_WALK = b"F5"
+    RUNNING = b"F9"
+    GLIDING = b"G?"
+    HELICOPTER = b"H?"
+    MOTORBIKE = b"I?"
+    TURBOJET_AIRCRAFT = b"J?"
+    KAYAK = b"K?"
+    CANOE = b"L?"
+    MOTORED_BOAT = b"M?"
+    HANG_GLIDING = b"N?"
+    BICYCLE = b"O?"
+    PARAGLIDING = b"P?"
+    SNOW_MOBILE = b"Q?"
+    ROWING_BOAT = b"R?"
+    SKI = b"S?"
+    TRAIN = b"T?"
+    CABLE_CAR = b"U?"
+    HORSE = b"V?"
+    SAILING_BOAT = b"W?"
+    TURBOPROP_AIRCRAFT = b"X?"
+    SWIM = b"Y?"
+    HITCHHIKING = b"Z?"
+    VIA_FERRATA = b"=?"
+    EASY_VIA_FERRATA = b"=A"
+    MODERATELY_DIFFICULT_VIA_FERRATA = b"=B"
+    DIFFICULT_VIA_FERRATA = b"=C"
+    VERY_DIFFICULT_VIA_FERRATA = b"=D"
+    EXTREMELY_DIFFICULT_VIA_FERRATA = b"=E"
 
 
 class WebTrack:
@@ -10,7 +54,7 @@ class WebTrack:
     """
 
     #: Big-endian order as specified.
-    byteorder: str = "big"
+    byteorder: Literal["little", "big"] = "big"
 
     #: The WebTrack file data.
     webtrack: Any = None
@@ -30,7 +74,7 @@ class WebTrack:
     def __init__(
         self,
         format_name: bytes = b"webtrack-bin",
-        format_version: bytes = b"0.2.0",
+        format_version: bytes = b"1.0.0",
     ):
         self.format_name = format_name
         self.format_version = format_version
@@ -160,6 +204,7 @@ class WebTrack:
             return
         segments = self.data_src["segments"]
         for segment in segments:
+            self.webtrack.write(segment["activity"].value)
             if segment["withEle"]:  # E, G, J, M
                 self.webtrack.write(segment["withEle"].encode("utf-8"))
                 self.has_some_ele = True
@@ -176,8 +221,13 @@ class WebTrack:
         if "trackInformation" not in self.data_src:
             raise KeyError("Missing track information")
         track_info = self.data_src["trackInformation"]
-        if "length" in track_info:
-            self._w_uint32(track_info["length"])
+        if "lengths" in track_info:
+            self._w_uint32(track_info["lengths"]["total"])
+            all_activities = track_info["lengths"]["activities"]
+            if len(all_activities) > 1:
+                for activity in all_activities:
+                    self.webtrack.write(activity["activity"].value)
+                    self._w_uint32(activity["length"])
         else:
             raise KeyError("Missing track length")
         if self.has_some_ele:
@@ -234,6 +284,7 @@ class WebTrack:
         for waypoint in waypoints:
             self._w_int32(waypoint[0] * 1e5)
             self._w_int32(waypoint[1] * 1e5)
+            self._w_uint32(waypoint[6])
             if waypoint[2]:  # with elevation
                 self.webtrack.write(waypoint[2].encode("utf-8"))
                 self._w_int16(waypoint[3])

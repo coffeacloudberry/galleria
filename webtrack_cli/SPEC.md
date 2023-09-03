@@ -41,7 +41,7 @@ General information about the file format and content.
             <td>Format Version</td>
             <td>The webtrack version we are dealing with</td>
             <td>Some ASCII bytes</td>
-            <td>0.0.1</td>
+            <td>1.0.0</td>
         </tr>
         <tr>
             <td>Separator</td>
@@ -79,6 +79,136 @@ Information intended to know at the beginning how much data we are dealing with,
     </thead>
     <tbody>
         <tr>
+            <td rowspan="32">Activity</td>
+            <td>Undefined</td>
+            <td rowspan="32">2 ASCII bytes</td>
+            <td>??</td>
+        </tr>
+        <tr>
+            <td>Packraft</td>
+            <td>A?</td>
+        </tr>
+        <tr>
+            <td>Bus</td>
+            <td>B?</td>
+        </tr>
+        <tr>
+            <td>Car</td>
+            <td>C?</td>
+        </tr>
+        <tr>
+            <td>Sled dog</td>
+            <td>D?</td>
+        </tr>
+        <tr>
+            <td>Electric bicycle</td>
+            <td>E?</td>
+        </tr>
+        <tr>
+            <td>Walk</td>
+            <td>F?</td>
+        </tr>
+        <tr>
+            <td>Sunday School Picnic walk</td>
+            <td>F1</td>
+        </tr>
+        <tr>
+            <td>Easy walk</td>
+            <td>F2</td>
+        </tr>
+        <tr>
+            <td>Moderate walk</td>
+            <td>F3</td>
+        </tr>
+        <tr>
+            <td>Difficult walk</td>
+            <td>F4</td>
+        </tr>
+        <tr>
+            <td>Challenging walk</td>
+            <td>F5</td>
+        </tr>
+        <tr>
+            <td>Running</td>
+            <td>G?</td>
+        </tr>
+        <tr>
+            <td>Hitchhiking</td>
+            <td>H?</td>
+        </tr>
+        <tr>
+            <td>Motorbike</td>
+            <td>I?</td>
+        </tr>
+        <tr>
+            <td>Kayak</td>
+            <td>K?</td>
+        </tr>
+        <tr>
+            <td>Canoe</td>
+            <td>L?</td>
+        </tr>
+        <tr>
+            <td>Motored boat</td>
+            <td>M?</td>
+        </tr>
+        <tr>
+            <td>Bicycle</td>
+            <td>O?</td>
+        </tr>
+        <tr>
+            <td>Snow mobile</td>
+            <td>Q?</td>
+        </tr>
+        <tr>
+            <td>Rowing boat</td>
+            <td>R?</td>
+        </tr>
+        <tr>
+            <td>Ski</td>
+            <td>S?</td>
+        </tr>
+        <tr>
+            <td>Train</td>
+            <td>T?</td>
+        </tr>
+        <tr>
+            <td>Horse</td>
+            <td>V?</td>
+        </tr>
+        <tr>
+            <td>Sailing boat</td>
+            <td>W?</td>
+        </tr>
+        <tr>
+            <td>Swim</td>
+            <td>Y?</td>
+        </tr>
+        <tr>
+            <td>Via ferrata</td>
+            <td>Z?</td>
+        </tr>
+        <tr>
+            <td>Easy via ferrata</td>
+            <td>ZA</td>
+        </tr>
+        <tr>
+            <td>Moderately difficult via ferrata</td>
+            <td>ZB</td>
+        </tr>
+        <tr>
+            <td>Difficult via ferrata</td>
+            <td>ZC</td>
+        </tr>
+        <tr>
+            <td>Very difficult via ferrata</td>
+            <td>ZD</td>
+        </tr>
+        <tr>
+            <td>Extremely difficult via ferrata</td>
+            <td>ZE</td>
+        </tr>
+        <tr>
             <td rowspan="6">Elevation Model</td>
             <td>Segment with elevation (from SRTMGL1v3)</td>
             <td rowspan="6">1 ASCII byte</td>
@@ -113,7 +243,10 @@ Information intended to know at the beginning how much data we are dealing with,
     </tbody>
 </table>
 
-**Note:** The above table is repeated as many times as there are segments.
+**Notes:**
+
+* The above table is repeated as many times as there are segments.
+* The activity is sourced from the `<desc/>` tag in the `<trk/>` track. The description should contain something like `(Webtrack activity: Moderate walk)`. If using Viking, right-click on the track, click Properties > Properties > General > Description. If using QMapShack, right-click on the track, click Edit > Description.
 
 ## Track Information
 
@@ -130,10 +263,40 @@ Overall information about the segments (one summary for all segments combined):
     </thead>
     <tbody>
         <tr>
-            <td>Length</td>
+            <td>Total Length</td>
             <td>Total length (m)</td>
             <td>uint32</td>
             <td><code>0x0000A1F4</code> (41,460 m)</td>
+        </tr>
+        <tr>
+            <td>(Activity)</td>
+            <td>As listed above</td>
+            <td>2 ASCII bytes</td>
+            <td>F3</td>
+        </tr>
+        <tr>
+            <td>(Activity Length)</td>
+            <td>Length (m) of all segments from the same activity</td>
+            <td>uint32</td>
+            <td><code>0x00000901</code> (2305 m) of moderate walk</td>
+        </tr>
+        <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td>(Activity)</td>
+            <td>As listed above</td>
+            <td>2 ASCII bytes</td>
+            <td>R?</td>
+        </tr>
+        <tr>
+            <td>(Activity Length)</td>
+            <td>Length (m) of all segments from the same activity</td>
+            <td>uint32</td>
+            <td><code>0x00002ECB</code> (11979 m) of rowing boat</td>
         </tr>
         <tr>
             <td>Minimum Altitude</td>
@@ -162,7 +325,9 @@ Overall information about the segments (one summary for all segments combined):
     </tbody>
 </table>
 
-That section doesn't exist if the file doesn't contain any track. The length is the rounded sum of each WebTrack segment length, i.e. gaps between segments are not taken into account. The elevation values are skipped if missing on all tracks.
+The activity and length per activity are excluded if there is only one activity in the entire Webtrack track.
+
+That section doesn't exist if the file does not contain any track. The length is the rounded sum of each WebTrack segment length, i.e. gaps between segments are not taken into account. The elevation values are skipped if missing on all tracks.
 
 ## Points
 
@@ -283,6 +448,14 @@ Waypoints are all absolutely positioned (no offset). So it's basically a list of
             <td><code>0xFFAC1E92</code> (-5497198)</td>
         </tr>
         <tr>
+            <td rowspan="2">(Index of soonest/nearest point)</td>
+            <td rowspan="2">uint32</td>
+            <td><code>0x00001256</code> (4694th point)</td>
+        </tr>
+        <tr>
+            <td><code>0x0</code> if unknown</td>
+        </tr>
+        <tr>
             <td>With Elevation</td>
             <td rowspan="2">1 ASCII byte</td>
             <td>E/G/J/K/M</td>
@@ -319,7 +492,10 @@ Waypoints are all absolutely positioned (no offset). So it's basically a list of
     </tbody>
 </table>
 
-**Note:** The above table is repeated as many times as there are waypoints.
+**Notes:**
+
+* The above table is repeated as many times as there are waypoints.
+* The index of the soonest/nearest point is the index of the point that has been logged in the shortest timelaps or closest according the GPX file, if the time is missing, it is using the closest point. The field is discarded if the Webtrack track does not contain any point. The value is 0 if the waypoint is considered too far from the track to be *snapped*. Such information is useful to locate the waypoint on an elevation profile chart.
 
 ## Example
 

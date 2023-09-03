@@ -42,6 +42,7 @@ function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
                 .map((wpt) => {
                     return {
                         point: points[
+                            // FIXME: use the data from Webtrack 1.0
                             turf.nearestPointOnLine(
                                 turf.lineString(points),
                                 turf.point([wpt.lon, wpt.lat]),
