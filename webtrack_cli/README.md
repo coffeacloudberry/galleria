@@ -125,6 +125,8 @@ In this example, any elevation data from the GPX file will be discarded and repl
 
 Recursive or not, the WebTrack will be saved next to its GPX source file.
 
+Tracks are to be ordered beforehand. This tool will save tracks in the same order as they appear in the GPX file.
+
 ## What's Next?
 
 I designed the [file format](SPEC.md) to perfectly fit my needs, but maybe not yours.

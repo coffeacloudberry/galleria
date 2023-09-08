@@ -23,9 +23,17 @@
         "source": "mission-outline",
         "attributions": ["Pixel perfect", "Flaticon"]
     },
-    "hiker": {
+    "WALK": {
         "source": "backpacker-outline",
         "attributions": ["surang", "Flaticon"]
+    },
+    "MOTORED_BOAT": {
+        "source": "motored-boat-outline",
+        "attributions": ["katemangostar", "Freepik"]
+    },
+    "ROWING_BOAT": {
+        "source": "rowing-boat-outline",
+        "attributions": ["macrovector", "Freepik"]
     },
     "helicopter": {
         "source": "helicopter",

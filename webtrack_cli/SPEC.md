@@ -181,6 +181,10 @@ Information intended to know at the beginning how much data we are dealing with,
             <td>W?</td>
         </tr>
         <tr>
+            <td>Snow shoes</td>
+            <td>X?</td>
+        </tr>
+        <tr>
             <td>Swim</td>
             <td>Y?</td>
         </tr>
@@ -453,7 +457,7 @@ Waypoints are all absolutely positioned (no offset). So it's basically a list of
             <td><code>0x00001256</code> (4694th point)</td>
         </tr>
         <tr>
-            <td><code>0x0</code> if unknown</td>
+            <td><code>0x00000000</code> if unknown</td>
         </tr>
         <tr>
             <td>With Elevation</td>

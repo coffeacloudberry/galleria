@@ -10,6 +10,7 @@ const attribUrls: Record<string, string> = {
     "Pixel perfect": "https://www.flaticon.com/authors/pixel-perfect",
     surang: "https://www.flaticon.com/authors/surang",
     macrovector: "https://www.freepik.com/macrovector",
+    katemangostar: "https://www.freepik.com/author/katemangostar",
 };
 
 const IconDetailComponent: m.Component<ExtraIconsInfo> = {

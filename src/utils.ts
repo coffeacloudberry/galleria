@@ -14,6 +14,12 @@ export function clearSelection(): void {
     }
 }
 
+export function msOrKms(value: number): string {
+    return value > 3000
+        ? `${Math.round(value / 1000)} km`
+        : `${Math.round(value)} m`;
+}
+
 /**
  * Return true if the navigator is mobile or tablet.
  * NOTE: Due to user agent spoofing, the result SHALL NOT be trusted.
