@@ -492,7 +492,7 @@ export default class AutoPilotControl implements IControl {
      * Stop the autopilot and remove the custom control from the map.
      */
     onRemove(): void {
-        if (this.container && this.container.parentNode) {
+        if (this.container?.parentNode) {
             // added manually => remove manually
             m.mount(this.container, null);
 
