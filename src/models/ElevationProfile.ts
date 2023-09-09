@@ -85,7 +85,7 @@ function createAnnotations(
         };
     });
     for (let idx = 0; idx < lines.length - 1; idx++) {
-        annotations["vertical line " + String(idx)] = {
+        annotations[`vertical line ${String(idx)}`] = {
             type: "line",
             xMax: lines[idx][2] / 1000,
             xMin: lines[idx][2] / 1000,
