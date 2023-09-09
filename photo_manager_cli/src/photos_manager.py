@@ -59,14 +59,13 @@ class GoogleRepoParser(HTMLParser):
         re_semver = re.compile(r".+libwebp-(?P<semver>[\w.-]+)-linux")
         for attr in attrs:
             key, value = attr
-            if key == "href":
-                if "-linux-x86-64" in value:
-                    url = f"https:{value}"
-                    semver = re_semver.match(url).group("semver")
-                    if semver in self._all_links:
-                        self._all_links[semver].append(url)
-                    else:
-                        self._all_links[semver] = [url]
+            if key == "href" and "-linux-x86-64" in value:
+                url = f"https:{value}"
+                semver = re_semver.match(url).group("semver")
+                if semver in self._all_links:
+                    self._all_links[semver].append(url)
+                else:
+                    self._all_links[semver] = [url]
 
     @property
     def all_links(self):
