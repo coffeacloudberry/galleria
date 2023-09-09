@@ -1,3 +1,4 @@
+import type mapboxgl from "mapbox-gl";
 import m from "mithril";
 
 import { config } from "../config";

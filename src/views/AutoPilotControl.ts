@@ -1,5 +1,6 @@
 import type { Feature, LineString, Point } from "@turf/helpers";
 import type { Position } from "geojson";
+import type { Map, IControl } from "mapbox-gl";
 import m from "mithril";
 
 import CustomLogging from "../CustomLogging";
@@ -17,7 +18,7 @@ interface AutoPilotControlAttrs {
     cameraRouteDistance: number;
     dPosToTarget: number;
     duration: number | null;
-    map: mapboxgl.Map;
+    map: Map;
 }
 
 class AutoPilotControlComponent
@@ -42,7 +43,7 @@ class AutoPilotControlComponent
     autoPiloting = false;
 
     /** Map instance. */
-    map: mapboxgl.Map;
+    map: Map;
 
     /** True if the autopilot is initializing. */
     isLoading = true;
@@ -371,9 +372,9 @@ class AutoPilotControlComponent
  * Another kind of autopilot:
  * https://www.mapbox.com/blog/river-runner-how-i-built-it
  */
-export default class AutoPilotControl implements mapboxgl.IControl {
+export default class AutoPilotControl implements IControl {
     /** Map instance. */
-    map: mapboxgl.Map | undefined;
+    map: Map | undefined;
 
     /** DIV container of this custom control. */
     container: HTMLDivElement | undefined;
@@ -467,7 +468,7 @@ export default class AutoPilotControl implements mapboxgl.IControl {
      * Component.
      * @param paramMap The map instance.
      */
-    onAdd(paramMap: mapboxgl.Map): HTMLDivElement {
+    onAdd(paramMap: Map): HTMLDivElement {
         this.map = paramMap;
         this.container = document.createElement("div");
         this.container.className =
