@@ -120,7 +120,7 @@ module.exports = merge(common, {
         }),
 
         new GenerateWebLabelsPlugin({
-            additionalScripts: Object.assign({
+            additionalScripts: {
                 "https://unpkg.com/friendly-challenge@0.9.13/widget.module.min.js":
                     [
                         {
@@ -132,7 +132,7 @@ module.exports = merge(common, {
                         },
                     ],
                 // Mapbox GL JS is not OSI compliant
-            }),
+            },
         }),
     ],
     optimization: {

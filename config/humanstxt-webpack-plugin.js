@@ -2,20 +2,17 @@
 
 class HumanstxtPlugin {
     constructor(options = {}) {
-        this.options = Object.assign(
-            {},
-            {
-                team: [
-                    {
-                        type: "Chef",
-                        name: "Juanjo Bernabeu",
-                        twitter: "juanjobernabeu",
-                    },
-                ],
-                languages: ["Català", "Czech", "Deutsch", "English"],
-            },
-            options,
-        );
+        this.options = {
+            team: [
+                {
+                    type: "Chef",
+                    name: "Juanjo Bernabeu",
+                    twitter: "juanjobernabeu",
+                },
+            ],
+            languages: ["Català", "Czech", "Deutsch", "English"],
+            ...options,
+        };
     }
 
     apply(compiler) {

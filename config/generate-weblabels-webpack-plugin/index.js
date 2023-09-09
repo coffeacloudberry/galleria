@@ -416,9 +416,9 @@ class GenerateWebLabelsPlugin {
     }
 
     spdxToWebLabelsLicense(spdxLicenceId) {
-        for (let i = 0; i < spdxLicensesMapping.length; ++i) {
-            if (spdxLicensesMapping[i].spdx_ids.indexOf(spdxLicenceId) !== -1) {
-                const licenseData = Object.assign({}, spdxLicensesMapping[i]);
+        for (const spdxLicense of spdxLicensesMapping) {
+            if (spdxLicense.spdx_ids.indexOf(spdxLicenceId) !== -1) {
+                const licenseData = { ...spdxLicense };
                 delete licenseData.spdx_ids;
                 delete licenseData.magnet_link;
                 licenseData.copy_url = "";
