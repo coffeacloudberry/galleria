@@ -194,9 +194,8 @@ class GlobalMapState {
         for (const feature of this.lineStrings) {
             const lineString = feature.geometry.coordinates;
             const first = lineString[0] as LngLatLike;
-            const initialValue: LngLatBounds = bounds
-                ? bounds
-                : new mapboxgl.LngLatBounds(first, first);
+            const initialValue: LngLatBounds =
+                bounds ?? new mapboxgl.LngLatBounds(first, first);
             bounds = lineString.reduce((bounds, coordinate) => {
                 return bounds.extend(coordinate as LngLatLike);
             }, initialValue);
