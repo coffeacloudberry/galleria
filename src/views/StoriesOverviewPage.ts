@@ -110,8 +110,8 @@ const OneStoryRow: m.Component<OneStory> = {
             return m(".column.p-0", [
                 m(StorySubTitle, {
                     start: Story.strToEasyDate(attrs.metadata.start),
-                    season: attrs.metadata.season || null,
-                    duration: attrs.metadata.duration || null,
+                    season: attrs.metadata.season ?? null,
+                    duration: attrs.metadata.duration ?? null,
                 }),
                 m("p", attrs.content && m(StoryAppetizer, attrs)),
             ]);
@@ -120,8 +120,8 @@ const OneStoryRow: m.Component<OneStory> = {
             m(".two-thirds.column.p-0", [
                 m(StorySubTitle, {
                     start: Story.strToEasyDate(attrs.metadata.start),
-                    season: attrs.metadata.season || null,
-                    duration: attrs.metadata.duration || null,
+                    season: attrs.metadata.season ?? null,
+                    duration: attrs.metadata.duration ?? null,
                 }),
                 m("p", attrs.content && m(StoryAppetizer, attrs)),
             ]),
@@ -220,8 +220,8 @@ class AllStoriesComponent implements m.ClassComponent {
      * Demo: https://jsfiddle.net/t2L274ty/2/
      */
     static checkVisible(elm: Element, threshold?: number, mode?: string) {
-        threshold = threshold || 0;
-        mode = mode || "visible";
+        threshold = threshold ?? 0;
+        mode = mode ?? "visible";
 
         const rect = elm.getBoundingClientRect();
         const viewHeight = Math.max(

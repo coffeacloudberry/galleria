@@ -161,7 +161,7 @@ const StoryContent: m.Component = {
     },
 
     view(): m.Vnode {
-        return m(".story-content", m.trust(story.content || ""));
+        return m(".story-content", m.trust(story.content ?? ""));
     },
 };
 

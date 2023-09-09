@@ -302,7 +302,7 @@ export default class WebTrack {
                     coordinates: [wpt.lon, wpt.lat],
                 },
                 properties: {
-                    sym: wpt.sym || "",
+                    sym: wpt.sym ?? "",
                     name: wpt.name,
                 },
             });

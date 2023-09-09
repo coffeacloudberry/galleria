@@ -98,7 +98,7 @@ t.createTippies = () => {
         // Callback function to execute when mutations are observed
         const callback = () => {
             tippyNode._tippy.setProps({
-                content: targetNode.getAttribute(tippyAttr) || "",
+                content: targetNode.getAttribute(tippyAttr) ?? "",
             });
         };
 

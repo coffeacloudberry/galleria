@@ -81,7 +81,7 @@ const OpenPhoto: m.Component<OpenPhotoAttrs> = {
         return m(
             m.route.Link,
             {
-                href: photoPath || "/",
+                href: photoPath ?? "/",
                 class: "nav-item",
                 "data-tippy-content": photoPath
                     ? t("story.open-photo.tooltip")
@@ -143,7 +143,7 @@ const MainMenuTippyContent: m.Component<MainMenuAttrs> = {
                 refPage: "photo",
                 href: m.buildPathname("/:lang/photo/:title", {
                     lang: t.getLang(),
-                    title: photo.id || "",
+                    title: photo.id ?? "",
                 }),
             },
         ];
@@ -217,7 +217,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                                 m(
                                     m.route.Link,
                                     {
-                                        href: photo.getStoryPath() || "",
+                                        href: photo.getStoryPath() ?? "",
                                     },
                                     attrs.title,
                                 ),
