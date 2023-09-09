@@ -100,7 +100,7 @@ export default class LayerSelectionControl implements mapboxgl.IControl {
      * Remove the custom control from the map.
      */
     onRemove(): void {
-        if (this.container && this.container.parentNode) {
+        if (this.container?.parentNode) {
             // added manually => remove manually
             m.mount(this.container, null);
 
