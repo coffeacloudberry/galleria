@@ -80,7 +80,7 @@ Information intended to know at the beginning how much data we are dealing with,
     <tbody>
         <tr>
             <td rowspan="33">Activity</td>
-            <td>Undefined</td>
+            <td><img src="../src/icons/map/backpacker-outline.svg" width="32" alt="icon on map"/> Undefined</td>
             <td rowspan="33">2 ASCII bytes</td>
             <td>??</td>
         </tr>
@@ -105,7 +105,7 @@ Information intended to know at the beginning how much data we are dealing with,
             <td>E?</td>
         </tr>
         <tr>
-            <td>Walk</td>
+            <td><img src="../src/icons/map/backpacker-outline.svg" width="32" alt="icon on map"/> Walk</td>
             <td>F?</td>
         </tr>
         <tr>
@@ -149,7 +149,7 @@ Information intended to know at the beginning how much data we are dealing with,
             <td>L?</td>
         </tr>
         <tr>
-            <td>Motored boat</td>
+            <td><img src="../src/icons/map/motored-boat-outline.svg" width="32" alt="icon on map"/> Motored boat</td>
             <td>M?</td>
         </tr>
         <tr>
@@ -161,7 +161,7 @@ Information intended to know at the beginning how much data we are dealing with,
             <td>Q?</td>
         </tr>
         <tr>
-            <td>Rowing boat</td>
+            <td><img src="../src/icons/map/rowing-boat-outline.svg" width="32" alt="icon on map"/> Rowing boat</td>
             <td>R?</td>
         </tr>
         <tr>
@@ -505,4 +505,4 @@ Waypoints are all absolutely positioned (no offset). So it's basically a list of
 
 To sum up the different headers and blocks, below is a WebTrack file:
 
-![Example](man/gillespie_circuit_webtrack_with_colors.png)
+![Example](man/gillespie_circuit.webtrack_with_colors.png)
