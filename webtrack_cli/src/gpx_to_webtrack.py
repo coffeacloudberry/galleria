@@ -178,9 +178,7 @@ def gpx_to_webtrack(
     click.secho(f"Generated `{webtrack}'", fg="green", bold=True)
 
 
-def print_transcompilation_summary(
-    gpx_path: str, webtrack_path: str, data: Dict, dem_dataset: Optional[str] = None
-) -> None:
+def print_transcompilation_summary(gpx_path: str, webtrack_path: str, data: Dict) -> None:
     click.echo("WebTrack file:")
     click.echo("\tTotal segments: %d" % len(data["segments"]))
     click.echo("\tTotal waypoints: %d" % len(data["waypoints"]))
@@ -528,9 +526,7 @@ def gpx_to_webtrack_with_elevation(
         webtrack = WebTrack()
         webtrack.to_file(webtrack_path, full_profile)
         if verbose:
-            print_transcompilation_summary(
-                gpx_path, webtrack_path, full_profile, dem_dataset
-            )
+            print_transcompilation_summary(gpx_path, webtrack_path, full_profile)
 
 
 if __name__ == "__main__":
