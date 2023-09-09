@@ -172,6 +172,7 @@ class MainMenu extends InteractiveTippy<MainMenuAttrs> {
     placement = "bottom" as Placement;
     arrow = true;
 
+    // skipcq: JS-0105
     view({ attrs }: m.CVnode<MainMenuAttrs>): m.Vnode {
         return m("span[tabindex=0].nav-item#rf-menu", [
             m(Icon, { src: listOutline }), // actually displayed
@@ -203,7 +204,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 break;
             case "photo":
                 try {
-                    // @ts-ignore
+                    // @ts-expect-error
                     photoTitle = photo.meta.title[t.getLang()];
                 } catch {
                     // continue regardless of error

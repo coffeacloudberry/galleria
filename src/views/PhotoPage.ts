@@ -170,7 +170,7 @@ const Footer: m.Component<FooterAttrs> = {
     view({ attrs }: m.Vnode<FooterAttrs>): m.Vnode {
         let photoTitle = null;
         try {
-            // @ts-ignore
+            // @ts-expect-error
             photoTitle = photo.meta.title[t.getLang()];
         } catch {
             // continue regardless of error
@@ -289,7 +289,6 @@ class Touch {
  */
 function pageTitle(): string {
     if (photo.meta) {
-        // @ts-ignore
         const photoTitle = photo.meta.title[t.getLang()];
         if (photo.storyTitle === null) {
             return ""; // no story linked to the photo
@@ -313,7 +312,6 @@ function pageTitle(): string {
  */
 function documentTitle(): string {
     if (photo.meta) {
-        // @ts-ignore
         const photoTitle = photo.meta.title[t.getLang()];
         if (!photoTitle) {
             return t("photo.title");

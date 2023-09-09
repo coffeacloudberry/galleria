@@ -214,7 +214,7 @@ export default class PhotoMetadataComponent extends InteractiveTippy<void> {
     view(): m.Vnode {
         let photoTitle = null;
         try {
-            // @ts-ignore
+            // @ts-expect-error
             photoTitle = photo.meta.title[t.getLang()];
         } catch {
             // continue regardless of error

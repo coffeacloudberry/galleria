@@ -22,14 +22,14 @@ export function setInteractions(map: mapboxgl.Map, enable: boolean): void {
             deceleration: 0,
         });
         allInteractions.forEach((interaction: string) => {
-            // @ts-ignore
+            // @ts-expect-error
             map[interaction].enable();
         });
         canvasContainer.classList.add("mapboxgl-interactive");
     } else {
         map.dragPan.disable();
         allInteractions.forEach((interaction: string) => {
-            // @ts-ignore
+            // @ts-expect-error
             map[interaction].disable();
         });
         canvasContainer.classList.remove("mapboxgl-interactive");
@@ -38,7 +38,7 @@ export function setInteractions(map: mapboxgl.Map, enable: boolean): void {
         "navigation" in globalMapState.controls &&
         map.hasControl(globalMapState.controls.navigation)
     ) {
-        // @ts-ignore
+        // @ts-expect-error
         globalMapState.controls.navigation.enableButtons(enable);
     }
 }

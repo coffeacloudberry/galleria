@@ -209,7 +209,6 @@ export default function StoryPage(): m.Component {
         view(): (m.Vnode<HeaderAttrs> | boolean)[] {
             const lang = t.getLang();
             const meta = story.originPhotoMeta;
-            // @ts-ignore
             const photoTitle = meta !== null ? meta.title[lang] : "";
 
             return [

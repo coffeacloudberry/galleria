@@ -156,9 +156,9 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
         // over the copy being pointed to.
-        // @ts-ignore
+        // @ts-expect-error
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            // @ts-ignore
+            // @ts-expect-error
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 

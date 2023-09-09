@@ -171,7 +171,6 @@ export default async (request: VercelRequest, response: VercelResponse) => {
                     }
                     response.status(n_status_code).json(undefined);
                 });
-            return;
         } else {
             // Bad Request
             response.status(400).json(undefined);

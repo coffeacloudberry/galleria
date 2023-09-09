@@ -38,13 +38,13 @@ let messages: Messages = translations.en;
 const t: Translatable = (key, subKey, params) => {
     const translate = tjs(messages, options);
     // false positive on type
-    // @ts-ignore
+    // @ts-expect-error
     return subKey ? translate(key, subKey, params) : translate(key);
 };
 
 t.getLang = (): "en" | "fi" | "fr" => {
     const inputLang = m.parsePathname(m.route.get()).path.split("/")[1];
-    // @ts-ignore
+    // @ts-expect-error
     return inputLang in translations ? inputLang : "en";
 };
 

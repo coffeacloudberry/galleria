@@ -104,11 +104,11 @@ class AutoPilotControlComponent
         if (typeof document.hidden !== "undefined") {
             hidden = "hidden";
             visibilityChange = "visibilitychange";
-            // @ts-ignore
+            // @ts-expect-error
         } else if (typeof document.msHidden !== "undefined") {
             hidden = "msHidden";
             visibilityChange = "msvisibilitychange";
-            // @ts-ignore
+            // @ts-expect-error
         } else if (typeof document.webkitHidden !== "undefined") {
             hidden = "webkitHidden";
             visibilityChange = "webkitvisibilitychange";
@@ -119,7 +119,7 @@ class AutoPilotControlComponent
         document.addEventListener(
             visibilityChange,
             () => {
-                // @ts-ignore
+                // @ts-expect-error
                 if (this.autoPiloting && document[hidden]) {
                     this.autoPiloting = false;
                     this.changeState();
