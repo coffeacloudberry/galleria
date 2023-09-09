@@ -27,8 +27,8 @@ class GenerateWebLabelsPlugin {
         // check that provided options match JSON schema
         validate(schema, opts, pluginName);
         this.options = opts || {};
-        this.weblabelsDirName = this.options.outputDir || "/jssources";
-        this.outputType = this.options.outputType || "html";
+        this.weblabelsDirName = this.options.outputDir ?? "/jssources";
+        this.outputType = this.options.outputType ?? "html";
         // source file extension handled by webpack and compiled to js
         this.srcExts = ["js", "ts", "coffee", "lua"];
         this.srcExtsRegexp = new RegExp(`^.*.(${this.srcExts.join("|")})$`);
