@@ -184,19 +184,9 @@ def print_transcompilation_summary(
     click.echo("WebTrack file:")
     click.echo("\tTotal segments: %d" % len(data["segments"]))
     click.echo("\tTotal waypoints: %d" % len(data["waypoints"]))
-    click.echo(
-        "\tTotal activities: %d"
-        % len(data["trackInformation"]["lengths"]["activities"])
-    )
-    verbose_dem = "None"
-    if dem_dataset:
-        for dem in DEM_DATASETS:
-            if dem[1] == dem_dataset:
-                verbose_dem = dem[0]
-    click.echo(
-        "\tElevation source code: %s (%s)"
-        % (data["segments"][0]["withEle"], verbose_dem)
-    )
+    activities = data["trackInformation"]["lengths"]["activities"]
+    activities_str = ", ".join([activity["activity"].name for activity in activities])
+    click.echo(f"\tActivities: {len(activities)} ({activities_str})")
     gpx_size = os.path.getsize(gpx_path)
     webtrack_size = os.path.getsize(webtrack_path)
     click.echo(
@@ -242,6 +232,32 @@ def guess_close_enough(gpx: gpxpy.gpx.GPX, waypoint: gpxpy.gpx.GPXWaypoint) -> i
                 elif dist > FAR_ENOUGH_METERS and entered_close_enough:
                     return idx_closest_point
     return idx_closest_point
+
+
+def flat_full_profile(all_points, waypoints, current_length, activities):
+    return {
+        "segments": [
+            {
+                "activity": seg[1],
+                "withEle": False,
+                "points": seg[0],
+            }
+            for seg in all_points
+        ],
+        "waypoints": waypoints,
+        "trackInformation": {
+            "lengths": {
+                "total": current_length,
+                "activities": [
+                    {
+                        "activity": activity,
+                        "length": length,
+                    }
+                    for activity, length in activities.items()
+                ],
+            },
+        },
+    }
 
 
 def gpx_to_webtrack_without_elevation(
@@ -314,30 +330,7 @@ def gpx_to_webtrack_without_elevation(
                 ]
             )
 
-        full_profile = {
-            "segments": [
-                {
-                    "activity": seg[1],
-                    "withEle": False,
-                    "points": seg[0],
-                }
-                for seg in all_points
-            ],
-            "waypoints": waypoints,
-            "trackInformation": {
-                "lengths": {
-                    "total": current_length,
-                    "activities": [
-                        {
-                            "activity": activity,
-                            "length": length,
-                        }
-                        for activity, length in activities.items()
-                    ],
-                },
-            },
-        }
-
+        full_profile = flat_full_profile(all_points, waypoints, current_length, activities)
         webtrack = WebTrack()
         webtrack.to_file(webtrack_path, full_profile)
         if verbose:
@@ -497,34 +490,40 @@ def gpx_to_webtrack_with_elevation(
                 ]
             )
 
-        full_profile = {
-            "segments": [
-                {
-                    "activity": seg[1],
-                    "withEle": elevation_source,
-                    "points": seg[0],
-                }
-                for seg in elevation_profiles
-            ],
-            "waypoints": waypoints,
-            "trackInformation": {
-                "activity": Activity.UNDEFINED,
-                "lengths": {
-                    "total": current_length,
-                    "activities": [
-                        {
-                            "activity": activity,
-                            "length": length,
-                        }
-                        for activity, length in activities.items()
-                    ],
+        derivative = 100.0 * (elevation_total_gain + elevation_total_loss) / current_length
+        track_is_flat = derivative < 3.0
+        if track_is_flat:
+            click.echo("The track is almost flat ({:.1f}%), elevation removed from track.".format(derivative))
+            full_profile = flat_full_profile(elevation_profiles, waypoints, current_length, activities)
+        else:
+            full_profile = {
+                "segments": [
+                    {
+                        "activity": seg[1],
+                        "withEle": elevation_source,
+                        "points": seg[0],
+                    }
+                    for seg in elevation_profiles
+                ],
+                "waypoints": waypoints,
+                "trackInformation": {
+                    "activity": Activity.UNDEFINED,
+                    "lengths": {
+                        "total": current_length,
+                        "activities": [
+                            {
+                                "activity": activity,
+                                "length": length,
+                            }
+                            for activity, length in activities.items()
+                        ],
+                    },
+                    "minimumAltitude": elevation_min,
+                    "maximumAltitude": elevation_max,
+                    "elevationGain": elevation_total_gain,
+                    "elevationLoss": elevation_total_loss,
                 },
-                "minimumAltitude": elevation_min,
-                "maximumAltitude": elevation_max,
-                "elevationGain": elevation_total_gain,
-                "elevationLoss": elevation_total_loss,
-            },
-        }
+            }
 
         webtrack = WebTrack()
         webtrack.to_file(webtrack_path, full_profile)

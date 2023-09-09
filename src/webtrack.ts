@@ -1,4 +1,4 @@
-import type { Feature, MultiLineString, Point, Position } from "geojson";
+import type { Feature, LineString, Point, Position } from "geojson";
 
 /** A GPX point with symbol and optional name. */
 export interface FeaturePoint extends Feature<Point> {
@@ -19,18 +19,31 @@ export interface FeaturePoint extends Feature<Point> {
     };
 }
 
-export type WebTrackGeoJsonFeature = Feature<MultiLineString> | FeaturePoint;
+export type WebTrackGeoJsonFeature = Feature<LineString> | FeaturePoint;
 
 export type WebTrackGeoJson = {
     type: "FeatureCollection";
     features: WebTrackGeoJsonFeature[];
 };
 
+/** WayPoint in the WebTrack format. */
 export interface WayPoint {
+    /** Latitude in degree. */
     lat: number;
+
+    /** Longitude in degree. */
     lon: number;
+
+    /** Index from 0 of soonest/nearest point along the entire track. */
+    idx?: number;
+
+    /** Elevation in meters. */
     ele?: number;
+
+    /** Symbol for selecting the icon. */
     sym?: string;
+
+    /** Description of the waypoint. */
     name?: string;
 }
 
@@ -42,15 +55,56 @@ export enum ElevationSource {
     M = "Mapbox",
 }
 
+export enum Activity {
+    UNDEFINED = "??",
+    PACKRAFT = "A?",
+    BUS = "B?",
+    CAR = "C?",
+    SLED_DOG = "D?",
+    ELECTRIC_BICYCLE = "E?",
+    WALK = "F?",
+    SUNDAY_SCHOOL_PICNIC_WALK = "F1",
+    EASY_WALK = "F2",
+    MODERATE_WALK = "F3",
+    DIFFICULT_WALK = "F4",
+    CHALLENGING_WALK = "F5",
+    RUNNING = "G?",
+    HITCHHIKING = "H?",
+    MOTORBIKE = "I?",
+    KAYAK = "K?",
+    CANOE = "L?",
+    MOTORED_BOAT = "M?",
+    BICYCLE = "O?",
+    SNOW_MOBILE = "Q?",
+    ROWING_BOAT = "R?",
+    SKI = "S?",
+    TRAIN = "T?",
+    HORSE = "V?",
+    SAILING_BOAT = "W?",
+    SNOW_SHOES = "X?",
+    SWIM = "Y?",
+    VIA_FERRATA = "Z?",
+    EASY_VIA_FERRATA = "ZA",
+    MODERATELY_DIFFICULT_VIA_FERRATA = "ZB",
+    DIFFICULT_VIA_FERRATA = "ZC",
+    VERY_DIFFICULT_VIA_FERRATA = "ZD",
+    EXTREMELY_DIFFICULT_VIA_FERRATA = "ZE",
+}
+
 type ElevationSources = keyof typeof ElevationSource;
 
 export interface Segment {
+    activity: string;
     withEle: number;
     points: Position[];
 }
 
 export interface TrackInfo {
     length?: number;
+    activities?: {
+        activity: string;
+        length: number;
+    }[];
     min?: number;
     max?: number;
     gain?: number;
@@ -67,7 +121,7 @@ export default class WebTrack {
     static formatName = "webtrack-bin";
 
     /** The WebTrack format version, constant. */
-    static formatVersion = "0.2.0";
+    static formatVersion = "1.0.0";
 
     /** Returns the first characters that should be in the WebTrack file. */
     static fmtText = `${WebTrack.formatName}:${WebTrack.formatVersion}:`;
@@ -174,32 +228,41 @@ export default class WebTrack {
     }
 
     /**
+     * Read the activity (2 ASCII characters)
+     * NOTE! The undefined activity is mapped to *walk* that is the default.
+     * @return The activity in readable format.
+     */
+    protected _readActivity(): string {
+        const dec = new TextDecoder();
+        const bytes = new Uint8Array([this._rUint8(), this._rUint8()]);
+        let activity_key = dec.decode(bytes) as Activity;
+        if (activity_key === Activity.UNDEFINED) {
+            activity_key = Activity.WALK;
+        }
+        const indexActivity = Object.values(Activity).indexOf(activity_key);
+        return Object.keys(Activity)[indexActivity];
+    }
+
+    /**
      * Returns the WebTrack in the GeoJSON format.
      * Elevation and cumulated distances are excluded.
      */
     toGeoJson(): WebTrackGeoJson {
         const geoJson: WebTrackGeoJson = {
             type: "FeatureCollection",
-            features: [
-                {
-                    type: "Feature",
-                    properties: null,
-                    geometry: {
-                        type: "MultiLineString",
-                        coordinates: [],
-                    },
-                },
-            ],
+            features: [],
         };
 
         // segments
-        for (const { points } of this.reformattedTracks) {
-            const lineString: Position[] = [];
-            for (const point of points) {
-                lineString.push([point[0], point[1]]);
-            }
-            // @ts-ignore
-            geoJson.features[0].geometry.coordinates.push(lineString);
+        for (const { points, activity } of this.reformattedTracks) {
+            geoJson.features.push({
+                type: "Feature",
+                geometry: {
+                    type: "LineString",
+                    coordinates: points.map((p) => [p[0], p[1]]),
+                },
+                properties: { activity },
+            });
         }
 
         // starting point
@@ -330,6 +393,13 @@ export default class WebTrack {
                 lat: this._rInt32() / 1e5,
             };
 
+            if (this.reformattedTracks.length > 0) {
+                const idx = this._rUint32();
+                if (idx > 0) {
+                    wpt = { ...wpt, idx: idx - 1 };
+                }
+            }
+
             const eleSource = this._rUint8();
             if (eleSource !== this.encoded.withoutEle) {
                 this._addSourceFromByte(eleSource);
@@ -445,17 +515,21 @@ export default class WebTrack {
         this.reformattedTracks = new Array(totalSegments);
         this.pointsWithEle = 0;
         this.pointsWithoutEle = 0;
+        const activities = new Set();
 
         // Segment Headers:
         for (let i = 0; i < totalSegments; i++) {
+            const activity = this._readActivity();
             const currSegType = this._rUint8();
             const points = this._rUint32();
+            activities.add(activity);
             if (currSegType === this.encoded.withoutEle) {
                 this.pointsWithoutEle += points;
             } else {
                 this.pointsWithEle += points;
             }
             this.reformattedTracks[i] = {
+                activity,
                 withEle: currSegType,
                 points: new Array(points),
             };
@@ -465,8 +539,19 @@ export default class WebTrack {
         if (totalSegments) {
             const length = this._rUint32();
             if (this.someTracksWithEle()) {
+                const segmentedActivities = [];
+                // no segmented activities if there is only one activity
+                if (activities.size > 1) {
+                    for (let i = 0; i < activities.size; i++) {
+                        segmentedActivities.push({
+                            activity: this._readActivity(),
+                            length: this._rUint32(),
+                        });
+                    }
+                }
                 this.trackInfo = {
                     length,
+                    activities: segmentedActivities,
                     min: this._rInt16(),
                     max: this._rInt16(),
                     gain: this._rUint32(),

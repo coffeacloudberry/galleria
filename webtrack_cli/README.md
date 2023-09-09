@@ -86,39 +86,34 @@ Input:
 ```sh
 python src/gpx_to_webtrack.py --gpx /.../stories -R --username MYUSERNAME --simplify --verbose --dem SRTMGL1v3
 ```
+```sh
+python src/gpx_to_webtrack.py --gpx /.../stories -R --simplify --verbose --dem JdF1
+```
 
 Output:
 ```
-Processing `/.../stories/Tararua/Levin_to_Waikanae.gpx'
-Earthdata Password? 
+Processing `/.../stories/Hiking_Trip/Hiking_Trip.gpx'...
 WebTrack file:
-	Total segments: 1
-	Total waypoints: 0
-	Elevation source code: E (SRTMGL1v3)
-	Compression: 268669 -> 5247 bytes => 98 %
-Generated `/.../stories/Tararua/Levin_to_Waikanae.webtrack'
-Processing `/.../stories/Tararua/Palmy_to_Waikanae.gpx'
+        Total segments: 9
+        Total waypoints: 14
+        Activities: 3 (WALK, MOTORED_BOAT, ROWING_BOAT)
+        Compression: 1194178 -> 20806 bytes => 98 %
+Generated `/.../stories/Hiking_Trip/Hiking_Trip.webtrack'
+Processing `/.../stories/Bastille_Tramp/Bastille_Tramp.gpx'...
 WebTrack file:
-	Total segments: 1
-	Total waypoints: 0
-	Elevation source code: E (SRTMGL1v3)
-	Compression: 303892 -> 9575 bytes => 96 %
-Generated `/.../stories/Tararua/Palmy_to_Waikanae.webtrack'
-Processing `/.../stories/Tararua/Palmy_to_Levin.gpx'
+        Total segments: 4
+        Total waypoints: 3
+        Activities: 1 (UNDEFINED)
+        Compression: 727707 -> 6237 bytes => 99 %
+Generated `/.../stories/Bastille_Tramp/Bastille_Tramp.webtrack'
+Processing `/.../stories/Easter_on_Seitseminen/Easter_on_Seitseminen.gpx'...
+The track is almost flat (1.4%), elevation removed from track.
 WebTrack file:
-	Total segments: 1
-	Total waypoints: 0
-	Elevation source code: E (SRTMGL1v3)
-	Compression: 57340 -> 4375 bytes => 92 %
-Generated `/.../stories/Tararua/Palmy_to_Levin.webtrack'
-Processing `/.../stories/Around_Dragons_Teeth/Around_Dragons_Teeth.gpx'
-WebTrack file:
-	Total segments: 1
-	Total waypoints: 8
-	Elevation source code: E (SRTMGL1v3)
-	Compression: 453553 -> 5941 bytes => 98 %
-Generated `/.../stories/Around_Dragons_Teeth/Around_Dragons_Teeth.webtrack'
-...
+        Total segments: 1
+        Total waypoints: 2
+        Activities: 1 (UNDEFINED)
+        Compression: 64657 -> 2466 bytes => 96 %
+Generated `/.../stories/Easter_on_Seitseminen/Easter_on_Seitseminen.webtrack'
 ```
 
 In this example, any elevation data from the GPX file will be discarded and replaced by DEM data. The path simplification is based on the [Ramer-Douglas-Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm).

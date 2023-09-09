@@ -1,6 +1,12 @@
 import apertureOutline from "@/icons/aperture-outline.svg";
-import type { MultiLineString } from "@turf/helpers";
 import type { Position } from "geojson";
+import type {
+    MapMouseEvent,
+    EventData,
+    Popup,
+    MapboxGeoJSONFeature,
+    LngLatLike,
+} from "mapbox-gl";
 import m from "mithril";
 
 import { config } from "../config";
@@ -11,11 +17,13 @@ import { story } from "../models/Story";
 import { t } from "../translate";
 import { hideAllForce, injectCode, isCanvasBlocked, isMobile } from "../utils";
 import type { WebTrackGeoJson, WebTrackGeoJsonFeature } from "../webtrack";
-import WebTrack from "../webtrack";
+import WebTrack, { Activity } from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
 import Icon from "./Icon";
 import LayerSelectionControl from "./LayerSelectionControl";
 import Controls from "./StandardControls";
+import { NearestPointOnLine } from "@turf/nearest-point-on-line";
+import { Feature, LineString } from "geojson";
 
 declare const turf: typeof import("@turf/turf");
 declare const mapboxgl: typeof import("mapbox-gl");
@@ -23,12 +31,12 @@ declare const mapboxgl: typeof import("mapbox-gl");
 const warn = new CustomLogging("warning");
 const error = new CustomLogging("error");
 
-type MouseEvent = mapboxgl.MapMouseEvent & mapboxgl.EventData;
+type MouseEvent = MapMouseEvent & EventData;
 
 interface PopupCamAttrs {
     photoId: number;
     mapHeight: string;
-    mapboxPopup: mapboxgl.Popup;
+    mapboxPopup: Popup;
 }
 
 /** Component in the tooltip displaying a clickable thumbnail. */
@@ -110,10 +118,10 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     storyId: string | undefined;
 
     /** Popup displayed on mouse hover containing markers data. */
-    popup: mapboxgl.Popup | undefined;
+    popup: Popup | undefined;
 
     /** Popup displayed on mouse hover containing a thumbnail. */
-    popupCam: mapboxgl.Popup | undefined;
+    popupCam: Popup | undefined;
 
     /** Data used by the popupCam. */
     popupCamData: PopupCamAttrs | undefined;
@@ -134,7 +142,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         if (!globalMapState.map || !e || !e.features) {
             return;
         }
-        const feature: mapboxgl.MapboxGeoJSONFeature = e.features[0];
+        const feature: MapboxGeoJSONFeature = e.features[0];
 
         if (
             feature === null ||
@@ -143,8 +151,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         ) {
             return;
         }
-        const coordinates =
-            feature.geometry.coordinates.slice() as mapboxgl.LngLatLike;
+        const coordinates = feature.geometry.coordinates.slice() as LngLatLike;
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -165,7 +172,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     }
 
     /** Create the popup and update with new data related to a photo. */
-    addPopupCamToMap(coordinates: mapboxgl.LngLatLike, photoId: number): void {
+    addPopupCamToMap(coordinates: LngLatLike, photoId: number): void {
         if (!globalMapState.map) {
             return;
         }
@@ -193,7 +200,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     }
 
     /** Create the popup and update the text. */
-    addPopupTextToMap(coordinates: mapboxgl.LngLatLike, text: string): void {
+    addPopupTextToMap(coordinates: LngLatLike, text: string): void {
         if (!globalMapState.map) {
             return;
         }
@@ -231,37 +238,68 @@ export default class Map implements m.ClassComponent<MapAttrs> {
      * This procedure has no effect if the chart is not loaded, i.e. if the
      * track has no elevation profile.
      */
-    static mouseMove(path: MultiLineString, e: mapboxgl.MapMouseEvent): void {
+    static mouseMove(e: MapMouseEvent): void {
         if (!(globalMapState.webtrack instanceof WebTrack)) {
             return;
         }
         const trackLength = globalMapState.webtrack.getTrackInfo().length;
-        if (typeof trackLength !== "number") {
+        if (typeof trackLength !== "number" || !globalMapState.lineStrings) {
             return;
         }
         const minDist = (0.2 * trackLength) / 1000; // 20% in km
         const currentPos = e.lngLat.toArray();
-        const nearestPoint = turf.nearestPointOnLine(path, currentPos);
+        let minDistNearestPoint = Infinity;
+        let actualNearestPoint = null as NearestPointOnLine | null;
+        let actualIdx = 0;
+        let activity = Activity.WALK;
+        // loop over lines to find out which one is the closest
+        globalMapState.lineStrings.forEach((path, idx) => {
+            const nearestPoint = turf.nearestPointOnLine(
+                turf.lineString(path.geometry.coordinates),
+                currentPos,
+            );
+            if (
+                nearestPoint.properties.index !== undefined &&
+                nearestPoint.properties.dist &&
+                nearestPoint.properties.dist < minDistNearestPoint &&
+                nearestPoint.properties.dist < minDist // close enough
+            ) {
+                minDistNearestPoint = nearestPoint.properties.dist;
+                actualNearestPoint = nearestPoint;
+                actualIdx = idx;
+                if (path.properties && "activity" in path.properties) {
+                    activity = path.properties.activity;
+                } else {
+                    activity = Activity.WALK;
+                }
+            }
+        });
         if (
-            !nearestPoint.properties.dist ||
-            !nearestPoint.properties.index ||
-            nearestPoint.properties.dist > minDist || // if too far
+            !actualNearestPoint ||
+            actualNearestPoint.properties.index === undefined ||
             chart === undefined ||
             chart.tooltip === undefined
         ) {
             return;
         }
-        const [lon, lat] = nearestPoint.geometry.coordinates;
-        const index = nearestPoint.properties.index;
-        globalMapState.moveHiker(lon, lat);
-        // draw tooltip
-        chart.tooltip.setActiveElements([{ datasetIndex: 0, index }], {
-            x: 0, // unused
-            y: 0, // unused
-        });
-        // draw pointer
-        chart.setActiveElements([{ datasetIndex: 0, index }]);
-        chart.render();
+        const index = actualNearestPoint.properties.index;
+        const [lon, lat] = actualNearestPoint.geometry.coordinates;
+        globalMapState.moveHiker(lon, lat, activity);
+        // draw tooltip if the point is in the elevation profile
+        try {
+            chart.tooltip.setActiveElements(
+                [{ datasetIndex: actualIdx, index }],
+                {
+                    x: 0, // unused
+                    y: 0, // unused
+                },
+            );
+            // draw pointer
+            chart.setActiveElements([{ datasetIndex: actualIdx, index }]);
+            chart.render();
+        } catch {
+            // the point may not be in the chart due to the deduplication
+        }
     }
 
     decrementRemainingLayers(): void {
@@ -358,10 +396,12 @@ export default class Map implements m.ClassComponent<MapAttrs> {
     addWebTrack(webtrackBytes: ArrayBuffer): void {
         globalMapState.webtrack = new WebTrack(webtrackBytes);
         const data = globalMapState.webtrack.toGeoJson();
-        const line = data.features[0].geometry as MultiLineString;
+        const lines = data.features.filter(
+            (f) => f.geometry.type === "LineString",
+        ) as Feature<LineString>[];
         const hasElevation = globalMapState.webtrack.someTracksWithEle();
         globalMapState.hasElevation = hasElevation;
-        globalMapState.multiLineString = line;
+        globalMapState.lineStrings = lines;
 
         if (globalMapState.map === undefined) {
             return;
@@ -374,26 +414,15 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                     const turf = await import("@turf/turf");
                 }
                 if (globalMapState.map !== undefined) {
-                    if (
-                        !Object.prototype.hasOwnProperty.call(
-                            globalMapState.controls,
-                            "autoPilot",
-                        )
-                    ) {
+                    if (!("autoPilot" in globalMapState.controls)) {
                         globalMapState.controls.autoPilot =
                             new AutoPilotControl(data, story.duration);
                         globalMapState.map.addControl(
                             globalMapState.controls.autoPilot,
                         );
                     }
-
                     if (hasElevation) {
-                        globalMapState.map.on(
-                            "mousemove",
-                            (e: mapboxgl.MapMouseEvent) => {
-                                Map.mouseMove(line, e);
-                            },
-                        );
+                        globalMapState.map.on("mousemove", Map.mouseMove);
                     }
                 }
             })
@@ -402,8 +431,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             });
 
         // get the latitude of the first point of the first line of the track
-        const firstLine = data.features[0].geometry
-            .coordinates[0] as Position[];
+        const firstLine = lines[0].geometry.coordinates as Position[];
         const latitude = firstLine[0][1];
 
         // poor DEM in Finland, good DEM in France and New Zealand
@@ -443,7 +471,15 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 "line-cap": "round",
             },
             paint: {
-                "line-color": "#F00",
+                "line-color": [
+                    "match",
+                    ["get", "activity"],
+                    "MOTORED_BOAT",
+                    "#00F",
+                    "ROWING_BOAT",
+                    "#00F",
+                    "#F00",
+                ],
                 "line-width": [
                     "interpolate",
                     ["exponential", 1.5],
@@ -486,7 +522,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
         m.request<ArrayBuffer>({
             method: "GET",
-            url: "/content/stories/:storyId/t.webtrack",
+            url: "/content/stories/:storyId/:storyId.webtrack",
             params: {
                 storyId: this.storyId,
             },

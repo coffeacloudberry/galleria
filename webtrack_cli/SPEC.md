@@ -79,9 +79,9 @@ Information intended to know at the beginning how much data we are dealing with,
     </thead>
     <tbody>
         <tr>
-            <td rowspan="32">Activity</td>
+            <td rowspan="33">Activity</td>
             <td>Undefined</td>
-            <td rowspan="32">2 ASCII bytes</td>
+            <td rowspan="33">2 ASCII bytes</td>
             <td>??</td>
         </tr>
         <tr>

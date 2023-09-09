@@ -6,9 +6,10 @@ import m from "mithril";
 import { globalMapState } from "../models/Map";
 import { GpsConfig, story } from "../models/Story";
 import { t } from "../translate";
-import { numberWithCommas } from "../utils";
+import { msOrKms, numberWithCommas } from "../utils";
 import Icon from "./Icon";
 import { Duration } from "./StoryPage";
+import { TrackInfo } from "../webtrack";
 
 interface ListPositioningComponentAttrs {
     configs: GpsConfig[];
@@ -85,6 +86,38 @@ const ExpandDataSourceButton: m.Component = {
     },
 };
 
+interface LengthDetailsAttrs {
+    stats: TrackInfo;
+}
+
+const LengthDetails: m.Component<LengthDetailsAttrs> = {
+    view({ attrs }: m.Vnode<LengthDetailsAttrs>): m.Vnode | null {
+        if (typeof attrs.stats.length !== "number") {
+            return null;
+        }
+        let allLengths = [
+            t("map.stats.total-length"),
+            " ",
+            m("strong", msOrKms(attrs.stats.length)),
+        ];
+        if (attrs.stats.activities && attrs.stats.activities.length > 1) {
+            const joined = attrs.stats.activities
+                .map(
+                    (v) =>
+                        `${v.activity
+                            .toLowerCase()
+                            .replace("_", " ")}: ${msOrKms(v.length)}`,
+                )
+                .join(", ");
+            allLengths = allLengths.concat([
+                m("br.small-screen"),
+                ` (${joined})`,
+            ]);
+        }
+        return m("li", allLengths);
+    },
+};
+
 /**
  * Statistics about the track, embedded into a tooltip or directly in the page
  * for mobile screen.
@@ -111,15 +144,7 @@ export const StatsComponent: m.Component = {
                             }),
                         ),
                     ]),
-                typeof stats.length === "number" &&
-                    m("li", [
-                        t("map.stats.total-length"),
-                        " ",
-                        m(
-                            "strong",
-                            `${Math.round(stats.length / 10) / 100} km`,
-                        ),
-                    ]),
+                m(LengthDetails, { stats }),
                 typeof stats.min === "number" &&
                     hasEle &&
                     m("li", [

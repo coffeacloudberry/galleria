@@ -1,14 +1,15 @@
 import type {
+    Chart as TypeChart,
     ChartConfiguration,
     TooltipItem,
-    Chart as TypeChart,
 } from "chart.js";
 import type { AnnotationOptions } from "chartjs-plugin-annotation";
 import type { Position } from "geojson";
 
 import { t } from "../translate";
-import { isMobile } from "../utils";
+import { isMobile, msOrKms } from "../utils";
 import { extraIcons, globalMapState } from "./Map";
+import { Activity, Segment } from "../webtrack";
 
 declare const Chart: typeof import("chart.js");
 
@@ -48,9 +49,10 @@ function labelElevation(tooltipItem: TooltipItem<"line">): string {
     if (raw === null) {
         return "";
     }
-    return `${t("map.stats.chart.ele.tooltip")} ${raw.y} m | ${t(
-        "map.stats.chart.dist.tooltip",
-    )} ${Math.round(raw.x * 10) / 10} km`;
+    const textEle = `${t("map.stats.chart.ele.tooltip")} ${raw.y} m`;
+    const dist = msOrKms(raw.x * 1000);
+    const textDist = `${t("map.stats.chart.dist.tooltip")} ${dist}`;
+    return `${textEle} | ${textDist}`;
 }
 
 interface ChartWaypoint {
@@ -58,15 +60,15 @@ interface ChartWaypoint {
     label?: string;
 }
 
-type Annotations = Record<string, AnnotationOptions<"label">>;
+type Annotations = Record<string, AnnotationOptions<"label" | "line">>;
 
-function createAnnotations(waypoints: ChartWaypoint[]): Annotations {
+function createAnnotations(
+    waypoints: ChartWaypoint[],
+    lines: Position[],
+): Annotations {
     const annotations: Annotations = {};
     waypoints.forEach((wpt, idx) => {
-        if (
-            wpt.label === undefined ||
-            !Object.prototype.hasOwnProperty.call(extraIcons, wpt.label)
-        ) {
+        if (wpt.label === undefined || !(wpt.label in extraIcons)) {
             return;
         }
         const source = extraIcons[wpt.label].source;
@@ -82,7 +84,29 @@ function createAnnotations(waypoints: ChartWaypoint[]): Annotations {
             content: image,
         };
     });
+    for (let idx = 0; idx < lines.length - 1; idx++) {
+        annotations["vertical line " + String(idx)] = {
+            type: "line",
+            xMax: lines[idx][2] / 1000,
+            xMin: lines[idx][2] / 1000,
+            xScaleID: "x",
+            borderColor: "rgb(0,0,0,0.2)",
+            borderWidth: 2,
+            borderDash: [6, 6],
+        };
+    }
     return annotations;
+}
+
+function activityBackground(activity: string) {
+    const mappedActivity = Activity[activity as keyof typeof Activity];
+    switch (mappedActivity) {
+        case Activity.MOTORED_BOAT:
+        case Activity.ROWING_BOAT:
+            return "rgba(0,0,255,0.63)";
+        default:
+            return "rgba(139,147,26,0.63)";
+    }
 }
 
 /**
@@ -90,35 +114,42 @@ function createAnnotations(waypoints: ChartWaypoint[]): Annotations {
  * @param ctx Canvas used by the chart.
  * @param profile Data.
  * @param waypoints List of waypoints already connected along the path.
+ * @param lines Vertical lines separating segments.
  */
 export function createElevationChart(
     ctx: CanvasRenderingContext2D,
-    profile: Position[],
+    profile: Segment[],
     waypoints: ChartWaypoint[],
+    lines: Position[],
 ): void {
-    const data = [];
-    for (let i = 0; i < profile.length; i++) {
-        data[i] = {
-            x: profile[i][2] / 1000,
-            y: profile[i][3],
-            lon: profile[i][0],
-            lat: profile[i][1],
-        };
-    }
-
     const myChartConfig: ChartConfiguration = {
         type: "line",
         data: {
-            datasets: [
-                {
-                    data,
+            datasets: profile.map((seg) => {
+                let prevX = -1;
+                return {
+                    label: seg.activity,
+                    data: seg.points
+                        .map((point) => {
+                            const isDuplicate = prevX == point[2];
+                            prevX = point[2];
+                            return isDuplicate
+                                ? null
+                                : {
+                                      x: point[2] / 1000,
+                                      y: point[3],
+                                      lon: point[0],
+                                      lat: point[1],
+                                  };
+                        })
+                        .filter((v) => v !== null),
 
                     // smooth (kind of antialiasing)
                     tension: 0.1,
 
                     // filling
                     fill: true,
-                    backgroundColor: "rgba(139,147,26,0.63)",
+                    backgroundColor: () => activityBackground(seg.activity),
 
                     // no markers on points (too many)
                     radius: 0,
@@ -131,8 +162,8 @@ export function createElevationChart(
                     // line width
                     borderWidth: 1,
                     borderColor: "rgb(0,0,0)",
-                },
-            ],
+                };
+            }),
         },
         options: {
             animation: false,
@@ -157,7 +188,7 @@ export function createElevationChart(
             interaction: {
                 // make sure there is only one found item at a time
                 // (don't show duplicates)
-                mode: "index",
+                mode: "nearest",
 
                 // apply the tooltip at all time
                 intersect: false,
@@ -166,9 +197,14 @@ export function createElevationChart(
                 tooltip: {
                     callbacks: {
                         label: (tooltipItem: TooltipItem<"line">) => {
+                            const activity = tooltipItem.dataset.label;
                             const raw = withLonLatOrNull(tooltipItem.raw);
                             if (raw !== null) {
-                                globalMapState.moveHiker(raw.lon, raw.lat);
+                                globalMapState.moveHiker(
+                                    raw.lon,
+                                    raw.lat,
+                                    activity as Activity,
+                                );
                             }
                             return labelElevation(tooltipItem);
                         },
@@ -176,6 +212,8 @@ export function createElevationChart(
                             return "";
                         },
                     },
+                    filter: (data) =>
+                        data.datasetIndex === 0 || data.dataIndex > 0,
                     displayColors: false,
                     borderColor: "rgb(67,121,67)",
                     backgroundColor: "rgba(255,255,255,0.66)",
@@ -193,7 +231,7 @@ export function createElevationChart(
                     display: false,
                 },
                 annotation: {
-                    annotations: createAnnotations(waypoints),
+                    annotations: createAnnotations(waypoints, lines),
                 },
             },
 

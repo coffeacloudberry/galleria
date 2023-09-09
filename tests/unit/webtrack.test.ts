@@ -4,15 +4,18 @@ import { readFile } from "fs";
 import WebTrack from "../../src/webtrack";
 
 let myWebTrack: WebTrack; // skipcq: JS-0309
-const webTrackPath = "tests/unit/fixtures/t.webtrack";
-const geoJsonPath = "tests/unit/fixtures/t.geojson";
-const webTrack1seg = "tests/unit/fixtures/Gillespie_Circuit.webtrack";
-const webTrack3segs = "tests/unit/fixtures/Gillespie_Circuit_3segs.webtrack";
-const geoJson3segs = "tests/unit/fixtures/Gillespie_Circuit_3segs.geojson";
+const pathFixtures1Seg = {
+    webtrack: "webtrack_cli/tests/fixtures/Gillespie_Circuit.webtrack",
+    geojson: "tests/unit/fixtures/Gillespie_Circuit.geojson",
+};
+const pathFixtures3Segs = {
+    webtrack: "webtrack_cli/tests/fixtures/Gillespie_Circuit_3segs.webtrack",
+    geojson: "tests/unit/fixtures/Gillespie_Circuit_3segs.geojson",
+};
 
-describe("WebTrack Parser (1 segment, 0 waypoint)", () => {
+describe("WebTrack Parser (1 segment, 3 waypoints)", () => {
     it("should load buffer", (done) => {
-        readFile(webTrackPath, (err, webtrackBytes) => {
+        readFile(pathFixtures1Seg.webtrack, (err, webtrackBytes) => {
             if (err) {
                 done(err);
             }
@@ -23,12 +26,13 @@ describe("WebTrack Parser (1 segment, 0 waypoint)", () => {
 
     it("should contains info", () => {
         assert.deepStrictEqual(myWebTrack.getTrackInfo(), {
-            length: 57359,
-            min: 55,
-            max: 1209,
-            gain: 3283,
-            loss: 3404,
-            trackPoints: { withEle: 2095, withoutEle: 0 },
+            activities: [],
+            length: 41460,
+            min: 294,
+            max: 710,
+            gain: 642,
+            loss: 576,
+            trackPoints: { withEle: 128, withoutEle: 0 },
         });
     });
 
@@ -36,14 +40,10 @@ describe("WebTrack Parser (1 segment, 0 waypoint)", () => {
         assert.strictEqual(myWebTrack.getTrack().length, 1);
     });
 
-    it("should not have any waypoint", () => {
-        assert.strictEqual(myWebTrack.getWaypoints().length, 0);
-    });
-
     it("should generate GeoJSON", (done) => {
         const geoJson = myWebTrack.toGeoJson();
         assert.strictEqual(typeof geoJson, "object");
-        readFile(geoJsonPath, "utf8", (err, expectedGeoJson) => {
+        readFile(pathFixtures1Seg.geojson, "utf8", (err, expectedGeoJson) => {
             if (err) {
                 done(err);
             }
@@ -55,7 +55,7 @@ describe("WebTrack Parser (1 segment, 0 waypoint)", () => {
 
 describe("WebTrack Parser (1 segment, 4 waypoints)", () => {
     it("should load buffer", (done) => {
-        readFile(webTrack1seg, (err, webtrackBytes) => {
+        readFile(pathFixtures1Seg.webtrack, (err, webtrackBytes) => {
             if (err) {
                 done(err);
             }
@@ -75,7 +75,7 @@ describe("WebTrack Parser (1 segment, 4 waypoints)", () => {
 
 describe("WebTrack Parser (3 segments, 4 waypoints)", () => {
     it("should load buffer", (done) => {
-        readFile(webTrack3segs, (err, webtrackBytes) => {
+        readFile(pathFixtures3Segs.webtrack, (err, webtrackBytes) => {
             if (err) {
                 done(err);
             }
@@ -93,7 +93,7 @@ describe("WebTrack Parser (3 segments, 4 waypoints)", () => {
     });
 
     it("should generate GeoJSON", (done) => {
-        readFile(geoJson3segs, "utf8", (err, expectedGeoJson) => {
+        readFile(pathFixtures3Segs.geojson, "utf8", (err, expectedGeoJson) => {
             if (err) {
                 done(err);
             }

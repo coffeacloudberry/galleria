@@ -416,9 +416,11 @@ export default class AutoPilotControl implements mapboxgl.IControl {
     constructor(geoJson: WebTrackGeoJson, duration: number | null) {
         const simplifiedLineString = turf
             .simplify(geoJson, { tolerance: 0.004 })
-            .features[0].geometry.coordinates.flat() as Position[];
+            .features.filter((f) => f.geometry.type === "LineString")
+            .map((l) => l.geometry.coordinates)
+            .flat();
         this.cameraRoute = turf.bezierSpline(
-            turf.lineString(simplifiedLineString),
+            turf.lineString(simplifiedLineString as Position[]),
         );
         this.cameraRouteDistance = turf.lineDistance(this.cameraRoute);
         this.pitch = this.cameraRouteDistance > 10 ? 60 : 20;

@@ -1,9 +1,11 @@
-import type { MultiLineString } from "@turf/helpers";
+import type { LineString } from "@turf/helpers";
+import type { LngLatLike, LngLatBounds, Map, Marker } from "mapbox-gl";
 import m from "mithril";
 
 import type { ControlsType } from "../views/StandardControls";
-import WebTrack from "../webtrack";
+import WebTrack, { Activity } from "../webtrack";
 import { MapTheme, story } from "./Story";
+import type { Feature } from "geojson";
 
 declare const mapboxgl: typeof import("mapbox-gl");
 
@@ -48,7 +50,7 @@ export const extraIcons: ExtraIconsStruct = require("../extra-icons");
 /** Fields and methods used by many components. */
 class GlobalMapState {
     /** Mapbox GL JS map. */
-    public map: mapboxgl.Map | undefined;
+    public map: Map | undefined;
 
     /** All controls in the map. */
     public controls: ControlsType = {};
@@ -66,13 +68,19 @@ class GlobalMapState {
     public webtrack: WebTrack | undefined;
 
     /** Multiline string extracted from the WebTrack. */
-    public multiLineString: MultiLineString | undefined;
+    public lineStrings: Feature<LineString>[] | undefined;
 
     /** True if the track contains elevation data. */
     public hasElevation: boolean | undefined;
 
+    /** All moving markers loaded so far, one per activity. */
+    public allMovingMarkers: Record<string, Marker> = {};
+
     /** Marker moving on elevation graph mouse move events. */
-    public hikerMarker: mapboxgl.Marker | undefined;
+    public movingMarker: Marker | undefined;
+
+    /** Activity of the current moving marker. */
+    public currentActivity: Activity | undefined;
 
     /** ID to the current timeout session, -1 if clear. */
     public currentTimeoutHiker = -1;
@@ -100,10 +108,39 @@ class GlobalMapState {
     }
 
     /**
+     * Load a marker containing an icon. Load only once, later calls use cache.
+     * Hide the marker previously loaded if visible and of different activity.
+     * Return the marker itself.
+     * @param activity The icon depends on the activity.
+     */
+    loadMovingMarker(activity: Activity): Marker {
+        if (activity in this.allMovingMarkers) {
+            if (this.currentActivity !== activity) {
+                if (this.currentActivity) {
+                    this.allMovingMarkers[this.currentActivity].remove();
+                }
+                this.currentActivity = activity;
+            }
+            return this.allMovingMarkers[activity];
+        }
+        const el = document.createElement("div");
+        m.render(
+            el,
+            m("img", {
+                src: `/assets/map/${extraIcons[activity].source}.svg`,
+                style: `width: calc(128px * ${this.makersRelSize});`,
+            }),
+        );
+        const marker = new mapboxgl.Marker(el);
+        this.allMovingMarkers[activity] = marker;
+        return marker;
+    }
+
+    /**
      * Move the hiker icon on the map.
      * This is triggered by moving on the elevation profile or on the map.
      */
-    moveHiker(lon: number, lat: number): void {
+    moveHiker(lon: number, lat: number, activity: Activity): void {
         if (this.map === undefined) {
             return;
         }
@@ -111,36 +148,12 @@ class GlobalMapState {
             window.clearTimeout(this.currentTimeoutHiker);
         }
 
-        const position = new mapboxgl.LngLat(lon, lat);
-        if (this.hikerMarker === undefined) {
-            const el = document.createElement("div");
-            m.render(
-                el,
-                m("img", {
-                    src: `/assets/map/${extraIcons.hiker.source}.svg`,
-                    style: `width: calc(128px * ${this.makersRelSize});`,
-                }),
-            );
-            this.hikerMarker = new mapboxgl.Marker(el).setLngLat(position);
-        } else {
-            this.hikerMarker.setLngLat(position);
-        }
-
-        if (this.currentTimeoutHiker < 0) {
-            this.hikerMarker.addTo(this.map);
-        }
-
+        this.movingMarker = this.loadMovingMarker(activity);
+        this.movingMarker.setLngLat(new mapboxgl.LngLat(lon, lat));
+        this.movingMarker.addTo(this.map);
         this.currentTimeoutHiker = window.setTimeout(() => {
-            if (this.hikerMarker !== undefined) {
-                this.hikerMarker.remove();
-
-                /*
-                The element opacity can change when the hiker goes behind hills.
-                The opacity parameter is on the div element that must be reset.
-                Let's force to create a new element the next time. Otherwise,
-                the marker may pop up partially transparent.
-                 */
-                this.hikerMarker = undefined;
+            if (this.movingMarker !== undefined) {
+                this.movingMarker.remove();
             }
             this.currentTimeoutHiker = -1;
         }, this.timeoutHiker);
@@ -155,8 +168,8 @@ class GlobalMapState {
             return;
         }
         this.map.getCanvas().style.cursor = "pointer";
-        if (this.hikerMarker) {
-            this.hikerMarker.remove();
+        if (this.movingMarker) {
+            this.movingMarker.remove();
         }
     }
 
@@ -166,34 +179,27 @@ class GlobalMapState {
             return;
         }
         this.map.getCanvas().style.cursor = "";
-        if (this.hikerMarker) {
-            this.hikerMarker.addTo(this.map);
+        if (this.movingMarker) {
+            this.movingMarker.addTo(this.map);
         }
     }
 
     /** Fit the map view to the track and reset bearing. */
     fitToTrack(): void {
-        const multiLineString = this.multiLineString;
-        if (!multiLineString || !this.map) {
+        if (!this.lineStrings || !this.map) {
             return;
         }
-        let bounds: mapboxgl.LngLatBounds | null = null;
 
-        /*
-        Center the map to the track:
-        Pass the first coordinates in the MultiLineString to `LngLatBounds`,
-        then wrap each coordinate pair in `extend` to include them
-        in the bounds result.
-        */
-        for (const lineString of multiLineString.coordinates) {
-            bounds = lineString.reduce(
-                (bounds, coordinate) => {
-                    // @ts-ignore
-                    return bounds.extend(coordinate);
-                },
-                // @ts-ignore
-                new mapboxgl.LngLatBounds(lineString[0], lineString[0]),
-            );
+        let bounds: LngLatBounds | null = null;
+        for (let i = 0; i < this.lineStrings.length; i++) {
+            const lineString = this.lineStrings[i].geometry.coordinates;
+            const first = lineString[0] as LngLatLike;
+            const initialValue: LngLatBounds = bounds
+                ? bounds
+                : new mapboxgl.LngLatBounds(first, first);
+            bounds = lineString.reduce((bounds, coordinate) => {
+                return bounds.extend(coordinate as LngLatLike);
+            }, initialValue);
         }
         if (bounds !== null) {
             // workaround to avoid critical error on map reload

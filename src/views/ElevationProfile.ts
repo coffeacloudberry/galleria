@@ -5,8 +5,8 @@ import CustomLogging from "../CustomLogging";
 import { createElevationChart } from "../models/ElevationProfile";
 import { globalMapState } from "../models/Map";
 import { injectCode } from "../utils";
+import { Position } from "geojson";
 
-declare const turf: typeof import("@turf/turf");
 declare const Chart: typeof import("chart.js");
 
 const error = new CustomLogging("error");
@@ -17,15 +17,8 @@ const error = new CustomLogging("error");
  * @param canvasContainer Canvas element.
  */
 function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
-    return Promise.all([
-        injectCode(config.turf.js),
-        injectCode(config.chart.js),
-    ])
+    return injectCode(config.chart.js)
         .then(async () => {
-            if (typeof turf === "undefined") {
-                // skipcq: JS-0356
-                const turf = await import("@turf/turf");
-            }
             if (typeof Chart === "undefined") {
                 // skipcq: JS-0356
                 const Chart = await import("chart.js");
@@ -36,18 +29,19 @@ function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
             if (globalMapState.webtrack === undefined) {
                 return;
             }
-            const points = globalMapState.webtrack.getTrack()[0].points;
+            const allSegments = globalMapState.webtrack.getTrack();
+            const points = allSegments
+                .map((seg) => seg.points.concat({} as Position))
+                .flat();
+            const lines = allSegments.map(
+                (seg) => seg.points[seg.points.length - 1],
+            );
             const waypoints = globalMapState.webtrack
                 .getWaypoints()
+                .filter((wpt) => wpt.idx !== undefined && wpt.sym !== undefined)
                 .map((wpt) => {
                     return {
-                        point: points[
-                            // FIXME: use the data from Webtrack 1.0
-                            turf.nearestPointOnLine(
-                                turf.lineString(points),
-                                turf.point([wpt.lon, wpt.lat]),
-                            ).properties.index as number
-                        ],
+                        point: points[wpt.idx as number],
                         label: wpt.sym,
                     };
                 });
@@ -56,7 +50,7 @@ function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
             canvasContainer.appendChild(canvas);
             const ctx = canvas.getContext("2d");
             if (ctx) {
-                createElevationChart(ctx, points, waypoints);
+                createElevationChart(ctx, allSegments, waypoints, lines);
             }
         })
         .catch((err) => {
