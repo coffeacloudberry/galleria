@@ -152,7 +152,7 @@ const MainMenuTippyContent: m.Component<MainMenuAttrs> = {
             links.map((link: MainMenuItemAttrs) =>
                 m(
                     "li",
-                    attrs.refPage == link.refPage
+                    attrs.refPage === link.refPage
                         ? m(".menu-item", t(link.refPage))
                         : m(
                               m.route.Link,

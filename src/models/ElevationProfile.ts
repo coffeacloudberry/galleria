@@ -131,7 +131,7 @@ export function createElevationChart(
                     label: seg.activity,
                     data: seg.points
                         .map((point) => {
-                            const isDuplicate = prevX == point[2];
+                            const isDuplicate = prevX === point[2];
                             prevX = point[2];
                             return isDuplicate
                                 ? null
