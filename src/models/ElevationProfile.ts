@@ -203,7 +203,6 @@ export function createElevationChart(
                                 raw !== null &&
                                 !globalMapState.mouseInsideMap
                             ) {
-                                console.log("Move from chart");
                                 globalMapState.moveHiker(
                                     raw.lon,
                                     raw.lat,
