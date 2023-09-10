@@ -115,10 +115,14 @@ def replace_extension(filename_src: str, new_ext: str) -> str:
     help="Print additional information",
 )
 @click.option(
-    "-f",
     "--fallback",
     is_flag=True,
     help="Generate the WebTrack file without elevation if failed to fetch",
+)
+@click.option(
+    "--not-flat",
+    is_flag=True,
+    help="Put the elevation data in the track even if considered very flat",
 )
 @click.option(
     "--dem",
@@ -135,16 +139,17 @@ def with_elevation(
     simplify: bool,
     verbose: bool,
     fallback: bool,
+    not_flat: bool,
     dem: str,
 ) -> None:
     if os.path.isdir(gpx):
         for filename in glob.iglob(gpx + "/**", recursive=recursive):
             if os.path.isfile(filename) and filename.lower().endswith(".gpx"):
-                gpx_to_webtrack(filename, username, simplify, verbose, dem, fallback)
+                gpx_to_webtrack(filename, username, simplify, verbose, dem, fallback, not_flat)
     elif recursive:
         click.echo("Recursive mode and input file are incompatible", err=True)
     else:
-        gpx_to_webtrack(gpx, username, simplify, verbose, dem, fallback)
+        gpx_to_webtrack(gpx, username, simplify, verbose, dem, fallback, not_flat)
 
 
 def gpx_to_webtrack(
@@ -154,6 +159,7 @@ def gpx_to_webtrack(
     verbose: bool,
     dem: str,
     fallback: bool,
+    not_flat: bool,
 ) -> None:
     webtrack = replace_extension(gpx, "webtrack")
     if verbose:
@@ -165,7 +171,7 @@ def gpx_to_webtrack(
     else:
         try:
             gpx_to_webtrack_with_elevation(
-                gpx, webtrack, username, simplify, dem, verbose
+                gpx, webtrack, username, simplify, dem, verbose, not_flat
             )
         except Exception as err:
             click.echo(str(err), err=True)
