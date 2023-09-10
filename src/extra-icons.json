@@ -35,6 +35,10 @@
         "source": "rowing-boat-outline",
         "attributions": ["macrovector", "Freepik"]
     },
+    "SKI": {
+        "source": "sledge-outline",
+        "attributions": ["Freepik", "Freepik"]
+    },
     "helicopter": {
         "source": "helicopter",
         "attributions": ["Pixel perfect", "Flaticon"]
