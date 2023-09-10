@@ -22,6 +22,9 @@ tests/end_to_end/results
 *~
 photo_manager_cli/libwebp/libwebp-*
 photo_manager_cli/tests/fixtures/vcr_cassettes
+/fixtures/vcr_cassettes/release.yaml
+/fixtures/vcr_cassettes/repo_list.yaml
+webtrack_cli/man/*.svg
 
 # Generated files from custom Webpack plugins
 rev_*
