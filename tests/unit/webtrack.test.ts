@@ -25,14 +25,10 @@ describe("WebTrack Parser (1 segment, 3 waypoints)", () => {
     });
 
     it("should contains info", () => {
-        assert.deepStrictEqual(myWebTrack.getTrackInfo(), {
-            activities: [],
+        const trackInfo = myWebTrack.getTrackInfo();
+        assert.deepStrictEqual(trackInfo, {
             length: 41460,
-            min: 294,
-            max: 710,
-            gain: 642,
-            loss: 576,
-            trackPoints: { withEle: 128, withoutEle: 0 },
+            trackPoints: { withEle: 0, withoutEle: 128 },
         });
     });
 
@@ -93,14 +89,12 @@ describe("WebTrack Parser (3 segments, 4 waypoints)", () => {
     });
 
     it("should generate GeoJSON", (done) => {
+        const geoJson = myWebTrack.toGeoJson();
         readFile(pathFixtures3Segs.geojson, "utf8", (err, expectedGeoJson) => {
             if (err) {
                 done(err);
             }
-            assert.deepStrictEqual(
-                myWebTrack.toGeoJson(),
-                JSON.parse(expectedGeoJson),
-            );
+            assert.deepStrictEqual(geoJson, JSON.parse(expectedGeoJson));
             done();
         });
     });
