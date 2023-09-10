@@ -39,12 +39,19 @@ class FileHandler:
                 "No default HOME directory found, please specify a path where to store files"
             )
 
-        if not mod_path.exists(result):
+        try:
             mod_os.makedirs(result)
+        except FileExistsError:
+            pass
 
         return result
 
     def exists(self, file_name: str) -> bool:
+        """
+        Return True if path refers to an existing path or an open file descriptor.
+        Returns False for broken symbolic links (that could happen if it is linking
+        to an external hard drive that is not mounted).
+        """
         return mod_path.exists("%s/%s" % (self.get_srtm_dir(), file_name))
 
     def write(self, file_name: str, contents: bytes) -> bytes:

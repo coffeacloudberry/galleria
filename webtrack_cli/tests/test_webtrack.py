@@ -82,7 +82,7 @@ def test_gpx_to_webtrack_with_elevation_3segs_with_activities():
         FIXTURES, "Gillespie_Circuit_3segs_with_activities_and_elevation.webtrack"
     )
     gpx_to_webtrack_with_elevation(
-        gpx_file, generated_webtrack_file, None, False, "JdF1", False
+        gpx_file, generated_webtrack_file, None, False, "JdF1", False, True,
     )
     assert cmp(generated_webtrack_file, expected_webtrack_file)
     os.remove(generated_webtrack_file)

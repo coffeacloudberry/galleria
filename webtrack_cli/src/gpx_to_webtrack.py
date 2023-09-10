@@ -350,6 +350,7 @@ def gpx_to_webtrack_with_elevation(
     simplify: bool,
     dem_dataset: str,
     verbose: bool,
+    forced_elevation: Optional[bool] = False,
 ) -> None:
     """
     Find out the elevation profile of ``gpx_path`` thanks to SRTM data
@@ -381,6 +382,7 @@ def gpx_to_webtrack_with_elevation(
         simplify (bool): Simplify the GPX data with the Ramer-Douglas-Peucker algorithm.
         dem_dataset (str): DEM dataset.
         verbose (bool): Print additional information about the data and conversion.
+        forced_elevation (bool): True to force elevation data on track even if considered relatively flat.
 
     Returns:
         The result is saved into a file, nothing is returned.
@@ -490,7 +492,7 @@ def gpx_to_webtrack_with_elevation(
 
         derivative = 100.0 * (elevation_total_gain + elevation_total_loss) / current_length
         track_is_flat = derivative < 3.0
-        if track_is_flat:
+        if track_is_flat and not forced_elevation:
             click.echo("The track is almost flat ({:.1f}%), elevation removed from track.".format(derivative))
             full_profile = flat_full_profile(elevation_profiles, waypoints, current_length, activities)
         else:
