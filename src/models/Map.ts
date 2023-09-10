@@ -91,6 +91,9 @@ class GlobalMapState {
     /** Ratio to apply on the actual PNG image sizes. */
     public readonly makersRelSize = 0.3; // high-res
 
+    /** True if the mouse in the map canvas. */
+    public mouseInsideMap = false;
+
     /**
      * When initializing the map component.
      */
@@ -105,6 +108,7 @@ class GlobalMapState {
         this.isLoadingLayers = true;
         this.webtrack = undefined;
         this.hasElevation = undefined;
+        this.mouseInsideMap = false;
     }
 
     /**

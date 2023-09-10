@@ -199,7 +199,11 @@ export function createElevationChart(
                         label: (tooltipItem: TooltipItem<"line">) => {
                             const activity = tooltipItem.dataset.label;
                             const raw = withLonLatOrNull(tooltipItem.raw);
-                            if (raw !== null) {
+                            if (
+                                raw !== null &&
+                                !globalMapState.mouseInsideMap
+                            ) {
+                                console.log("Move from chart");
                                 globalMapState.moveHiker(
                                     raw.lon,
                                     raw.lat,

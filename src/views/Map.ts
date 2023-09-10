@@ -697,6 +697,12 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 });
                 Map.resetControls();
 
+                globalMapState.map.on("mouseover", () => {
+                    globalMapState.mouseInsideMap = true;
+                });
+                globalMapState.map.on("mouseout", () => {
+                    globalMapState.mouseInsideMap = false;
+                });
                 globalMapState.map.on("load", () => {
                     this.loadMap();
                 });
