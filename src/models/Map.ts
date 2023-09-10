@@ -34,6 +34,9 @@ export interface ExtraIconsInfo {
 
     /** Creator & distributor. */
     attributions: [string, string];
+
+    /** True if the icon has been customized/modified from the source. */
+    modified: boolean;
 }
 
 /**

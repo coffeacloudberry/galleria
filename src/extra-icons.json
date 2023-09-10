@@ -1,54 +1,67 @@
 {
     "First Point": {
         "source": "goal-outline",
-        "attributions": ["Freepik", "Flaticon"]
+        "attributions": ["Freepik", "Flaticon"],
+        "modified": false
     },
     "Residence": {
         "source": "house-outline",
-        "attributions": ["Good Ware", "Flaticon"]
+        "attributions": ["Good Ware", "Flaticon"],
+        "modified": false
     },
     "camera": {
         "source": "photo-camera-outline",
-        "attributions": ["Good Ware", "Flaticon"]
+        "attributions": ["Good Ware", "Flaticon"],
+        "modified": false
     },
     "Campground": {
         "source": "tent-outline",
-        "attributions": ["Good Ware", "Flaticon"]
+        "attributions": ["Good Ware", "Flaticon"],
+        "modified": false
     },
     "Fishing Hot Spot Facility": {
         "source": "wood-house-outline",
-        "attributions": ["Good Ware", "Flaticon"]
+        "attributions": ["Good Ware", "Flaticon"],
+        "modified": false
     },
     "Last Point": {
         "source": "mission-outline",
-        "attributions": ["Pixel perfect", "Flaticon"]
+        "attributions": ["Pixel perfect", "Flaticon"],
+        "modified": false
     },
     "WALK": {
         "source": "backpacker-outline",
-        "attributions": ["surang", "Flaticon"]
+        "attributions": ["surang", "Flaticon"],
+        "modified": false
     },
     "MOTORED_BOAT": {
         "source": "motored-boat-outline",
-        "attributions": ["katemangostar", "Freepik"]
+        "attributions": ["katemangostar", "Freepik"],
+        "modified": true
     },
     "ROWING_BOAT": {
         "source": "rowing-boat-outline",
-        "attributions": ["macrovector", "Freepik"]
+        "attributions": ["macrovector", "Freepik"],
+        "modified": true
     },
     "SKI": {
         "source": "sledge-outline",
-        "attributions": ["Freepik", "Freepik"]
+        "attributions": ["Freepik", "Freepik"],
+        "modified": true
     },
     "helicopter": {
         "source": "helicopter",
-        "attributions": ["Pixel perfect", "Flaticon"]
+        "attributions": ["Pixel perfect", "Flaticon"],
+        "modified": false
     },
     "snail": {
         "source": "snail",
-        "attributions": ["macrovector", "Freepik"]
+        "attributions": ["macrovector", "Freepik"],
+        "modified": false
     },
     "rabbit": {
         "source": "rabbit",
-        "attributions": ["macrovector", "Freepik"]
+        "attributions": ["macrovector", "Freepik"],
+        "modified": false
     }
 }

@@ -184,5 +184,6 @@
     "donate-card": "One-time donation with card",
     "donate-recurrent": "Recurrent donation with card",
     "copy": "Copy address to clipboard",
-    "copied": "Address copied to clipboard"
+    "copied": "Address copied to clipboard",
+    "modified-icon": "modified"
 }

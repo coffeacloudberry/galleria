@@ -15,6 +15,7 @@ const attribUrls: Record<string, string> = {
 
 const IconDetailComponent: m.Component<ExtraIconsInfo> = {
     view({ attrs }: m.Vnode<ExtraIconsInfo>): m.Vnode {
+        const modified = attrs.modified ? ` (${t("modified-icon")})` : "";
         return m("tr", [
             m(
                 "td",
@@ -39,6 +40,7 @@ const IconDetailComponent: m.Component<ExtraIconsInfo> = {
                     { href: attribUrls[attrs.attributions[1]] },
                     attrs.attributions[1],
                 ),
+                modified,
             ]),
         ]);
     },
