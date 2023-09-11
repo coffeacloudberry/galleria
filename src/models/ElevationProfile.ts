@@ -13,7 +13,7 @@ import { Activity, Segment } from "../webtrack";
 
 declare const Chart: typeof import("chart.js");
 
-export let chart: TypeChart | undefined;
+export let chart: TypeChart;
 
 type LonLatPoint = { lon: number; lat: number };
 
