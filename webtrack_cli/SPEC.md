@@ -165,7 +165,7 @@ Information intended to know at the beginning how much data we are dealing with,
             <td>R?</td>
         </tr>
         <tr>
-            <td>Ski</td>
+            <td><img src="../src/icons/map/sledge-outline.svg" width="32" alt="icon on map"/> Ski</td>
             <td>S?</td>
         </tr>
         <tr>
