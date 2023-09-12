@@ -1,8 +1,4 @@
-import type {
-    Chart as TypeChart,
-    ChartConfiguration,
-    TooltipItem,
-} from "chart.js";
+import type { ChartConfiguration, TooltipItem, Color } from "chart.js";
 import type { AnnotationOptions } from "chartjs-plugin-annotation";
 import type { Position } from "geojson";
 
@@ -11,49 +7,7 @@ import { isMobile, msOrKms } from "../utils";
 import { extraIcons, globalMapState } from "./Map";
 import { Activity, Segment } from "../webtrack";
 
-declare const Chart: typeof import("chart.js");
-
-export let chart: TypeChart | undefined;
-
-type LonLatPoint = { lon: number; lat: number };
-
-/**
- * Return the object if the lon and lat fields exist, return null otherwise.
- */
-function withLonLatOrNull(el: unknown): LonLatPoint | null {
-    if (el instanceof Object) {
-        // @ts-expect-error
-        return "lon" in el && "lat" in el ? el : null;
-    }
-    return null;
-}
-
-type xyPoint = { x: number; y: number };
-
-/**
- * Return the object if the x and y fields exist, return null otherwise.
- */
-function withXYOrNull(el: unknown): xyPoint | null {
-    if (el instanceof Object) {
-        // @ts-expect-error
-        return "x" in el && "y" in el ? el : null;
-    }
-    return null;
-}
-
-/**
- * Returns the content of the tooltip used in the elevation chart.
- */
-function labelElevation(tooltipItem: TooltipItem<"line">): string {
-    const raw = withXYOrNull(tooltipItem.raw);
-    if (raw === null) {
-        return "";
-    }
-    const textEle = `${t("map.stats.chart.ele.tooltip")} ${raw.y} m`;
-    const dist = msOrKms(raw.x * 1000);
-    const textDist = `${t("map.stats.chart.dist.tooltip")} ${dist}`;
-    return `${textEle} | ${textDist}`;
-}
+type xyLonLatPoint = { x: number; y: number; lon: number; lat: number };
 
 interface ChartWaypoint {
     point: Position;
@@ -98,7 +52,7 @@ function createAnnotations(
     return annotations;
 }
 
-function activityBackground(activity: string) {
+function activityBackground(activity: string): Color {
     const mappedActivity = Activity[activity as keyof typeof Activity];
     switch (mappedActivity) {
         case Activity.MOTORED_BOAT:
@@ -109,61 +63,80 @@ function activityBackground(activity: string) {
     }
 }
 
+function formatDatasets(seg: Segment) {
+    let prevX = -1;
+    const dataPoints: xyLonLatPoint[] = [];
+    for (const point of seg.points) {
+        const isDuplicate = prevX === point[2];
+        prevX = point[2];
+        if (!isDuplicate) {
+            dataPoints.push({
+                x: point[2] / 1000,
+                y: point[3],
+                lon: point[0],
+                lat: point[1],
+            });
+        }
+    }
+    return {
+        label: seg.activity,
+        data: dataPoints,
+
+        // smooth (kind of antialiasing)
+        tension: 0.1,
+
+        // filling
+        fill: true,
+        backgroundColor: activityBackground(seg.activity),
+
+        // no markers on points (too many)
+        radius: 0,
+
+        // design the pointer
+        hoverRadius: 10,
+        pointStyle: "cross",
+        hoverBorderWidth: 1,
+
+        // line width
+        borderWidth: 1,
+        borderColor: "rgb(0,0,0)",
+    };
+}
+
+function tooltipCallbackLabel(tooltipItem: TooltipItem<"line">): string {
+    const activity = tooltipItem.dataset.label;
+    const raw = tooltipItem.raw as xyLonLatPoint;
+    if ("lon" in raw && "lat" in raw && !globalMapState.mouseInsideMap) {
+        globalMapState.moveHiker(raw.lon, raw.lat, activity as Activity);
+    }
+    if (!("x" in raw && "y" in raw)) {
+        return "";
+    }
+    const textEle = `${t("map.stats.chart.ele.tooltip")} ${raw.y} m`;
+    const dist = msOrKms(raw.x * 1000);
+    const textDist = `${t("map.stats.chart.dist.tooltip")} ${dist}`;
+    return `${textEle} | ${textDist}`;
+}
+
+function tooltipFilter(data: TooltipItem<"line">): boolean {
+    return data.datasetIndex === 0 || data.dataIndex > 0;
+}
+
 /**
- * Instantiate the Chart.
- * @param ctx Canvas used by the chart.
+ * Chart configuration.
  * @param profile Data.
  * @param waypoints List of waypoints already connected along the path.
  * @param lines Vertical lines separating segments.
  */
-export function createElevationChart(
-    ctx: CanvasRenderingContext2D,
+export function myChartConfig(
     profile: Segment[],
     waypoints: ChartWaypoint[],
     lines: Position[],
-): void {
-    const myChartConfig: ChartConfiguration = {
+): ChartConfiguration {
+    return {
         type: "line",
         data: {
-            datasets: profile.map((seg) => {
-                let prevX = -1;
-                return {
-                    label: seg.activity,
-                    data: seg.points
-                        .map((point) => {
-                            const isDuplicate = prevX === point[2];
-                            prevX = point[2];
-                            return isDuplicate
-                                ? null
-                                : {
-                                      x: point[2] / 1000,
-                                      y: point[3],
-                                      lon: point[0],
-                                      lat: point[1],
-                                  };
-                        })
-                        .filter((v) => v !== null),
-
-                    // smooth (kind of antialiasing)
-                    tension: 0.1,
-
-                    // filling
-                    fill: true,
-                    backgroundColor: () => activityBackground(seg.activity),
-
-                    // no markers on points (too many)
-                    radius: 0,
-
-                    // design the pointer
-                    hoverRadius: 10,
-                    pointStyle: "cross",
-                    hoverBorderWidth: 1,
-
-                    // line width
-                    borderWidth: 1,
-                    borderColor: "rgb(0,0,0)",
-                };
-            }),
+            datasets: profile.map(formatDatasets),
         },
         options: {
             animation: false,
@@ -196,27 +169,10 @@ export function createElevationChart(
             plugins: {
                 tooltip: {
                     callbacks: {
-                        label: (tooltipItem: TooltipItem<"line">) => {
-                            const activity = tooltipItem.dataset.label;
-                            const raw = withLonLatOrNull(tooltipItem.raw);
-                            if (
-                                raw !== null &&
-                                !globalMapState.mouseInsideMap
-                            ) {
-                                globalMapState.moveHiker(
-                                    raw.lon,
-                                    raw.lat,
-                                    activity as Activity,
-                                );
-                            }
-                            return labelElevation(tooltipItem);
-                        },
-                        title: () => {
-                            return "";
-                        },
+                        label: tooltipCallbackLabel,
+                        title: () => "",
                     },
-                    filter: (data) =>
-                        data.datasetIndex === 0 || data.dataIndex > 0,
+                    filter: tooltipFilter,
                     displayColors: false,
                     borderColor: "rgb(67,121,67)",
                     backgroundColor: "rgba(255,255,255,0.66)",
@@ -245,16 +201,4 @@ export function createElevationChart(
             maintainAspectRatio: false,
         },
     };
-
-    Chart.defaults.font = {
-        family: "MyBodyFont",
-        size: 14,
-    };
-
-    try {
-        chart = new Chart.Chart(ctx, myChartConfig);
-    } catch {
-        // continue regardless of error
-        // may occur when updating a chart not displayed at this time
-    }
 }

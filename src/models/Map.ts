@@ -1,5 +1,6 @@
 import type { LineString } from "@turf/helpers";
 import type { LngLatLike, LngLatBounds, Map, Marker } from "mapbox-gl";
+import type { Chart as TypeChart } from "chart.js";
 import m from "mithril";
 
 import type { ControlsType } from "../views/StandardControls";
@@ -96,6 +97,9 @@ class GlobalMapState {
 
     /** True if the mouse in the map canvas. */
     public mouseInsideMap = false;
+
+    /** Elevation profile instance if any. */
+    public chart: TypeChart | undefined;
 
     /**
      * When initializing the map component.

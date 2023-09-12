@@ -11,7 +11,6 @@ import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
-import { chart } from "../models/ElevationProfile";
 import { extraIcons, globalMapState } from "../models/Map";
 import { story } from "../models/Story";
 import { t } from "../translate";
@@ -274,6 +273,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 }
             }
         });
+        const chart = globalMapState.chart;
         if (
             !actualNearestPoint ||
             actualNearestPoint.properties.index === undefined ||

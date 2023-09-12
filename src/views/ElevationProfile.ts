@@ -2,7 +2,7 @@ import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging from "../CustomLogging";
-import { createElevationChart } from "../models/ElevationProfile";
+import { myChartConfig } from "../models/ElevationProfile";
 import { globalMapState } from "../models/Map";
 import { injectCode } from "../utils";
 import { Position } from "geojson";
@@ -50,7 +50,14 @@ function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
             canvasContainer.appendChild(canvas);
             const ctx = canvas.getContext("2d");
             if (ctx) {
-                createElevationChart(ctx, allSegments, waypoints, lines);
+                Chart.defaults.font = {
+                    family: "MyBodyFont",
+                    size: 14,
+                };
+                globalMapState.chart = new Chart.Chart(
+                    ctx,
+                    myChartConfig(allSegments, waypoints, lines),
+                );
             }
         })
         .catch((err) => {
