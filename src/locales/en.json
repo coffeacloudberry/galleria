@@ -171,6 +171,7 @@
     "cam.exposure": "Exposure time:",
     "cam.f-number": "Focal ratio:",
     "cam.iso": "Film speed:",
+    "cam.mode": "Computational mode:",
     "cam.lat": "Latitude:",
     "cam.lon": "Longitude:",
     "cam.goto": "Locate with:",

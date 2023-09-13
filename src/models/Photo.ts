@@ -69,6 +69,9 @@ export interface PhotoInfo {
 
     /** Camera lens model name/ID, f.i. "Sigma 10-20mm F3.5 EX DC HSM". */
     lens?: string;
+
+    /** Computational mode for Olympus / OMDS camera. */
+    computationalMode?: string;
 }
 
 /**
@@ -143,7 +146,8 @@ class Photo {
                       this.meta.iso ||
                       this.meta.position ||
                       this.meta.body ||
-                      this.meta.lens,
+                      this.meta.lens ||
+                      this.meta.computationalMode,
               );
     }
 

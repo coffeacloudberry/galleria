@@ -171,6 +171,7 @@
     "cam.exposure": "Valotusaika:",
     "cam.f-number": "Aukkosuhde:",
     "cam.iso": "Valoherkkyys:",
+    "cam.mode": "Laskennallinen kuvaustoimi:",
     "cam.lat": "Leveysaste:",
     "cam.lon": "Pituusaste:",
     "cam.goto": "Paikana:",

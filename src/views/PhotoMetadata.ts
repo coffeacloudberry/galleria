@@ -22,6 +22,7 @@ const CameraSetup: m.Component = {
         const exposure = photo.meta.exposureTime;
         const fNumber = photo.meta.fNumber;
         const iso = photo.meta.iso;
+        const mode = photo.meta.computationalMode;
         if (!(focal || exposure || fNumber || iso)) {
             return null;
         }
@@ -37,6 +38,7 @@ const CameraSetup: m.Component = {
                 fNumber && m("li", `${t("cam.f-number")} f/${fNumber}`),
                 exposure && m("li", `${t("cam.exposure")} ${exposure} s`),
                 iso && m("li", `${t("cam.iso")} ISO ${iso}`),
+                mode && m("li", `${t("cam.mode")} ${mode}`),
             ]),
         ];
     },

@@ -48,6 +48,10 @@ with open(
     os.path.join(os.path.dirname(__file__), "OlympusLensType.json"), "r"
 ) as olympus_lens_id:
     LENS_IDS["OM Digital Solutions"] = json.load(olympus_lens_id)
+with open(
+    os.path.join(os.path.dirname(__file__), "OlympusStackedImage.json"), "r"
+) as olympus_computational_mode:
+    COMPUTATIONAL_MODE = json.load(olympus_computational_mode)
 
 
 class GoogleRepoParser(HTMLParser):
@@ -217,8 +221,6 @@ class WebPUpdater:
 def get_image_exif(path: str) -> List:
     """
     Get EXIF data.
-    TODO: get computational process (LiveND on? HighRes mode?)
-    TODO: get GPS metadata
 
     Args:
         path (str): Path to the image (tiff or jpg).
@@ -229,7 +231,7 @@ def get_image_exif(path: str) -> List:
         formatted string in seconds or None if not available, f-number ratio as
         float or None if not available, ISO as integer or None if not available,
         camera body model as string or None, lens model name as string or None,
-        software as string or None)
+        computational mode as string or None)
     """
     lens_model: Union[str, None] = None
     body_model: Union[str, None] = None
@@ -238,6 +240,7 @@ def get_image_exif(path: str) -> List:
     exposure_time_s: Union[str, None] = None
     f_number: Union[float, None] = None
     iso: Union[int, None] = None
+    computational_mode: Union[str, None] = None
     with exiftool.ExifToolHelper() as et:
         for d in et.get_metadata(path):
             try:
@@ -245,10 +248,13 @@ def get_image_exif(path: str) -> List:
             except KeyError:
                 continue
             try:
-                if "Composite:LensID" in d:
-                    lens_model = LENS_IDS[maker][d["Composite:LensID"]]
-                else:
-                    lens_model = LENS_IDS[maker][d["MakerNotes:LensType"]]
+                field1, field2, field3 = "Composite:LensID", "MakerNotes:LensType", "MakerNotes:LensModel"
+                if field1 in d and d[field1] in LENS_IDS[maker]:
+                    lens_model = LENS_IDS[maker][d[field1]]
+                elif field2 in d and d[field2] in LENS_IDS[maker]:
+                    lens_model = LENS_IDS[maker][d[field2]]
+                elif d[field3]:
+                    lens_model = d[field3]
             except KeyError:
                 pass
             try:
@@ -290,6 +296,16 @@ def get_image_exif(path: str) -> List:
                 iso = d["EXIF:ISO"]
             except KeyError:
                 pass
+            try:
+                coded_mode = d["MakerNotes:StackedImage"]
+                computational_group, computational_detail = coded_mode.split(" ")
+                h_group = COMPUTATIONAL_MODE[computational_group]
+                if isinstance(h_group, dict):
+                    computational_mode = h_group[computational_detail]
+                else:
+                    computational_mode = h_group
+            except KeyError:
+                pass
     return [
         date_taken,
         focal_length_35mm,
@@ -298,6 +314,7 @@ def get_image_exif(path: str) -> List:
         iso,
         body_model,
         lens_model,
+        computational_mode,
     ]
 
 
@@ -336,6 +353,7 @@ def generate_info_json(
         "iso": exif[4],
         "body": exif[5],
         "lens": exif[6],
+        "computationalMode": exif[7],
     }
     if prev_photo is not None:
         data["prev"] = int(prev_photo)
