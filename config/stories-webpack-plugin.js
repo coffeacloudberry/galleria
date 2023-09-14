@@ -215,7 +215,7 @@ class StoriesPlugin {
             }
 
             const storyList = [];
-            // skipcq: JS-D008
+            // skipcq: JS-D008, JS-0042
             Object.entries(this.storyMetadata).map(([storyId, metadata]) => {
                 storyList.push(
                     StoriesPlugin.essentialStoryMetadata(storyId, metadata),

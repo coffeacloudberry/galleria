@@ -69,7 +69,13 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
         attrs.mapboxPopup.setDOMContent(dom);
     }
 
-    view({ attrs }: m.CVnode<PopupCamAttrs>): m.Vnode<m.RouteLinkAttrs> | null {
+    // skipcq: JS-0105
+    oncreate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
+        hideAllForce();
+        attrs.mapboxPopup.setDOMContent(dom);
+    }
+
+    view({ attrs }: m.CVnode<PopupCamAttrs>): m.Vnode<m.RouteLinkAttrs> {
         this.updateImage(attrs.photoId);
         return this.ready
             ? m(

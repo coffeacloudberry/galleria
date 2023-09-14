@@ -101,6 +101,9 @@ class GlobalMapState {
     /** Elevation profile instance if any. */
     public chart: TypeChart | undefined;
 
+    /** Force hide the moving marker (to highlight something else). */
+    public hideMovingMarker = false;
+
     /**
      * When initializing the map component.
      */
@@ -152,7 +155,7 @@ class GlobalMapState {
      * This is triggered by moving on the elevation profile or on the map.
      */
     moveHiker(lon: number, lat: number, activity: Activity): void {
-        if (this.map === undefined) {
+        if (this.map === undefined || this.hideMovingMarker) {
             return;
         }
         if (this.currentTimeoutHiker > 0) {
@@ -179,6 +182,7 @@ class GlobalMapState {
             return;
         }
         this.map.getCanvas().style.cursor = "pointer";
+        this.hideMovingMarker = true;
         if (this.movingMarker) {
             this.movingMarker.remove();
         }
@@ -190,6 +194,7 @@ class GlobalMapState {
             return;
         }
         this.map.getCanvas().style.cursor = "";
+        this.hideMovingMarker = false;
         if (this.movingMarker) {
             this.movingMarker.addTo(this.map);
         }

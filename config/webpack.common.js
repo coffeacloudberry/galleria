@@ -80,7 +80,7 @@ module.exports = {
             ],
         }),
 
-        // Copies the favicons
+        // Copies the images
         new CopyWebpackPlugin({
             patterns: [
                 {
