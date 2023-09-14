@@ -52,7 +52,7 @@ class AllStories {
         this._fullList = [];
         m.request<OneJsonStory[]>({
             method: "GET",
-            url: "/all_stories.json",
+            url: "/content/stories/_/all_stories.json",
         }).then((result) => {
             for (const oneEntry of result) {
                 this.fullList.push({

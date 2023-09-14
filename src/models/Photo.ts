@@ -264,11 +264,8 @@ class Photo {
         return m
             .request<PhotoInfo>({
                 method: "GET",
-                url: "/content/photos/:folderName/:rev/i.json",
-                params: {
-                    folderName: id,
-                    rev: `rev_${config.rev}`,
-                },
+                url: "/content/photos/:folderName/_/i.json",
+                params: { folderName: id },
             })
             .then((result) => {
                 const nextImageSrc = this.getImageSrc(id);

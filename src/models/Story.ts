@@ -287,11 +287,8 @@ export class Story {
         }
         m.request<PhotoInfo>({
             method: "GET",
-            url: "/content/photos/:folderName/:rev/i.json",
-            params: {
-                folderName: originPhotoId,
-                rev: `rev_${config.rev}`,
-            },
+            url: "/content/photos/:folderName/_/i.json",
+            params: { folderName: originPhotoId },
         }).then((result) => {
             this.originPhotoMeta = result;
         });
@@ -329,11 +326,8 @@ export class Story {
             });
         m.request<StoryInfo>({
             method: "GET",
-            url: "/content/stories/:folderName/:rev/i.json",
-            params: {
-                folderName,
-                rev: `rev_${config.rev}`,
-            },
+            url: "/content/stories/:folderName/_/i.json",
+            params: { folderName },
         })
             .then((result) => {
                 if (result.start) {

@@ -26,9 +26,6 @@ photo_manager_cli/tests/fixtures/vcr_cassettes
 /fixtures/vcr_cassettes/repo_list.yaml
 webtrack_cli/man/*.svg
 
-# Generated files from custom Webpack plugins
-rev_*
-
 # Generated files
 raw/
 cache/
