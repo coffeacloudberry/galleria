@@ -345,12 +345,12 @@ export class Story {
                 } else {
                     this.season = null;
                 }
-                this.duration = result.duration || null;
-                this.hasGeodata = result.hasGeodata || false;
-                this.mostRecentPhoto = result.mostRecentPhoto || null;
-                this.geocodedPhotos = result.geocodedPhotos || null;
+                this.duration = result.duration ?? null;
+                this.hasGeodata = result.hasGeodata ?? false;
+                this.mostRecentPhoto = result.mostRecentPhoto ?? null;
+                this.geocodedPhotos = result.geocodedPhotos ?? null;
                 if (this.hasGeodata) {
-                    this.gpsConfig = result.gpsConfig || defaultGpsConfig;
+                    this.gpsConfig = result.gpsConfig ?? defaultGpsConfig;
                 } else {
                     this.gpsConfig = null;
                 }
