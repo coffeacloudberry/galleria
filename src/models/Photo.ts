@@ -257,10 +257,7 @@ class Photo {
      * --files0-from - -c -h | sort -h`
      */
     load(id: number): Promise<void> {
-        this.isLoading = true;
-        this.isPreloading = true;
-        this.notFound = false;
-        this.meta = null; // invalidate obsolete information
+        this.partialResetState();
         return m
             .request<PhotoInfo>({
                 method: "GET",
@@ -366,6 +363,20 @@ class Photo {
             /* key to go back to the photo once in the story page */
             from_photo: this.id,
         });
+    }
+
+    /** Reset to defaults / initial state, enough for photo switching. */
+    partialResetState(): void {
+        this.isLoading = true;
+        this.isPreloading = true;
+        this.notFound = false;
+    }
+
+    /** Reset to invalidate data before updating the view. */
+    fullResetState() {
+        this.partialResetState();
+        photo.meta = null;
+        photo.currentImageSrc = null;
     }
 }
 

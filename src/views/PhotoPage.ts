@@ -16,10 +16,6 @@ import PhotoMetadataComponent from "./PhotoMetadata";
 
 /** Prev, current, and next photo components. */
 const Gallery: m.Component = {
-    oninit(): void {
-        // reset to avoid displaying the previous photo
-        photo.currentImageSrc = null;
-    },
     view(): m.Vnode {
         const hideNext = photo.isPreloading;
         const hidePrev = photo.isFirst() || hideNext;
@@ -340,6 +336,9 @@ export default function PhotoPage(): m.Component {
     };
 
     return {
+        oninit(): void {
+            photo.fullResetState();
+        },
         oncreate(): void {
             document.title = t("photo.title");
             document.addEventListener("keydown", onKeyPressed);
