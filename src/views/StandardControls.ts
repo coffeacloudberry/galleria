@@ -5,6 +5,7 @@ import m from "mithril";
 
 import { globalMapState } from "../models/Map";
 import { t } from "../translate";
+import { hideAllForce } from "../utils";
 
 /**
  * Force using the tippy instead of the default title.
@@ -62,6 +63,7 @@ export default function Controls(): ControlsType {
                     pitch: 0,
                     duration: 0,
                 });
+                hideAllForce();
             });
 
             // equivalent to the Mapbox GL JS' DOM.create()
