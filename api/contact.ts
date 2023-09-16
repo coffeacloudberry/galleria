@@ -134,49 +134,44 @@ export default async (request: VercelRequest, response: VercelResponse) => {
         response.status(401).json(undefined);
         return;
     }
-    if (request.method === "POST") {
-        const { action, email, message } = request.body;
-        if (!("frc-captcha-solution" in request.body)) {
-            response.status(418).json("Missing CAPTCHA solution.");
-            return;
-        }
-        const captchaSolution = request.body["frc-captcha-solution"];
-        if (!captchaSolution) {
-            response.status(418).json("Empty CAPTCHA solution.");
-            return;
-        }
-        if (!email) {
-            response.status(400).json("Missing email address.");
-            return;
-        }
-        if (!isEmail(email)) {
-            response.status(400).json("Bad email address format.");
-            return;
-        }
-        if (action === "send") {
-            await checkVisitor(captchaSolution)
-                .then(async () => {
-                    await sendEmail(email, message)
-                        .then(() => {
-                            response.status(200).json(undefined);
-                        })
-                        .catch(() => {
-                            response.status(500).json(undefined);
-                        });
-                })
-                .catch((status_code) => {
-                    let n_status_code = parseInt(status_code.message);
-                    if (isNaN(n_status_code)) {
-                        n_status_code = 500;
-                    }
-                    response.status(n_status_code).json(undefined);
-                });
-        } else {
-            // Bad Request
-            response.status(400).json(undefined);
-        }
-    } else {
+    if (request.method !== "POST") {
         // Method Not Allowed
         response.status(405).json(undefined);
+        return;
     }
+    const { email, message } = request.body;
+    if (!("frc-captcha-solution" in request.body)) {
+        response.status(418).json("Missing CAPTCHA solution.");
+        return;
+    }
+    const captchaSolution = request.body["frc-captcha-solution"];
+    if (!captchaSolution) {
+        response.status(418).json("Empty CAPTCHA solution.");
+        return;
+    }
+    if (!email) {
+        response.status(400).json("Missing email address.");
+        return;
+    }
+    if (!isEmail(email)) {
+        response.status(400).json("Bad email address format.");
+        return;
+    }
+    await checkVisitor(captchaSolution)
+        .then(async () => {
+            await sendEmail(email, message)
+                .then(() => {
+                    response.status(200).json(undefined);
+                })
+                .catch(() => {
+                    response.status(500).json(undefined);
+                });
+        })
+        .catch((status_code) => {
+            let n_status_code = parseInt(status_code.message);
+            if (isNaN(n_status_code)) {
+                n_status_code = 500;
+            }
+            response.status(n_status_code).json(undefined);
+        });
 };

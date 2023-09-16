@@ -214,7 +214,6 @@ export class ContactForm extends BaseForm implements m.ClassComponent {
         }
         if (!this.invalidEmailAddress && !this.invalidMessage) {
             this.processRequest({
-                action: "send",
                 email: this.email,
                 message: this.message,
                 "frc-captcha-solution": this.captchaSolution,
