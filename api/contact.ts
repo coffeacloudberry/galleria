@@ -1,7 +1,6 @@
-import { tmpdir } from "os";
-
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import sendpulse, { ReturnError } from "sendpulse-api";
+import { TransactionalEmail, createClient } from "@scaleway/sdk";
+import { loadProfileFromEnvironmentValues } from "@scaleway/configuration-loader";
 
 import * as utils from "../src/utils_api";
 
@@ -38,25 +37,16 @@ export function sendEmail(
         to: [contactSender],
     };
     return new Promise((resolve, reject) => {
-        sendpulse.init(
-            String(process.env.SMTP_USER),
-            String(process.env.SMTP_PASSWORD),
-            tmpdir(),
-            () => {
-                sendpulse.smtpSendMail(
-                    (data: ReturnError | { result: boolean; id: string }) => {
-                        if ("result" in data && data.result) {
-                            resolve("Email sent.");
-                        } else if ("message" in data) {
-                            reject(new Error(data.message));
-                        } else {
-                            reject(new Error("Failed to send the email."));
-                        }
-                    },
-                    email,
-                );
-            },
-        );
+        const profile = loadProfileFromEnvironmentValues();
+        const client = createClient(profile);
+        const api = new TransactionalEmail.v1alpha1.API(client);
+        api.createEmail(email)
+            .then(() => {
+                resolve("Email sent.");
+            })
+            .catch(() => {
+                reject(new Error("Failed to send the email."));
+            });
     });
 }
 

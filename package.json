@@ -24,9 +24,10 @@
     "private": true,
     "license": "AGPL-3.0-or-later",
     "dependencies": {
+        "@scaleway/configuration-loader": "^1.0.0",
+        "@scaleway/sdk": "^1.30.0",
         "mithril": "^2.2.2",
         "ress": "^5.0.2",
-        "sendpulse-api": "github:coffeacloudberry/sendpulse-rest-api-node.js",
         "snarkdown": "github:coffeacloudberry/snarkdown#2.1.1",
         "tippy.js": "^6.3.7",
         "toastify-js": "^1.12.0",
