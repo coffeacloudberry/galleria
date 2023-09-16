@@ -375,8 +375,8 @@ class Photo {
     /** Reset to invalidate data before updating the view. */
     fullResetState() {
         this.partialResetState();
-        photo.meta = null;
-        photo.currentImageSrc = null;
+        this.meta = null;
+        this.currentImageSrc = null;
     }
 }
 
