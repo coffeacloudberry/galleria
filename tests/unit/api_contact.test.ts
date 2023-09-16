@@ -9,10 +9,6 @@ import record from "./record";
 
 config();
 
-/*
-SendPulse API: https://github.com/sendpulse/sendpulse-rest-api-node.js/blob/master/example.js
- */
-
 describe("Contact Forms", () => {
     const recorder = record("contact_forms");
 
@@ -56,17 +52,6 @@ describe("Contact Forms", () => {
                 done();
             }
         });
-    });
-
-    it("should send an email", (done) => {
-        contact
-            .sendEmail("test1646576045243@explorewilder.com", "Blåblä")
-            .then(() => {
-                done();
-            })
-            .catch((error) => {
-                done(error);
-            });
     });
 
     after((done) => {

@@ -15,11 +15,7 @@ export function textToHtml(text: string): string {
         .replace(/\r\n|\r|\n/g, "<br />");
 }
 
-/**
- * Send one email from the visitor to the webmaster.
- * The sender email shall be recorded in SendPulse. Since the visitor
- * is anonymous, the webmaster email address is used as sender.
- */
+/** Send one email from the visitor to the webmaster. */
 export function sendEmail(
     emailAddress: string,
     content: string,
