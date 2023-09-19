@@ -70,7 +70,7 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 <details>
   <summary>Run the development server locally with the API (aka Vercel Functions)</summary>
 
-1. Install the Vercel CLI: `npm i -g vercel`,
+1. Install the Vercel CLI: `npm i --location=global vercel`,
 2. Pull the environment variables: `vercel env pull`,
 3. Check that the *.env* file has been created,
 4. Run the server on port 3000: `vercel dev`,
@@ -93,7 +93,7 @@ npm run build
 > Note: Install [http-server](https://www.npmjs.com/package/http-server) globally to deploy a simple server locally.
 
 ```sh
-npm i -g http-server
+npm i --location=global http-server
 ```
 
 You can view the deployment by creating a server in `public`.
@@ -179,7 +179,8 @@ Run `npm bundle-analysis` to generate the prod bundle and start a local server w
   <summary>The dependencies</summary>
 
 ```sh
-npm i -g npm-check-updates # only once
+# run `npm i npm-check-updates --location=global` only once
+# optionally run `ncu --version` beforehand to see if there is any update of the tool itself
 ncu -u
 npm install
 ```
