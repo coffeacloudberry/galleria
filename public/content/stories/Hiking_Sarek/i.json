@@ -1,0 +1,13 @@
+{
+    "start": "2023-08-07",
+    "duration": 14,
+    "season": "summer",
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        }
+    ]
+}
