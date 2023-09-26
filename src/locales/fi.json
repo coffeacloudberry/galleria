@@ -125,7 +125,6 @@
     },
     "story.start": "Aloituspäivä: ",
     "story.duration": "Kesto: ",
-    "credit": "Tunnustus: ",
     "days": {
         "1": "1 päivää",
         "n": "{n} päivät"

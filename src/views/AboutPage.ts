@@ -51,19 +51,7 @@ class Intro implements m.ClassComponent {
                     m(".one.column", [
                         m("p", t("about.me")),
                         this.ready &&
-                            m(".me", [
-                                m("img", { src: this.image.src }),
-                                m("p.credit", [
-                                    t("credit"),
-                                    m(
-                                        "a",
-                                        {
-                                            href: "https://timokoo.neocities.org/timoindex.html",
-                                        },
-                                        "Timo",
-                                    ),
-                                ]),
-                            ]),
+                            m(".me", m("img", { src: this.image.src })),
                         m("p", t("about.pledge")),
                     ]),
                 ]),

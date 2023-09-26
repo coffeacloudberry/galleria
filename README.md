@@ -51,7 +51,10 @@ Clone this repo, install Node.js 14, and run `npm i`.
 * Use the [PhotosManagerCLI](photo_manager_cli) to put a new picture,
 * Use the [WebTrackCLI](webtrack_cli) to get elevation data and convert GPX to webtrack.
 
-Notice: the list of stories and photos metadata are statically generated at build time (by a custom Webpack plugins) as well as the [Web Labels](config/generate-weblabels-webpack-plugin/README.md). Rebuild or rerun the local server to apply the changes.
+Notice:
+
+* The list of stories and photos metadata are statically generated at build time (by a custom Webpack plugins) as well as the [Web Labels](config/generate-weblabels-webpack-plugin/README.md). Rebuild or rerun the local server to apply the changes.
+* Install the [WebP Support plugin](https://plugins.jetbrains.com/plugin/15037-webp-support) to view images from the JetBrains IDE.
 
 ### Running
 

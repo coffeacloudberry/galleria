@@ -125,7 +125,6 @@
     },
     "story.start": "Start Date: ",
     "story.duration": "Duration: ",
-    "credit": "Credit: ",
     "days": {
         "1": "1 day",
         "n": "{n} days"
