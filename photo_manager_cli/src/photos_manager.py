@@ -454,6 +454,42 @@ def add_photo(album_path: str, raw_file: str) -> None:
 
 
 @click.group()
+def cli_generate_social():
+    pass
+
+
+@cli_generate_social.command()
+@click.option(
+    "--album-path",
+    required=True,
+    prompt="Path to current photos",
+    help="Path to the photos already existing in the blog.",
+)
+def generate_social(album_path: str) -> None:
+    all_photos = [
+        dirname
+        for dirname in os.listdir(album_path)
+        if os.path.isdir(os.path.join(album_path, dirname))
+    ]
+    all_photos.sort()
+    for dirname in all_photos:
+        dirname = os.path.join(album_path, dirname)
+        input_image_path = os.path.join(dirname, guess_original(dirname))
+        output_image_path = os.path.join(dirname, "_to_social.jpg")
+        im = Image.open(input_image_path)
+        im = im.convert("RGB")
+        ratio = im.size[1] / im.size[0]
+        output_image_width = 1000
+        output_image_height = int(output_image_width * ratio)
+        if output_image_height > output_image_width:
+            output_image_height = 1000
+            output_image_width = int(output_image_height / ratio)
+        im.thumbnail((output_image_width, output_image_height), Image.Resampling.LANCZOS)
+        im.save(output_image_path, "JPEG", quality=94)
+        click.echo(f"Generated {output_image_path}")
+
+
+@click.group()
 def cli_generate_webp():
     pass
 
@@ -493,7 +529,6 @@ def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
         if os.path.isdir(os.path.join(album_path, dirname))
     ]
     all_photos.sort()
-    all_photos = all_photos[1:]
 
     all_var_options = (
         ("f", 300, 200, 90),
@@ -627,7 +662,7 @@ def guess_original(dir_path: str) -> str:
     raise FileNotFoundError(f"Missing original photo in `{dir_path}'")
 
 
-cli = click.CommandCollection(sources=[cli_add_photo, cli_generate_webp])
+cli = click.CommandCollection(sources=[cli_add_photo, cli_generate_social, cli_generate_webp])
 
 if __name__ == "__main__":
     cli()
