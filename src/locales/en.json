@@ -181,6 +181,7 @@
     "donate-monero": "{{donate}} with Monero",
     "donate-nano": "{{donate}} with Nano",
     "donate-bat": "{{donate}} with Brave",
+    "donate-kofi": "One-time donation with card on Ko-fi",
     "donate-card": "One-time donation with card",
     "donate-recurrent": "Recurrent donation with card",
     "copy": "Copy address to clipboard",

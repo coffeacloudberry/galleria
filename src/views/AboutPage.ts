@@ -9,6 +9,7 @@ import logoNano from "@/icons/logo-nano.svg";
 import logoOdysee from "@/icons/logo-odysee.svg";
 import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoRss from "@/icons/logo-rss.svg";
+import logoKofi from "@/icons/logo-kofi.svg";
 import logoZcash from "@/icons/logo-zcash.svg";
 import shieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
@@ -264,6 +265,11 @@ const SocialNetworks: m.Component = {
 const Donate: m.Component = {
     view(): m.Vnode[] {
         const allItems = [
+            {
+                tooltip: t("donate-kofi"),
+                link: "https://ko-fi.com/explorewilder",
+                logo: logoKofi,
+            },
             {
                 tooltip: t("donate-card"),
                 link: `https://donate.stripe.com/7sIdU4gpEeN321qbII?locale=${t.getLang()}`,
