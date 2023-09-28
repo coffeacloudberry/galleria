@@ -474,8 +474,10 @@ def generate_social(album_path: str) -> None:
     all_photos.sort()
     for dirname in all_photos:
         dirname = os.path.join(album_path, dirname)
-        input_image_path = os.path.join(dirname, guess_original(dirname))
         output_image_path = os.path.join(dirname, "_to_social.jpg")
+        if os.path.exists(output_image_path):
+            continue
+        input_image_path = os.path.join(dirname, guess_original(dirname))
         im = Image.open(input_image_path)
         im = im.convert("RGB")
         ratio = im.size[1] / im.size[0]

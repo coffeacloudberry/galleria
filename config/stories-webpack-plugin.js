@@ -186,12 +186,12 @@ class StoriesPlugin {
                         // update
                         lastStory.totalPhotos += 1;
                         lastStory.mostRecentPhoto = id;
-                        if (typeof photoMetadata.position === "object") {
-                            lastStory.geocodedPhotos.push({
-                                id,
-                                position: photoMetadata.position,
-                            });
-                        }
+                    }
+                    if (typeof photoMetadata.position === "object") {
+                        lastStory.geocodedPhotos.push({
+                            id,
+                            position: photoMetadata.position,
+                        });
                     }
                     this.storyMetadata[storyId] = lastStory;
                     prevStory = storyId;
