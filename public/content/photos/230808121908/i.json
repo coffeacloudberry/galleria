@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Cloudberry",
+        "fi": "Lakka",
+        "fr": "Mûre arctique"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.199860,
+        "lon": 18.510981
+    },
+    "story": "Hiking_Sarek",
+    "dateTaken": "2023-08-08T12:19:08",
+    "focalLength35mm": 50,
+    "exposureTime": "1/320",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": null,
+    "prev": 230807161811
+}
