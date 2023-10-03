@@ -154,7 +154,7 @@ const Download: m.Component<DownloadModalAttrs> = {
             return (
                 attrs.okCopyright &&
                 typeof photo.id === "number" &&
-                `https://sunbeam.s3.fr-par.scw.cloud/photos/photo_${photo.id}_from_explorewilder.com.tif`
+                `https://download.explorewilder.com/photos/photo_${photo.id}_from_explorewilder.com.tif`
             );
         };
         return m(
