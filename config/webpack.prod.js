@@ -87,6 +87,30 @@ module.exports = merge(common, {
                     userAgent: "*",
                     allow: "/",
                 },
+                {
+                    userAgent: "Googlebot",
+                    disallow: "/",
+                },
+                {
+                    userAgent: "Google-Extended",
+                    disallow: "/",
+                },
+                {
+                    userAgent: "CCBot",
+                    disallow: "/",
+                },
+                {
+                    userAgent: "GPTBot",
+                    disallow: "/",
+                },
+                {
+                    userAgent: "ChatGPT-User",
+                    disallow: "/",
+                },
+                {
+                    userAgent: "Twitterbot",
+                    disallow: "/",
+                },
             ],
             sitemap: `${address}/sitemap.xml`,
         }),
