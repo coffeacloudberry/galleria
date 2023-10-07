@@ -96,7 +96,7 @@ export const config = {
                 ],
             },
             whiteSnow: {
-                url: "mapbox://styles/onvbjzhghu/ckwuwtmkeeb1p15p2zbawe8u5",
+                url: "mapbox://styles/onvbjzhghu/clng3anjs007q01pi6j8zfi7h",
                 attributions: [Attribution.OpenStreetMap, Attribution.Mapbox],
             },
         } as Record<
