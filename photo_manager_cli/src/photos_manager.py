@@ -2,7 +2,7 @@
 Manage the photos of my blog.
 
 Usage:
-python photos_manager.py add-photo --raw-file photo.tif --album-path /home/.../photos/
+python photos_manager.py add-photo --raw-file path/to/photo.tif --album-path /home/.../photos/
 python photos_manager.py generate-webp --album-path /home/.../photos/
 python photos_manager.py generate-social --album-path /home/.../photos/
 
@@ -383,6 +383,9 @@ def cli_add_photo():
 )
 def add_photo(album_path: str, raw_file: str) -> None:
     """Add one photo to the album."""
+    if not os.path.exists(raw_file):
+        click.echo("RAW file does not exist.", err=True)
+        return
     exif = get_image_exif(raw_file)
 
     # find the date taken that will be the folder name
