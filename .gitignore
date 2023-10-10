@@ -4,6 +4,7 @@ node_modules/
 *.gpx
 *.NEF
 *.ORF
+*.ORI
 *.pp3
 *.arp
 *.tif
