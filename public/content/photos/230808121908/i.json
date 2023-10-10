@@ -10,7 +10,7 @@
         "fr": ""
     },
     "position": {
-        "lat": 68.199860,
+        "lat": 68.19986,
         "lon": 18.510981
     },
     "story": "Hiking_Sarek",
@@ -22,5 +22,6 @@
     "body": "OM Digital Solutions OM-5",
     "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
     "computationalMode": null,
-    "prev": 230807161811
+    "prev": 230807161811,
+    "next": 230810102623
 }
