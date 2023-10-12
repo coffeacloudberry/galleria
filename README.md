@@ -28,7 +28,6 @@ I could not find anything cheap complying to the above requirements, and I was i
 - [x] Interactive 3D maps,
 - [x] Interactive charts,
 - [x] Home-made track format including elevation profile,
-- [x] Contact form,
 - [x] Fully translated in English, Finnish, and French,
 - [x] [Privacy by design](https://en.wikipedia.org/wiki/Privacy_by_design),
 - [x] [Humane by design](https://humanebydesign.com/),
@@ -71,7 +70,7 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 
 </details>
 <details>
-  <summary>Run the development server locally with the API (aka Vercel Functions)</summary>
+  <summary>Run the Vercel server locally</summary>
 
 1. Install the Vercel CLI: `npm i --location=global vercel`,
 2. Pull the environment variables: `vercel env pull`,
@@ -188,7 +187,7 @@ ncu -u
 npm install
 ```
 
-Also update the lazy-loaded scripts listed in the [configuration file](src/config.ts) as well as FriendlyCaptcha in the [webpack config](config/webpack.prod.js).
+Also update the lazy-loaded scripts listed in the [configuration file](src/config.ts).
 
 </details>
 <details>
@@ -223,7 +222,7 @@ In the above links, replace YOURTOKEN with your token. Use a Mapbox token with t
 
 ### Real Deployment
 
-The frontend can be deployed on any server, just install dependencies with `npm ci`. The backend (API endpoints) is designed to run on Vercel, but any server capable of executing a Node.js application should be okay. Most third party connections require an account. The good news is that most third parties are cost- and maintenance-free, so that you can focus on what really matters: photos, stories, adventures!
+The frontend can be deployed on any server, just install dependencies with `npm ci`. Some third party connections require an account. The good news is that most third parties are cost- and maintenance-free, so that you can focus on what really matters: photos, stories, adventures!
 
 ## Thanks
 

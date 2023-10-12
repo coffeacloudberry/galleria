@@ -122,15 +122,6 @@ export function injectCode(path: {
     });
 }
 
-export function getWindowSize(): { width: number; height: number } {
-    const docElem = document.documentElement;
-    const body = document.getElementsByTagName("body")[0];
-    return {
-        width: window.innerWidth || docElem.clientWidth || body.clientWidth,
-        height: window.innerHeight || docElem.clientHeight || body.clientHeight,
-    };
-}
-
 /**
  * Canvas Blocker & Firefox privacy.resistFingerprinting Detector.
  * (c) 2018 // JOHN OZBAY // CRYPT.EE
@@ -139,7 +130,7 @@ export function getWindowSize(): { width: number; height: number } {
  * Source:
  * https://github.com/johnozbay/canvas-block-detector/blob/master/isCanvasBlocked.js
  *
- * Mapbox limitations:
+ * Allow:
  * Firefox: privacy.resistFingerprinting = false
  * Brave: fingerprinting not aggressively blocked
  */

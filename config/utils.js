@@ -1,12 +1,6 @@
 const child_process = require("child_process");
 const paths = require("./paths");
 
-function git(command) {
-    return child_process
-        .execSync(`git ${command}`, { encoding: "utf8" })
-        .trim();
-}
-
 function mostRecentPhotoId() {
     return child_process.execSync(
         `ls -1 ${paths.build}/content/photos/ | tail -n 1`,
@@ -21,4 +15,4 @@ function oldestPhotoId() {
     );
 }
 
-module.exports = { git, mostRecentPhotoId, oldestPhotoId };
+module.exports = { mostRecentPhotoId, oldestPhotoId };

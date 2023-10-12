@@ -33,20 +33,6 @@ Valid Dynamic Translation Updates And Retention
     Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="À propos"]
     Click Link                       partial link:À propos
     Page Should Be Translated
-    Element Should Be Visible        xpath://h1[text()="À propos de moi"]
-    Click Link                       Lire la politique de confidentialité
-    Page Should Be Translated
-    Element Should Be Visible        xpath://h1[@class="modal-title" and text()="La vie privée compte"]
-    Click Button                     xpath://button[@class="modal-close " and contains(text(), "Fermer")]
-    Page Should Be Translated
-    Switch Language                  English
-    Page Should Be Translated
-    Element Should Be Visible        xpath://h1[text()="About Me"]
-    Click Link                       Read the Privacy Policy
-    Page Should Be Translated
-    Element Should Be Visible        xpath://h1[@class="modal-title" and text()="Privacy Matters"]
-    Click Button                     xpath://button[@class="modal-close " and contains(text(), "Close")]
-    Page Should Be Translated
     [Teardown]    Close Browser
 
 Tooltips On Map Controls

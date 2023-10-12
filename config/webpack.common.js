@@ -11,7 +11,7 @@ const StoriesPlugin = require("./stories-webpack-plugin");
 const path = require("path");
 const paths = require("./paths");
 const webpack = require("webpack");
-const { git, mostRecentPhotoId, oldestPhotoId } = require("./utils");
+const { mostRecentPhotoId, oldestPhotoId } = require("./utils");
 
 module.exports = {
     // Where webpack looks to start building the bundle
@@ -45,13 +45,6 @@ module.exports = {
     // Customize the webpack build process
     plugins: [
         new webpack.EnvironmentPlugin({
-            // Short commit hash
-            GIT_VERSION: git("describe --always"),
-
-            // Commit date
-            // Notice that the Git date may differ from the deployed date
-            GIT_AUTHOR_DATE: git("log -1 --format=%as"),
-
             MOST_RECENT_PHOTO_ID: mostRecentPhotoId(),
 
             OLDEST_PHOTO_ID: oldestPhotoId(),
@@ -66,9 +59,6 @@ module.exports = {
             MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
 
             IS_PROD: process.env.VERCEL_ENV === "production",
-
-            FRIENDLY_CAPTCHA_PUBLIC_KEY:
-                process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY,
         }),
 
         // Removes/cleans build folders and unused assets when rebuilding
@@ -149,7 +139,5 @@ module.exports = {
         "chart.js": "Chart",
         // Howto: const turf = await import("@turf/turf");
         "@turf/turf": "turf",
-        // Howto: const friendlyChallenge = await import("friendly-challenge");
-        "friendly-challenge": "friendlyChallenge",
     },
 };

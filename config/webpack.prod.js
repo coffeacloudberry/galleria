@@ -24,7 +24,6 @@ const plainRoutes = [
     "photo",
     "stories",
     "about",
-    "privacy",
     ...allStories.map((storyId) => `story/${storyId}`),
     ...allPhotos.map((photoId) => `photo/${photoId}`),
 ];
@@ -143,21 +142,7 @@ module.exports = merge(common, {
                 .flat(),
         }),
 
-        new GenerateWebLabelsPlugin({
-            additionalScripts: {
-                "https://unpkg.com/friendly-challenge@0.9.13/widget.module.min.js":
-                    [
-                        {
-                            id: "widget.module.min.js",
-                            path: "https://github.com/FriendlyCaptcha/friendly-challenge/blob/master/src/index.ts",
-                            spdxLicenseExpression: "MIT",
-                            licenseFilePath:
-                                "https://github.com/FriendlyCaptcha/friendly-challenge/blob/master/LICENSE.md",
-                        },
-                    ],
-                // Mapbox GL JS is not OSI compliant
-            },
-        }),
+        new GenerateWebLabelsPlugin({}),
     ],
     optimization: {
         minimize: true,

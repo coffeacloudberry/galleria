@@ -17,12 +17,6 @@ export const config = {
     /** Last photo in the content folder. */
     lastPhotoId: oldestPhotoId,
 
-    /** Detailed in the contact API, value in seconds. */
-    minTimeGapBetweenContactRequest: 60,
-
-    /** Duration to display a temporary message, value in seconds. */
-    ephemeralDisplayTimeout: 5,
-
     /**
      * Chart.js prod version.
      * Check for new releases:
@@ -117,27 +111,6 @@ export const config = {
         },
     },
 
-    /**
-     * Friendly Captcha.
-     * Check for new releases:
-     * https://docs.friendlycaptcha.com/#/installation?id=option-a-using-a-script-tag
-     * Also change the URL in the Webpack Web Labels config.
-     */
-    captcha: {
-        js: {
-            /**
-             * Cross-check SRI:
-             * https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.13/widget.module.min.js
-             */
-            src: "https://unpkg.com/friendly-challenge@0.9.13/widget.module.min.js",
-            sri: "sha512-n9mxIGcVQOy5SQY/La9aqoUHEnovQZfGl6ZqAKj/IpZg+4yuUTqnW5GFh1TqSNJV4lTDCOtE3Ul7Gn7AOwOb4w==",
-            isModule: true,
-        },
-
-        siteKey: String(process.env.FRIENDLY_CAPTCHA_PUBLIC_KEY),
-    },
-
-    rev: String(process.env.GIT_VERSION),
     openpgp4fpr,
     id: `https://keyoxide.org/hkp/${openpgp4fpr}`,
     contentLicense: {

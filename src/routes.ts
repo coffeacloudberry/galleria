@@ -4,7 +4,6 @@ import languages from "./languages.json";
 import AboutPage from "./views/AboutPage";
 import NotFoundPage from "./views/NotFoundPage";
 import PhotoPage from "./views/PhotoPage";
-import PrivacyPage from "./views/PrivacyPage";
 import StoriesOverviewPage from "./views/StoriesOverviewPage";
 import StoryPage from "./views/StoryPage";
 
@@ -36,7 +35,6 @@ const plainRoutes: RoutedComponents = {
     "/stories": StoriesOverviewPage,
     "/story/:title": StoryPage /* also includes key parameters: origin photo */,
     "/about": AboutPage,
-    "/privacy": PrivacyPage,
     "/lost": NotFoundPage,
     "/:other": NotFoundPage,
 };

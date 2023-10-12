@@ -42,11 +42,7 @@ button:not([class^='mapboxgl-ctrl-']):not(.light-icon-button):not(.toast-close),
 a.button
     text-decoration: none !important
 
-form
-    max-width: 500px
-
-input:not([type='radio']):not([type='checkbox']),
-textarea
+input:not([type='radio']):not([type='checkbox'])
     display: block
     padding: 0.5rem
     width: 100%
@@ -64,43 +60,9 @@ textarea
     &:focus
         outline: none /* reset */
 
-textarea
-    border-radius: 0 0 0 $border-radius-lg
-
-input[type='radio']
-    background-color: #ddd
-    border-radius: 8px
-    display: inline-block
-    height: 16px
-    position: relative
-    margin-bottom: -1px
-    width: 16px
-    appearance: none
-    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4)
-    transition: all 0.2s ease-in
-    &::after
-        background-color: #fff
-        border-radius: 4px
-        border: 1px solid #7b7b7b
-        content: ''
-        display: block
-        position: relative
-        width: 8px
-        height: 8px
-        left: 4px
-        top: 4px
-    &:checked::after
-        background-color: $button-background
-    &:focus::after
-        border: 1px solid $button-background-hover
-
-textarea
-    min-height: 5rem
-
 label
     display: block
     color: #808080
-    &.radio,
     &.checkbox
         display: inline-block
         margin: 0 0 0 0.5rem

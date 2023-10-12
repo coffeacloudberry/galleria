@@ -12,16 +12,64 @@ import logoRss from "@/icons/logo-rss.svg";
 import logoKofi from "@/icons/logo-kofi.svg";
 import logoZcash from "@/icons/logo-zcash.svg";
 import shieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
+import logoMatrix from "@/icons/logo-matrix.svg";
+import logoThreema from "@/icons/logo-threema.svg";
+import logoXmpp from "@/icons/logo-xmpp.svg";
+import logoMail from "@/icons/mail-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
 import { t } from "../translate";
 import { hideAllForce, toast } from "../utils";
-import { ContactForm } from "./Forms";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import { ModalSize, modal } from "./Modal";
 import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
+
+export class Contact implements m.ClassComponent {
+    view(): m.Vnode[] {
+        const domain = location.hostname.split(".").slice(1).join(".");
+        const allItems = [
+            {
+                tooltip: t("mailto"),
+                link: `mailto:hello@${domain}`,
+                logo: logoMail,
+            },
+            {
+                tooltip: "Matrix",
+                link: "https://matrix.to/#/@beebeecoffee:matrix.org",
+                logo: logoMatrix,
+            },
+            {
+                tooltip: "XMPP/Jabber",
+                link: "xmpp:frozenveggies@nixnet.services",
+                logo: logoXmpp,
+            },
+            {
+                tooltip: "Threema",
+                link: "https://threema.id/26ZJEA5A",
+                logo: logoThreema,
+            },
+        ];
+        return [
+            m("h1", t("contact.title")),
+            m("p", t("contact.why")),
+            m(
+                ".bunch-of-icons",
+                m(
+                    "ul",
+                    allItems.map((item) => {
+                        return m(SocialNetworkItem, {
+                            tooltip: item.tooltip,
+                            link: item.link,
+                            logo: item.logo,
+                        });
+                    }),
+                ),
+            ),
+        ];
+    }
+}
 
 /** The big title and text about me. */
 class Intro implements m.ClassComponent {
@@ -346,7 +394,7 @@ export default function AboutPage(): m.Component {
                     m(
                         ".container",
                         m(".row", [
-                            m(".half.column", m(ContactForm)),
+                            m(".half.column", m(Contact)),
                             m(".half.column", [
                                 m(
                                     ".bunch-of-icons.yydchtxork",
