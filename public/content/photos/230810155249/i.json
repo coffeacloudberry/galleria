@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Huvkijávri panorama",
+        "fi": "Huvkijávri panoraama",
+        "fr": "Panorama de Huvkijávri"
+    },
+    "description": {
+        "en": "Looking toward the Norwegian mountains. The panorama combines 6 photos.",
+        "fi": "Katse kohti Norjan vuoria. Panoraama yhdistää 6 kuvaa.",
+        "fr": "Regard vers les montagnes norvégiennes. Le panorama est composé de 6 photos."
+    },
+    "position": {
+        "lat": 67.936268,
+        "lon": 17.983163
+    },
+    "story": "Hiking_Sarek",
+    "dateTaken": "2023-08-10T15:52:49",
+    "focalLength35mm": 104,
+    "exposureTime": "1/840",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 230810102623
+}
