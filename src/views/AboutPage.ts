@@ -26,6 +26,87 @@ import Icon from "./Icon";
 import { ModalSize, modal } from "./Modal";
 import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
 
+interface SocialNetworkItemAttrs {
+    /** Translated tooltip content as text. */
+    tooltip: string;
+
+    /** URL to social platform. */
+    link: string;
+
+    /** Crypto wallet address. */
+    address?: string;
+
+    /** Encoded icon. */
+    logo: string;
+}
+
+/** Wallet information. */
+const CryptoCode: m.Component<SocialNetworkItemAttrs> = {
+    view({ attrs }: m.Vnode<SocialNetworkItemAttrs>): m.Vnode | null {
+        if (!attrs.address) {
+            return null;
+        }
+        const [currency, address] = attrs.address.split(":");
+        return m(".text-center", [
+            m("img", { src: `/assets/qr_codes/${currency}.png` }),
+            m("p.address", [
+                m("input[type=text][readonly]", { value: address }),
+                m(
+                    "span.copy-button",
+                    {
+                        "data-tippy-content": t("copy"),
+                        "data-tippy-placement": "right",
+                        onclick: (e: Event): void => {
+                            e.preventDefault();
+                            if (address) {
+                                navigator.clipboard
+                                    .writeText(address)
+                                    .then((): void => {
+                                        toast(t("copied"));
+                                    });
+                            }
+                        },
+                    },
+                    m(Icon, { src: copyOutline }),
+                ),
+            ]),
+        ]);
+    },
+};
+
+/** One social platform. */
+export const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
+    view({ attrs }: m.Vnode<SocialNetworkItemAttrs>): m.Vnode {
+        return m(
+            "li",
+            {
+                "data-tippy-content": attrs.tooltip,
+            },
+            m(
+                "a.button-icon",
+                {
+                    href: attrs.link,
+                    rel: "me",
+                    onclick: (e: Event): void => {
+                        if (attrs.address) {
+                            e.preventDefault();
+                            modal({
+                                title: attrs.tooltip,
+                                content: {
+                                    view: () => {
+                                        return m(CryptoCode, attrs);
+                                    },
+                                },
+                            });
+                        }
+                    },
+                },
+                m(Icon, { src: attrs.logo }),
+            ),
+        );
+    },
+};
+
 export class Contact implements m.ClassComponent {
     view(): m.Vnode[] {
         const domain = location.hostname.split(".").slice(1).join(".");
@@ -164,87 +245,6 @@ const CopyrightNotice: m.Component = {
                 }),
             ),
         ];
-    },
-};
-
-interface SocialNetworkItemAttrs {
-    /** Translated tooltip content as text. */
-    tooltip: string;
-
-    /** URL to social platform. */
-    link: string;
-
-    /** Crypto wallet address. */
-    address?: string;
-
-    /** Encoded icon. */
-    logo: string;
-}
-
-/** Wallet information. */
-const CryptoCode: m.Component<SocialNetworkItemAttrs> = {
-    view({ attrs }: m.Vnode<SocialNetworkItemAttrs>): m.Vnode | null {
-        if (!attrs.address) {
-            return null;
-        }
-        const [currency, address] = attrs.address.split(":");
-        return m(".text-center", [
-            m("img", { src: `/assets/qr_codes/${currency}.png` }),
-            m("p.address", [
-                m("input[type=text][readonly]", { value: address }),
-                m(
-                    "span.copy-button",
-                    {
-                        "data-tippy-content": t("copy"),
-                        "data-tippy-placement": "right",
-                        onclick: (e: Event): void => {
-                            e.preventDefault();
-                            if (address) {
-                                navigator.clipboard
-                                    .writeText(address)
-                                    .then((): void => {
-                                        toast(t("copied"));
-                                    });
-                            }
-                        },
-                    },
-                    m(Icon, { src: copyOutline }),
-                ),
-            ]),
-        ]);
-    },
-};
-
-/** One social platform. */
-export const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
-    view({ attrs }: m.Vnode<SocialNetworkItemAttrs>): m.Vnode {
-        return m(
-            "li",
-            {
-                "data-tippy-content": attrs.tooltip,
-            },
-            m(
-                "a.button-icon",
-                {
-                    href: attrs.link,
-                    rel: "me",
-                    onclick: (e: Event): void => {
-                        if (attrs.address) {
-                            e.preventDefault();
-                            modal({
-                                title: attrs.tooltip,
-                                content: {
-                                    view: () => {
-                                        return m(CryptoCode, attrs);
-                                    },
-                                },
-                            });
-                        }
-                    },
-                },
-                m(Icon, { src: attrs.logo }),
-            ),
-        );
     },
 };
 
