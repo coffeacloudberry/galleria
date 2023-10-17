@@ -10,6 +10,12 @@
                 "ignoreStatic": true
             }
         ],
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "varsIgnorePattern": "^turf$|^mapboxgl$|^Chart$"
+            }
+        ],
         "max-len": [
             "error",
             {
