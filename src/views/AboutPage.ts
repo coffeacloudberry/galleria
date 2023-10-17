@@ -108,6 +108,7 @@ export const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
 };
 
 export class Contact implements m.ClassComponent {
+    // skipcq: JS-0105
     view(): m.Vnode[] {
         const domain = location.hostname.split(".").slice(1).join(".");
         const allItems = [
