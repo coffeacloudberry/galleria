@@ -1,7 +1,6 @@
 import logoCard from "@/icons/card-outline.svg";
 import logoCardRecurrent from "@/icons/card-recurrent-outline.svg";
 import copyOutline from "@/icons/copy-outline.svg";
-import logoBat from "@/icons/logo-bat.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoMonero from "@/icons/logo-monero.svg";
@@ -347,11 +346,6 @@ const Donate: m.Component = {
                 address:
                     "nano:nano_3i6d6o8k9ypczju6i1r6zrkrspqdp4wiuxtmt6acnuyxsscyju6nsk1yf3if",
                 logo: logoNano,
-            },
-            {
-                tooltip: t("donate-bat"),
-                link: "https://publishers.basicattentiontoken.org",
-                logo: logoBat,
             },
         ];
         return [

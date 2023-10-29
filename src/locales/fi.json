@@ -150,7 +150,6 @@
     "donate-zcash": "{{donate}} Zcashilla",
     "donate-monero": "{{donate}} Moneron avulla",
     "donate-nano": "{{donate}} Nanon kanssa",
-    "donate-bat": "{{donate}} Brave-selaimella",
     "donate-kofi": "Kertaluonteinen lahjoitus kortilla Ko-fi -alustalla",
     "donate-card": "Kertaluonteinen lahjoitus kortilla",
     "donate-recurrent": "Toistuva lahjoitus kortilla",
