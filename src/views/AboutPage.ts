@@ -29,7 +29,7 @@ interface SocialNetworkItemAttrs {
     /** Translated tooltip content as text. */
     tooltip: string;
 
-    /** URL to social platform. */
+    /** URL to a social platform. */
     link: string;
 
     /** Crypto wallet address. */
@@ -309,7 +309,7 @@ const SocialNetworks: m.Component = {
     },
 };
 
-/** Link to donation platform. */
+/** Link to donation platforms. */
 const Donate: m.Component = {
     view(): m.Vnode[] {
         const allItems = [
@@ -365,7 +365,6 @@ const Donate: m.Component = {
     },
 };
 
-/** About page including contact form. */
 export default function AboutPage(): m.Component {
     t.init();
     return {
