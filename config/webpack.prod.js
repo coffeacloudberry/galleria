@@ -10,23 +10,11 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
 const HumanstxtPlugin = require("./humanstxt-webpack-plugin");
-const SitemapPlugin = require("sitemap-webpack-plugin").default;
 const { merge } = require("webpack-merge");
 const paths = require("./paths");
 const common = require("./webpack.common.js");
 const GenerateWebLabelsPlugin = require("./generate-weblabels-webpack-plugin");
 const languages = require("../src/languages.json");
-const { readdirSync } = require("fs");
-const address = "https://www.explorewilder.com";
-const allStories = readdirSync(`${paths.build}/content/stories/`);
-const allPhotos = readdirSync(`${paths.build}/content/photos/`);
-const plainRoutes = [
-    "photo",
-    "stories",
-    "about",
-    ...allStories.map((storyId) => `story/${storyId}`),
-    ...allPhotos.map((photoId) => `photo/${photoId}`),
-];
 
 if (!("MAPBOX_ACCESS_TOKEN" in process.env)) {
     require("dotenv").config();
@@ -111,7 +99,6 @@ module.exports = merge(common, {
                     disallow: "/",
                 },
             ],
-            sitemap: `${address}/sitemap.xml`,
         }),
 
         new HumanstxtPlugin({
@@ -124,22 +111,6 @@ module.exports = merge(common, {
             languages: languages.map((key) => {
                 return key.name;
             }),
-        }),
-
-        new SitemapPlugin({
-            base: address,
-            options: {
-                skipgzip: true,
-                lastmod: new Date().toISOString().split("T")[0],
-                changefreq: "monthly",
-            },
-            paths: languages
-                .map((key) => {
-                    return plainRoutes.map((route) => {
-                        return `/#!/${key.slug}/${route}`;
-                    });
-                })
-                .flat(),
         }),
 
         new GenerateWebLabelsPlugin({}),
