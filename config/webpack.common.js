@@ -57,8 +57,6 @@ module.exports = {
              * SHOULD be domain name restricted in prod.
              */
             MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
-
-            IS_PROD: process.env.VERCEL_ENV === "production",
         }),
 
         // Removes/cleans build folders and unused assets when rebuilding
