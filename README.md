@@ -76,7 +76,7 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 2. Pull the environment variables: `vercel env pull`,
 3. Check that the *.env* file has been created,
 4. Run the server on port 3000: `vercel dev`,
-5. Visit the frontend at [localhost:3000](http://localhost:3000) or backend at [localhost:3000/api/health](http://localhost:3000/api/health).
+5. Visit the frontend at [localhost:3000](http://localhost:3000).
 
 Notes:
 
