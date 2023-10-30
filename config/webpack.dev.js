@@ -29,7 +29,6 @@ module.exports = merge(common, {
         compress: false,
         hot: true,
         port: 8080,
-        server: "https", // fix CORS issue when connecting to 3rd parties
     },
 
     module: {
