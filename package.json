@@ -54,7 +54,6 @@
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-json-es": "^1.5.7",
         "eslint-plugin-prettier": "^5.0.1",
-        "file-loader": "^6.2.0",
         "html-webpack-plugin": "^5.5.3",
         "import-sort-style-module": "^6.0.0",
         "mini-css-extract-plugin": "^2.7.6",
