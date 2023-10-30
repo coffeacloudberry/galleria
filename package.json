@@ -57,8 +57,6 @@
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^5.5.3",
         "import-sort-style-module": "^6.0.0",
-        "jsdom": "^22.1.0",
-        "jsdom-global": "^3.0.2",
         "mini-css-extract-plugin": "^2.7.6",
         "mocha": "^10.2.0",
         "postcss-sass": "^0.5.0",
