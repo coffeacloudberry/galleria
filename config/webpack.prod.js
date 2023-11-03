@@ -72,7 +72,7 @@ module.exports = merge(common, {
             policy: [
                 {
                     userAgent: "*",
-                    allow: "/",
+                    disallow: "/",
                 },
                 {
                     userAgent: "Googlebot",
