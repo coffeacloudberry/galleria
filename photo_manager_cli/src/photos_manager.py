@@ -1,15 +1,3 @@
-"""
-Manage the photos of my blog.
-
-Usage:
-python photos_manager.py add-photo --raw-file path/to/photo.tif --album-path /home/.../photos/
-python photos_manager.py generate-webp --album-path /home/.../photos/
-python photos_manager.py generate-social --album-path /home/.../photos/
-
-Notes:
-    If the metadata is missing from the TIF file, run `exiftool DSC_9201.tif -tagsFromFile DSC_9201.NEF -Orientation=`
-"""
-
 import datetime
 import json
 import os
