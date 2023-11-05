@@ -536,12 +536,15 @@ def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
 
     for dirname in all_photos:
         dirname = os.path.join(album_path, dirname)
-        input_image_path = os.path.join(dirname, guess_original(dirname))
+        input_image_path = None
         for curr_config in all_var_options:
             name = curr_config[0]
             webp_path = dirname + "/" + name + ".webp"
             if os.path.exists(webp_path):
                 continue  # TODO: invalidate existing generated WebP if older than original
+            if input_image_path is None:
+                # guess input file once per folder after checking WebP existence
+                input_image_path = os.path.join(dirname, guess_original(dirname))
             if name == "f":
                 original_size = get_image_size(input_image_path)
                 height_after_crop = round(
