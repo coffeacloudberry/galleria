@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Gentle Summer Breeze",
+        "fi": "Lempeä kesätuuli",
+        "fr": "Douce brise d'été"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 66.470818,
+        "lon": 17.091286
+    },
+    "story": "Hiking_Sarek",
+    "dateTaken": "2023-08-20T17:22:38",
+    "focalLength35mm": 50,
+    "exposureTime": "1/500",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 230819141217
+}

@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Thin Glacier",
+        "fi": "Ohut jäätikkö",
+        "fr": "Fin glacier"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 67.323479,
+        "lon": 17.564769
+    },
+    "story": "Hiking_Sarek",
+    "dateTaken": "2023-08-14T12:38:04",
+    "focalLength35mm": 42,
+    "exposureTime": "1/400",
+    "fNumber": 8,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 230814123620,
+    "next": 230814175057
+}
