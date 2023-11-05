@@ -48,7 +48,7 @@ class CameraPosition implements m.ClassComponent {
     /** Desktop URL to the OpenStreetMap map. */
     static buildOsmUrl(lat: number, lon: number): string {
         const baseUrl = "https://www.openstreetmap.org";
-        const params = `mlat=${lat}&mlon=${lon}#map=15/${lat}/${lon}&layers=C`;
+        const params = `mlat=${lat}&mlon=${lon}#map=15/${lat}/${lon}&layers=P`;
         return `${baseUrl}/?${params}`;
     }
 
