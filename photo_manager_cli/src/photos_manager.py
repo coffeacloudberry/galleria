@@ -648,11 +648,7 @@ def guess_original(dir_path: str) -> str:
     for file in os.listdir(dir_path):
         if os.path.isfile(os.path.join(dir_path, file)):
             for ext, priority in priorities:
-                if (
-                    len(file.split(".")) < 3
-                    and file.lower().endswith("." + ext)
-                    and priority > best_priority
-                ):
+                if file.lower().endswith("." + ext) and priority > best_priority:
                     best_priority, best_file = priority, file
     if best_file:
         return best_file
