@@ -93,7 +93,7 @@ class GlobalMapState {
     public readonly timeoutHiker = 1000;
 
     /** Ratio to apply on the actual PNG image sizes. */
-    public readonly makersRelSize = 0.3; // high-res
+    public readonly markersRelSize = 0.25; // high-res
 
     /** True if the mouse in the map canvas. */
     public mouseInsideMap = false;
@@ -142,7 +142,7 @@ class GlobalMapState {
             el,
             m("img", {
                 src: `/assets/map/${extraIcons[activity].source}.svg`,
-                style: `width: calc(128px * ${this.makersRelSize});`,
+                style: `width: calc(128px * ${this.markersRelSize});`,
             }),
         );
         const marker = new mapboxgl.Marker(el);

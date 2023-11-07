@@ -1,7 +1,7 @@
 import assert from "assert";
 import { readFile } from "fs";
 
-import WebTrack from "../../src/webtrack";
+import WebTrack, { WebTrackGeoJson } from "../../src/webtrack";
 
 let myWebTrack: WebTrack; // skipcq: JS-0309
 const pathFixtures1Seg = {
@@ -12,6 +12,24 @@ const pathFixtures3Segs = {
     webtrack: "webtrack_cli/tests/fixtures/Gillespie_Circuit_3segs.webtrack",
     geojson: "tests/unit/fixtures/Gillespie_Circuit_3segs.geojson",
 };
+
+/**
+ * Remove the custom key added for the rendering.
+ * @param obj The geoJSON payload.
+ */
+function cleaner(obj: Partial<WebTrackGeoJson & { notClustered: boolean }>) {
+    Object.keys(obj).forEach(function (key) {
+        if (key === "notClustered") {
+            delete obj[key];
+        } else {
+            // @ts-expect-error
+            const value = obj[key];
+            if (typeof value === "object") {
+                cleaner(value);
+            }
+        }
+    });
+}
 
 describe("WebTrack Parser (1 segment, 3 waypoints)", () => {
     it("should load buffer", (done) => {
@@ -43,6 +61,7 @@ describe("WebTrack Parser (1 segment, 3 waypoints)", () => {
             if (err) {
                 done(err);
             }
+            cleaner(geoJson);
             assert.deepStrictEqual(geoJson, JSON.parse(expectedGeoJson));
             done();
         });
@@ -94,6 +113,7 @@ describe("WebTrack Parser (3 segments, 4 waypoints)", () => {
             if (err) {
                 done(err);
             }
+            cleaner(geoJson);
             assert.deepStrictEqual(geoJson, JSON.parse(expectedGeoJson));
             done();
         });

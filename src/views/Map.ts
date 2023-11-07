@@ -328,6 +328,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             return;
         }
         const sym = String(feature.properties.sym);
+        const notClustered = "notClustered" in feature.properties;
         if (!(sym in extraIcons)) {
             warn.log(
                 // eslint-disable-next-line max-len
@@ -371,20 +372,62 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 }
 
                 globalMapState.map.addImage(source, image);
-                globalMapState.map.addLayer({
-                    id: source,
-                    type: "symbol",
-                    source: "webtrack",
-                    layout: {
-                        "icon-image": source,
-                        "icon-size": globalMapState.makersRelSize,
-                    },
-                    filter: [
-                        "all",
-                        ["==", "$type", "Point"],
-                        ["==", "sym", sym],
-                    ],
-                });
+                if (notClustered) {
+                    globalMapState.map.addLayer({
+                        id: source,
+                        type: "symbol",
+                        source: "not-clustered",
+                        layout: {
+                            "icon-image": source,
+                            "icon-size": globalMapState.markersRelSize,
+                            "icon-allow-overlap": true,
+                            "icon-ignore-placement": true,
+                        },
+                        filter: [
+                            "all",
+                            ["==", "$type", "Point"],
+                            ["==", "sym", sym],
+                        ],
+                    });
+                } else {
+                    globalMapState.map.addLayer({
+                        id: `clusters-${source}`,
+                        type: "circle",
+                        source: "webtrack",
+                        filter: ["has", "point_count"],
+                        paint: {
+                            "circle-color": "#f4f4e6",
+                            "circle-radius": 12,
+                        },
+                    });
+                    globalMapState.map.addLayer({
+                        id: `cluster-count-${source}`,
+                        type: "symbol",
+                        source: "webtrack",
+                        filter: ["has", "point_count"],
+                        layout: {
+                            "text-field": ["get", "point_count_abbreviated"],
+                            "text-font": ["Asap Medium"],
+                            "text-size": 14,
+                        },
+                    });
+                    globalMapState.map.addLayer({
+                        id: source,
+                        type: "symbol",
+                        source: "webtrack",
+                        layout: {
+                            "icon-image": source,
+                            "icon-size": globalMapState.markersRelSize,
+                            "icon-allow-overlap": true,
+                            "icon-ignore-placement": true,
+                        },
+                        filter: [
+                            "all",
+                            ["==", "$type", "Point"],
+                            ["==", "sym", sym],
+                        ],
+                    });
+                }
 
                 globalMapState.map.on("mouseenter", source, (e: MouseEvent) => {
                     this.markerOnMouseEnter(e);
@@ -452,7 +495,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             url: "mapbox://mapbox.mapbox-terrain-dem-v1",
             tileSize: 512,
 
-            // fine-tuning to get most details and avoid the stairs effect
+            // fine-tuning to get most details and avoid the stair effect
             maxzoom: hasPreciseDem ? 14 : 7,
         });
 
@@ -465,13 +508,21 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         globalMapState.map.addSource("webtrack", {
             type: "geojson",
             data,
+            cluster: true,
             tolerance: 0, // simplification is done at the source (simplified dataset)
+            filter: ["!", ["has", "notClustered"]],
+        });
+
+        globalMapState.map.addSource("not-clustered", {
+            type: "geojson",
+            data,
+            filter: ["has", "notClustered"],
         });
 
         globalMapState.map.addLayer({
             id: "tracks",
             type: "line",
-            source: "webtrack",
+            source: "not-clustered",
             layout: {
                 "line-join": ["step", ["zoom"], "miter", 14, "bevel"],
                 "line-cap": "round",
@@ -612,14 +663,46 @@ export default class Map implements m.ClassComponent<MapAttrs> {
                 globalMapState.map.addSource("camera", {
                     type: "geojson",
                     data,
+                    cluster: true,
+                });
+                globalMapState.map.addLayer({
+                    id: `clusters-${source}`,
+                    // use circles to force visibility because
+                    // symbols are hidden if colliding to each-other
+                    type: "circle",
+                    source: "camera",
+                    filter: ["has", "point_count"],
+                    paint: {
+                        // main color of the camera icon
+                        "circle-color": "#f8b62b",
+                        "circle-radius": [
+                            "step",
+                            ["get", "point_count"],
+                            12, // 12px circles if less than 10 photos
+                            10,
+                            17, // 17px circles if 10 or more photos
+                        ],
+                    },
+                });
+                globalMapState.map.addLayer({
+                    id: `cluster-count-${source}`,
+                    type: "symbol",
+                    source: "camera",
+                    filter: ["has", "point_count"],
+                    layout: {
+                        "text-field": ["get", "point_count_abbreviated"],
+                        "text-font": ["Asap Medium"],
+                        "text-size": 14,
+                    },
                 });
                 globalMapState.map.addLayer({
                     id: source,
                     type: "symbol",
                     source: "camera",
+                    filter: ["!", ["has", "point_count"]],
                     layout: {
                         "icon-image": source,
-                        "icon-size": globalMapState.makersRelSize,
+                        "icon-size": globalMapState.markersRelSize,
                     },
                 });
 

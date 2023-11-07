@@ -261,7 +261,10 @@ export default class WebTrack {
                     type: "LineString",
                     coordinates: points.map((p) => [p[0], p[1]]),
                 },
-                properties: { activity },
+                properties: {
+                    activity,
+                    notClustered: true,
+                },
             });
         }
 
@@ -275,6 +278,7 @@ export default class WebTrack {
             },
             properties: {
                 sym: "First Point",
+                notClustered: true,
             },
         });
 
@@ -290,6 +294,7 @@ export default class WebTrack {
             },
             properties: {
                 sym: "Last Point",
+                notClustered: true,
             },
         });
 
