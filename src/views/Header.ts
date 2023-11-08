@@ -71,26 +71,24 @@ class LanguageSelection extends InteractiveTippy<MainMenuAttrs> {
     }
 }
 
-interface OpenPhotoAttrs {
+interface OpenAttrs {
     title: string;
 }
 
-const OpenPhoto: m.Component<OpenPhotoAttrs> = {
-    view({ attrs }: m.Vnode<OpenPhotoAttrs>) {
+const OpenPhoto: m.Component<OpenAttrs> = {
+    view() {
         const photoPath = story.getPhotoPath();
         return m(
             m.route.Link,
             {
                 href: photoPath ?? "/",
                 class: "nav-item",
-                "data-tippy-content": photoPath
-                    ? t("story.open-photo.tooltip")
-                    : t("story.open-any-photo.tooltip"),
+                "data-tippy-content": t("story.open-any-photo.tooltip"),
             },
             [
                 m("span.long-item", [
-                    m(Icon, { src: imageOutline }),
-                    attrs.title && m("span.ml-3", attrs.title),
+                    m("span.mr-3", t("story-to-photo")),
+                    m(Icon, { src: ellipsisHorizontal }),
                 ]),
                 m("span.short-item", m(Icon, { src: imageOutline })),
             ],
@@ -98,12 +96,8 @@ const OpenPhoto: m.Component<OpenPhotoAttrs> = {
     },
 };
 
-interface OpenStoryAttrs {
-    title: string;
-}
-
-const OpenStory: m.Component<OpenStoryAttrs> = {
-    view({ attrs }: m.Vnode<OpenStoryAttrs>) {
+const OpenStory: m.Component<OpenAttrs> = {
+    view({ attrs }: m.Vnode<OpenAttrs>) {
         const storyPath = photo.getStoryPath();
         return (
             storyPath &&
@@ -190,7 +184,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
     // skipcq: JS-0105
     view({ attrs }: m.CVnode<HeaderAttrs>): m.Vnode {
         // skipcq: JS-0309
-        let centeredNav: m.Vnode<OpenPhotoAttrs | OpenStoryAttrs> | null;
+        let centeredNav: m.Vnode<OpenAttrs> | null;
         let photoTitle = null;
 
         switch (attrs.refPage) {
