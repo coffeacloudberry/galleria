@@ -128,15 +128,20 @@ class GlobalMapState {
      * @param activity The icon depends on the activity.
      */
     loadMovingMarker(activity: Activity): Marker {
+        const previousActivity = this.currentActivity;
+        if (
+            previousActivity &&
+            previousActivity !== activity &&
+            previousActivity in this.allMovingMarkers
+        ) {
+            this.allMovingMarkers[previousActivity].remove();
+        }
+        this.currentActivity = activity;
+        // return the marker if already loaded
         if (activity in this.allMovingMarkers) {
-            if (this.currentActivity !== activity) {
-                if (this.currentActivity) {
-                    this.allMovingMarkers[this.currentActivity].remove();
-                }
-                this.currentActivity = activity;
-            }
             return this.allMovingMarkers[activity];
         }
+        // otherwise, create and return the new marker
         const el = document.createElement("div");
         m.render(
             el,
