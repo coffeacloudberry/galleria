@@ -15,6 +15,7 @@ import logoMatrix from "@/icons/logo-matrix.svg";
 import logoThreema from "@/icons/logo-threema.svg";
 import logoXmpp from "@/icons/logo-xmpp.svg";
 import logoMail from "@/icons/mail-outline.svg";
+import newspaperOutline from "@/icons/newspaper-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
@@ -291,6 +292,11 @@ const SocialNetworks: m.Component = {
                 tooltip: "Odysee",
                 link: "https://odysee.com/@ExploreWilder:b",
                 logo: logoOdysee,
+            },
+            {
+                tooltip: "Blog",
+                link: "https://blog.explorewilder.com",
+                logo: newspaperOutline,
             },
         ];
         return [
