@@ -1,0 +1,13 @@
+{
+    "start": "2023-10-20",
+    "duration": 3,
+    "season": "autumn",
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        }
+    ]
+}
