@@ -21,6 +21,10 @@
                     "value": "default-src 'none'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://api.mapbox.com https://cdnjs.cloudflare.com https://unpkg.com; connect-src 'self' https://api.mapbox.com; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://api.mapbox.com; font-src 'self' data:; worker-src blob:; child-src blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
                 },
                 {
+                    "key": "Permissions-Policy",
+                    "value": "geolocation=(), camera=(), microphone=()"
+                },
+                {
                     "key": "Referrer-Policy",
                     "value": "strict-origin"
                 },
