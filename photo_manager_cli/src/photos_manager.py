@@ -369,7 +369,12 @@ def cli_add_photo():
     prompt="RAW file",
     help="RAW file. Other files starting with the same name will be copied. Export to TIF beforehand.",
 )
-def add_photo(album_path: str, raw_file: str) -> None:
+@click.option(
+    "--cwebp-path",
+    required=False,
+    help="Path to the cwebp command of libwebp.",
+)
+def add_photo(album_path: str, raw_file: str, cwebp_path: Optional[str]) -> None:
     """Add one photo to the album."""
     if not os.path.exists(raw_file):
         click.echo("RAW file does not exist.", err=True)
@@ -443,20 +448,10 @@ def add_photo(album_path: str, raw_file: str) -> None:
 
     update_neighbor("next", prev_photo)
     update_neighbor("prev", next_photo)
+    generate_social(album_path)
+    generate_webp(album_path, cwebp_path)
 
 
-@click.group()
-def cli_generate_social():
-    pass
-
-
-@cli_generate_social.command()
-@click.option(
-    "--album-path",
-    required=True,
-    prompt="Path to current photos",
-    help="Path to the photos already existing in the blog.",
-)
 def generate_social(album_path: str) -> None:
     all_photos = [
         dirname
@@ -483,23 +478,6 @@ def generate_social(album_path: str) -> None:
         click.echo(f"Generated {output_image_path}")
 
 
-@click.group()
-def cli_generate_webp():
-    pass
-
-
-@cli_generate_webp.command()
-@click.option(
-    "--album-path",
-    required=True,
-    prompt="Path to current photos",
-    help="Path to the photos already existing in the blog.",
-)
-@click.option(
-    "--cwebp-path",
-    required=False,
-    help="Path to the cwebp command of libwebp.",
-)
 def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
     if not cwebp_path:
         local_lib = WebPUpdater.get_latest_downloaded()
@@ -655,7 +633,7 @@ def guess_original(dir_path: str) -> str:
     raise FileNotFoundError(f"Missing original photo in `{dir_path}'")
 
 
-cli = click.CommandCollection(sources=[cli_add_photo, cli_generate_social, cli_generate_webp])
+cli = click.CommandCollection(sources=[cli_add_photo,])
 
 if __name__ == "__main__":
     cli()

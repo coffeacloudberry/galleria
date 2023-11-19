@@ -8,8 +8,6 @@ Notice that the WebP converted does not read the Exif orientation metadata, so t
 
 ```sh
 python photos_manager.py add-photo --raw-file path/to/photo.tif --album-path /home/.../photos/
-python photos_manager.py generate-webp --album-path /home/.../photos/
-python photos_manager.py generate-social --album-path /home/.../photos/
 ```
 
 ## Notes
