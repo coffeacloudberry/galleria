@@ -207,104 +207,88 @@ class WebPUpdater:
         return latest_release
 
 
-def get_image_exif(path: str) -> List:
-    """
-    Get EXIF data.
-
-    Args:
-        path (str): Path to the image (tiff or jpg).
-
-    Returns:
-        (date taken in a datetime format or None if not available, focal length
-        35mm-format as integer or None if not available, exposure time as a
-        formatted string in seconds or None if not available, f-number ratio as
-        float or None if not available, ISO as integer or None if not available,
-        camera body model as string or None, lens model name as string or None,
-        computational mode as string or None)
-    """
+def body_lens_model_exif(d) -> Tuple[str, str]:
     lens_model: Union[str, None] = None
-    body_model: Union[str, None] = None
-    date_taken: Union[datetime.datetime, None] = None
-    focal_length_35mm: Union[int, None] = None
-    exposure_time_s: Union[str, None] = None
-    f_number: Union[float, None] = None
-    iso: Union[int, None] = None
-    computational_mode: Union[str, None] = None
-    with exiftool.ExifToolHelper() as et:
-        for d in et.get_metadata(path):
-            try:
-                maker = d["EXIF:Make"]
-            except KeyError:
-                continue
-            try:
-                field1, field2, field3 = "Composite:LensID", "MakerNotes:LensType", "MakerNotes:LensModel"
-                if field1 in d and d[field1] in LENS_IDS[maker]:
-                    lens_model = LENS_IDS[maker][d[field1]]
-                elif field2 in d and d[field2] in LENS_IDS[maker]:
-                    lens_model = LENS_IDS[maker][d[field2]]
-                elif d[field3]:
-                    lens_model = d[field3]
-            except KeyError:
-                pass
-            try:
-                body_model = d["EXIF:Model"]
-                # Nikon: NIKON D7100
-                # OM Digital Solutions: OM-5 (the manufacturer is in the EXIF:Make field)
-                if body_model and " " not in body_model:
-                    body_model = f"{maker} {body_model}"
-            except KeyError:
-                pass
-            try:
-                date_taken = datetime.datetime.strptime(
-                    d["EXIF:DateTimeOriginal"], "%Y:%m:%d %H:%M:%S"
-                )
-            except KeyError:
-                pass
-            try:
-                focal_length_35mm = round(d["EXIF:FocalLengthIn35mmFormat"])
-            except KeyError:
-                try:
-                    focal_length = d["EXIF:FocalLength"]
-                    diagonal = d["MakerNotes:FocalPlaneDiagonal"]
-                    focal_length_35mm = round(
-                        focal_length * FOCAL_PLANE_DIAGONAL_FULL_FRAME / diagonal
-                    )
-                except KeyError:
-                    pass
-            try:
-                exposure_time_s = str(
-                    Fraction(d["EXIF:ExposureTime"]).limit_denominator()
-                )
-            except KeyError:
-                pass
-            try:
-                f_number = d["EXIF:FNumber"]
-            except KeyError:
-                pass
-            try:
-                iso = d["EXIF:ISO"]
-            except KeyError:
-                pass
-            try:
-                coded_mode = d["MakerNotes:StackedImage"]
-                computational_group, computational_detail = coded_mode.split(" ")
-                h_group = COMPUTATIONAL_MODE[computational_group]
-                if isinstance(h_group, dict):
-                    computational_mode = h_group[computational_detail]
-                else:
-                    computational_mode = h_group
-            except KeyError:
-                pass
-    return [
-        date_taken,
-        focal_length_35mm,
-        exposure_time_s,
-        f_number,
-        iso,
-        body_model,
-        lens_model,
-        computational_mode,
-    ]
+    try:
+        maker = d["EXIF:Make"]
+    except KeyError as err:
+        raise KeyError("Missing camera info") from err
+    try:
+        field1, field2, field3 = "Composite:LensID", "MakerNotes:LensType", "MakerNotes:LensModel"
+        if field1 in d and d[field1] in LENS_IDS[maker]:
+            lens_model = LENS_IDS[maker][d[field1]]
+        elif field2 in d and d[field2] in LENS_IDS[maker]:
+            lens_model = LENS_IDS[maker][d[field2]]
+        elif d[field3]:
+            lens_model = d[field3]
+    except KeyError as err:
+        raise KeyError("Missing lens info") from err
+    if not lens_model:
+        raise KeyError("Missing lens info")
+    try:
+        body_model = d["EXIF:Model"]
+        if body_model and " " not in body_model:
+            body_model = f"{maker} {body_model}"
+    except KeyError as err:
+        raise KeyError("Missing camera body info") from err
+    if not body_model:
+        raise KeyError("Missing camera body info")
+    return body_model, lens_model
+
+
+def date_taken_exif(d) -> datetime.datetime:
+    try:
+        exif_tag = d["EXIF:DateTimeOriginal"]
+        return datetime.datetime.strptime(exif_tag, "%Y:%m:%d %H:%M:%S")
+    except KeyError as err:
+        raise KeyError("Missing date taken") from err
+
+
+def focal_length_35mm_exif(d) -> int:
+    try:
+        return round(d["EXIF:FocalLengthIn35mmFormat"])
+    except KeyError:
+        try:
+            focal_length = d["EXIF:FocalLength"]
+            diagonal = d["MakerNotes:FocalPlaneDiagonal"]
+            return round(focal_length * FOCAL_PLANE_DIAGONAL_FULL_FRAME / diagonal)
+        except KeyError as err:
+            raise KeyError("Missing focal length") from err
+
+
+def exposure_time_s_exif(d) -> str:
+    try:
+        exif_tag = d["EXIF:ExposureTime"]
+        return str(Fraction(exif_tag).limit_denominator())
+    except KeyError as err:
+        raise KeyError("Missing exposure time") from err
+
+
+def f_number_exif(d) -> float:
+    try:
+        return d["EXIF:FNumber"]
+    except KeyError as err:
+        raise KeyError("Missing F-number") from err
+
+
+def iso_exif(d) -> int:
+    try:
+        return d["EXIF:ISO"]
+    except KeyError as err:
+        raise KeyError("Missing ISO") from err
+
+
+def computational_mode_exif(d) -> Optional[str]:
+    try:
+        coded_mode = d["MakerNotes:StackedImage"]
+        computational_group, computational_detail = coded_mode.split(" ")
+        h_group = COMPUTATIONAL_MODE[computational_group]
+        if isinstance(h_group, dict):
+            return h_group[computational_detail]
+        else:
+            return h_group
+    except KeyError:
+        return None
 
 
 def get_image_size(path: str) -> Tuple[int, int]:
@@ -379,16 +363,21 @@ def add_photo(album_path: str, raw_file: str, cwebp_path: Optional[str]) -> None
     if not os.path.exists(raw_file):
         click.echo("RAW file does not exist.", err=True)
         return
-    exif = get_image_exif(raw_file)
+    d = exiftool.ExifToolHelper().get_metadata(raw_file)[0]
+    body_model, lens_model = body_lens_model_exif(d)
+    exif = [
+        date_taken_exif(d),
+        focal_length_35mm_exif(d),
+        exposure_time_s_exif(d),
+        f_number_exif(d),
+        iso_exif(d),
+        body_model,
+        lens_model,
+        computational_mode_exif(d),
+    ]
 
     # find the date taken that will be the folder name
-    date_taken = exif[0]
-    dir_format = "%y%m%d%H%M%S"
-    if date_taken:
-        dirname = date_taken.strftime(dir_format)
-    else:
-        dirname = click.prompt("When the photo has been taken? (format=YYMMDDhhmmss)")
-        exif[0] = datetime.datetime.strptime(dirname, dir_format)
+    dirname = exif[0].strftime("%y%m%d%H%M%S")
 
     # find the position where the photo will be dropped on the album
     all_existing_photos_list_list = [
