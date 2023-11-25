@@ -180,9 +180,9 @@ export function myChartConfig(
                     borderWidth: 1,
                     yAlign: "bottom",
                     caretSize: 10,
-                    caretPadding: 10, // above the cross pointer
+                    caretPadding: 10, // above the cross-pointer
                     bodyFont: {
-                        family: "MyBoldFont",
+                        weight: "bold",
                         size: 14,
                     },
                 },
