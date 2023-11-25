@@ -1,4 +1,4 @@
-# Ile Stewart / Rakiura
+# Île Stewart / Rakiura
 
 J'ai empaqueté tout mon matériel de rando et me suis envolé pour Queenstown avec un ATR72 et j'ai fait du stop jusqu'à Bluff pour le Ferry après une courte marche sur la marche du Millenium / Foveaux et une pause dans le bar du phare, 30 Gore St. Cet endroit est plus qu'un café sympa, c'est une grande salle d'exposition de photos et d'artisanat d'art. Arrivé à l'ile Stewart / Rakiura, j'ai pris un café avec une fille rencontrée dans le ferry et j'ai commencé seul ma randonnée vers le refuge Bungaree.
 
