@@ -5,7 +5,9 @@ from webtrack_cli.src.gpx_to_webtrack import good_webtrack_version
 from webtrack_cli.src.gpx_to_webtrack import gpx_to_webtrack_with_elevation
 from webtrack_cli.src.gpx_to_webtrack import gpx_to_webtrack_without_elevation
 
+WEBTRACK_OUT = "Gillespie_Circuit.webtrack"
 FIXTURES = os.path.join(os.path.dirname(__file__), "fixtures")
+WEBTRACK_IN = os.path.join(FIXTURES, WEBTRACK_OUT)
 
 
 def test_gpx_to_webtrack_without_elevation_1seg_without_activity():
@@ -15,11 +17,9 @@ def test_gpx_to_webtrack_without_elevation_1seg_without_activity():
     No activity is specified in the track description.
     """
     gpx_file = os.path.join(FIXTURES, "Gillespie_Circuit.gpx")
-    generated_webtrack_file = "Gillespie_Circuit.webtrack"
-    expected_webtrack_file = os.path.join(FIXTURES, "Gillespie_Circuit.webtrack")
-    gpx_to_webtrack_without_elevation(gpx_file, generated_webtrack_file, False, False)
-    assert cmp(generated_webtrack_file, expected_webtrack_file)
-    os.remove(generated_webtrack_file)
+    gpx_to_webtrack_without_elevation(gpx_file, WEBTRACK_OUT, False, False)
+    assert cmp(WEBTRACK_OUT, WEBTRACK_IN)
+    os.remove(WEBTRACK_OUT)
 
 
 def test_gpx_to_webtrack_without_elevation_1seg_with_activity():
@@ -103,5 +103,4 @@ def test_waypoints_snapped_to_track():
 
 def test_good_webtrack_version():
     """Check the read capability."""
-    expected_webtrack_file = os.path.join(FIXTURES, "Gillespie_Circuit.webtrack")
-    assert good_webtrack_version(expected_webtrack_file)
+    assert good_webtrack_version(WEBTRACK_IN)
