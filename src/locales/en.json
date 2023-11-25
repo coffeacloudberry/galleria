@@ -124,7 +124,9 @@
         "winter": "Winter",
         "spring": "Spring",
         "summer": "Summer",
-        "autumn": "Autumn"
+        "autumn": "Autumn",
+        "rainy": "Rainy season",
+        "dry": "Dry season"
     },
     "mapbox": {
         "FullscreenControl.Enter": "Enter fullscreen",

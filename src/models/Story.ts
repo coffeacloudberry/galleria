@@ -19,6 +19,8 @@ enum Season {
     spring,
     summer,
     autumn,
+    rainy,
+    dry,
 }
 
 export type SeasonStrings = keyof typeof Season;

@@ -124,7 +124,9 @@
         "winter": "Hiver",
         "spring": "Printemps",
         "summer": "Été",
-        "autumn": "Automne"
+        "autumn": "Automne",
+        "rainy": "Saison des pluies",
+        "dry": "Saison sèche"
     },
     "mapbox": {
         "FullscreenControl.Enter": "Entrer en mode plein écran",

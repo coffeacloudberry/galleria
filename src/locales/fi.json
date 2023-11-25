@@ -124,7 +124,9 @@
         "winter": "Talvi",
         "spring": "Kevät",
         "summer": "Kesä",
-        "autumn": "Syksy"
+        "autumn": "Syksy",
+        "rainy": "Sateinen kausi",
+        "dry": "Kuiva kausi"
     },
     "mapbox": {
         "FullscreenControl.Enter": "Siirry koko näyttöön",
