@@ -18,9 +18,9 @@ const pathFixtures3Segs = {
  * @param obj The geoJSON payload.
  */
 function cleaner(obj: Partial<WebTrackGeoJson & { notClustered: boolean }>) {
-    Object.keys(obj).forEach(function (key) {
+    Object.keys(obj).forEach((key) => {
         if (key === "notClustered") {
-            delete obj[key];
+            delete obj.notClustered;
         } else {
             // @ts-expect-error
             const value = obj[key];
