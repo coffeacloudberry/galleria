@@ -78,6 +78,7 @@ interface OpenAttrs {
 const OpenPhoto: m.Component<OpenAttrs> = {
     view() {
         const photoPath = story.getPhotoPath();
+        const ref = photoPath ? "photo" : "gallery";
         return m(
             m.route.Link,
             {
@@ -87,7 +88,7 @@ const OpenPhoto: m.Component<OpenAttrs> = {
             },
             [
                 m("span.long-item", [
-                    m("span.mr-3", t("story-to-photo")),
+                    m("span.mr-3", t(`story-to-${ref}`)),
                     m(Icon, { src: ellipsisHorizontal }),
                 ]),
                 m("span.short-item", m(Icon, { src: imageOutline })),
