@@ -60,8 +60,8 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
                       }`,
                   ),
               ]
-            : [m("span"), m(".total-photo", m("span"))];
-        // the `span` are to avoid moving blocks on load
+            : [m("span"), m(".total-photo")];
+        // the `span` is to avoid moving blocks onload
     }
 }
 
