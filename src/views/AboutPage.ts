@@ -294,7 +294,7 @@ const SocialNetworks: m.Component = {
                 logo: logoOdysee,
             },
             {
-                tooltip: "Blog",
+                tooltip: t("blog"),
                 link: "https://blog.explorewilder.com",
                 logo: newspaperOutline,
             },
