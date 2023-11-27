@@ -97,6 +97,10 @@
     },
     "story.start": "Start Date: ",
     "story.duration": "Duration: ",
+    "photos": {
+        "1": "1 photo",
+        "n": "{n} photos"
+    },
     "days": {
         "1": "1 day",
         "n": "{n} days"

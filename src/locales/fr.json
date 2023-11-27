@@ -97,6 +97,10 @@
     },
     "story.start": "Date du départ : ",
     "story.duration": "Durée : ",
+    "photos": {
+        "1": "1 photo",
+        "n": "{n} photos"
+    },
     "days": {
         "1": "1 jour",
         "n": "{n} jours"

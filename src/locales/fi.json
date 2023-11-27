@@ -97,6 +97,10 @@
     },
     "story.start": "Aloituspäivä: ",
     "story.duration": "Kesto: ",
+    "photos": {
+        "1": "1 kuva",
+        "n": "{n} kuvaa"
+    },
     "days": {
         "1": "1 päivää",
         "n": "{n} päivät"

@@ -53,12 +53,7 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
                           height: 200,
                       }),
                   ),
-                  m(
-                      ".total-photo",
-                      `${String(attrs.metadata.totalPhotos)} photo${
-                          attrs.metadata.totalPhotos > 1 ? "s" : ""
-                      }`,
-                  ),
+                  m(".total-photo", t("photos", attrs.metadata.totalPhotos)),
               ]
             : [m("span"), m(".total-photo")];
         // the `span` is to avoid moving blocks onload
