@@ -311,6 +311,7 @@ export class Story {
         this.originPhotoMeta = null;
         this.geocodedPhotos = null;
         this.folderName = folderName;
+        m.redraw();
         Story.getStoryTitleContent(folderName)
             .then((result) => {
                 this.title = result.title;

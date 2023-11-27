@@ -101,10 +101,6 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
     }
 }
 
-interface MapAttrs {
-    storyId: string;
-}
-
 /**
  * Load a map and its dependencies (Mapbox GL JS) on the fly
  * to avoid waiting for huge bundles before displaying the page.
@@ -115,7 +111,7 @@ interface MapAttrs {
  * JS would be dramatically worse than expected (e.g. a software
  * WebGL renderer would be used).
  */
-export default class Map implements m.ClassComponent<MapAttrs> {
+export default class Map implements m.ClassComponent {
     /** True if the style has never been loaded. */
     firstLoad = true;
 
@@ -573,7 +569,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
 
     /** Load sources and layers when the map is ready. */
     loadMap(): void {
-        if (this.storyId === undefined) {
+        if (!story.folderName) {
             return;
         }
 
@@ -581,7 +577,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             method: "GET",
             url: "/content/stories/:storyId/:storyId.webtrack",
             params: {
-                storyId: this.storyId,
+                storyId: story.folderName,
             },
             responseType: "arraybuffer",
         })
@@ -591,7 +587,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
             .catch((err: Error) => {
                 error.log(
                     `Failed to fetch WebTrack from story '${
-                        this.storyId ? this.storyId : "???"
+                        story.folderName ? story.folderName : "???"
                     }'`,
                     err,
                 );
@@ -728,8 +724,7 @@ export default class Map implements m.ClassComponent<MapAttrs> {
         this.addPhotos();
     }
 
-    oncreate({ dom, attrs }: m.CVnodeDOM<MapAttrs>): void {
-        this.storyId = attrs.storyId;
+    oncreate({ dom }: m.CVnodeDOM): void {
         if (isCanvasBlocked()) {
             globalMapState.mapLoadFailure = true;
             m.render(

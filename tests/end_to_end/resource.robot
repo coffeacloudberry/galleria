@@ -7,7 +7,7 @@ Library           String
 ${SERVER}         localhost:8080
 ${BROWSER}        Firefox
 ${DELAY}          0
-${LANDING URL}    https://${SERVER}/
+${LANDING URL}    http://${SERVER}/
 
 *** Keywords ***
 Small Window

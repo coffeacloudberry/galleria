@@ -95,7 +95,7 @@ const GeoData: m.Component = {
             m(StatsComponent),
             globalMapState.hasElevation && m(ChartContainer),
             m(".map-extra", [
-                m(Map, { storyId: getStoryId() }),
+                m(Map),
                 !globalMapState.mapLoadFailure && m(MapAttributions),
             ]),
         ]);
@@ -118,7 +118,7 @@ function onShowStoryTippy(instance: TippyInstance) {
     const defaultText = t("photo.open-story.tooltip");
 
     // The story is fetched only once and stored in a list.
-    // So there can be many call to this function, but only one XHR request
+    // So there can be many calls to this function, but only one XHR request
     // per story.
     allStories
         .loadOneStory(storyId)
