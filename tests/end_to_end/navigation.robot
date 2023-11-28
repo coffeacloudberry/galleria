@@ -16,7 +16,7 @@ Valid Photo Story About Navigation
     About Page Should Be Open
     Go Back
     Story Page Should Be Open
-    Click Link    xpath://a[@data-tippy-content="See the photography"]
+    Click Link    xpath://a[@data-tippy-content="See the gallery"]
     Landing Page Should Be Open
     [Teardown]    Close Browser
 

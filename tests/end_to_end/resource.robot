@@ -45,8 +45,13 @@ Wait For Loading Photo
     Wait For Loading Content
     Landing Page Should Be Open
 
-Go From Content To About Page
+Over Main Menu
     Mouse Over    id:rf-menu
+    Wait Until Element Is Visible    class:menu-item
+
+Go From Content To About Page
+    Mouse Out     class:nav-item
+    Over Main Menu
     Click Link    partial link:About
 
 Switch Language

@@ -14,23 +14,28 @@ Valid Dynamic Translation Updates And Retention
     Open Browser To Landing Page
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Read the story"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="About"]
+    Over Main Menu
+    Element Should Be Visible        xpath://a[text()="About"]
     Switch Language                  Français
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Lire l'aventure"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="À propos"]
+    Over Main Menu
+    Element Should Be Visible        xpath://a[text()="À propos"]
     Switch Language                  Suomi
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Lue tarina"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="Tietoja"]
+    Over Main Menu
+    Element Should Be Visible        xpath://a[text()="Tietoja"]
     Switch Language                  English
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Read the story"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="About"]
+    Over Main Menu
+    Element Should Be Visible        xpath://a[text()="About"]
     Switch Language                  Français
     Page Should Be Translated
     Element Should Be Visible        xpath://a[@data-tippy-content="Lire l'aventure"]
-    Element Should Be Visible        xpath://a[contains(@href, "/about")]//span//strong[text()="À propos"]
+    Over Main Menu
+    Element Should Be Visible        xpath://a[text()="À propos"]
     Click Link                       partial link:À propos
     Page Should Be Translated
     [Teardown]    Close Browser
