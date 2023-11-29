@@ -16,7 +16,7 @@
             /* Only thumbnails are faded-in because animations on large images are not really smooth. */
             animation: fade-in 0.3s ease
         text-align: center
-        @media (min-width: $container-column-threshold)
+        @media (min-width: 1024px)
             text-align: right
             img, span
                 /* align to the letters' top */
@@ -30,5 +30,5 @@
         font-size: 0.9rem
     .story-preview
         height: 450px /* enough space to handle small screens, fixed for helping scroll back */
-        @media (min-width: $container-column-threshold)
+        @media (min-width: 1024px)
             height: calc(2 * #{$p-vertical-margin} * #{$text-line-height} + 200px)

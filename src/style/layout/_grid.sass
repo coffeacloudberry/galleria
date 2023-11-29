@@ -27,17 +27,17 @@
         padding: 0 calc(#{$block-space} / 2)
 
 .container
-    @media (min-width: $container-column-threshold)
+    @media (min-width: 1024px)
         .one
             width: 100%
         .half
             width: calc(100% / 2)
         .one-third
-            width: calc(100% / 3)
+            width: 300px
         .one-fourth
             width: calc(100% / 4)
         .two-thirds
-            width: calc(100% / 3 * 2)
+            width: calc(#{$container-column-threshold} - 300px - 4 * #{$block-space})
         .column
             float: left
         .column-right
