@@ -29,6 +29,11 @@ module.exports = merge(common, {
         compress: false,
         hot: true,
         port: 8080,
+        client: {
+            overlay: {
+                runtimeErrors: false,
+            },
+        },
     },
 
     module: {
