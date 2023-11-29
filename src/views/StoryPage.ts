@@ -89,16 +89,20 @@ const StoryTitle: m.Component = {
 };
 
 const GeoData: m.Component = {
-    view(): m.Vnode {
-        return m(".one.column", [
-            m("hr"),
-            m(StatsComponent),
-            globalMapState.hasElevation && m(ChartContainer),
-            m(".map-extra", [
-                m(Map),
-                !globalMapState.mapLoadFailure && m(MapAttributions),
+    view(): m.Vnode[] {
+        return [
+            m(
+                ".container",
+                m(".row", m(".one.column", [m("hr"), m(StatsComponent)])),
+            ),
+            m(".one.column", [
+                globalMapState.hasElevation && m(ChartContainer),
+                m(".map-extra", [
+                    m(Map),
+                    !globalMapState.mapLoadFailure && m(MapAttributions),
+                ]),
             ]),
-        ]);
+        ];
     },
 };
 
@@ -217,19 +221,19 @@ export default function StoryPage(): m.Component {
                     refPage: "story",
                 }),
                 story.isLoaded() &&
-                    m(
-                        "section#story",
+                    m("section#story", [
                         m(
                             ".container",
-                            m(".row", [
+                            m(
+                                ".row",
                                 m(".one.column", [
                                     m(StoryTitle),
                                     story.content && m(StoryContent),
                                 ]),
-                                story.hasGeodata && m(GeoData),
-                            ]),
+                            ),
                         ),
-                    ),
+                        story.hasGeodata && m(GeoData),
+                    ]),
             ];
         },
     };
