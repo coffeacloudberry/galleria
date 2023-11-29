@@ -1,6 +1,10 @@
 {
-    "extends": "@tsconfig/recommended/tsconfig.json",
     "compilerOptions": {
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
         "resolveJsonModule": true,
         "preserveConstEnums": true,
@@ -10,5 +14,6 @@
         "lib": ["es2019", "es6", "dom", "dom.iterable"]
     },
     "include": ["src/**/*", "api/**/*", "tests/unit/**/*", "config/**/*"],
-    "exclude": ["node_modules", "**/*.spec.ts"]
+    "exclude": ["node_modules", "**/*.spec.ts"],
+    "$schema": "https://json.schemastore.org/tsconfig"
 }
