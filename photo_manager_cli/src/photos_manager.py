@@ -162,12 +162,7 @@ def generate_info_json(
     return data
 
 
-@click.group()
-def cli_add_photo():
-    pass
-
-
-@cli_add_photo.command()
+@click.command()
 @click.option(
     "--album-path",
     required=True,
@@ -428,7 +423,5 @@ def guess_original(dir_path: str) -> str:
     raise FileNotFoundError(f"Missing original photo in `{dir_path}'")
 
 
-cli = click.CommandCollection(sources=[cli_add_photo,])
-
 if __name__ == "__main__":
-    cli()
+    add_photo()

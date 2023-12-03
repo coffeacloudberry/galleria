@@ -9,7 +9,7 @@ Debian package is [libwebp-dev](https://packages.debian.org/trixie/libwebp-dev).
 ## Usage
 
 ```sh
-python photos_manager.py add-photo --raw-file path/to/photo.tif --album-path /home/.../photos/
+python photos_manager.py --raw-file path/to/photo.tif --album-path /home/.../photos/
 ```
 
 ## Notes
