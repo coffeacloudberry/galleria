@@ -123,10 +123,7 @@ export default class Map implements m.ClassComponent {
     /** True if the style has never been loaded. */
     firstLoad = true;
 
-    /** Story ID as specified in the path. */
-    storyId: string | undefined;
-
-    /** Popup displayed on mouse hover containing markers data. */
+    /** Popup displayed on mouse hover containing marker data. */
     popup: Popup | undefined;
 
     /** Popup displayed on mouse hover containing a thumbnail. */
