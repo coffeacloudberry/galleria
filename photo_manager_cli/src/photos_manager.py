@@ -1,11 +1,8 @@
 import datetime
 import json
 import os
-import re
 import subprocess
-import tarfile
 from fractions import Fraction
-from html.parser import HTMLParser
 from math import sqrt
 from shutil import copy2
 from typing import Dict
@@ -16,17 +13,11 @@ from typing import Union
 
 import click
 import exiftool
-import requests
 from PIL import Image
 
 TYPICAL_WIDTH = 6028
 TYPICAL_HEIGHT = 4012
 FOCAL_PLANE_DIAGONAL_FULL_FRAME = sqrt(36**2 + 24**2)
-
-GOOGLE_REPO_LISTING_ENDPOINT = (
-    "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html"
-)
-LIBWEBP_DIRNAME = os.path.join(os.path.dirname(__file__), "..", "libwebp")
 
 LENS_IDS = {}
 with open(
@@ -41,170 +32,6 @@ with open(
     os.path.join(os.path.dirname(__file__), "OlympusStackedImage.json"), "r"
 ) as olympus_computational_mode:
     COMPUTATIONAL_MODE = json.load(olympus_computational_mode)
-
-
-class GoogleRepoParser(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self._all_links = {}
-
-    def handle_starttag(self, tag, attrs):
-        re_semver = re.compile(r".+libwebp-(?P<semver>[\w.-]+)-linux")
-        for attr in attrs:
-            key, value = attr
-            if key == "href" and "-linux-x86-64" in value:
-                url = f"https:{value}"
-                semver = re_semver.match(url).group("semver")
-                if semver in self._all_links:
-                    self._all_links[semver].append(url)
-                else:
-                    self._all_links[semver] = [url]
-
-    @property
-    def all_links(self):
-        return self._all_links
-
-
-class WebPUpdaterException(Exception):
-    pass
-
-
-class WebPUpdater:
-    def __init__(self):
-        self._all_links = WebPUpdater.download_repo_list()
-        self._latest_version = WebPUpdater.find_latest(list(self._all_links.keys()))
-
-    @property
-    def version(self):
-        return self._latest_version
-
-    def download(self):
-        all_files = self._all_links[self._latest_version]
-        for file in all_files:
-            if file.endswith(".tar.gz"):
-                WebPUpdater.download_release(file)
-                return
-
-    @staticmethod
-    def get_latest_downloaded() -> Optional[str]:
-        sub_folders = next(os.walk(LIBWEBP_DIRNAME))[1]
-        prefix = "libwebp-"
-        found_release = WebPUpdater.find_latest(
-            [
-                version[len(prefix) :]
-                for version in sub_folders
-                if version.startswith(prefix)
-            ]
-        )
-        return prefix + found_release if found_release else None
-
-    @staticmethod
-    def download_release(url_source: str):
-        source_filename = os.path.join(LIBWEBP_DIRNAME, url_source.split("/")[-1])
-        with open(source_filename, "wb") as fp_source:
-            response = requests.get(url_source)
-            response.raise_for_status()
-            fp_source.write(response.content)
-        signature_filename = os.path.join(LIBWEBP_DIRNAME, source_filename + ".asc")
-        with open(signature_filename, "wb") as fp_signature:
-            response = requests.get(url_source + ".asc")
-            response.raise_for_status()
-            fp_signature.write(response.content)
-
-        WebPUpdater.import_signing_key()
-        WebPUpdater.verify_download(signature_filename, source_filename)
-        WebPUpdater.extract_lib(source_filename)
-        os.remove(source_filename)
-        os.remove(signature_filename)
-
-    @staticmethod
-    def extract_lib(path_lib: str) -> None:
-        tar = tarfile.open(path_lib)
-        tar.extractall(path=LIBWEBP_DIRNAME)
-        tar.close()
-
-    @staticmethod
-    def import_signing_key() -> None:
-        result = subprocess.run(
-            [
-                "gpg",
-                "--import",
-                os.path.join(LIBWEBP_DIRNAME, "webmproject.key"),
-            ],
-            capture_output=True,
-            text=True,
-        )
-        output = result.stderr.lower()
-        print(output)
-        if "imported" not in output and "not changed" not in output:
-            raise WebPUpdaterException("Failed to import WebP release signing key")
-
-    @staticmethod
-    def verify_download(signature_filename: str, source_filename: str) -> None:
-        result = subprocess.run(
-            [
-                "gpg",
-                "--verify",
-                signature_filename,
-                source_filename,
-            ],
-            capture_output=True,
-            text=True,
-        )
-        output = result.stderr.lower()
-        print(output)
-        if "bad signature" in output:
-            raise WebPUpdaterException("Bad PGP signature")
-
-    @staticmethod
-    def download_repo_list() -> Dict[str, List[str]]:
-        response = requests.get(GOOGLE_REPO_LISTING_ENDPOINT)
-        response.raise_for_status()
-        parser = GoogleRepoParser()
-        parser.feed(response.text)
-        return parser.all_links
-
-    @staticmethod
-    def find_latest(all_releases: List[str]) -> Optional[str]:
-        latest_major, latest_minor, latest_patch, latest_rc = (0, 0, 0, None)
-        latest_release = None
-        for release in all_releases:
-            if not release:
-                continue
-            extracted_v = release.split(".")
-            major = int(extracted_v[0])
-            minor = int(extracted_v[1])
-            rc = None
-            if "-" in extracted_v[2]:
-                sub_v = extracted_v[2].split("-")
-                patch = int(sub_v[0])
-                rc = sub_v[1]
-            else:
-                patch = int(extracted_v[2])
-            is_more_recent = False
-            if latest_major < major:
-                is_more_recent = True
-            elif latest_major == major:
-                if latest_minor < minor:
-                    is_more_recent = True
-                elif latest_minor == minor:
-                    if latest_patch < patch:
-                        is_more_recent = True
-                    elif (
-                        latest_patch == patch
-                        and latest_rc
-                        and (rc is None or latest_rc < rc)
-                    ):
-                        is_more_recent = True
-            if is_more_recent:
-                latest_major, latest_minor, latest_patch, latest_rc = (
-                    major,
-                    minor,
-                    patch,
-                    rc,
-                )
-                latest_release = release
-        return latest_release
 
 
 def body_lens_model_exif(d) -> Tuple[str, str]:
@@ -353,12 +180,7 @@ def cli_add_photo():
     prompt="RAW file",
     help="RAW file. Other files starting with the same name will be copied. Export to TIF beforehand.",
 )
-@click.option(
-    "--cwebp-path",
-    required=False,
-    help="Path to the cwebp command of libwebp.",
-)
-def add_photo(album_path: str, raw_file: str, cwebp_path: Optional[str]) -> None:
+def add_photo(album_path: str, raw_file: str) -> None:
     """Add one photo to the album."""
     if not os.path.exists(raw_file):
         click.echo("RAW file does not exist.", err=True)
@@ -438,7 +260,7 @@ def add_photo(album_path: str, raw_file: str, cwebp_path: Optional[str]) -> None
     update_neighbor("next", prev_photo)
     update_neighbor("prev", next_photo)
     generate_social(album_path)
-    generate_webp(album_path, cwebp_path)
+    generate_webp(album_path)
 
 
 def generate_social(album_path: str) -> None:
@@ -467,23 +289,7 @@ def generate_social(album_path: str) -> None:
         click.echo(f"Generated {output_image_path}")
 
 
-def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
-    if not cwebp_path:
-        local_lib = WebPUpdater.get_latest_downloaded()
-        if not local_lib:
-            click.confirm(
-                "Failed to find libwebp locally, download from Google servers?",
-                abort=True,
-                default=False,
-                err=True,
-            )
-            webp_updater = WebPUpdater()
-            print(f"Latest WebP release: {webp_updater.version}")
-            webp_updater.download()
-            local_lib = WebPUpdater.get_latest_downloaded()
-            if not local_lib:
-                raise WebPUpdaterException("Failed again to find libwebp locally")
-        cwebp_path = os.path.join(LIBWEBP_DIRNAME, local_lib, "bin", "cwebp")
+def generate_webp(album_path: str) -> None:
     all_photos = [
         dirname
         for dirname in os.listdir(album_path)
@@ -520,7 +326,7 @@ def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
                 if height_after_crop <= original_size[1]:
                     subprocess.run(  # landscape to fixed width/height thumbnail
                         [
-                            cwebp_path,
+                            "cwebp",
                             "-preset",
                             "photo",
                             "-mt",
@@ -550,7 +356,7 @@ def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
                     )
                     subprocess.run(  # portrait to fixed width/height thumbnail
                         [
-                            cwebp_path,
+                            "cwebp",
                             "-preset",
                             "photo",
                             "-mt",
@@ -582,7 +388,7 @@ def generate_webp(album_path: str, cwebp_path: Optional[str]) -> None:
                 )
                 subprocess.run(  # just resize
                     [
-                        cwebp_path,
+                        "cwebp",
                         "-preset",
                         "photo",
                         "-mt",
