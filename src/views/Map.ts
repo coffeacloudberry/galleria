@@ -31,12 +31,22 @@ const warn = new CustomLogging("warning");
 const error = new CustomLogging("error");
 
 type MouseEvent = MapMouseEvent & EventData;
+type MaybeLink = m.Vnode<m.RouteLinkAttrs> | m.Vnode;
 
 interface PopupCamAttrs {
     photoId: number;
     mapHeight: string;
     mapboxPopup: Popup;
 }
+
+const LoadingPopupCamComponent: m.Component = {
+    view(): m.Vnode {
+        return m(
+            ".map-thumbnail",
+            m("span.loading-icon", m(Icon, { src: apertureOutline })),
+        );
+    },
+};
 
 /** Component in the tooltip displaying a clickable thumbnail. */
 class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
@@ -75,29 +85,27 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
         attrs.mapboxPopup.setDOMContent(dom);
     }
 
-    view({ attrs }: m.CVnode<PopupCamAttrs>): m.Vnode<m.RouteLinkAttrs> {
+    view({ attrs }: m.CVnode<PopupCamAttrs>): MaybeLink {
         this.updateImage(attrs.photoId);
-        return this.ready
-            ? m(
-                  m.route.Link,
-                  {
-                      href: m.buildPathname("/:lang/photo/:id", {
-                          lang: t.getLang(),
-                          id: this.currentPhoto,
-                      }),
-                      class: "map-thumbnail",
-                      "data-tippy-content": t("story.open-photo.tooltip"),
-                  },
-                  m("img", {
-                      src: this.image.src,
-                      style: `max-height: ${parseInt(attrs.mapHeight) / 3}px`,
-                      alt: "",
-                  }),
-              )
-            : m(
-                  ".map-thumbnail",
-                  m("span.loading-icon", m(Icon, { src: apertureOutline })),
-              );
+        if (!this.ready) {
+            return m(LoadingPopupCamComponent);
+        }
+        return m(
+            m.route.Link,
+            {
+                href: m.buildPathname("/:lang/photo/:id", {
+                    lang: t.getLang(),
+                    id: this.currentPhoto,
+                }),
+                class: "map-thumbnail",
+                "data-tippy-content": t("story.open-photo.tooltip"),
+            },
+            m("img", {
+                src: this.image.src,
+                style: `max-height: ${parseInt(attrs.mapHeight) / 3}px`,
+                alt: "",
+            }),
+        );
     }
 }
 
