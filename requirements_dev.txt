@@ -4,5 +4,4 @@ isort
 pylint
 pytest
 coverage
-vcrpy
 types-requests
