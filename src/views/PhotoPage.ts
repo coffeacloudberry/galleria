@@ -13,6 +13,7 @@ import { getPhotoId, hideAllForce, isMobile } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import PhotoMetadataComponent from "./PhotoMetadata";
+import tippy, { Instance as TippyInstance } from "tippy.js";
 
 /** Prev, current, and next photo components. */
 const Gallery: m.Component = {
@@ -141,21 +142,45 @@ const PrevButton: m.Component = {
     },
 };
 
-const LoadingSpinner: m.Component = {
+class LoadingSpinner implements m.ClassComponent {
+    private tippyInstance: TippyInstance | undefined;
+
+    static tippyContent(): string {
+        return `${t("loading.tooltip")}...`;
+    }
+
+    oncreate({ dom }: m.CVnodeDOM): void {
+        this.tippyInstance = tippy(dom, {
+            content: LoadingSpinner.tippyContent(),
+            arrow: false,
+        });
+    }
+
+    onupdate(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.setContent(LoadingSpinner.tippyContent());
+        }
+    }
+
     onbeforeremove(): void {
-        hideAllForce();
-    },
+        if (this.tippyInstance) {
+            this.tippyInstance.unmount();
+        }
+    }
+
+    onremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.destroy();
+        }
+    }
+
     view(): m.Vnode {
         return m(
             "span.loading-icon.nav-item",
-            {
-                "data-tippy-arrow": "false",
-                "data-tippy-content": `${t("loading.tooltip")}...`,
-            },
             m(Icon, { src: apertureOutline }),
         );
-    },
-};
+    }
+}
 
 interface FooterAttrs {
     refPage: string;
