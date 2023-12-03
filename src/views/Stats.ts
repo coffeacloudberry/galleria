@@ -9,7 +9,7 @@ import { t } from "../translate";
 import { msOrKms, numberWithCommas } from "../utils";
 import Icon from "./Icon";
 import { Duration } from "./StoryPage";
-import { TrackInfo } from "../webtrack";
+import { ActivityEntry, TrackInfo } from "../webtrack";
 
 interface ListPositioningComponentAttrs {
     configs: GpsConfig[];
@@ -90,6 +90,11 @@ interface LengthDetailsAttrs {
     stats: TrackInfo;
 }
 
+function activityToString(entry: ActivityEntry): string {
+    const activityName = entry.activity.toLowerCase().replace("_", " ");
+    return `${activityName}: ${msOrKms(entry.length)}`;
+}
+
 const LengthDetails: m.Component<LengthDetailsAttrs> = {
     view({ attrs }: m.Vnode<LengthDetailsAttrs>): m.Vnode | null {
         if (typeof attrs.stats.length !== "number") {
@@ -102,12 +107,7 @@ const LengthDetails: m.Component<LengthDetailsAttrs> = {
         ];
         if (attrs.stats.activities && attrs.stats.activities.length > 1) {
             const joined = attrs.stats.activities
-                .map(
-                    (v) =>
-                        `${v.activity
-                            .toLowerCase()
-                            .replace("_", " ")}: ${msOrKms(v.length)}`,
-                )
+                .map(activityToString)
                 .join(", ");
             allLengths = allLengths.concat([
                 m("br.small-screen"),

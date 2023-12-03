@@ -92,19 +92,22 @@ export enum Activity {
 }
 
 type ElevationSources = keyof typeof ElevationSource;
+type ActivityString = keyof typeof Activity;
+
+export type ActivityEntry = {
+    activity: ActivityString;
+    length: number;
+};
 
 export interface Segment {
-    activity: string;
+    activity: ActivityString;
     withEle: number;
     points: Position[];
 }
 
 export interface TrackInfo {
     length?: number;
-    activities?: {
-        activity: string;
-        length: number;
-    }[];
+    activities?: ActivityEntry[];
     min?: number;
     max?: number;
     gain?: number;
@@ -534,7 +537,7 @@ export default class WebTrack {
                 this.pointsWithEle += points;
             }
             this.reformattedTracks[i] = {
-                activity,
+                activity: activity as ActivityString,
                 withEle: currSegType,
                 points: new Array(points),
             };
@@ -549,7 +552,7 @@ export default class WebTrack {
                 if (activities.size > 1) {
                     for (let i = 0; i < activities.size; i++) {
                         segmentedActivities.push({
-                            activity: this._readActivity(),
+                            activity: this._readActivity() as ActivityString,
                             length: this._rUint32(),
                         });
                     }
