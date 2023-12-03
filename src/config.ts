@@ -1,6 +1,9 @@
 import { Attribution } from "./models/Map";
 import { MapThemeStrings } from "./models/Story";
 
+type AttributedUrl = { url: string; attributions: Attribution[] };
+type StyleType = Record<MapThemeStrings, AttributedUrl>;
+
 const mostRecentPhotoId = parseInt(String(process.env.MOST_RECENT_PHOTO_ID));
 const oldestPhotoId = parseInt(String(process.env.OLDEST_PHOTO_ID));
 
@@ -93,10 +96,7 @@ export const config = {
                 url: "mapbox://styles/onvbjzhghu/clng3anjs007q01pi6j8zfi7h",
                 attributions: [Attribution.OpenStreetMap, Attribution.Mapbox],
             },
-        } as Record<
-            MapThemeStrings,
-            { url: string; attributions: Attribution[] }
-        >,
+        } as StyleType,
     },
 
     /**
