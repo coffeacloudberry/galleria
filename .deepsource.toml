@@ -12,3 +12,12 @@ enabled = true
 
   [analyzers.meta]
   dialect = "typescript"
+
+[[analyzers]]
+name = "python"
+enabled = true
+dependency_file_paths = ["requirements_cli.txt", "requirements_dev.txt"]
+
+  [analyzers.meta]
+  max_line_length = 150
+  type_checker = "mypy"

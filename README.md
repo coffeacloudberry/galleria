@@ -202,7 +202,7 @@ From a new SVG file:
 <details>
   <summary>The font</summary>
 
-The [main SASS file](src/style/main.sass) should point to the font files.
+The [main SASS file](src/style/main.sass) should point to the font file.
 
 For editing the font, adding glyphs, ligatures, exotic characters, etc. Have a look at this [README file](src/fonts/asap/README.md).
 
