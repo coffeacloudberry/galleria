@@ -138,25 +138,22 @@ const OneStoryComponent: m.Component<OneStory> = {
             lang: t.getLang(),
             title: attrs.id,
         });
+        const loadedLink = m(
+            m.route.Link,
+            {
+                href: storyLink,
+                "data-tippy-content": t("photo.open-story.tooltip"),
+                "data-tippy-placement": "right",
+            },
+            attrs.title,
+        );
         return [
             m(
                 "h1.one-story",
                 {
                     "data-id": attrs.id,
                 },
-                attrs.title
-                    ? m(
-                          m.route.Link,
-                          {
-                              href: storyLink,
-                              "data-tippy-content": t(
-                                  "photo.open-story.tooltip",
-                              ),
-                              "data-tippy-placement": "right",
-                          },
-                          attrs.title,
-                      )
-                    : "...",
+                attrs.title ? loadedLink : "...",
             ),
             m(
                 ".container.p-0.story-preview",
