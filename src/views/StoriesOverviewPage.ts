@@ -177,11 +177,10 @@ class AllStoriesComponent implements m.ClassComponent {
     }
 
     // skipcq: JS-0105
-    onremove(): void {
-        const domStories = document.getElementById("stories");
-        if (domStories) {
+    onremove({ dom }: m.CVnodeDOM): void {
+        if (dom) {
             // remember where we are to go back there on next update
-            allStories.scrollTop = domStories.scrollTop;
+            allStories.scrollTop = dom.scrollTop;
         }
     }
 
@@ -190,7 +189,7 @@ class AllStoriesComponent implements m.ClassComponent {
         if (allStories.noOneRequested()) {
             const element = dom as HTMLElement;
             AllStoriesComponent.lazyLoadStories(element);
-            AllStoriesComponent.scrollToStory();
+            AllStoriesComponent.scrollToStory(element);
         }
     }
 
@@ -199,12 +198,9 @@ class AllStoriesComponent implements m.ClassComponent {
      * That is to go straight to the previous position in the story list
      * so that the user does not have to scroll again all the way down.
      */
-    static scrollToStory() {
+    static scrollToStory(dom: HTMLElement) {
         if (allStories.scrollTop) {
-            const scrollableEl = document.getElementById("stories");
-            if (scrollableEl) {
-                scrollableEl.scroll({ top: allStories.scrollTop });
-            }
+            dom.scroll({ top: allStories.scrollTop });
         }
     }
 
