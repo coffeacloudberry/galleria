@@ -106,36 +106,32 @@ const GeoData: m.Component = {
     },
 };
 
+function textInStoryTippy(result: ProcessedStoryFile | null = null): string {
+    if (result && result.title) {
+        return `${t("open-this-story.tooltip")} ${result.title}`;
+    }
+    return t("photo.open-story.tooltip");
+}
+
 /**
- * Call every time the tooltip is displayed.
+ * Called every time the tooltip is displayed.
  * Get the translated title from the story ID.
+ * The story is XHR-fetched only once and stored in a list.
  */
 function onShowStoryTippy(instance: TippyInstance) {
     const ref = instance.reference as HTMLLinkElement;
     const storyId = ref.dataset.story;
-
-    // load only once
-    if (ref.dataset.loadedMeta || !storyId) {
-        return;
+    if (storyId && !ref.dataset.loadedMeta) {
+        allStories
+            .loadOneStory(storyId)
+            .then((result: ProcessedStoryFile) => {
+                ref.dataset.loadedMeta = "yes";
+                instance.setContent(textInStoryTippy(result));
+            })
+            .catch(() => {
+                instance.setContent(textInStoryTippy());
+            });
     }
-
-    const defaultText = t("photo.open-story.tooltip");
-
-    // The story is fetched only once and stored in a list.
-    // So there can be many calls to this function, but only one XHR request
-    // per story.
-    allStories
-        .loadOneStory(storyId)
-        .then((result: ProcessedStoryFile) => {
-            ref.dataset.loadedMeta = "yes";
-            const text = result.title
-                ? `${t("open-this-story.tooltip")} ${result.title}`
-                : defaultText;
-            instance.setContent(text);
-        })
-        .catch(() => {
-            instance.setContent(defaultText);
-        });
 }
 
 function addTippyToLinkedStories(dom: Element) {
