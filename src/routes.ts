@@ -45,7 +45,6 @@ export const routes: RoutedResolvers = {
 };
 for (const language of languages) {
     Object.keys(plainRoutes).forEach((route) => {
-        // SEO advice: better to have "sub-folders" than URL parameters
         routes[`/${language.slug}${route}`] = routeResolver(plainRoutes[route]);
     });
 }
