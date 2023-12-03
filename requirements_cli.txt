@@ -1,5 +1,5 @@
 numpy
-git+https://github.com/tkrajina/gpxpy.git
+gpxpy
 click
 requests
 Pillow
