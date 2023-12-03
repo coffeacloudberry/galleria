@@ -308,6 +308,17 @@ def generate_webp(album_path: str) -> None:
         for curr_config in all_var_options:
             name = curr_config[0]
             webp_path = dirname + "/" + name + ".webp"
+            webp_option_1 = [
+                "cwebp",
+                "-preset",
+                "photo",
+                "-mt",
+                "-m",
+                "6",
+                "-q",
+                str(curr_config[3]),
+                "-af",
+            ]
             if os.path.exists(webp_path):
                 continue  # TODO: invalidate existing generated WebP if older than original
             if input_image_path is None:
@@ -320,16 +331,8 @@ def generate_webp(album_path: str) -> None:
                 )
                 if height_after_crop <= original_size[1]:
                     subprocess.run(  # landscape to fixed width/height thumbnail
-                        [
-                            "cwebp",
-                            "-preset",
-                            "photo",
-                            "-mt",
-                            "-m",
-                            "6",
-                            "-q",
-                            str(curr_config[3]),
-                            "-af",
+                        webp_option_1
+                        + [
                             "-crop",
                             "0",  # x position
                             str(
@@ -350,16 +353,8 @@ def generate_webp(album_path: str) -> None:
                         original_size[1] * TYPICAL_WIDTH / TYPICAL_HEIGHT
                     )
                     subprocess.run(  # portrait to fixed width/height thumbnail
-                        [
-                            "cwebp",
-                            "-preset",
-                            "photo",
-                            "-mt",
-                            "-m",
-                            "6",
-                            "-q",
-                            str(curr_config[3]),
-                            "-af",
+                        webp_option_1
+                        + [
                             "-crop",
                             str(
                                 int((original_size[0] - width_after_crop) / 2)
@@ -382,16 +377,8 @@ def generate_webp(album_path: str) -> None:
                     else ["0", str(curr_config[2])]
                 )
                 subprocess.run(  # just resize
-                    [
-                        "cwebp",
-                        "-preset",
-                        "photo",
-                        "-mt",
-                        "-m",
-                        "6",
-                        "-q",
-                        str(curr_config[3]),
-                        "-af",
+                    webp_option_1
+                    + [
                         "-resize",
                     ]
                     + resize
