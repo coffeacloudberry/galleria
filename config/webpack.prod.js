@@ -9,12 +9,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
-const HumanstxtPlugin = require("./humanstxt-webpack-plugin");
 const { merge } = require("webpack-merge");
 const paths = require("./paths");
 const common = require("./webpack.common.js");
 const GenerateWebLabelsPlugin = require("./generate-weblabels-webpack-plugin");
-const languages = require("../src/languages.json");
 
 if (!("MAPBOX_ACCESS_TOKEN" in process.env)) {
     require("dotenv").config();
@@ -99,18 +97,6 @@ module.exports = merge(common, {
                     disallow: "/",
                 },
             ],
-        }),
-
-        new HumanstxtPlugin({
-            team: [
-                {
-                    type: "Name",
-                    name: "Clement",
-                },
-            ],
-            languages: languages.map((key) => {
-                return key.name;
-            }),
         }),
 
         new GenerateWebLabelsPlugin({}),
