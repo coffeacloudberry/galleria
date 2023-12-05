@@ -4,45 +4,47 @@ import removeCircleOutline from "@/icons/remove-circle-outline.svg";
 import m from "mithril";
 
 import { globalMapState } from "../models/Map";
-import { GpsConfig, story } from "../models/Story";
+import { story } from "../models/Story";
 import { t } from "../translate";
 import { msOrKms, numberWithCommas } from "../utils";
 import Icon from "./Icon";
 import { Duration } from "./StoryPage";
-import { ActivityEntry, TrackInfo } from "../webtrack";
-
-interface ListPositioningComponentAttrs {
-    configs: GpsConfig[];
-}
+import { ActivityEntry, EssentialTrackInfo } from "../webtrack";
 
 /** List of positioning and tracking tools used in the field. */
-const ListPositioningComponent: m.Component<ListPositioningComponentAttrs> = {
-    view({ attrs }: m.Vnode<ListPositioningComponentAttrs>): m.Vnode {
-        return m("ul", [
-            ...attrs.configs.map((oneConfig) =>
-                m(
-                    "li",
-                    m("small", oneConfig.model),
-                    m("br.small-screen"),
+const ListPositioningComponent: m.Component = {
+    view(): m.Vnode | null {
+        if (!(story.gpsConfig instanceof Array)) {
+            return null;
+        }
+        return m("li", [
+            t("map.stats.source.pos"),
+            m("ul", [
+                ...story.gpsConfig.map((oneConfig) =>
                     m(
-                        "small",
-                        ` (${
-                            oneConfig.multiBandEnabled
-                                ? t("multi-band")
-                                : t("single-band")
-                        }, ${
-                            oneConfig.multiGNSSEnabled
-                                ? t("multi-gnss")
-                                : t("single-gnss")
-                        }, ${
-                            oneConfig.waasEgnosEnabled
-                                ? t("waas-egnos-enabled")
-                                : t("waas-egnos-disabled")
-                        })`,
+                        "li",
+                        m("small", oneConfig.model),
+                        m("br.small-screen"),
+                        m(
+                            "small",
+                            ` (${
+                                oneConfig.multiBandEnabled
+                                    ? t("multi-band")
+                                    : t("single-band")
+                            }, ${
+                                oneConfig.multiGNSSEnabled
+                                    ? t("multi-gnss")
+                                    : t("single-gnss")
+                            }, ${
+                                oneConfig.waasEgnosEnabled
+                                    ? t("waas-egnos-enabled")
+                                    : t("waas-egnos-disabled")
+                            })`,
+                        ),
                     ),
                 ),
-            ),
-            m("li", m("small", t("topo-maps"))),
+                m("li", m("small", t("topo-maps"))),
+            ]),
         ]);
     },
 };
@@ -86,35 +88,111 @@ const ExpandDataSourceButton: m.Component = {
     },
 };
 
-interface LengthDetailsAttrs {
-    stats: TrackInfo;
-}
-
 function activityToString(entry: ActivityEntry): string {
     const activityName = entry.activity.toLowerCase().replace("_", " ");
     return `${activityName}: ${msOrKms(entry.length)}`;
 }
 
-const LengthDetails: m.Component<LengthDetailsAttrs> = {
-    view({ attrs }: m.Vnode<LengthDetailsAttrs>): m.Vnode | null {
-        if (typeof attrs.stats.length !== "number") {
+const LengthDetails: m.Component<EssentialTrackInfo> = {
+    view({ attrs }: m.Vnode<EssentialTrackInfo>): m.Vnode | null {
+        if (typeof attrs.length !== "number") {
             return null;
         }
         let allLengths = [
             t("map.stats.total-length"),
             " ",
-            m("strong", msOrKms(attrs.stats.length)),
+            m("strong", msOrKms(attrs.length)),
         ];
-        if (attrs.stats.activities && attrs.stats.activities.length > 1) {
-            const joined = attrs.stats.activities
-                .map(activityToString)
-                .join(", ");
+        if (attrs.activities && attrs.activities.length > 1) {
+            const joined = attrs.activities.map(activityToString).join(", ");
             allLengths = allLengths.concat([
                 m("br.small-screen"),
                 ` (${joined})`,
             ]);
         }
         return m("li", allLengths);
+    },
+};
+
+const AboutElevationLi: m.Component = {
+    view(): m.Vnode | null {
+        if (globalMapState.webtrack === undefined) {
+            return null;
+        }
+        return m("li", [
+            t("map.stats.chart.ele.tooltip"),
+            " ",
+            m(
+                "a",
+                {
+                    href: "https://github.com/coffeacloudberry/galleria/blob/master/webtrack_cli/DEM.md",
+                },
+                globalMapState.webtrack.getElevationSources().join(", "),
+            ),
+        ]);
+    },
+};
+
+const DurationLi: m.Component = {
+    view(): m.Vnode | null {
+        if (typeof story.duration !== "number") {
+            return null;
+        }
+        return m("li", [
+            t("story.duration"),
+            " ",
+            m(
+                "strong",
+                m(Duration, {
+                    duration: story.duration,
+                }),
+            ),
+        ]);
+    },
+};
+
+const MinimumAltitudeLi: m.Component<EssentialTrackInfo> = {
+    view({ attrs }: m.Vnode<EssentialTrackInfo>): m.Vnode | null {
+        if (typeof attrs.min !== "number") {
+            return null;
+        }
+        return m("li", [
+            t("map.stats.min-alt"),
+            " ",
+            m(Metres, { value: attrs.min }),
+        ]);
+    },
+};
+
+const MaximumAltitudeLi: m.Component<EssentialTrackInfo> = {
+    view({ attrs }: m.Vnode<EssentialTrackInfo>): m.Vnode | null {
+        if (typeof attrs.max !== "number") {
+            return null;
+        }
+        return m("li", [
+            t("map.stats.max-alt"),
+            " ",
+            m(Metres, { value: attrs.max }),
+        ]);
+    },
+};
+
+const ElevationLi: m.Component<EssentialTrackInfo> = {
+    view({ attrs }: m.Vnode<EssentialTrackInfo>): m.Vnode | null {
+        if (typeof attrs.gain !== "number" || typeof attrs.loss !== "number") {
+            return null;
+        }
+        return m("li", [
+            t("map.stats.total-ele"),
+            " ",
+            m(Metres, { value: attrs.gain + attrs.loss }),
+            m("br.small-screen"),
+            ` (${t("map.stats.gain")} `,
+            m(Metres, { value: attrs.gain }),
+            `, ${t("map.stats.loss")} `,
+            m(Metres, { value: -attrs.loss }),
+            ")",
+        ]);
     },
 };
 
@@ -133,46 +211,11 @@ export const StatsComponent: m.Component = {
         return [
             m("p", m("strong", t("map.stats"))),
             m("ul.blabla", [
-                typeof story.duration === "number" &&
-                    m("li", [
-                        t("story.duration"),
-                        " ",
-                        m(
-                            "strong",
-                            m(Duration, {
-                                duration: story.duration,
-                            }),
-                        ),
-                    ]),
-                m(LengthDetails, { stats }),
-                typeof stats.min === "number" &&
-                    hasEle &&
-                    m("li", [
-                        t("map.stats.min-alt"),
-                        " ",
-                        m(Metres, { value: stats.min }),
-                    ]),
-                typeof stats.max === "number" &&
-                    hasEle &&
-                    m("li", [
-                        t("map.stats.max-alt"),
-                        " ",
-                        m(Metres, { value: stats.max }),
-                    ]),
-                typeof stats.gain === "number" &&
-                    typeof stats.loss === "number" &&
-                    hasEle &&
-                    m("li", [
-                        t("map.stats.total-ele"),
-                        " ",
-                        m(Metres, { value: stats.gain + stats.loss }),
-                        m("br.small-screen"),
-                        ` (${t("map.stats.gain")} `,
-                        m(Metres, { value: stats.gain }),
-                        `, ${t("map.stats.loss")} `,
-                        m(Metres, { value: -stats.loss }),
-                        ")",
-                    ]),
+                m(DurationLi),
+                m(LengthDetails, stats),
+                hasEle && m(MinimumAltitudeLi, stats),
+                hasEle && m(MaximumAltitudeLi, stats),
+                hasEle && m(ElevationLi, stats),
             ]),
             m("p", [
                 m("strong", t("map.stats.source")),
@@ -180,27 +223,8 @@ export const StatsComponent: m.Component = {
             ]),
             story.isDataSourceExpanded &&
                 m("ul.blabla", [
-                    story.gpsConfig instanceof Array &&
-                        m("li", [
-                            t("map.stats.source.pos"),
-                            m(ListPositioningComponent, {
-                                configs: story.gpsConfig,
-                            }),
-                        ]),
-                    hasEle &&
-                        m("li", [
-                            t("map.stats.chart.ele.tooltip"),
-                            " ",
-                            m(
-                                "a",
-                                {
-                                    href: "https://github.com/coffeacloudberry/galleria/blob/master/webtrack_cli/DEM.md",
-                                },
-                                globalMapState.webtrack
-                                    .getElevationSources()
-                                    .join(", "),
-                            ),
-                        ]),
+                    m(ListPositioningComponent),
+                    hasEle && m(AboutElevationLi),
                 ]),
         ];
     },

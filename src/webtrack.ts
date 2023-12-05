@@ -26,6 +26,10 @@ export type WebTrackGeoJson = {
     features: WebTrackGeoJsonFeature[];
 };
 
+export type EssentialTrackInfo = TrackInfo & {
+    trackPoints: { withEle: number; withoutEle: number };
+};
+
 /** WayPoint in the WebTrack format. */
 export interface WayPoint {
     /** Latitude in degree. */
@@ -321,9 +325,7 @@ export default class WebTrack {
     /**
      * Returns essential information about the track.
      */
-    getTrackInfo(): TrackInfo & {
-        trackPoints: { withEle: number; withoutEle: number };
-    } {
+    getTrackInfo(): EssentialTrackInfo {
         return {
             ...this.trackInfo,
             trackPoints: {
