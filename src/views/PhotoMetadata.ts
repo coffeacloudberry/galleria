@@ -188,7 +188,7 @@ const Download: m.Component<DownloadModalAttrs> = {
 
 const PhotoMetadataTippyContent: m.Component = {
     view(): m.Vnode {
-        return m("div", [
+        return m("div.tall-tippy", [
             m(CameraSetup),
             m(CameraPosition),
             photo.meta &&
