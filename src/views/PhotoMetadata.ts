@@ -199,8 +199,15 @@ const PhotoMetadataTippyContent: m.Component = {
 };
 
 export default class PhotoMetadataComponent extends InteractiveTippy<void> {
-    placement = "bottom" as Placement;
+    placement = PhotoMetadataComponent.getPlacement();
     arrow = false;
+
+    static getPlacement(): Placement {
+        if (window.innerHeight > window.innerWidth) {
+            return "top";
+        }
+        return "bottom";
+    }
 
     onupdate(): void {
         if (this.tippyInstance) {
