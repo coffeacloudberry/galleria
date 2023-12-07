@@ -103,13 +103,13 @@
         "n": "{n} kuvaa"
     },
     "days": {
-        "1": "1 päivää",
-        "n": "{n} päivät"
+        "1": "1 päivä",
+        "n": "{n} päivää"
     },
     "half-days": {
-        "0": "puoli päivää",
+        "0": "puoli päivä",
         "1": "puolitoista päivää",
-        "n": "{n} päivät ja puoli"
+        "n": "{n} päivää ja puoli"
     },
     "date": {
         "1": "{day}. tammikuuta {year}",
