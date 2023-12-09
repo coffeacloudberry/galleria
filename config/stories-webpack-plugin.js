@@ -1,11 +1,9 @@
 const paths = require("./paths");
 const fs = require("fs");
-const log = require("webpack-log");
 
 class StoriesPlugin {
     constructor() {
         this.plugin = { name: this.constructor.name };
-        this.logger = log({ name: this.constructor.name });
         this.rootDir = paths.build;
 
         // paths to real folders (manually created):
@@ -43,7 +41,7 @@ class StoriesPlugin {
     readInfoFile(folderType, docId) {
         const file = `${this.rootDir}/content/${folderType}/${docId}/i.json`;
         if (!fs.existsSync(file)) {
-            this.logger.error(`Info file missing for ${docId}`);
+            console.error(`Info file missing for ${docId}`);
             throw new Error("Create info file or delete folder.");
         }
         return JSON.parse(fs.readFileSync(file).toString());

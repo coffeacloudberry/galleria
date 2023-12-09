@@ -12,7 +12,6 @@ const RobotstxtPlugin = require("robotstxt-webpack-plugin");
 const { merge } = require("webpack-merge");
 const paths = require("./paths");
 const common = require("./webpack.common.js");
-const GenerateWebLabelsPlugin = require("./generate-weblabels-webpack-plugin");
 
 if (!("MAPBOX_ACCESS_TOKEN" in process.env)) {
     require("dotenv").config();
@@ -98,8 +97,6 @@ module.exports = merge(common, {
                 },
             ],
         }),
-
-        new GenerateWebLabelsPlugin({}),
     ],
     optimization: {
         minimize: true,

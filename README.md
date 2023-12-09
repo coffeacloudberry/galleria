@@ -52,7 +52,7 @@ Clone this repo, install Node.js 14, and run `npm i`.
 
 Notice:
 
-* The list of stories and photos metadata are statically generated at build time (by a custom Webpack plugins) as well as the [Web Labels](config/generate-weblabels-webpack-plugin/README.md). Rebuild or rerun the local server to apply the changes.
+* The list of stories and photo metadata are statically generated at build time (by a custom Webpack plugins). Rebuild or rerun the local server to apply the changes.
 * Install the [WebP Support plugin](https://plugins.jetbrains.com/plugin/15037-webp-support) to view images from the JetBrains IDE.
 
 ### Running

@@ -48,7 +48,6 @@
         "css-loader": "^6.8.1",
         "css-minimizer-webpack-plugin": "^5.0.1",
         "dotenv": "^16.3.1",
-        "ejs": "^3.1.9",
         "eslint": "^8.55.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-json-es": "^1.5.7",
@@ -63,8 +62,6 @@
         "robotstxt-webpack-plugin": "github:itgalaxy/robotstxt-webpack-plugin",
         "sass": "^1.69.5",
         "sass-loader": "^13.3.2",
-        "schema-utils": "^4.2.0",
-        "spdx-expression-parse": "^4.0.0",
         "style-loader": "^3.3.3",
         "stylelint": "^15.11.0",
         "ts-loader": "^9.5.1",
@@ -74,7 +71,6 @@
         "webpack-bundle-analyzer": "^4.10.1",
         "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^4.15.1",
-        "webpack-log": "^3.0.2",
         "webpack-merge": "^5.10.0"
     },
     "engines": {

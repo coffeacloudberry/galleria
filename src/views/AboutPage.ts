@@ -204,7 +204,7 @@ const CopyrightNotice: m.Component = {
             {
                 what: "source",
                 short: "AGPL-3.0+",
-                href: "/jssources/jslicenses.html",
+                href: "https://github.com/coffeacloudberry/galleria/blob/master/LICENSE.md",
             },
         ];
         return [
