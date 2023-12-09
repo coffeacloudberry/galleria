@@ -13,7 +13,7 @@
         "sourceMap": true,
         "lib": ["es2019", "es6", "dom", "dom.iterable"]
     },
-    "include": ["src/**/*", "api/**/*", "tests/unit/**/*", "config/**/*", "middleware.ts"],
+    "include": ["src/**/*", "api/**/*", "tests/unit/**/*", "config/**/*"],
     "exclude": ["node_modules", "**/*.spec.ts"],
     "$schema": "https://json.schemastore.org/tsconfig"
 }

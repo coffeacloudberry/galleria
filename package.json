@@ -25,7 +25,6 @@
     "license": "AGPL-3.0-or-later",
     "dependencies": {
         "mithril": "^2.2.2",
-        "next": "^14.0.4",
         "ress": "^5.0.2",
         "snarkdown": "github:coffeacloudberry/snarkdown#2.1.1",
         "tippy.js": "^6.3.7",
