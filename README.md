@@ -70,22 +70,6 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 
 </details>
 <details>
-  <summary>Run the Vercel server locally</summary>
-
-1. Install the Vercel CLI: `npm i --location=global vercel`,
-2. Pull the environment variables: `vercel env pull`,
-3. Check that the *.env* file has been created,
-4. Run the server on port 3000: `vercel dev`,
-5. Visit the frontend at [localhost:3000](http://localhost:3000).
-
-Notes:
-
-* `vercel dev` is for development purpose, it runs the prod version of the application with the dev environment variables.
-* Do not try `127.0.0.1:3000` when running `vercel dev`, the API only works with `localhost:3000`.
-* If the response of `ping localhost` is `::1` and you get `ECONNREFUSED` errors, [disable IPv6 for localhost](https://www.xmodulo.com/disable-ipv6-linux.html).
-
-</details>
-<details>
   <summary>Run the production build</summary>
 
 ```sh
@@ -136,8 +120,6 @@ npm start &
 cd tests/end_to_end/results
 robot ..
 ```
-
-> Replace `npm start` with `vercel dev` if you want to test the Vercel Functions (to be defined). In that case, the Robot configuration should also be changed with the port exposed by Vercel.
 
 > If the driver is not found, you may need to `export PATH=$PATH:/home/.../.local/share/WebDriverManager/bin`
 

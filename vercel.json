@@ -47,5 +47,78 @@
                 }
             ]
         }
+    ],
+    "redirects": [
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "query",
+                    "key": "mtm_cid"
+                },
+                {
+                    "type": "query",
+                    "key": "pk_cid"
+                },
+                {
+                    "type": "query",
+                    "key": "ss_email_id"
+                },
+                {
+                    "type": "query",
+                    "key": "vgo_ee"
+                },
+                {
+                    "type": "query",
+                    "key": "fbclid"
+                },
+                {
+                    "type": "query",
+                    "key": "gclid"
+                },
+                {
+                    "type": "query",
+                    "key": "msclkid"
+                },
+                {
+                    "type": "query",
+                    "key": "twclid"
+                },
+                {
+                    "type": "query",
+                    "key": "yclid"
+                },
+                {
+                    "type": "query",
+                    "key": "ymclid"
+                },
+                {
+                    "type": "query",
+                    "key": "ysclid"
+                },
+                {
+                    "type": "query",
+                    "key": "utm_source"
+                },
+                {
+                    "type": "query",
+                    "key": "utm_medium"
+                },
+                {
+                    "type": "query",
+                    "key": "utm_campaign"
+                },
+                {
+                    "type": "query",
+                    "key": "utm_content"
+                },
+                {
+                    "type": "query",
+                    "key": "utm_term"
+                }
+            ],
+            "destination": "/",
+            "permanent": true
+        }
     ]
 }

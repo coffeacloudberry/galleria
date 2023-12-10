@@ -4,7 +4,6 @@
     "description": "Lightweight photo album with short stories and tracks on interactive maps",
     "scripts": {
         "start": "webpack serve --config config/webpack.dev.js",
-        "start-vercel": "vercel dev",
         "build": "webpack --config config/webpack.prod.js",
         "lint": "eslint . api/**/* src/**/* tests/**/* config/**/* --quiet --fix --no-error-on-unmatched-pattern",
         "stylelint": "stylelint src/style/**/*.sass",
