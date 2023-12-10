@@ -1,5 +1,4 @@
 import ellipsisHorizontal from "@/icons/ellipsis-horizontal.svg";
-import imageOutline from "@/icons/image-outline.svg";
 import languageOutline from "@/icons/language-outline.svg";
 import listOutline from "@/icons/list-outline.svg";
 import m from "mithril";
@@ -87,11 +86,10 @@ const OpenPhoto: m.Component<OpenAttrs> = {
                 "data-tippy-content": t("story.open-any-photo.tooltip"),
             },
             [
-                m("span.long-item", [
+                m("span", [
                     m("span.mr-3", t(`story-to-${ref}`)),
                     m(Icon, { src: ellipsisHorizontal }),
                 ]),
-                m("span.short-item", m(Icon, { src: imageOutline })),
             ],
         );
     },
