@@ -16,6 +16,13 @@ import { Header, HeaderAttrs } from "./Header";
 import Map from "./Map";
 import { MapAttributions } from "./MapAttributions";
 import { StatsComponent } from "./Stats";
+import Icon from "./Icon";
+import SnowOutline from "@/icons/snow-outline.svg";
+import FlowerOutline from "@/icons/flower-outline.svg";
+import PartlySunnyOutline from "@/icons/partly-sunny-outline.svg";
+import LeafOutline from "@/icons/leaf-outline.svg";
+import RainyOutline from "@/icons/rainy-outline.svg";
+import SunnyOutline from "@/icons/sunny-outline.svg";
 
 /** Get the story ID from the path. */
 function getStoryId(): string {
@@ -42,9 +49,68 @@ interface StorySubTitleAttrs {
     duration: number | null;
 }
 
+class SeasonComponent implements m.ClassComponent<StorySubTitleAttrs> {
+    private tippyInstance: TippyInstance | undefined;
+
+    oncreate({ dom, attrs }: m.CVnodeDOM<StorySubTitleAttrs>): void {
+        if (attrs.season) {
+            this.tippyInstance = tippy(dom, {
+                content: t("seasons", attrs.season),
+                placement: "right",
+            });
+        }
+    }
+
+    onupdate({ attrs }: m.CVnode<StorySubTitleAttrs>): void {
+        if (attrs.season && this.tippyInstance) {
+            this.tippyInstance.setContent(t("seasons", attrs.season));
+        }
+    }
+
+    onbeforeremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.unmount();
+        }
+    }
+
+    onremove(): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.destroy();
+        }
+    }
+
+    static iconSeason(season: SeasonStrings): string {
+        switch (season) {
+            case "winter":
+                return SnowOutline;
+            case "spring":
+                return FlowerOutline;
+            case "summer":
+                return PartlySunnyOutline;
+            case "autumn":
+                return LeafOutline;
+            case "rainy":
+                return RainyOutline;
+            case "dry":
+                return SunnyOutline;
+        }
+    }
+
+    view({ attrs }: m.CVnode<StorySubTitleAttrs>): m.Vnode | null {
+        return (
+            attrs.season &&
+            m(
+                "span.mr-3",
+                m(Icon, { src: SeasonComponent.iconSeason(attrs.season) }),
+            )
+        );
+    }
+}
+
 export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
     view({ attrs }: m.Vnode<StorySubTitleAttrs>): m.Vnode {
         return m(".period", [
+            m(SeasonComponent, attrs),
             attrs.start &&
                 String(
                     t("story.start") +
@@ -55,12 +121,6 @@ export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
                 ),
             attrs.start &&
                 attrs.season && [
-                    m("span.large-screen", " • "),
-                    m("br.small-screen"),
-                ],
-            attrs.season && t("seasons", attrs.season),
-            (attrs.start || attrs.season) &&
-                attrs.duration && [
                     m("span.large-screen", " • "),
                     m("br.small-screen"),
                 ],
