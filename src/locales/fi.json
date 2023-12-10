@@ -12,16 +12,7 @@
     "copyright.under": "on saatavilla",
     "copyright.content": "Sivuston sisältö {{copyright.under}}",
     "copyright.source": "Sivuston lähdekoodi {{copyright.under}}",
-    "copyright.third-parties.link": "muut",
-    "copyright.third-parties.title": "Kolmannen osapuolen lisensoitu sisältö",
-    "copyright.third-parties.details": "Tämä sivusto sisältää seuraavat kuvat.",
-    "copyright.third-parties.project": "Hanke",
-    "copyright.third-parties.license": "Lisenssi",
-    "copyright.third-parties.icon": "Icon",
-    "copyright.third-parties.icon.creator": "Valmistanut",
     "from": "osoitteesta",
-    "copyright.third-parties.from": "Osoitteesta",
-    "copyright.third-parties.ionicons": "Muut kuvakkeet: ",
     "copyright.agreed": "Sitoudun noudattamaan lisenssiä.",
     "download.title": "Lataa täysikokoinen valokuva",
     "download": "Lataa",
@@ -164,5 +155,5 @@
     "donate-recurrent": "Toistuva lahjoitus kortilla",
     "copy": "Kopioi osoite leikepöydälle",
     "copied": "Osoite kopioitu leikepöydälle",
-    "modified-icon": "muutettu"
+    "unless-specified": "Etsi lisensoitu sisältö lähdekoodista."
 }

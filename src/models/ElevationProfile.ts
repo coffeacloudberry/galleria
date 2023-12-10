@@ -25,7 +25,7 @@ function createAnnotations(
         if (wpt.label === undefined || !(wpt.label in extraIcons)) {
             return;
         }
-        const source = extraIcons[wpt.label].source;
+        const source = extraIcons[wpt.label];
         const iconSize = isMobile() ? 20 : 28; // px
         const image = new Image(iconSize, iconSize);
         image.src = `/assets/map/${source}.png`;

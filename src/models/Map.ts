@@ -28,25 +28,13 @@ export const AttribUrls = [
     "https://www.maxar.com/",
 ];
 
-/** Structure of one icon in the JSON file. */
-export interface ExtraIconsInfo {
-    /** File name in the assets used as icon ID. */
-    source: string;
-
-    /** Creator & distributor. */
-    attributions: [string, string];
-
-    /** True if the icon has been customized/modified from the source. */
-    modified: boolean;
-}
-
 /**
  * Additional icons.
  * The key is "sym" in the GeoJSON properties and GPX file and translations.
  * Update ThirdPartyLicenses.ts if the icon supplier is not only
  * https://www.flaticon.com/
  */
-type ExtraIconsStruct = { [key: string]: ExtraIconsInfo };
+type ExtraIconsStruct = { [key: string]: string };
 
 // skipcq: JS-0359
 export const extraIcons: ExtraIconsStruct = require("../extra-icons");
@@ -146,7 +134,7 @@ class GlobalMapState {
         m.render(
             el,
             m("img", {
-                src: `/assets/map/${extraIcons[activity].source}.svg`,
+                src: `/assets/map/${extraIcons[activity]}.svg`,
                 style: `width: calc(128px * ${this.markersRelSize});`,
             }),
         );

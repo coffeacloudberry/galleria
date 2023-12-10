@@ -12,16 +12,7 @@
     "copyright.under": "licensed under",
     "copyright.content": "The content is {{copyright.under}}",
     "copyright.source": "The source code is {{copyright.under}}",
-    "copyright.third-parties.link": "others",
-    "copyright.third-parties.title": "Third Party Licensed Content",
-    "copyright.third-parties.details": "This website includes the following images.",
-    "copyright.third-parties.project": "Project",
-    "copyright.third-parties.license": "License",
-    "copyright.third-parties.icon": "Icon",
-    "copyright.third-parties.icon.creator": "Made by",
     "from": "from",
-    "copyright.third-parties.from": "From",
-    "copyright.third-parties.ionicons": "Other icons: ",
     "copyright.agreed": "I agree to comply with the license.",
     "download.title": "Download Full Size Photo",
     "download": "Download",
@@ -164,5 +155,5 @@
     "donate-recurrent": "Recurrent donation with card",
     "copy": "Copy address to clipboard",
     "copied": "Address copied to clipboard",
-    "modified-icon": "modified"
+    "unless-specified": "Navigate the source code to find licensed content."
 }

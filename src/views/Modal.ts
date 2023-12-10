@@ -14,14 +14,6 @@ function scrollableBody(scrollable: boolean) {
     }
 }
 
-export enum ModalSize {
-    /// Fixed maximum width
-    Medium,
-
-    /// Fixed large width
-    Large,
-}
-
 type CloudLink = string | null | false;
 
 interface LinkToCloudAttrs {
@@ -55,7 +47,6 @@ const LinkToCloud: m.Component<LinkToCloudAttrs> = {
 interface ModalOptions {
     title: string | m.Vnode;
     content: m.Component;
-    size?: ModalSize;
     cancelable?: boolean;
     cloudLinkFn?: () => CloudLink;
 }
@@ -63,7 +54,6 @@ interface ModalOptions {
 export function modal({
     title,
     content,
-    size = ModalSize.Medium,
     cancelable = false,
     cloudLinkFn = undefined,
 }: ModalOptions): void {
@@ -101,9 +91,8 @@ export function modal({
                     onclick: closeModal,
                 },
                 m(
-                    ".modal-box",
+                    ".modal-box.modal-box-medium",
                     {
-                        class: `modal-box-${ModalSize[size].toLowerCase()}`,
                         onclick: (event: Event) => {
                             // do not close the modal when clicking inside
                             event.stopPropagation();

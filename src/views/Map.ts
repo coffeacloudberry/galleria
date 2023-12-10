@@ -338,7 +338,7 @@ export default class Map implements m.ClassComponent {
             this.decrementRemainingLayers();
             return;
         }
-        const source = extraIcons[sym].source;
+        const source = extraIcons[sym];
 
         /*
         Add a layer for this symbol type if not already added.
@@ -617,7 +617,7 @@ export default class Map implements m.ClassComponent {
 
     /** Add an icon where the selected photo has been taken. */
     addPhotos(): void {
-        const source = extraIcons["camera"].source;
+        const source = extraIcons["camera"];
         if (
             !globalMapState.map ||
             globalMapState.map.getLayer(source) ||

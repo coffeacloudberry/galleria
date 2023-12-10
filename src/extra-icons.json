@@ -1,67 +1,15 @@
 {
-    "First Point": {
-        "source": "goal-outline",
-        "attributions": ["Freepik", "Flaticon"],
-        "modified": false
-    },
-    "Residence": {
-        "source": "house-outline",
-        "attributions": ["Good Ware", "Flaticon"],
-        "modified": false
-    },
-    "camera": {
-        "source": "photo-camera-outline",
-        "attributions": ["Good Ware", "Flaticon"],
-        "modified": false
-    },
-    "Campground": {
-        "source": "tent-outline",
-        "attributions": ["Good Ware", "Flaticon"],
-        "modified": false
-    },
-    "Fishing Hot Spot Facility": {
-        "source": "wood-house-outline",
-        "attributions": ["Good Ware", "Flaticon"],
-        "modified": false
-    },
-    "Last Point": {
-        "source": "mission-outline",
-        "attributions": ["Pixel perfect", "Flaticon"],
-        "modified": false
-    },
-    "WALK": {
-        "source": "backpacker-outline",
-        "attributions": ["surang", "Flaticon"],
-        "modified": false
-    },
-    "MOTORED_BOAT": {
-        "source": "motored-boat-outline",
-        "attributions": ["katemangostar", "Freepik"],
-        "modified": true
-    },
-    "ROWING_BOAT": {
-        "source": "rowing-boat-outline",
-        "attributions": ["macrovector", "Freepik"],
-        "modified": true
-    },
-    "SKI": {
-        "source": "sledge-outline",
-        "attributions": ["Freepik", "Freepik"],
-        "modified": true
-    },
-    "helicopter": {
-        "source": "helicopter",
-        "attributions": ["Pixel perfect", "Flaticon"],
-        "modified": false
-    },
-    "snail": {
-        "source": "snail",
-        "attributions": ["macrovector", "Freepik"],
-        "modified": false
-    },
-    "rabbit": {
-        "source": "rabbit",
-        "attributions": ["macrovector", "Freepik"],
-        "modified": false
-    }
+    "First Point": "goal-outline",
+    "Residence": "house-outline",
+    "camera": "photo-camera-outline",
+    "Campground": "tent-outline",
+    "Fishing Hot Spot Facility": "wood-house-outline",
+    "Last Point": "mission-outline",
+    "WALK": "backpacker-outline",
+    "MOTORED_BOAT": "motored-boat-outline",
+    "ROWING_BOAT": "rowing-boat-outline",
+    "SKI": "sledge-outline",
+    "helicopter": "helicopter",
+    "snail": "snail",
+    "rabbit": "rabbit"
 }

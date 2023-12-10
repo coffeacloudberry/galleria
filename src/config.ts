@@ -116,6 +116,7 @@ export const config = {
     contentLicense: {
         shortName: "CC BY-NC-SA 4.0",
         url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        others: "https://github.com/coffeacloudberry/galleria",
         holder: "Clément Fontaine",
     },
 };

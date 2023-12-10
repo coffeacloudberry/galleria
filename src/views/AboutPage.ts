@@ -23,8 +23,7 @@ import { t } from "../translate";
 import { hideAllForce, toast } from "../utils";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
-import { ModalSize, modal } from "./Modal";
-import { ThirdPartyLicenses } from "./ThirdPartyLicenses";
+import { modal } from "./Modal";
 
 interface SocialNetworkItemAttrs {
     /** Translated tooltip content as text. */
@@ -209,25 +208,7 @@ const CopyrightNotice: m.Component = {
         ];
         return [
             m("h1", t("copyright")),
-            m("p", [
-                `© ${config.contentLicense.holder} & `,
-                m(
-                    "a",
-                    {
-                        href: "#",
-                        onclick: (e: Event): void => {
-                            e.preventDefault();
-                            modal({
-                                title: t("copyright.third-parties.title"),
-                                content: ThirdPartyLicenses,
-                                size: ModalSize.Large,
-                            });
-                        },
-                    },
-                    t("copyright.third-parties.link"),
-                ),
-                ".",
-            ]),
+            m("p", `© ${config.contentLicense.holder}`),
             m(
                 "p",
                 myCopyrightList.map((license) => {
@@ -245,6 +226,7 @@ const CopyrightNotice: m.Component = {
                     ]);
                 }),
             ),
+            m("p", t("unless-specified")),
         ];
     },
 };
