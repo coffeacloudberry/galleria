@@ -8,7 +8,7 @@ import { story } from "../models/Story";
 import { t } from "../translate";
 import { msOrKms, numberWithCommas } from "../utils";
 import Icon from "./Icon";
-import { Duration } from "./StoryPage";
+import { durationString } from "./StoryPage";
 import { ActivityEntry, EssentialTrackInfo } from "../webtrack";
 
 /** List of positioning and tracking tools used in the field. */
@@ -141,12 +141,7 @@ const DurationLi: m.Component = {
         return m("li", [
             t("story.duration"),
             " ",
-            m(
-                "strong",
-                m(Duration, {
-                    duration: story.duration,
-                }),
-            ),
+            m("strong", durationString(story.duration)),
         ]);
     },
 };

@@ -23,25 +23,13 @@ import PartlySunnyOutline from "@/icons/partly-sunny-outline.svg";
 import LeafOutline from "@/icons/leaf-outline.svg";
 import RainyOutline from "@/icons/rainy-outline.svg";
 import SunnyOutline from "@/icons/sunny-outline.svg";
+import CalendarOutline from "@/icons/calendar-outline.svg";
+import StopwatchOutline from "@/icons/stopwatch-outline.svg";
 
 /** Get the story ID from the path. */
 function getStoryId(): string {
     return m.route.param("title");
 }
-
-interface DurationAttrs {
-    duration: number;
-}
-
-export const Duration: m.Component<DurationAttrs> = {
-    view({ attrs }: m.Vnode<DurationAttrs>): string {
-        const argTranslate =
-            attrs.duration < 1 ? "0" : Math.floor(attrs.duration);
-        return String(
-            t(attrs.duration % 1 ? "half-days" : "days", argTranslate),
-        );
-    },
-};
 
 interface StorySubTitleAttrs {
     start: EasyDate | null;
@@ -49,36 +37,15 @@ interface StorySubTitleAttrs {
     duration: number | null;
 }
 
+export function durationString(durationNumber: number): string | null {
+    if (!durationNumber) {
+        return null;
+    }
+    const argTranslate = durationNumber < 1 ? "0" : Math.floor(durationNumber);
+    return String(t(durationNumber % 1 ? "half-days" : "days", argTranslate));
+}
+
 class SeasonComponent implements m.ClassComponent<StorySubTitleAttrs> {
-    private tippyInstance: TippyInstance | undefined;
-
-    oncreate({ dom, attrs }: m.CVnodeDOM<StorySubTitleAttrs>): void {
-        if (attrs.season) {
-            this.tippyInstance = tippy(dom, {
-                content: t("seasons", attrs.season),
-                placement: "right",
-            });
-        }
-    }
-
-    onupdate({ attrs }: m.CVnode<StorySubTitleAttrs>): void {
-        if (attrs.season && this.tippyInstance) {
-            this.tippyInstance.setContent(t("seasons", attrs.season));
-        }
-    }
-
-    onbeforeremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.unmount();
-        }
-    }
-
-    onremove(): void {
-        if (this.tippyInstance) {
-            this.tippyInstance.destroy();
-        }
-    }
-
     static iconSeason(season: SeasonStrings): string {
         switch (season) {
             case "winter":
@@ -99,37 +66,54 @@ class SeasonComponent implements m.ClassComponent<StorySubTitleAttrs> {
     view({ attrs }: m.CVnode<StorySubTitleAttrs>): m.Vnode | null {
         return (
             attrs.season &&
-            m(
-                "span.mr-3",
+            m("span", [
                 m(Icon, { src: SeasonComponent.iconSeason(attrs.season) }),
-            )
+                " ",
+                t("seasons", attrs.season),
+            ])
         );
     }
 }
+
+const StartDateComponent: m.Component<StorySubTitleAttrs> = {
+    view({ attrs }: m.Vnode<StorySubTitleAttrs>): m.Vnode | null {
+        return (
+            attrs.start &&
+            m("span", [
+                m(Icon, { src: CalendarOutline }),
+                " ",
+                t("story.start"),
+                t("date", attrs.start.month, {
+                    day: attrs.start.day,
+                    year: attrs.start.year,
+                }),
+            ])
+        );
+    },
+};
+
+const DurationComponent: m.Component<StorySubTitleAttrs> = {
+    view({ attrs }: m.Vnode<StorySubTitleAttrs>): m.Vnode | null | number {
+        return (
+            attrs.duration &&
+            m("span", [
+                m(Icon, { src: StopwatchOutline }),
+                " ",
+                t("story.duration"),
+                durationString(attrs.duration),
+            ])
+        );
+    },
+};
 
 export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
     view({ attrs }: m.Vnode<StorySubTitleAttrs>): m.Vnode {
         return m(".period", [
             m(SeasonComponent, attrs),
-            attrs.start &&
-                String(
-                    t("story.start") +
-                        t("date", attrs.start.month, {
-                            day: attrs.start.day,
-                            year: attrs.start.year,
-                        }),
-                ),
-            attrs.start &&
-                attrs.season && [
-                    m("span.large-screen", " • "),
-                    m("br.small-screen"),
-                ],
-            attrs.duration && [
-                t("story.duration"),
-                m(Duration, {
-                    duration: attrs.duration,
-                }),
-            ],
+            attrs.season && attrs.start && m("br"),
+            m(StartDateComponent, attrs),
+            attrs.start && attrs.duration && m("br"),
+            m(DurationComponent, attrs),
         ]);
     },
 };

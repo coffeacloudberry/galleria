@@ -63,7 +63,7 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
 class StoryAppetizer implements m.ClassComponent<OneStory> {
     /** Keep only the first few words of a text. */
     static cutText(longText: string): string {
-        let cutPosition = 140;
+        let cutPosition = 150;
         // cut to the first characters minus the last word,
         // which is probably cut
         while (longText[cutPosition] !== " " && cutPosition) {
