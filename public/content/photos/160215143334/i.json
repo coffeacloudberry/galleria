@@ -1,15 +1,19 @@
 {
     "title": {
         "en": "Lake Kiriopukae",
-        "fi": "",
-        "fr": ""
+        "fi": "Kiriopukaejärvi",
+        "fr": "Lac Kiriopukae"
     },
     "description": {
         "en": "",
         "fi": "",
         "fr": ""
     },
-    "story": "",
+    "position": {
+        "lat": -38.80646,
+        "lon": 177.11316
+    },
+    "story": "Nothing_Great_Happened_Today",
     "dateTaken": "2016-02-15T14:33:34",
     "focalLength35mm": 27,
     "exposureTime": "1/125",
