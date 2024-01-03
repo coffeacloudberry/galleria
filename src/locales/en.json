@@ -155,5 +155,6 @@
     "donate-recurrent": "Recurrent donation with card",
     "copy": "Copy address to clipboard",
     "copied": "Address copied to clipboard",
-    "unless-specified": "Navigate the source code to find licensed content."
+    "unless-specified": "Navigate the source code to find licensed content.",
+    "subscribe": "Subscribe to the newsletter."
 }
