@@ -46,7 +46,8 @@
             "extends": "plugin:eslint-plugin-json-es/recommended",
             "rules": {
                 "@typescript-eslint/unbound-method": "off",
-                "@typescript-eslint/restrict-template-expressions": "off"
+                "@typescript-eslint/restrict-template-expressions": "off",
+                "comma-dangle": "off"
             }
         },
         {

@@ -11,9 +11,9 @@
         "downlevelIteration": true,
         "target": "es6",
         "sourceMap": true,
-        "lib": ["es2019", "es6", "dom", "dom.iterable"]
+        "lib": ["es2019", "es6", "dom", "dom.iterable"],
     },
     "include": ["src/**/*", "api/**/*", "tests/unit/**/*", "config/**/*"],
     "exclude": ["node_modules", "**/*.spec.ts"],
-    "$schema": "https://json.schemastore.org/tsconfig"
+    "$schema": "https://json.schemastore.org/tsconfig",
 }
