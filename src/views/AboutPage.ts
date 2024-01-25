@@ -148,14 +148,6 @@ export class Contact implements m.ClassComponent {
                     }),
                 ),
             ),
-            m(
-                "p",
-                m(
-                    "a",
-                    { href: "https://buttondown.email/ExploreWilder" },
-                    t("subscribe"),
-                ),
-            ),
         ];
     }
 }
