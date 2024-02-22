@@ -66,12 +66,12 @@ export const config = {
     mapbox: {
         /** Mapbox GL JS from the CDN. */
         css: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v3.1.0/mapbox-gl.css",
+            src: "https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css",
             sri: "sha512-K54V3ai9CHFBUpp+fo4ekZ89sMvBpfAVl+WSP4FcThI3DkrO2lc5Hl9utLzuuJL83OxgMq72YD9gTIYvh8jhnA==",
         },
         js: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v3.1.0/mapbox-gl.js",
-            sri: "sha512-HvbZxJlF/g7dQDyBFheXq4QTIgzVhPeo4C/Eh/EBCZD2i+q6eq6mBAPruZaSHpaVd+m+0vzfnql8cHBBq3E69Q==",
+            src: "https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js",
+            sri: "sha512-abFOcqBXK+yMTXDF/OpCaeMbnYKIuEFM4HKugIfARsLkjszv1VJz1dCEc6Wl9d749L7NJSkFT+Rkju40ppPTUA==",
         },
 
         /** Either official Mapbox style or custom style from Mapbox Studio. */
