@@ -38,7 +38,11 @@ const CameraSetup: m.Component = {
                 fNumber && m("li", `${t("cam.f-number")} f/${fNumber}`),
                 exposure && m("li", `${t("cam.exposure")} ${exposure} s`),
                 iso && m("li", `${t("cam.iso")} ISO ${iso}`),
-                mode && m("li", `${t("cam.mode")} ${mode}`),
+                mode &&
+                    m("li", [
+                        `${t("cam.mode")} `,
+                        m("small", t("cam.mode.value", mode)),
+                    ]),
             ]),
         ];
     },
