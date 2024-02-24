@@ -51,9 +51,10 @@ export interface GpsConfig {
      * GPS only: false, GPS+others: true
      * Other constellations include:
      * * GLONASS (64sc + 66sr)
-     * * GALILEO (64sc + 66sr)
-     * * QZSS (66sr)
+     * * GALILEO (64sc + 66sr + inReach Messenger)
+     * * QZSS (66sr + inReach Messenger)
      * * IRNSS (66sr)
+     * * BEIDOU (inReach Messenger)
      */
     multiGNSSEnabled: boolean;
 

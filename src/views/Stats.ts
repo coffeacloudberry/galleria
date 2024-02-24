@@ -5,11 +5,27 @@ import m from "mithril";
 
 import { globalMapState } from "../models/Map";
 import { story } from "../models/Story";
+import type { GpsConfig } from "../models/Story";
 import { t } from "../translate";
 import { msOrKms, numberWithCommas } from "../utils";
 import Icon from "./Icon";
 import { durationString } from "./StoryPage";
-import { ActivityEntry, EssentialTrackInfo } from "../webtrack";
+import type { ActivityEntry, EssentialTrackInfo } from "../webtrack";
+
+function gpsFeature(oneConfig: GpsConfig): string {
+    const features = [];
+
+    if (oneConfig.multiBandEnabled) {
+        features.push(t("multi-band"));
+    }
+    if (oneConfig.multiGNSSEnabled) {
+        features.push(t("multi-gnss"));
+    }
+    if (oneConfig.waasEgnosEnabled) {
+        features.push(t("waas-egnos-enabled"));
+    }
+    return ` (${features.join(", ")})`;
+}
 
 /** List of positioning and tracking tools used in the field. */
 const ListPositioningComponent: m.Component = {
@@ -25,22 +41,7 @@ const ListPositioningComponent: m.Component = {
                         "li",
                         m("small", oneConfig.model),
                         m("br.small-screen"),
-                        m(
-                            "small",
-                            ` (${
-                                oneConfig.multiBandEnabled
-                                    ? t("multi-band")
-                                    : t("single-band")
-                            }, ${
-                                oneConfig.multiGNSSEnabled
-                                    ? t("multi-gnss")
-                                    : t("single-gnss")
-                            }, ${
-                                oneConfig.waasEgnosEnabled
-                                    ? t("waas-egnos-enabled")
-                                    : t("waas-egnos-disabled")
-                            })`,
-                        ),
+                        m("small", gpsFeature(oneConfig)),
                     ),
                 ),
                 m("li", m("small", t("topo-maps"))),

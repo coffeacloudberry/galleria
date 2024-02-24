@@ -497,7 +497,7 @@ def gpx_to_webtrack_with_elevation(
             )
 
         derivative = 100.0 * (elevation_total_gain + elevation_total_loss) / current_length
-        track_is_flat = derivative < 3.0
+        track_is_flat = derivative < 2.0
         if track_is_flat and not forced_elevation:
             click.echo("The track is almost flat ({:.1f}%), elevation removed from track.".format(derivative))
             full_profile = flat_full_profile(elevation_profiles, waypoints, current_length, activities)

@@ -24,6 +24,12 @@ No benchmark, but the result is good enough:
 
 > If GDAL is installed system-wide, configure the virtual environment to also use the global site packages.
 
+Some Fedora commands that could fix a failed GDAL installation:
+```
+sudo dnf install python3.11-devel gdal
+pip install GDAL=="$(gdal-config --version).*"
+```
+
 > For the Jonathan de Ferranti dataset, please download it yourself and put it in the cache folder with the file format: *N64E025_JdF1.hgt* if setting *JdF1* as input parameter.
 
 * To access the SRTMGL1 v3 and ASTGTM v3 datasets, you need to accept the terms:

@@ -50,7 +50,8 @@
         "First Point": "Start",
         "Last Point": "End",
         "Fishing Hot Spot Facility": "{{night}} hut",
-        "Campground": "{{night}} tent"
+        "Campground": "{{night}} tent",
+        "Residence": "{{night}} hostel"
     },
     "map.stats": "Statistics:",
     "map.stats.total-length": "Total Length:",
@@ -63,12 +64,9 @@
     "map.stats.loss": "Loss:",
     "map.stats.source": "Data source:",
     "map.stats.source.pos": "Position:",
-    "single-band": "single-band",
     "multi-band": "multi-band",
-    "single-gnss": "GPS only",
     "multi-gnss": "multi-GNSS",
     "waas-egnos-enabled": "WAAS/EGNOS enabled",
-    "waas-egnos-disabled": "WAAS/EGNOS disabled",
     "topo-maps": "Topo maps",
     "map.stats.chart.ele.label": "{{elevation}} (m)",
     "map.stats.chart.ele.tooltip": "{{elevation}}:",
