@@ -67,7 +67,7 @@ def date_taken_exif(d) -> datetime.datetime:
     try:
         exif_tag = d["EXIF:DateTimeOriginal"]
         return datetime.datetime.strptime(exif_tag, "%Y:%m:%d %H:%M:%S")
-    except KeyError as err:
+    except (KeyError, ValueError) as err:
         raise KeyError("Missing date taken") from err
 
 
@@ -182,8 +182,17 @@ def add_photo(album_path: str, raw_file: str) -> None:
         return
     d = exiftool.ExifToolHelper().get_metadata(raw_file)[0]
     body_model, lens_model = body_lens_model_exif(d)
+    dir_format = "%y%m%d%H%M%S"
+    try:
+        # find the date taken that will be the folder name
+        date_taken = date_taken_exif(d)
+        dirname = date_taken.strftime(dir_format)
+    except KeyError:
+        dirname = click.prompt("When the photo has been taken? (format=YYMMDDhhmmss)")
+        date_taken = datetime.datetime.strptime(dirname, dir_format)
+
     exif = [
-        date_taken_exif(d),
+        date_taken,
         focal_length_35mm_exif(d),
         exposure_time_s_exif(d),
         f_number_exif(d),
@@ -192,9 +201,6 @@ def add_photo(album_path: str, raw_file: str) -> None:
         lens_model,
         computational_mode_exif(d),
     ]
-
-    # find the date taken that will be the folder name
-    dirname = exif[0].strftime("%y%m%d%H%M%S")
 
     # find the position where the photo will be dropped on the album
     all_existing_photos_list_list = [
