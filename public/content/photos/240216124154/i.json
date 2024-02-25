@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Infinite Path",
+        "fi": "Ääretön polku",
+        "fr": "Chemin infini"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 70.38789,
+        "lon": 29.148233
+    },
+    "story": "Hostile_Heaven",
+    "dateTaken": "2024-02-16T12:41:54",
+    "focalLength35mm": 22,
+    "exposureTime": "1/640",
+    "fNumber": 7.1,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240213101551,
+    "next": 240218102820
+}

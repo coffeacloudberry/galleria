@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Wind Waves",
+        "fi": "Tuulen aallot",
+        "fr": "Vagues de vents"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 70.302833,
+        "lon": 28.641429
+    },
+    "story": "Hostile_Heaven",
+    "dateTaken": "2024-02-18T10:28:31",
+    "focalLength35mm": 50,
+    "exposureTime": "1/400",
+    "fNumber": 10,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240218102820,
+    "next": 240218143859
+}

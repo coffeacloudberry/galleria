@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Arctic Curves",
+        "fi": "Arktiset käyrät",
+        "fr": "Courbes arctiques"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 70.302833,
+        "lon": 28.641429
+    },
+    "story": "Hostile_Heaven",
+    "dateTaken": "2024-02-18T10:28:20",
+    "focalLength35mm": 50,
+    "exposureTime": "1/250",
+    "fNumber": 11,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240216124154,
+    "next": 240218102831
+}

@@ -1,0 +1,26 @@
+{
+    "start": "2024-02-09",
+    "duration": 11,
+    "season": "winter",
+    "mapTheme": "whiteSnow",
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        },
+        {
+            "model": "Garmin 64sc",
+            "multiBandEnabled": false,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": true
+        },
+        {
+            "model": "Garmin inReach Messenger",
+            "multiBandEnabled": false,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        }
+    ]
+}
