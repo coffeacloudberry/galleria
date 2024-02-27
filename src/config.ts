@@ -1,5 +1,5 @@
 import { Attribution } from "./models/Map";
-import { MapThemeStrings } from "./models/Story";
+import type { MapThemeStrings } from "./models/Story";
 
 type AttributedUrl = { url: string; attributions: Attribution[] };
 type StyleType = Record<MapThemeStrings, AttributedUrl>;

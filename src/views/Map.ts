@@ -503,7 +503,7 @@ export default class Map implements m.ClassComponent {
         // add the DEM source as a terrain layer without exaggerated height
         globalMapState.map.setTerrain({
             source: "mapbox-dem",
-            exaggeration: 1,
+            exaggeration: story.mapExaggeration,
         });
 
         globalMapState.map.addSource("webtrack", {
