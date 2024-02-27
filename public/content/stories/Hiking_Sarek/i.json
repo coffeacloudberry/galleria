@@ -2,6 +2,7 @@
     "start": "2023-08-07",
     "duration": 14,
     "season": "summer",
+    "mapExaggeration": 3,
     "gpsConfig": [
         {
             "model": "Garmin 66sr",

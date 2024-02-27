@@ -1,5 +1,6 @@
 {
     "start": "2022-09-26",
     "duration": 12,
-    "season": "autumn"
+    "season": "autumn",
+    "mapExaggeration": 3
 }
