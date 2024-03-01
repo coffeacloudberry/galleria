@@ -6,6 +6,7 @@ import type {
     Popup,
     MapboxGeoJSONFeature,
     LngLatLike,
+    GeoJSONSource,
 } from "mapbox-gl";
 import m from "mithril";
 
@@ -109,6 +110,67 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
     }
 }
 
+type ClusterItem = { id: number; image: HTMLImageElement; ready: boolean };
+
+interface ClusterContentAttrs {
+    photos: ClusterItem[];
+}
+
+const PhotoInCluster: m.Component<ClusterItem> = {
+    view({ attrs }: m.Vnode<ClusterItem>): m.Vnode {
+        return m(
+            "li",
+            m(
+                m.route.Link,
+                {
+                    href: m.buildPathname("/:lang/photo/:id", {
+                        lang: t.getLang(),
+                        id: attrs.id,
+                    }),
+                },
+                m("img.cluster-thumbnail", {
+                    src: attrs.image.src,
+                    alt: "",
+                }),
+            ),
+        );
+    }
+}
+
+const InsideCluster: m.Component<ClusterContentAttrs> = {
+    view({ attrs }: m.Vnode<ClusterContentAttrs>): m.Vnode {
+        return m(
+            "ul",
+            attrs.photos.map((item) => item.ready && m(PhotoInCluster, item)),
+        );
+    },
+};
+
+const LoadingCluster: m.Component = {
+    view(): m.Vnode {
+        return m(
+            ".loading-icon",
+            m(Icon, { src: apertureOutline, style: "height: 1.6rem" }),
+        );
+    },
+};
+
+class ClusterContent implements m.ClassComponent<ClusterContentAttrs> {
+    view({ attrs }: m.CVnode<ClusterContentAttrs>): m.Vnode {
+        const showSomething = globalMapState.clusterIsOpen;
+        const showPhotos = attrs.photos.some((item) => item.ready);
+        const classes = [
+            showSomething ? "expanded" : "collapsed",
+            !showPhotos && "loading-cluster",
+        ];
+        return m(
+            ".cluster-content",
+            { class: classes.join(" ") },
+            showPhotos ? m(InsideCluster, attrs) : m(LoadingCluster),
+        );
+    }
+}
+
 /**
  * Load a map and its dependencies (Mapbox GL JS) on the fly
  * to avoid waiting for huge bundles before displaying the page.
@@ -132,6 +194,9 @@ export default class Map implements m.ClassComponent {
     /** Data used by the popupCam. */
     popupCamData: PopupCamAttrs | undefined;
 
+    /** List of photo IDs of the cluster of photos that is active. */
+    clusterContent: ClusterItem[] = [];
+
     /** The current language of the map interface. */
     currentLang: string;
 
@@ -141,6 +206,11 @@ export default class Map implements m.ClassComponent {
     constructor() {
         this.currentLang = t.getLang();
         globalMapState.start();
+    }
+
+    /** Get the photo ID from the GeoJSON feature. */
+    static extractPhotoId(feature: MapboxGeoJSONFeature): number | null {
+        return feature.properties && parseInt(feature.properties.name);
     }
 
     /** Display a tooltip when the mouse hovers a marker. */
@@ -169,9 +239,15 @@ export default class Map implements m.ClassComponent {
         }
 
         const sym = feature.properties.sym;
-        const photoId = parseInt(feature.properties.name);
-        if (sym === "camera" && Boolean(photoId)) {
+        const photoId = Map.extractPhotoId(feature);
+        if (sym === "camera" && photoId) {
             this.addPopupCamToMap(coordinates, photoId);
+        } else if ("cluster_id" in feature.properties) {
+            this.preloadCluster(feature);
+            if (globalMapState.clusterIsOpen) {
+                Map.asyncCloseCluster();
+            }
+            this.asyncOpenCluster();
         } else {
             this.addPopupTextToMap(coordinates, t("map.sym", sym));
         }
@@ -203,6 +279,66 @@ export default class Map implements m.ClassComponent {
         };
         this.popupCam.setLngLat(coordinates).addTo(globalMapState.map);
         m.redraw(); // re-render the popup with fresh data
+    }
+
+    /** Load one photo at a time to avoid glitch. */
+    loadClusterPhotos(latestLoad = 0) {
+        if (this.clusterContent.length === latestLoad) {
+            return;
+        }
+        const currentPhoto = this.clusterContent[latestLoad];
+        currentPhoto.image.onload = () => {
+            currentPhoto.ready = true;
+            m.redraw();
+            this.loadClusterPhotos(latestLoad + 1);
+        };
+        currentPhoto.image.src = `/content/photos/${currentPhoto.id}/f.webp`;
+    }
+
+    /** Preload the photos. */
+    preloadCluster(cluster: MapboxGeoJSONFeature): void {
+        if (!globalMapState.map || !cluster.properties) {
+            return;
+        }
+        const src = globalMapState.map.getSource("camera") as GeoJSONSource;
+        src.getClusterLeaves(
+            cluster.properties.cluster_id,
+            cluster.properties.point_count,
+            0,
+            (error, features) => {
+                if (!error) {
+                    const photoIds = (features as MapboxGeoJSONFeature[])
+                        .map(Map.extractPhotoId)
+                        .filter(Number) as number[];
+                    photoIds.sort();
+                    this.clusterContent = photoIds.reverse().map((id) => {
+                        return {
+                            id,
+                            image: new Image(),
+                            ready: false,
+                        };
+                    });
+                    this.loadClusterPhotos();
+                }
+            },
+        );
+    }
+
+    /** Trigger redraw with the open slider. */
+    asyncOpenCluster(): void {
+        if (!globalMapState.clusterIsOpen) {
+            this.clusterContent = [];
+            globalMapState.clusterIsOpen = true;
+            m.redraw();
+        }
+    }
+
+    /** Trigger redraw with the closed slider. */
+    static asyncCloseCluster(): void {
+        if (globalMapState.clusterIsOpen) {
+            globalMapState.clusterIsOpen = false;
+            m.redraw(); // smoothly hide the slider
+        }
     }
 
     /** Create the popup and update the text. */
@@ -666,8 +802,9 @@ export default class Map implements m.ClassComponent {
                     data,
                     cluster: true,
                 });
+                const circlesId = `clusters-${source}`;
                 globalMapState.map.addLayer({
-                    id: `clusters-${source}`,
+                    id: circlesId,
                     // use circles to force visibility because
                     // symbols are hidden if colliding to each-other
                     type: "circle",
@@ -707,14 +844,19 @@ export default class Map implements m.ClassComponent {
                     },
                 });
 
-                globalMapState.map.on("click", source, (e: MouseEvent) => {
-                    this.markerOnMouseEnter(e);
-                });
-                globalMapState.map.on("mouseenter", source, () => {
-                    globalMapState.hideHikerForPointer();
-                });
-                globalMapState.map.on("mouseleave", source, () => {
-                    globalMapState.putHikerBack();
+                [source, circlesId].forEach((src) => {
+                    if (!globalMapState.map) {
+                        return;
+                    }
+                    globalMapState.map.on("click", src, (e: MouseEvent) => {
+                        this.markerOnMouseEnter(e);
+                    });
+                    globalMapState.map.on("mouseenter", src, () => {
+                        globalMapState.hideHikerForPointer();
+                    });
+                    globalMapState.map.on("mouseleave", src, () => {
+                        globalMapState.putHikerBack();
+                    });
                 });
             },
         );
@@ -786,6 +928,7 @@ export default class Map implements m.ClassComponent {
                 });
                 Map.resetControls();
 
+                globalMapState.map.on("click", Map.asyncCloseCluster);
                 globalMapState.map.on("mouseover", () => {
                     globalMapState.mouseInsideMap = true;
                 });
@@ -847,9 +990,9 @@ export default class Map implements m.ClassComponent {
     }
 
     view(): m.Vnode {
-        return m(
-            "#map",
+        return m("#map", [
             this.popupCamData && m(PopupCamComponent, this.popupCamData),
-        );
+            m(ClusterContent, { photos: this.clusterContent }),
+        ]);
     }
 }
