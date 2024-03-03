@@ -99,7 +99,6 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
                     id: this.currentPhoto,
                 }),
                 class: "map-thumbnail",
-                "data-tippy-content": t("story.open-photo.tooltip"),
             },
             m("img", {
                 src: this.image.src,
@@ -245,7 +244,7 @@ export default class Map implements m.ClassComponent {
         } else if ("cluster_id" in feature.properties) {
             this.preloadCluster(feature);
             if (globalMapState.clusterIsOpen) {
-                Map.asyncCloseCluster();
+                this.closePhotosPreview();
             }
             this.asyncOpenCluster();
         } else {
@@ -333,8 +332,11 @@ export default class Map implements m.ClassComponent {
         }
     }
 
-    /** Trigger redraw with the closed slider. */
-    static asyncCloseCluster(): void {
+    /** Close the photo previews (thumbnails in map): popup and/or slider. */
+    closePhotosPreview(): void {
+        if (this.popupCam) {
+            this.popupCam.remove();
+        }
         if (globalMapState.clusterIsOpen) {
             globalMapState.clusterIsOpen = false;
             m.redraw(); // smoothly hide the slider
@@ -928,7 +930,9 @@ export default class Map implements m.ClassComponent {
                 });
                 Map.resetControls();
 
-                globalMapState.map.on("click", Map.asyncCloseCluster);
+                globalMapState.map.on("click", () => {
+                    this.closePhotosPreview();
+                });
                 globalMapState.map.on("mouseover", () => {
                     globalMapState.mouseInsideMap = true;
                 });
