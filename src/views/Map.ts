@@ -111,10 +111,6 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
 
 type ClusterItem = { id: number; image: HTMLImageElement; ready: boolean };
 
-interface ClusterContentAttrs {
-    photos: ClusterItem[];
-}
-
 const PhotoInCluster: m.Component<ClusterItem> = {
     view({ attrs }: m.Vnode<ClusterItem>): m.Vnode {
         return m(
@@ -133,11 +129,15 @@ const PhotoInCluster: m.Component<ClusterItem> = {
                 }),
             ),
         );
-    }
+    },
+};
+
+interface InsideClusterContentAttrs {
+    photos: ClusterItem[];
 }
 
-const InsideCluster: m.Component<ClusterContentAttrs> = {
-    view({ attrs }: m.Vnode<ClusterContentAttrs>): m.Vnode {
+const InsideCluster: m.Component<InsideClusterContentAttrs> = {
+    view({ attrs }: m.Vnode<InsideClusterContentAttrs>): m.Vnode {
         return m(
             "ul",
             attrs.photos.map((item) => item.ready && m(PhotoInCluster, item)),
@@ -154,19 +154,21 @@ const LoadingCluster: m.Component = {
     },
 };
 
+interface ClusterContentAttrs extends InsideClusterContentAttrs {
+    onclose: () => void;
+}
+
 class ClusterContent implements m.ClassComponent<ClusterContentAttrs> {
-    view({ attrs }: m.CVnode<ClusterContentAttrs>): m.Vnode {
-        const showSomething = globalMapState.clusterIsOpen;
+    view({ attrs }: m.CVnode<ClusterContentAttrs>): m.Vnode[] {
         const showPhotos = attrs.photos.some((item) => item.ready);
-        const classes = [
-            showSomething ? "expanded" : "collapsed",
-            !showPhotos && "loading-cluster",
+        return [
+            m("button.cluster-close-button", { onclick: attrs.onclose }, "×"),
+            m(
+                ".cluster-content",
+                { class: showPhotos ? "" : "loading-cluster" },
+                showPhotos ? m(InsideCluster, attrs) : m(LoadingCluster),
+            ),
         ];
-        return m(
-            ".cluster-content",
-            { class: classes.join(" ") },
-            showPhotos ? m(InsideCluster, attrs) : m(LoadingCluster),
-        );
     }
 }
 
@@ -201,6 +203,9 @@ export default class Map implements m.ClassComponent {
 
     /** Total number of remaining points layer to load. */
     remainingPointsLayer: number | undefined;
+
+    /** True if the cluster is open. */
+    clusterIsOpen = false;
 
     constructor() {
         this.currentLang = t.getLang();
@@ -243,7 +248,7 @@ export default class Map implements m.ClassComponent {
             this.addPopupCamToMap(coordinates, photoId);
         } else if ("cluster_id" in feature.properties) {
             this.preloadCluster(feature);
-            if (globalMapState.clusterIsOpen) {
+            if (this.clusterIsOpen) {
                 this.closePhotosPreview();
             }
             this.asyncOpenCluster();
@@ -325,9 +330,9 @@ export default class Map implements m.ClassComponent {
 
     /** Trigger redraw with the open slider. */
     asyncOpenCluster(): void {
-        if (!globalMapState.clusterIsOpen) {
+        if (!this.clusterIsOpen) {
             this.clusterContent = [];
-            globalMapState.clusterIsOpen = true;
+            this.clusterIsOpen = true;
             m.redraw();
         }
     }
@@ -337,8 +342,8 @@ export default class Map implements m.ClassComponent {
         if (this.popupCam) {
             this.popupCam.remove();
         }
-        if (globalMapState.clusterIsOpen) {
-            globalMapState.clusterIsOpen = false;
+        if (this.clusterIsOpen) {
+            this.clusterIsOpen = false;
             m.redraw(); // smoothly hide the slider
         }
     }
@@ -994,9 +999,15 @@ export default class Map implements m.ClassComponent {
     }
 
     view(): m.Vnode {
+        const clusterAttrs: ClusterContentAttrs = {
+            photos: this.clusterContent,
+            onclose: () => {
+                this.closePhotosPreview();
+            },
+        };
         return m("#map", [
             this.popupCamData && m(PopupCamComponent, this.popupCamData),
-            m(ClusterContent, { photos: this.clusterContent }),
+            this.clusterIsOpen && m(ClusterContent, clusterAttrs),
         ]);
     }
 }

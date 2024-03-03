@@ -86,6 +86,7 @@ section#story
                     visibility: hidden /* hide unwanted arrow */
                 .mapboxgl-popup-content
                     padding: 0.5rem
+                    border-radius: 0 $border-radius-lg 0 $border-radius-lg
             width: 100%
             /* the map does not load if too small, the minimum should still fit all buttons */
             height: calc(max(60vh - #{$nav-bar-height} - #{$block-space}, 340px))
@@ -96,20 +97,25 @@ section#story
             padding-bottom: 0.4rem
             line-height: 1.2rem
             text-align: right
+        button.cluster-close-button
+            position: absolute
+            z-index: 2
+            margin: 0.5rem
+            border: 1px solid white
+            border-radius: 0 0 $border-radius-lg 0
+            box-shadow: none !important
+            padding: 0.2rem 0.6rem 0.3rem !important
+            font-weight: 700
         .cluster-content
-            transition: all 1s linear
+            position: absolute
             z-index: 1
+            margin: 0.5rem
             max-height: calc(100% - 0.5rem * 2 - 2rem)
             min-height: calc(200px + 0.5rem * 3)
-            margin: 0.5rem
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
             min-width: calc(300px + 0.5rem * 2)
             background: white
-            position: absolute
             overflow-y: auto
-            &.collapsed
-                transform: translateX(calc(-305px - 0.5rem * 3))
-                opacity: 0
             &.loading-cluster
                 display: flex
                 justify-content: center
@@ -151,6 +157,6 @@ section#story
 button.mapboxgl-popup-close-button
     margin: 1px
     padding: 0.1rem 0.5rem 0.3rem !important
-    border-radius: 0 3px 0 3px !important
     box-shadow: none !important
     transition: none !important
+    border: 1px solid white

@@ -92,9 +92,6 @@ class GlobalMapState {
     /** Force hide the moving marker (to highlight something else). */
     public hideMovingMarker = false;
 
-    /** True if the cluster is open. */
-    public clusterIsOpen = false;
-
     /**
      * When initializing the map component.
      */
@@ -110,7 +107,6 @@ class GlobalMapState {
         this.webtrack = undefined;
         this.hasElevation = undefined;
         this.mouseInsideMap = false;
-        this.clusterIsOpen = false;
     }
 
     /**
