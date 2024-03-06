@@ -4,6 +4,7 @@
     "season": "winter",
     "mapTheme": "whiteSnow",
     "mapExaggeration": 2,
+    "downloadableGPX": true,
     "gpsConfig": [
         {
             "model": "Garmin 66sr",

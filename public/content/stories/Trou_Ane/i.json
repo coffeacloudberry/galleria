@@ -1,5 +1,6 @@
 {
     "start": "2019-11-01",
     "duration": 2.5,
-    "season": "autumn"
+    "season": "autumn",
+    "downloadableGPX": true
 }

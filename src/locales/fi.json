@@ -168,5 +168,8 @@
     "donate-recurrent": "Toistuva lahjoitus kortilla",
     "copy": "Kopioi osoite leikepöydälle",
     "copied": "Osoite kopioitu leikepöydälle",
-    "unless-specified": "Etsi lisensoitu sisältö lähdekoodista."
+    "can-order-print": "Kuvataidepainatus",
+    "cannot-order-print": "Kuvataidetulostetta ei voi tilata",
+    "can-download-gpx": "Lataa GPX-tiedosto",
+    "cannot-download-gpx": "Ei GPX-tiedostoa ladattavissa"
 }

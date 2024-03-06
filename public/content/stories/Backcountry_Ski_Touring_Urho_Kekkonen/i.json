@@ -3,6 +3,7 @@
     "duration": 8,
     "season": "winter",
     "mapTheme": "darkSnow",
+    "downloadableGPX": true,
     "gpsConfig": [
         {
             "model": "Garmin 66sr",

@@ -168,5 +168,8 @@
     "donate-recurrent": "Don récurrent par carte",
     "copy": "Copier l'adresse dans le presse-papiers",
     "copied": "Adresse copiée dans le presse-papiers",
-    "unless-specified": "Naviguer dans le code source pour trouver les licences."
+    "can-order-print": "Tirage d'art",
+    "cannot-order-print": "Tirage d'art indisponible",
+    "can-download-gpx": "Télécharger le fichier GPX",
+    "cannot-download-gpx": "Fichier GPX indisponible en téléchargement"
 }

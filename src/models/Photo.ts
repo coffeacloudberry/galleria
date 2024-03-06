@@ -25,6 +25,9 @@ export interface PhotoInfo {
     /** False if the photo is not downloadable. True by default. */
     downloadable?: boolean;
 
+    /** False if the photo is not printable on demand. True by default. */
+    printable?: boolean;
+
     /** The story folder. No link to the story if this is missing or empty. */
     story?: string;
 

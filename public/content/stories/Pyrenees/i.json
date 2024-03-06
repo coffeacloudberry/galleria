@@ -1,5 +1,6 @@
 {
     "start": "2019-08-16",
     "duration": 12,
-    "season": "summer"
+    "season": "summer",
+    "downloadableGPX": true
 }

@@ -1,11 +1,14 @@
 import apertureOutline from "@/icons/aperture-outline.svg";
 import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
+import frameOutline from "@/icons/frame-outline.svg";
+import noFrameOutline from "@/icons/no-frame-outline.svg";
 import locationOutline from "@/icons/location-outline.svg";
 import m from "mithril";
 import { Placement } from "tippy.js";
 
 import { config } from "../config";
 import { photo } from "../models/Photo";
+import type { PhotoInfo } from "../models/Photo";
 import { t } from "../translate";
 import { InteractiveTippy, isMobile } from "../utils";
 import Icon from "./Icon";
@@ -190,6 +193,29 @@ const Download: m.Component<DownloadModalAttrs> = {
     },
 };
 
+const OrderPrint: m.Component<PhotoInfo> = {
+    view({ attrs }: m.Vnode<PhotoInfo>): m.Vnode {
+        return m(
+            "h4.mt-3.mb-3",
+            attrs.printable !== false
+                ? m(
+                      "a",
+                      {
+                          href: "https://ko-fi.com/s/2ed4515a82",
+                      },
+                      [
+                          m("span.mr-3.vab", m(Icon, { src: frameOutline })),
+                          t("can-order-print"),
+                      ],
+                  )
+                : [
+                      m("span.mr-3.vab", m(Icon, { src: noFrameOutline })),
+                      t("cannot-order-print"),
+                  ],
+        );
+    },
+};
+
 const PhotoMetadataTippyContent: m.Component = {
     view(): m.Vnode {
         return m("div.tall-tippy", [
@@ -198,6 +224,7 @@ const PhotoMetadataTippyContent: m.Component = {
             photo.meta &&
                 photo.meta.downloadable !== false &&
                 m(Download, { okCopyright: false }),
+            photo.meta && m(OrderPrint, photo.meta),
         ]);
     },
 };

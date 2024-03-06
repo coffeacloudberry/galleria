@@ -168,5 +168,8 @@
     "donate-recurrent": "Recurrent donation with card",
     "copy": "Copy address to clipboard",
     "copied": "Address copied to clipboard",
-    "unless-specified": "Navigate the source code to find licensed content."
+    "can-order-print": "Fine art print",
+    "cannot-order-print": "Fine art print cannot be ordered",
+    "can-download-gpx": "Download GPX file",
+    "cannot-download-gpx": "No GPX file available for download"
 }

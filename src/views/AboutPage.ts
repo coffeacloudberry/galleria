@@ -226,7 +226,6 @@ const CopyrightNotice: m.Component = {
                     ]);
                 }),
             ),
-            m("p", t("unless-specified")),
         ];
     },
 };

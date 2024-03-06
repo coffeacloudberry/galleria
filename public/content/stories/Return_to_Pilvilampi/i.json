@@ -1,5 +1,6 @@
 {
     "start": "2022-07-10",
     "duration": 0.5,
-    "season": "summer"
+    "season": "summer",
+    "downloadableGPX": true
 }

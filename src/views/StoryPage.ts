@@ -25,6 +25,8 @@ import RainyOutline from "@/icons/rainy-outline.svg";
 import SunnyOutline from "@/icons/sunny-outline.svg";
 import CalendarOutline from "@/icons/calendar-outline.svg";
 import StopwatchOutline from "@/icons/stopwatch-outline.svg";
+import CloudDownloadOutline from "@/icons/cloud-download-outline.svg";
+import CloudOfflineOutline from "@/icons/cloud-offline-outline.svg";
 
 /** Get the story ID from the path. */
 function getStoryId(): string {
@@ -132,12 +134,39 @@ const StoryTitle: m.Component = {
     },
 };
 
+const DownloadGPX: m.Component = {
+    view(): m.Vnode | (string | m.Vnode)[] {
+        return story.downloadableGPX
+            ? m(
+                  "a",
+                  {
+                      href: "https://ko-fi.com/s/6ed771e9b1",
+                  },
+                  [
+                      m("span.mr-3", m(Icon, { src: CloudDownloadOutline })),
+                      t("can-download-gpx"),
+                  ],
+              )
+            : [
+                  m("span.mr-3", m(Icon, { src: CloudOfflineOutline })),
+                  t("cannot-download-gpx"),
+              ];
+    },
+};
+
 const GeoData: m.Component = {
     view(): m.Vnode[] {
         return [
             m(
                 ".container",
-                m(".row", m(".one.column", [m("hr"), m(StatsComponent)])),
+                m(
+                    ".row",
+                    m(".one.column", [
+                        m("hr"),
+                        m(StatsComponent),
+                        story.downloadableGPX !== null && m(DownloadGPX),
+                    ]),
+                ),
             ),
             m(".one.column", [
                 globalMapState.hasElevation && m(ChartContainer),

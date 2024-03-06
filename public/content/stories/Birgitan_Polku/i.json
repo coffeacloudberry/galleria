@@ -2,6 +2,7 @@
     "start": "2023-05-19",
     "duration": 1.5,
     "season": "summer",
+    "downloadableGPX": true,
     "gpsConfig": [
         {
             "model": "Garmin 66sr",

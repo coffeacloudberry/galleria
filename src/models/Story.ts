@@ -93,6 +93,9 @@ export interface StoryInfo {
     /** True if there is a WebTrack to load. */
     hasGeodata?: boolean;
 
+    /** True if the data source can be downloaded. */
+    downloadableGPX?: boolean;
+
     /** The theme used for the map if the story has geodata. */
     mapTheme?: MapThemeStrings;
 
@@ -187,6 +190,9 @@ export class Story {
 
     /** True if the story contains a WebTrack, based on the JSON file. */
     hasGeodata = false;
+
+    /** True if the data source can be downloaded. */
+    downloadableGPX: boolean | null = null;
 
     /** The map theme used if the story has geodata. */
     mapTheme: MapThemeStrings = "default";
@@ -317,6 +323,7 @@ export class Story {
         this.gotStoryMeta = false;
         this.originPhotoMeta = null;
         this.geocodedPhotos = null;
+        this.downloadableGPX = null;
         this.folderName = folderName;
         m.redraw();
         Story.getStoryTitleContent(folderName)
@@ -357,6 +364,7 @@ export class Story {
                 }
                 this.duration = result.duration ?? null;
                 this.hasGeodata = result.hasGeodata ?? false;
+                this.downloadableGPX = result.downloadableGPX ?? false;
                 this.mostRecentPhoto = result.mostRecentPhoto ?? null;
                 this.geocodedPhotos = result.geocodedPhotos ?? null;
                 this.mapExaggeration = result.mapExaggeration ?? 1;
@@ -380,6 +388,7 @@ export class Story {
                 this.start = null;
                 this.gotStoryMeta = true;
                 this.hasGeodata = false;
+                this.downloadableGPX = null;
             });
     }
 

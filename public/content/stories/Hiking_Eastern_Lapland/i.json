@@ -2,5 +2,6 @@
     "start": "2022-09-26",
     "duration": 12,
     "season": "autumn",
-    "mapExaggeration": 3
+    "mapExaggeration": 3,
+    "downloadableGPX": true
 }

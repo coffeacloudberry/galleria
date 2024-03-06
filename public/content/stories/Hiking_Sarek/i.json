@@ -3,6 +3,7 @@
     "duration": 14,
     "season": "summer",
     "mapExaggeration": 3,
+    "downloadableGPX": true,
     "gpsConfig": [
         {
             "model": "Garmin 66sr",

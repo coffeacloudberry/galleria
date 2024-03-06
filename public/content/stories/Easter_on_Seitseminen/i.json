@@ -2,6 +2,7 @@
     "start": "2022-04-15",
     "duration": 2.5,
     "season": "spring",
+    "downloadableGPX": true,
     "gpsConfig": [
         {
             "model": "Garmin 66sr",
