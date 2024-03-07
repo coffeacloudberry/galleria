@@ -106,7 +106,7 @@ export class Contact implements m.ClassComponent {
     // skipcq: JS-0105
     view(): m.Vnode[] {
         const domain = location.hostname.split(".").slice(1).join(".");
-        const allItems = [
+        const contactItems = [
             {
                 tooltip: t("mailto"),
                 link: `mailto:hello@${domain}`,
@@ -128,14 +128,50 @@ export class Contact implements m.ClassComponent {
                 logo: logoThreema,
             },
         ];
+        const feedItems = [
+            {
+                tooltip: "Mastodon",
+                link: "https://photog.social/@explorewilder",
+                logo: logoMastodon,
+            },
+            {
+                tooltip: t("rss-feed"),
+                link: "https://photog.social/@explorewilder.rss",
+                logo: logoRss,
+            },
+            {
+                tooltip: "Odysee",
+                link: "https://odysee.com/@ExploreWilder:b",
+                logo: logoOdysee,
+            },
+            {
+                tooltip: t("blog"),
+                link: "https://blog.explorewilder.com",
+                logo: newspaperOutline,
+            },
+        ];
         return [
-            m("h1", t("contact.title")),
+            m("h1", [t("contact.title"), m(ShieldLink)]),
             m("p", t("contact.why")),
             m(
                 ".bunch-of-icons",
                 m(
                     "ul",
-                    allItems.map((item) => {
+                    contactItems.map((item) => {
+                        return m(SocialNetworkItem, {
+                            tooltip: item.tooltip,
+                            link: item.link,
+                            logo: item.logo,
+                        });
+                    }),
+                ),
+            ),
+            m("p", t("social-networks")),
+            m(
+                ".bunch-of-icons",
+                m(
+                    "ul",
+                    feedItems.map((item) => {
                         return m(SocialNetworkItem, {
                             tooltip: item.tooltip,
                             link: item.link,
@@ -241,47 +277,6 @@ const ShieldLink: m.Component = {
     },
 };
 
-/** Icons and links to my social networks. */
-const SocialNetworks: m.Component = {
-    view(): m.Vnode[] {
-        const allItems = [
-            {
-                tooltip: "Mastodon",
-                link: "https://photog.social/@explorewilder",
-                logo: logoMastodon,
-            },
-            {
-                tooltip: t("rss-feed"),
-                link: "https://photog.social/@explorewilder.rss",
-                logo: logoRss,
-            },
-            {
-                tooltip: "Odysee",
-                link: "https://odysee.com/@ExploreWilder:b",
-                logo: logoOdysee,
-            },
-            {
-                tooltip: t("blog"),
-                link: "https://blog.explorewilder.com",
-                logo: newspaperOutline,
-            },
-        ];
-        return [
-            m("h1", [t("social-networks"), m(ShieldLink)]),
-            m(
-                "ul",
-                allItems.map((item) => {
-                    return m(SocialNetworkItem, {
-                        tooltip: item.tooltip,
-                        link: item.link,
-                        logo: item.logo,
-                    });
-                }),
-            ),
-        ];
-    },
-};
-
 /** Link to donation platforms. */
 const Donate: m.Component = {
     view(): m.Vnode[] {
@@ -313,16 +308,20 @@ const Donate: m.Component = {
         ];
         return [
             m("h1", t("donate")),
+            m("p", t("donate.why")),
             m(
-                "ul",
-                allItems.map((item) => {
-                    return m(SocialNetworkItem, {
-                        tooltip: item.tooltip,
-                        link: item.link,
-                        address: item.address,
-                        logo: item.logo,
-                    });
-                }),
+                ".bunch-of-icons",
+                m(
+                    "ul",
+                    allItems.map((item) => {
+                        return m(SocialNetworkItem, {
+                            tooltip: item.tooltip,
+                            link: item.link,
+                            address: item.address,
+                            logo: item.logo,
+                        });
+                    }),
+                ),
             ),
         ];
     },
@@ -352,13 +351,7 @@ export default function AboutPage(): m.Component {
                         ".container",
                         m(".row", [
                             m(".half.column", m(Contact)),
-                            m(".half.column", [
-                                m(
-                                    ".bunch-of-icons.yydchtxork",
-                                    m(SocialNetworks),
-                                ),
-                                m(".bunch-of-icons.yydchtxork", m(Donate)),
-                            ]),
+                            m(".half.column", m(Donate)),
                         ]),
                     ),
                     m(
