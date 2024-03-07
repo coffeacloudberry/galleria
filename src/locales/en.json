@@ -165,7 +165,6 @@
     "donate-nano": "{{donate}} with Nano",
     "donate-kofi": "One-time donation with card on Ko-fi",
     "donate-card": "One-time donation with card",
-    "donate-recurrent": "Recurrent donation with card",
     "copy": "Copy address to clipboard",
     "copied": "Address copied to clipboard",
     "can-order-print": "Fine art print",
