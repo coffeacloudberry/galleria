@@ -1,4 +1,3 @@
-import logoCard from "@/icons/card-outline.svg";
 import copyOutline from "@/icons/copy-outline.svg";
 import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
@@ -297,11 +296,6 @@ const Donate: m.Component = {
                 tooltip: t("donate-kofi"),
                 link: "https://ko-fi.com/explorewilder",
                 logo: logoKofi,
-            },
-            {
-                tooltip: t("donate-card"),
-                link: `https://donate.stripe.com/7sIdU4gpEeN321qbII?locale=${t.getLang()}`,
-                logo: logoCard,
             },
             {
                 tooltip: t("donate-zcash"),
