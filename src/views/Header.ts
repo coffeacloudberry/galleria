@@ -82,11 +82,11 @@ const OpenPhoto: m.Component<OpenAttrs> = {
             m.route.Link,
             {
                 href: photoPath ?? "/",
-                class: "nav-item",
+                class: "nav-item must-fit",
                 "data-tippy-content": t("story.open-any-photo.tooltip"),
             },
             [
-                m("span", [
+                m("span.vat", [
                     m("span.mr-3", t(`story-to-${ref}`)),
                     m(Icon, { src: ellipsisHorizontal }),
                 ]),
@@ -224,7 +224,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 break;
             default:
                 centeredNav = m(
-                    ".nav-item.branding",
+                    ".nav-item.must-fit",
                     m("strong", t("about.title")),
                 );
         }
