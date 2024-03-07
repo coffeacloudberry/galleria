@@ -5,7 +5,6 @@ import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoMonero from "@/icons/logo-monero.svg";
 import logoNano from "@/icons/logo-nano.svg";
 import logoOdysee from "@/icons/logo-odysee.svg";
-import logoPixelfed from "@/icons/logo-pixelfed.svg";
 import logoRss from "@/icons/logo-rss.svg";
 import logoKofi from "@/icons/logo-kofi.svg";
 import logoZcash from "@/icons/logo-zcash.svg";
@@ -262,11 +261,6 @@ const SocialNetworks: m.Component = {
                 tooltip: "GitHub",
                 link: "https://github.com/coffeacloudberry/galleria",
                 logo: logoGitHub,
-            },
-            {
-                tooltip: "Pixelfed",
-                link: "https://pixelfed.social/ExploreWilder",
-                logo: logoPixelfed,
             },
             {
                 tooltip: "Odysee",
