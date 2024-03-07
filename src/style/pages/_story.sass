@@ -110,11 +110,11 @@ section#story
             position: absolute
             z-index: 1
             margin: 0.5rem
-            max-height: calc(100% - 0.5rem * 2 - 2rem)
+            max-height: min(calc(100% - 0.5rem * 2 - 2rem), 50vh)
             min-height: calc(200px + 0.5rem * 3)
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
             min-width: calc(300px + 0.5rem * 2)
-            @media (max-width: 500px)
+            @media (max-width: 500px), (orientation: portrait)
                 min-width: calc(200px + 0.5rem * 2)
             background: #fff
             overflow-y: auto
@@ -133,7 +133,7 @@ section#story
             img.cluster-thumbnail
                 border-radius: 0 $border-radius-lg 0 $border-radius-lg
                 box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
-                @media (max-width: 500px)
+                @media (max-width: 500px), (orientation: portrait)
                     width: 200px
     .chart-container
         padding-top: 1rem /* the legend on the bottom adds space that needs to be compensated on the top */
