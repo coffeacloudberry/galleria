@@ -120,7 +120,7 @@ export class Contact implements m.ClassComponent {
                 logo: logoMatrix,
             },
             {
-                tooltip: "XMPP/Jabber",
+                tooltip: "XMPP",
                 link: "xmpp:frozenveggies@nixnet.services",
                 logo: logoXmpp,
             },
