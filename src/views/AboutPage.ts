@@ -1,5 +1,4 @@
 import copyOutline from "@/icons/copy-outline.svg";
-import logoGitHub from "@/icons/logo-github.svg";
 import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoMonero from "@/icons/logo-monero.svg";
 import logoNano from "@/icons/logo-nano.svg";
@@ -255,11 +254,6 @@ const SocialNetworks: m.Component = {
                 tooltip: t("rss-feed"),
                 link: "https://photog.social/@explorewilder.rss",
                 logo: logoRss,
-            },
-            {
-                tooltip: "GitHub",
-                link: "https://github.com/coffeacloudberry/galleria",
-                logo: logoGitHub,
             },
             {
                 tooltip: "Odysee",
