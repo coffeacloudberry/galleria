@@ -201,7 +201,7 @@ const OrderPrint: m.Component<PhotoInfo> = {
                 ? m(
                       "a",
                       {
-                          href: "https://ko-fi.com/s/2ed4515a82",
+                          href: "https://ko-fi.com/c/e4b824b946",
                       },
                       [
                           m("span.mr-3.vab", m(Icon, { src: frameOutline })),
