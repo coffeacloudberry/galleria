@@ -63,7 +63,7 @@ class ThumbnailComponent implements m.ClassComponent<OneStory> {
 class StoryAppetizer implements m.ClassComponent<OneStory> {
     /** Keep only the first few words of a text. */
     static cutText(longText: string): string {
-        let cutPosition = 150;
+        let cutPosition = 200;
         // cut to the first characters minus the last word,
         // which is probably cut
         while (longText[cutPosition] !== " " && cutPosition) {
@@ -95,7 +95,13 @@ class StoryAppetizer implements m.ClassComponent<OneStory> {
     view({ attrs }: m.CVnode<OneStory>): m.Vnode | null | "" {
         return (
             attrs.content &&
-            m("span.appetizer", StoryAppetizer.cleanUpText(attrs.content))
+            m(
+                "span.appetizer",
+                [
+                    StoryAppetizer.cleanUpText(attrs.content),
+                    m(".gradient-white"),
+                ],
+            )
         );
     }
 }
