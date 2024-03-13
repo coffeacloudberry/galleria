@@ -95,13 +95,10 @@ class StoryAppetizer implements m.ClassComponent<OneStory> {
     view({ attrs }: m.CVnode<OneStory>): m.Vnode | null | "" {
         return (
             attrs.content &&
-            m(
-                "span.appetizer",
-                [
-                    StoryAppetizer.cleanUpText(attrs.content),
-                    m(".gradient-white"),
-                ],
-            )
+            m("span.appetizer", [
+                StoryAppetizer.cleanUpText(attrs.content),
+                m(".gradient-white"),
+            ])
         );
     }
 }
