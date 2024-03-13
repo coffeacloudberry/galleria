@@ -165,7 +165,7 @@ const Download: m.Component<DownloadModalAttrs> = {
             );
         };
         return m(
-            "h4.mt-3.mb-3",
+            "strong.ml-9.mt-3.mb-3",
             m(
                 "a",
                 {
@@ -196,7 +196,7 @@ const Download: m.Component<DownloadModalAttrs> = {
 const OrderPrint: m.Component<PhotoInfo> = {
     view({ attrs }: m.Vnode<PhotoInfo>): m.Vnode {
         return m(
-            "h4.mt-3.mb-3",
+            "strong.mt-3.mb-3",
             attrs.printable !== false
                 ? m(
                       "a",
@@ -221,10 +221,10 @@ const PhotoMetadataTippyContent: m.Component = {
         return m("div.tall-tippy", [
             m(CameraSetup),
             m(CameraPosition),
+            photo.meta && m(OrderPrint, photo.meta),
             photo.meta &&
                 photo.meta.downloadable !== false &&
                 m(Download, { okCopyright: false }),
-            photo.meta && m(OrderPrint, photo.meta),
         ]);
     },
 };
