@@ -179,6 +179,9 @@ class AllStoriesComponent implements m.ClassComponent {
     oncreate({ dom }: m.CVnodeDOM): void {
         const element = dom as HTMLElement;
         element.onscroll = () => {
+            // avoid double scroll bar on scroll down (body + stories):
+            hideAllForce();
+
             AllStoriesComponent.lazyLoadStories(element);
         };
     }
