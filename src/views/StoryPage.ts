@@ -162,7 +162,6 @@ const GeoData: m.Component = {
                 m(
                     ".row",
                     m(".one.column", [
-                        m("hr"),
                         m(StatsComponent),
                         story.downloadableGPX !== null && m(DownloadGPX),
                     ]),

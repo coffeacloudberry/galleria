@@ -7,6 +7,13 @@
 
 .story-content
     margin-bottom: $global-font-size
+    $border: $h1-border-bottom-width
+    border-width: $border $border calc(#{$border} * 2) $border
+    border-color: $h1-border-bottom-color
+    border-style: solid
+    padding: 0 0.5rem
+    @media (min-width: 600px)
+        padding: 0 1rem
     a
         /* Same color as text to avoid catching the eye on links, this is not a Wikipedia page. */
         color: $body-color
@@ -29,8 +36,6 @@ section#story
     margin-top: #{$nav-bar-height}
     overflow-y: auto
     height: calc(100vh - #{$nav-bar-height})
-    hr
-        max-width: 30%
     .map-extra
         margin-top: calc(#{$nav-bar-height} / 4)
         margin-bottom: calc(#{$block-space} + #{$nav-bar-height} / 2)

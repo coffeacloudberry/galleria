@@ -205,7 +205,7 @@ export const StatsComponent: m.Component = {
         const stats = globalMapState.webtrack.getTrackInfo();
         const hasEle = stats.trackPoints.withEle > 0;
         return [
-            m("p", m("strong", t("map.stats"))),
+            m("p.mt-0", m("strong", t("map.stats"))),
             m("ul.blabla", [
                 m(DurationLi),
                 m(LengthDetails, stats),
