@@ -33,5 +33,17 @@
             text-align: center
         button.modal-close
             float: right
+        a.action
+            display: inline-block
+            margin: 0.3rem 0.5rem 0
+            &:last-of-type
+                margin-right: 1.5rem
+            @media (max-width: 1024px)
+                margin: 0.1rem 0 0 0.5rem
+                &:last-of-type
+                    margin-right: 0.5rem
+            &.disabled
+                color: $body-color
+                cursor: not-allowed
     .modal-box-medium
         max-width: calc(min(900px, 100vw - 1rem))

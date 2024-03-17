@@ -108,12 +108,13 @@ footer
             @media (max-width: 1024px)
                 margin-left: $nav-item-space
         a:not(.normal-a)
-            text-decoration: none
+            text-decoration: #2e8f6b underline
             color: $body-color !important
             border-radius: 0 $border-radius-lg 0 $border-radius-lg
             &:hover,
             &:focus
                 background-color: $nav-hover-bg-color
+                text-decoration: rgba(255, 255, 255, 0.37) underline
 
 .tippy-box[data-theme~='dropdown-list']
     ul

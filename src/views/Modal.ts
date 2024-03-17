@@ -29,7 +29,7 @@ const LinkToCloud: m.Component<LinkToCloudAttrs> = {
                 ? `${String(attrs.cloudLink)}.SHA256.asc`
                 : attrs.cloudLink;
         return m(
-            "a.button.mr-3",
+            "a.action",
             {
                 href: attrs.cloudLink ? cloudLink : "#",
                 class: attrs.cloudLink ? "" : "disabled",
@@ -39,7 +39,7 @@ const LinkToCloud: m.Component<LinkToCloudAttrs> = {
                     }
                 },
             },
-            [m(Icon, { src: attrs.iconSrc }), t(attrs.text)],
+            [m(Icon, { src: attrs.iconSrc }), m("span.mr-3"), t(attrs.text)],
         );
     },
 };
