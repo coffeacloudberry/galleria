@@ -1,0 +1,19 @@
+@import '../base/variables'
+
+.toastify
+    padding: 2px 8px !important /* override */
+    max-width: calc(100% - 20px) !important /* override */
+    color: $body-color !important /* override */
+    border-radius: 0 $border-radius-lg
+    .toast-close
+        padding: 0 0 0 8px !important /* override */
+        color: #000 !important /* override */
+
+.custom-toast-info
+    background: #fff
+
+.custom-toast-error
+    background: #973737
+    color: #fff !important /* override */
+    .toast-close
+        color: #fff !important /* override */

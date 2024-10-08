@@ -1,0 +1,16 @@
+{
+    "First Point": "goal-outline",
+    "Residence": "house-outline",
+    "camera": "photo-camera-outline",
+    "Campground": "tent-outline",
+    "Fishing Hot Spot Facility": "wood-house-outline",
+    "Last Point": "mission-outline",
+    "WALK": "backpacker-outline",
+    "MOTORED_BOAT": "motored-boat-outline",
+    "ROWING_BOAT": "rowing-boat-outline",
+    "PACKRAFT": "packraft-outline",
+    "SKI": "sledge-outline",
+    "helicopter": "helicopter",
+    "snail": "snail",
+    "rabbit": "rabbit"
+}

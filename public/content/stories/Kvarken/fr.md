@@ -1,0 +1,3 @@
+# L'archipel de Kvarken
+
+Toute première balade dans la région. Je viens de quitter la France pour la Finlande. Un ami du coin m'a proposé une excursion dans l'unique patrimoine naturel Finlandais, classé par l'Unesco : Kvarken. Cet endroit était sous la glace il y a très longtemps, tellement de glace que le sol était compressé. La glace a fondu et le sol a gardé sa forme comprimée. Depuis, le sol se décompresse, remontant lentement de quelques millimètres chaque année. Je n'avais pas l'impression de m'élever mais j'ai ressenti l'air frais, l'odeur de la mer, repéré des névés, bavardé avec les autochtones et monté au sommet d'une tour d'observation de 20 mètres. C'était une chouette première promenade et j'ai hâte d'en partager d'autres dans les mois à venir !

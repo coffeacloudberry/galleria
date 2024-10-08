@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Still Fall",
+        "fi": "Ruskea peili",
+        "fr": "Miroir automnal"
+    },
+    "description": {
+        "en": "Luulampi",
+        "fi": "Luulampi",
+        "fr": "Luulampi"
+    },
+    "position": {
+        "lat": 68.356012,
+        "lon": 27.551672
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-09-07T19:22:34",
+    "focalLength35mm": 18,
+    "exposureTime": "1/30",
+    "fNumber": 7.1,
+    "iso": 100,
+    "prev": 220907132530,
+    "next": 220907193439,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

@@ -1,0 +1,17 @@
+{
+    "1": "live composite",
+    "3": {
+        "2": "live ND2 (1EV)",
+        "4": "live ND4 (2EV)",
+        "8": "live ND8 (3EV)",
+        "16": "live ND16 (4EV)",
+        "32": "live ND32 (5EV)",
+        "64": "live ND64 (6EV)"
+    },
+    "4": "live time/bulb",
+    "5": "HDR1",
+    "6": "HDR2",
+    "8": "tripod high resolution",
+    "9": "focus-stacked",
+    "11": "hand-held high res"
+}

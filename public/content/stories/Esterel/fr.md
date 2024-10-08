@@ -1,0 +1,3 @@
+# L'Esterel
+
+L'Esterel est facile d'accès. Le train n'est pas seulement écologique mais aussi très pittoresque le long de la côte, je pouvais me focaliser sur l'horizon et le lever du soleil plutôt que sur les embouteillages. L'oiseau matinal attrape le ver, j'ai donc pris le tout premier train pour Saint-Raphaël. De là, j'ai marché presque sans interruption jusqu'à Mandelieu-la-Napoule, puis j'ai fait du stop pour revenir en ville et prendre le train. J'ai eu le genre de temps qui me plait : des changements rapides (de la pluie au soleil) qui font de belles photos (avec des gouttelettes, des couleurs vives, et une lumière diffuse), et j'ai pu finalement me sécher avant une douce nuit.

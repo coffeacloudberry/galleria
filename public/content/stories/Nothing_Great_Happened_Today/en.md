@@ -1,0 +1,5 @@
+# Nothing Great Happened Today
+
+Their is a famous hike around Lake Wakaremoana, the last long walk before leaving New Zealand. But I did not go further than the first kilometre. That was my biggest fail... but nothing compared to Indonesia, a few days later. Why to keep going? To enjoy the view? Yes, and then what? To take pictures? I am not a photographer, I do not like to make my friends jealous. To push my physical ability? Not judicious with my heavy load, healthy food would be the first step. For my mind? A 46km walk around a lake in a fresh environment would not change my mood. Alone without motivation: maximum hesitation. I stayed in front of a pretty small placid lake for the rest of the day. A place where I was thinking in peace: no human footprint.
+
+**The dearth of competition is a reason of failure. Excitement of success – which can be stressed by competition – pushes my motivation.** The goals of my project is not to hike hundred of kilometres but learn life, from successes as well as failures. While writing those lines, I feel happy to have failed so many times, making me stronger even if I felt so weak at those moments.

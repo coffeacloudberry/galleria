@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Suoltijoki",
+        "fi": "Suoltijoki",
+        "fr": "Suoltijoki"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 67.287114,
+        "lon": 29.147005
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-08-28T12:26:00",
+    "focalLength35mm": 27,
+    "exposureTime": "1/800",
+    "fNumber": 3.5,
+    "iso": 100,
+    "prev": 220827145228,
+    "next": 220828131254,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Lauzanier Valley",
+        "fi": "Lauzanierin laakso",
+        "fr": "Vallon du Lauzanier"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 44.350519,
+        "lon": 6.861291
+    },
+    "story": "Bastille_Tramp",
+    "dateTaken": "2020-07-11T11:17:12",
+    "focalLength35mm": 15,
+    "exposureTime": "1/250",
+    "fNumber": 9.0,
+    "iso": 100,
+    "prev": 200613180128,
+    "next": 200711141938,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

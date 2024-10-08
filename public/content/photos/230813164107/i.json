@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Guohperjåhkå",
+        "fi": "Guohperjåhkå",
+        "fr": "Guohperjåhkå"
+    },
+    "description": {
+        "en": "High dynamic range composed of 2 photos.",
+        "fi": "Korkea dynaaminen alue, joka koostuu 2 valokuvasta.",
+        "fr": "Image à grande gamme dynamique composée de 2 photos."
+    },
+    "position": {
+        "lat": 67.373699,
+        "lon": 17.633846
+    },
+    "story": "Hiking_Sarek",
+    "dateTaken": "2023-08-13T16:41:07",
+    "focalLength35mm": 38,
+    "exposureTime": "1/400",
+    "fNumber": 7.1,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": null,
+    "prev": 230813151145,
+    "next": 230813185826
+}

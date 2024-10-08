@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Suolikas",
+        "fi": "Suolikas",
+        "fr": "Suolikas"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 60.338791,
+        "lon": 24.554002
+    },
+    "story": "Nuuksio",
+    "dateTaken": "2024-05-10T17:13:20",
+    "focalLength35mm": 80,
+    "exposureTime": "1/400",
+    "fNumber": 8,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 240302132834,
+    "next": 240511175517
+}

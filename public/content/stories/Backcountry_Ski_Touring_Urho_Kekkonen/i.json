@@ -1,0 +1,20 @@
+{
+    "start": "2021-12-30",
+    "duration": 8,
+    "season": "winter",
+    "mapTheme": "darkSnow",
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        },
+        {
+            "model": "Garmin 64sc",
+            "multiBandEnabled": false,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": true
+        }
+    ]
+}

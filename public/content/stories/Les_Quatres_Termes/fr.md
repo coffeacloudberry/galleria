@@ -1,0 +1,3 @@
+# Les Quatre Termes
+
+Je suis parti de La Garde, où des falaises impressionnantes peuvent attirer les grimpeurs. J'ai marché jusqu'aux Quatres Termes. Si tu n'as jamais quitté la piste, je te conseille cette section (des Quatres Termes à Pensier Occidental) car la navigation est facile : il suffit de suivre la crête ! C'était le début du printemps, et la neige est tombée pendant la nuit. Ma tente 3 saisons ultra-légère (864g) trop usée a résistée étonnamment bien aux conditions.

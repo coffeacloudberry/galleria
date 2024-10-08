@@ -1,0 +1,3 @@
+# Hiking Lyngen
+
+Coming soon!

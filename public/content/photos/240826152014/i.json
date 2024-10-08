@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Rockscape",
+        "fi": "Kalliomaisema",
+        "fr": "Paysage rocheux"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Hiking_Lyngen",
+    "dateTaken": "2024-08-26T15:20:14",
+    "focalLength35mm": 80,
+    "exposureTime": "1/160",
+    "fNumber": 9,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240826114303,
+    "position": {
+        "lat": 69.5959767,
+        "lon": 20.20812289
+    },
+    "next": 240828142245
+}

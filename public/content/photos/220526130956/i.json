@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Kauhalammi",
+        "fi": "Kauhalammi",
+        "fr": "Kauhalammi"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 62.202465,
+        "lon": 22.439926
+    },
+    "story": "Twin_National_Parks",
+    "dateTaken": "2022-05-26T13:09:56",
+    "focalLength35mm": 25,
+    "exposureTime": "1/250",
+    "fNumber": 5.6,
+    "iso": 100,
+    "prev": 220526125135,
+    "next": 220611172454,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

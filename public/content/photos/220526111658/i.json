@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Bog Cranberry",
+        "fi": "Isokarpalo",
+        "fr": "Myrtille des marais"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 62.161309,
+        "lon": 22.467533
+    },
+    "story": "Twin_National_Parks",
+    "dateTaken": "2022-05-26T11:16:58",
+    "focalLength35mm": 82,
+    "exposureTime": "1/60",
+    "fNumber": 5.6,
+    "iso": 100,
+    "prev": 220416104449,
+    "next": 220526124647,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 18-55mm f/3.5-5.6G VR II"
+}

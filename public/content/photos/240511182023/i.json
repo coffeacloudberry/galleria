@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Light Speed",
+        "fi": "Valonnopeus",
+        "fr": "Vitesse de la lumière"
+    },
+    "description": {
+        "en": "Zooming during long exposure",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 60.283237,
+        "lon": 24.612769
+    },
+    "story": "Nuuksio",
+    "dateTaken": "2024-05-11T18:20:23",
+    "focalLength35mm": 34,
+    "exposureTime": "4",
+    "fNumber": 11,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": null,
+    "prev": 240511175517,
+    "next": 240624232134
+}

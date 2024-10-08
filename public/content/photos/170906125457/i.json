@@ -1,0 +1,22 @@
+{
+    "title": {
+        "en": "Lost in the Waikare Inlet",
+        "fi": "Kadonnut Waikare Inletissä",
+        "fr": "Perdu dans la baie de Waikare"
+    },
+    "description": {
+        "en": "Russell Forest, New Zealand North Island.",
+        "fi": "Russell metsä, Uuden-Seelannin Pohjoissaari.",
+        "fr": "Forêt de Russell, île du Nord de la Nouvelle-Zélande."
+    },
+    "story": "Waikare_Inlet",
+    "dateTaken": "2017-09-06T12:54:57",
+    "focalLength35mm": 25,
+    "exposureTime": "5/2",
+    "fNumber": 13.0,
+    "iso": 100,
+    "prev": 170831104305,
+    "next": 170908133521,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

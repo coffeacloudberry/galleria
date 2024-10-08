@@ -1,0 +1,14 @@
+{
+    "start": "2024-03-02",
+    "duration": 0.5,
+    "season": "winter",
+    "mapTheme": "whiteSnow",
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        }
+    ]
+}

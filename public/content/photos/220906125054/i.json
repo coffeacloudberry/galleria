@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Marsh",
+        "fi": "Suo",
+        "fr": "Marais"
+    },
+    "description": {
+        "en": "HDR composed of 2 shots",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.273613,
+        "lon": 27.813079
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-09-06T12:50:54",
+    "focalLength35mm": 22,
+    "exposureTime": "1/400",
+    "fNumber": 9.0,
+    "iso": 100,
+    "prev": 220905170025,
+    "next": 220906143742,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

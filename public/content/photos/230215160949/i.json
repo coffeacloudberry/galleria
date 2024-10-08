@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Sunset from Morgam-Viipus",
+        "fi": "Auringonlasku Morgam-Viipusista",
+        "fr": "Coucher de soleil depuis Morgam-Viipus"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.635243,
+        "lon": 25.925167
+    },
+    "story": "Winter_Immersion_in_Lapland",
+    "dateTaken": "2023-02-15T16:09:49",
+    "focalLength35mm": 15,
+    "exposureTime": "1/50",
+    "fNumber": 11,
+    "iso": 100,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM",
+    "prev": 230215141054,
+    "next": 230215164520
+}

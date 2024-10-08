@@ -1,0 +1,48 @@
+@import '../base/variables'
+
+.modal
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    z-index: 10
+    background-color: #fff
+    padding-top: 1rem
+    @media (max-width: 1024px)
+        padding-top: 0.5rem
+    .modal-box
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2)
+        background-color: rgba(255, 255, 255, 1)
+        border-radius: 0 $border-radius-lg
+        padding: 1rem
+        max-width: calc(min(930px, 100vw - 1rem))
+        margin: auto
+        @media (max-width: 1024px)
+            padding: 1rem 0.5rem 0.5rem
+        .modal-content
+            /* add extra as quick fix https://stackoverflow.com/a/37113430 */
+            max-height: calc(100vh - 11rem)
+            overflow-y: auto
+            overflow-x: hidden
+            margin: 1rem 0 /* margin to the scrollbar */
+            *:first-child
+                margin-top: 0 /* reset */
+            .container
+                padding: 0
+        .modal-title
+            padding-top: 0
+        button.modal-close
+            float: right
+            margin-top: -1rem
+            margin-right: -1rem
+            @media (max-width: 1024px)
+                margin-right: -0.5rem
+            .icon
+                margin: 0 !important
+        .container
+            @media (min-width: 710px)
+                .half
+                    width: calc(100% / 2)
+                .column
+                    float: left

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <% if (prod) { %>
+        <link rel="preconnect" href="https://api.mapbox.com" />
+        <link rel="preconnect" href="https://unpkg.com" />
+        <% } %> <% if (!prod) { %>
+        <!--
+        The Content Security Policy is in the meta-tag only for safer local
+        development. In the deployed application, Vercel will read the
+        vercel.json file and put the CSP in the HTTP header instead. The HTTP
+        header is preferred to enforce CSP rules not supported in the meta tag
+        such as frame-ancestors.
+        -->
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'none'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://api.mapbox.com https://unpkg.com; connect-src 'self' https://api.mapbox.com; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://api.mapbox.com; font-src 'self' data:; worker-src blob:; child-src blob:; base-uri 'none'; form-action 'none'"
+        />
+        <% } %>
+        <meta name="robots" content="none, noarchive, notranslate" />
+        <link
+            rel="icon"
+            href="favicon.ico"
+            sizes="16x16 24x24 32x32 64x64"
+            type="image/vnd.microsoft.icon"
+        />
+        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+        <meta
+            property="og:title"
+            content="Nature Photo Gallery &amp; Adventure Stories"
+        />
+        <meta
+            property="og:image"
+            content="https://www.explorewilder.com/content/mix.jpg"
+        />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="798" />
+        <meta property="og:image:alt" content="Best of album" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.explorewilder.com/" />
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            href="https://photog.social/@explorewilder.rss"
+            hreflang="en"
+            title="Mastodon Feed"
+        />
+        <style>
+            .loading-js {
+                width: 100%;
+                height: 90vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .loading-js .content {
+                vertical-align: middle;
+                text-align: center;
+                font-family: sans-serif;
+                font-size: 1.05rem;
+                color: #4d4d4d;
+            }
+        </style>
+        <title>Nature Photo Gallery &amp; Adventure Stories</title>
+    </head>
+
+    <body>
+        <div class="loading-js">
+            <div class="content">
+                <p>Loading... <a href="/">Click to force reload.</a></p>
+            </div>
+        </div>
+    </body>
+</html>

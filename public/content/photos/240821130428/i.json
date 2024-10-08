@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Sea to Mountain",
+        "fi": "Mereltä vuorille",
+        "fr": "De la mer à la montagne"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Hiking_Lyngen",
+    "dateTaken": "2024-08-21T13:04:28",
+    "focalLength35mm": 36,
+    "exposureTime": "1/250",
+    "fNumber": 7.1,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240820191040,
+    "position": {
+        "lat": 69.89484536,
+        "lon": 20.23858256
+    },
+    "next": 240822130800
+}

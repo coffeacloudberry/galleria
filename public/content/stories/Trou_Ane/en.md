@@ -1,0 +1,7 @@
+# Donkey Hole
+
+I took some of my favourite pictures along this track, tramping from Saint-Étienne-de-Tinée to Allos through Trou de l'Âne – meaning Donkey Hole! I wouldn't mind doing the exact same track every season to see the changing nature. That day was a blue sky with the bright reddish autumn foliage.
+
+I asked myself why there is no track here in the Donkey Hole. Once arrived, I asked myself where the donkey is! The weather changed, and the best way I found to cross the slippery and steep saddle – 2,700 m – was through the Sanguinerette – 2,855 m. The Lac d'Allos is the largest natural high altitude lake in Europe (0.6 km² at 2,230 m.) It was all snow covered overnight when I was there, quiet and relaxing though.
+
+I only had the weekend to go tramping, so I tried to cover as much distance as possible. I had a sour leg halfway through – a tendinitis of my tensor fasciae latae –, but I recovered well (with a methyl salicylate-based cream.) The conditions were ideal to test my winter expedition tent before my *Whitish Dusk* adventure. For the return, the heavy rain cancelled all trains and buses. So I found myself hitchhiking overnight, in a big city, all wet, with my backpack and a tendinitis. Back home, I slept like a baby.

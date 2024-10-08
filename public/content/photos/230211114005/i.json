@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Inarijärvi",
+        "fi": "Inarijärvi",
+        "fr": "Inarijärvi"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.986801,
+        "lon": 27.431174
+    },
+    "story": "Winter_Immersion_in_Lapland",
+    "dateTaken": "2023-02-11T11:40:05",
+    "focalLength35mm": 30,
+    "exposureTime": "1/250",
+    "fNumber": 10,
+    "iso": 160,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM",
+    "prev": 221015100939,
+    "next": 230211131514
+}

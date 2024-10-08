@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "This is Not Infrared",
+        "fi": "Tämä ei ole infrapuna",
+        "fr": "Ceci n'est pas un infrarouge"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Hiking_Lyngen",
+    "dateTaken": "2024-09-02T13:13:03",
+    "focalLength35mm": 100,
+    "exposureTime": "1/2000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240901175206,
+    "position": {
+        "lat": 69.30183526,
+        "lon": 19.74244673
+    },
+    "next": 240902135322
+}

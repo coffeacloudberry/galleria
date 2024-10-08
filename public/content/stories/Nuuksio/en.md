@@ -1,0 +1,3 @@
+# Nuuksio
+
+Nuuksio is a national park within easy reach of Helsinki. My friend and I spent a long sunny weekend, after the snow had melted and before the mosquito season. Many of the trails are easy to follow, and we walked a bit off the beaten track to connect trails and avoid roads. The forest was partly wild, partly recovering from logging. Nice to see some wilderness close to the capital. I would not carry a tripod for long trips, it is extra weight. However, it helped me to experiment with photographic effects. I extended the exposure time to exaggerate wind and movement for unnatural but surprising results as you can see!

@@ -1,0 +1,3 @@
+# Les lacs Lignin
+
+Le point positif de cette région est son accès. Le train touristique peut s'arrêter sur demande près du hameau de Peyresq, dans la forêt dès le premier mètre ! Par contre, le train est parfois hors service... Un mauvais point pour la réputation des Français d'être paresseux ! J'ai préféré faire de l'auto-stop pour le retour. Les lacs Lignin sont pittoresque en hiver, couverts de neige. J'ai trouvé quelques cool cabanes dans le coin. J'ai marché sur de la neige de 1 m de profondeur autour des lacs et de l'herbe verte seulement quelques centaines de mètres plus bas, plus exposée au soleil.

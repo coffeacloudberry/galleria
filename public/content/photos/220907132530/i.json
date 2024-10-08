@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Unnamed Tarn",
+        "fi": "Nimetön lampi",
+        "fr": "Tarn sans nom"
+    },
+    "description": {
+        "en": "HDR composed of 2 shots",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.275163,
+        "lon": 27.561582
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-09-07T13:25:30",
+    "focalLength35mm": 15,
+    "exposureTime": "1/100",
+    "fNumber": 9.0,
+    "iso": 100,
+    "prev": 220906174856,
+    "next": 220907192234,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

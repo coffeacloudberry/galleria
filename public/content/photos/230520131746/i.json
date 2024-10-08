@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Dip",
+        "fi": "Dippaus",
+        "fr": "Trempette"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 61.328677,
+        "lon": 23.765518
+    },
+    "story": "Birgitan_Polku",
+    "dateTaken": "2023-05-20T13:17:46",
+    "focalLength35mm": 450,
+    "exposureTime": "1/1600",
+    "fNumber": 5.6,
+    "iso": 500,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 55-300mm f/4.5-5.6G ED VR",
+    "prev": 230519203552,
+    "next": 230807161811
+}

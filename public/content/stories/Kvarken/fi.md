@@ -1,0 +1,3 @@
+# Merenkurkun saariston
+
+Aivan ensimmäinen kävelykierros alueella. Olen juuri muuttanut Ranskasta Suomeen. Paikallinen kaveri tarjosi matkaa Suomen ainutlaatuiseen luonnon Unescon maailmanperintökohteeseen: Merenkurkun. Tämä paikka oli jään alla kauan sitten, niin paljon jäätä, että maa oli puristunut. Jää suli ja maa säilytti puristetun muotonsa. Sittemmin maa on purkautunut ja nousee hitaasti muutaman millimetrin joka vuosi. Minua ei huvittanut nousta, mutta saatoin tuntea raikkaan ilman, haistaa meren tuoksun, nähdä lumilaikkuja, jutella paikallisten kanssa ja nousta 20 metrin näkötornin huipulle. Se oli hieno ensimmäinen kävelyretki, ja odotan innolla, että saan kertoa lisää tulevina kuukausina!

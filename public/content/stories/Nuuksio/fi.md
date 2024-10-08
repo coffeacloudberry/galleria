@@ -1,0 +1,3 @@
+# Nuuksio
+
+Nuuksio on kansallispuisto, joka sijaitsee helpon matkan päässä Helsingistä. Vietimme ystäväni kanssa pitkän aurinkoisen viikonlopun, lumien sulamisen jälkeen ja ennen hyttyskautta. Monet poluista ovat helppokulkuisia, ja kävelimme hieman syrjässä polkujen yhdistämiseksi ja teiden välttämiseksi. Metsä oli osittain villiä, osittain hakkuista toipuvaa. Mukava nähdä erämaata lähellä pääkaupunkia. Jalustaa en kantaisi pitkillä matkoilla, se on ylimääräistä painoa. Se kuitenkin auttoi minua kokeilemaan valokuvaustehosteita. Pidensin valotusaikaa liioittelemalla tuulta ja liikettä, mikä johti luonnottomiin mutta yllättäviin tuloksiin, kuten voitte nähdä!

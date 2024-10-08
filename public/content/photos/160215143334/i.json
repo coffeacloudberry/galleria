@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Lake Kiriopukae",
+        "fi": "Kiriopukaejärvi",
+        "fr": "Lac Kiriopukae"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": -38.80646,
+        "lon": 177.11316
+    },
+    "story": "Nothing_Great_Happened_Today",
+    "dateTaken": "2016-02-15T14:33:34",
+    "focalLength35mm": 27,
+    "exposureTime": "1/125",
+    "fNumber": 11.0,
+    "iso": 100,
+    "prev": 160203114556,
+    "next": 160228151347,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 18-55mm f/3.5-5.6G VR II"
+}

@@ -1,0 +1,22 @@
+{
+    "title": {
+        "en": "Caterpillar",
+        "fi": "Caterpillar",
+        "fr": "Chenille"
+    },
+    "description": {
+        "en": "Lymantria dispar caterpillar on Oak",
+        "fi": "Lymantria dispar -toukka tammella",
+        "fr": "Chenille lymantria dispar sur son chêne"
+    },
+    "story": "Dome_de_Barrot",
+    "dateTaken": "2019-06-22T16:27:27",
+    "focalLength35mm": 82,
+    "exposureTime": "1/80",
+    "fNumber": 6.3,
+    "iso": 800,
+    "prev": 190622155206,
+    "next": 190629050346,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 18-55mm f/3.5-5.6G VR II"
+}

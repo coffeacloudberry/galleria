@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Sorsajoki",
+        "fi": "Sorsajoki",
+        "fr": "Sorsajoki"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 67.380719,
+        "lon": 29.411348
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-08-29T11:35:46",
+    "focalLength35mm": 22,
+    "exposureTime": "1/800",
+    "fNumber": 3.5,
+    "iso": 100,
+    "prev": 220828131254,
+    "next": 220829162137,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

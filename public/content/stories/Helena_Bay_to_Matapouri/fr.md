@@ -1,0 +1,3 @@
+# De Helena Bay à Matapouri
+
+Décidé de faire les passages sauvages de Te Araroa, j'ai sélectionné quelques sections au préalable. Celle-ci était balisée et j'ai eu du beau temps. Cependant, je ne savais pas que les balises jaunes ou bleues sont réservées au Département de la Conservation. De plus, j'ai manqué un tournant critique de la piste à mi-chemin. J'étais en fait plus concentré sur les champignons que sur les balises en plastique. J'ai essayé de savoir où je me dirigeais, et cela n'avait aucun sens d'après ma carte et ma boussole. J'ai donc fait demi-tour jusqu'à la dernière balise et j'ai trouvé le vrai tournant. Victoire !

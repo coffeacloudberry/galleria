@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Rainy Day",
+        "fi": "Sateinen päivä",
+        "fr": "Journée pluvieuse"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Hiking_Lyngen",
+    "dateTaken": "2024-08-30T15:44:46",
+    "focalLength35mm": 16,
+    "exposureTime": "1/60",
+    "fNumber": 7.1,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240828142245,
+    "position": {
+        "lat": 69.40584018,
+        "lon": 20.06928706
+    },
+    "next": 240830163050
+}

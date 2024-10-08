@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Bump on Inarijärvi",
+        "fi": "Kuoppa Inarijärvellä",
+        "fr": "Bosse sur le lac Inari"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.947669,
+        "lon": 27.356648
+    },
+    "story": "Winter_Immersion_in_Lapland",
+    "dateTaken": "2023-02-11T13:15:14",
+    "focalLength35mm": 97,
+    "exposureTime": "1/200",
+    "fNumber": 10,
+    "iso": 100,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 55-300mm f/4.5-5.6G ED VR",
+    "prev": 230211114005,
+    "next": 230212143733
+}

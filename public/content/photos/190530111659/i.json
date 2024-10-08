@@ -1,0 +1,22 @@
+{
+    "title": {
+        "en": "Pine",
+        "fi": "Mänty",
+        "fr": "Pin"
+    },
+    "description": {
+        "en": "Pine near the Lignin lakes",
+        "fi": "Mänty lähellä Ligninjärviä",
+        "fr": "Pin près des lacs Lignins"
+    },
+    "story": "Lacs_Lignin",
+    "dateTaken": "2019-05-30T11:16:59",
+    "focalLength35mm": 82,
+    "exposureTime": "1/100",
+    "fNumber": 5.6,
+    "iso": 200,
+    "prev": 190526074212,
+    "next": 190530152344,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 18-55mm f/3.5-5.6G VR II"
+}

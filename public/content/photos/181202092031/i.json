@@ -1,0 +1,22 @@
+{
+    "title": {
+        "en": "Spring",
+        "fi": "Kevät",
+        "fr": "Printemps"
+    },
+    "description": {
+        "en": "HDR picture",
+        "fi": "HDR-kuva",
+        "fr": "Photo HDR"
+    },
+    "story": "Gillespie_Circuit",
+    "dateTaken": "2018-12-02T09:20:31",
+    "focalLength35mm": 24,
+    "exposureTime": "1/320",
+    "fNumber": 11.0,
+    "iso": 100,
+    "prev": 181128123706,
+    "next": 181202095024,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

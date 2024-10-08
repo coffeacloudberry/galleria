@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Grass Snake",
+        "fi": "Rantakäärme",
+        "fr": "Couleuvre à collier"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 59.826123,
+        "lon": 21.602624
+    },
+    "story": "Jurmo",
+    "dateTaken": "2024-06-25T18:21:20",
+    "focalLength35mm": 300,
+    "exposureTime": "1/320",
+    "fNumber": 4,
+    "iso": 320,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 240624232134,
+    "next": 240626104341
+}

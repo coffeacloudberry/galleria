@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Autumnal Horizon",
+        "fi": "Syksyinen horisontti",
+        "fr": "Horizon d'automne"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 62.972141,
+        "lon": 29.976171
+    },
+    "story": "Koli",
+    "dateTaken": "2023-10-22T13:04:58",
+    "focalLength35mm": 200,
+    "exposureTime": "1/400",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 231021131933,
+    "next": 231022132657
+}

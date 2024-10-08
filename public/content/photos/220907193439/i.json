@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Perfect But Fragile",
+        "fi": "Täydellinen mutta hauras",
+        "fr": "Parfaite mais fragile"
+    },
+    "description": {
+        "en": "HDR composed of 3 shots",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.356012,
+        "lon": 27.551672
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-09-07T19:34:39",
+    "focalLength35mm": 15,
+    "exposureTime": "1/50",
+    "fNumber": 8.0,
+    "iso": 100,
+    "prev": 220907192234,
+    "next": 221015100939,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

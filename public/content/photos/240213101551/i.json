@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Disappearing",
+        "fi": "Katoaminen",
+        "fr": "Disparition"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 70.352344,
+        "lon": 29.854823
+    },
+    "story": "Hostile_Heaven",
+    "dateTaken": "2024-02-13T10:15:51",
+    "focalLength35mm": 80,
+    "exposureTime": "1/2000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 240213081802,
+    "next": 240216124154
+}

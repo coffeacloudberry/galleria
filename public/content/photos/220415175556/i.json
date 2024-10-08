@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "The Melting Ice on Iso Kivijärvi",
+        "fi": "Jään sulaminen Iso Kivijärvellä",
+        "fr": "La fonte des glaces au lac Iso Kivijärvi"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 61.952473,
+        "lon": 23.391078
+    },
+    "story": "Easter_on_Seitseminen",
+    "dateTaken": "2022-04-15T17:55:56",
+    "focalLength35mm": 82,
+    "exposureTime": "1/640",
+    "fNumber": 5.6,
+    "iso": 100,
+    "prev": 220220141712,
+    "next": 220416104449,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 18-55mm f/3.5-5.6G VR II"
+}

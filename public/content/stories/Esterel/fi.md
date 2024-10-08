@@ -1,0 +1,3 @@
+# Esterel
+
+Esterelin alueelle pääsee helposti. Juna ei ole vain ympäristöystävällinen, vaan myös erittäin luonnonkaunis rannikkoa pitkin, pystyin keskittymään horisonttiin ja auringonnousuun liikenneruuhkan sijaan. Aikainen lintu nappaa madon, joten otin heti ensimmäisen junan Saint-Raphaëliin. Sieltä kävelin lähes tauotta Mandelieu-la-Napouleen asti ja liftasin takaisin kaupunkiin ehtiäkseni junaan. Sää oli juuri sellainen, josta pidän: nopeasti vaihteleva - laikukkaasta sateesta hienoihin kaatosateisiin - joista saa hienoja kuvia - pisaroita, kirkkaita värejä ja hajavaloa -, ja pääsin vihdoin kuivumaan ennen unenomaista yötä.

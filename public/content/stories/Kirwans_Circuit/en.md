@@ -1,0 +1,13 @@
+# Cooking Challenge
+
+I spent the first and last dollars in accommodation. I saved enough money to be able to forget it. Traveling without spending money has never been my goal. But why should I spend money for a comfy bed when I could stay in my tent for free? My laziness pushed me to do so, one night in one year of accumulated travel.
+
+I spent time in Greymouth looking for backcountry recipes, food, a frying pan and a water bottle used to carry eggs. I felt slightly society-lagged and could not sleep in the dorm room. So I organised my food in the middle of the night, packing stuff in resealable bags. Then I had a brilliant idea: giving to myself a new challenge consisting of going tramping with only basic, raw ingredients and simple mixes, no energy balls, no bread, no fancy granola, no caramelised or roasted nuts. I would bake my own bread instead, and cook my porridge.
+
+I was faster than expected so I planned other tramps before the Dusky Track. I found a good looking hut in a postcard and that was enough motivation to go there – Kirwan’s Hut. I met a fisherman in the backpacker who forgot his life jacket. Weather was terrible, heavy rain and gale, so David drove back to his home and gave me a lift to Reefton. Here I met Enett, David’s friend, who asked my plan: go to Blacks Point, pitch my tent and start the Kirwan’s Circuit the next day. She felt sad for me and offered me to stay at her place. So I had a king meal and a queen bed. I fixed her TV in exchange.
+
+I started tramping in the Victoria Conservation Park through the Murray Creek Track, all streams were flooded. One creek was trickier. I tried further up and down, but impassable to cross safely with a strong pole. I pitched my tent on high ground and waited until next morning. I baked bread for lunch, topped with Cheddar cheese and Marmite. It’s filling and tasty for a camp meal but cooking isn’t easy in a small tent. I had pasta with pine nuts, walnuts and pesto sauce for tea, cooked with rain water from my tent fly.
+
+The stream next morning was much friendlier, easy to cross without pole. I found a large frying pan in Montgomerie Hut and practiced. I baked two tasty pizzas in three hours. The base was made of plain flour, baking powder and canola oil. All covered of melted cheese, eggs, olive dukkah mix and Marmite. I have to admit it is gas, water and time consuming. I baked camp scones later on, filled with sultanas, chopped dates and cacao powder. It was surprisingly fast to bake – 1 min 30 sec – with no mess and only based on dry ingredients plus water from the river. I ate so much that I got sick, leaking nose, headache, feeling weak, low hearing.
+
+I walked to Kirwan’s Hut and ran out of flour. End of story.

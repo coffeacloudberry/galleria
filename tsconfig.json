@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "resolveJsonModule": true,
+        "preserveConstEnums": true,
+        "downlevelIteration": true,
+        "target": "es6",
+        "sourceMap": true,
+        "lib": ["ESNext", "dom", "dom.iterable"]
+    },
+    "include": ["src/**/*", "tests/unit/**/*"],
+    "$schema": "https://json.schemastore.org/tsconfig"
+}

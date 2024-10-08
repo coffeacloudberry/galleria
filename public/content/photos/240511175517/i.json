@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Windy Canopy",
+        "fi": "Tuulinen katos",
+        "fr": "Canopée venteuse"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 60.283237,
+        "lon": 24.612769
+    },
+    "story": "Nuuksio",
+    "dateTaken": "2024-05-11T17:55:17",
+    "focalLength35mm": 16,
+    "exposureTime": "8",
+    "fNumber": 10,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "live ND16 (4EV)",
+    "prev": 240510171320,
+    "next": 240511182023
+}

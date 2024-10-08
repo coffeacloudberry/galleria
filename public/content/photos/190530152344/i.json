@@ -1,0 +1,22 @@
+{
+    "title": {
+        "en": "Toward the Mercantour",
+        "fi": "Kohti Mercantouria",
+        "fr": "Vers le Mercantour"
+    },
+    "description": {
+        "en": "View around the Lignin lakes",
+        "fi": "Näkymä Ligninin järvien ympärillä",
+        "fr": "Vue aux alentours des lacs Lignins"
+    },
+    "story": "Lacs_Lignin",
+    "dateTaken": "2019-05-30T15:23:44",
+    "focalLength35mm": 82,
+    "exposureTime": "1/500",
+    "fNumber": 5.6,
+    "iso": 100,
+    "prev": 190530111659,
+    "next": 190622155206,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 18-55mm f/3.5-5.6G VR II"
+}

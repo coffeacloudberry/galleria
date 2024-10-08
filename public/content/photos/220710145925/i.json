@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Life in Pink",
+        "fi": "Elämä vaaleanpunaisena",
+        "fr": "La vie en rose"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 63.104616,
+        "lon": 21.749521
+    },
+    "story": "Return_to_Pilvilampi",
+    "dateTaken": "2022-07-10T14:59:25",
+    "focalLength35mm": 51,
+    "exposureTime": "1/500",
+    "fNumber": 8.0,
+    "iso": 100,
+    "prev": 220611175709,
+    "next": 220827145228,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 18-55mm f/3.5-5.6G VR II"
+}

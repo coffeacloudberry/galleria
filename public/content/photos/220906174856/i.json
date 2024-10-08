@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Still Stream",
+        "fi": "Liikkumaton veden",
+        "fr": "Ruisseau stagnant"
+    },
+    "description": {
+        "en": "HDR composed of 3 shots",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 68.238314,
+        "lon": 27.686645
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-09-06T17:48:56",
+    "focalLength35mm": 15,
+    "exposureTime": "1/160",
+    "fNumber": 9.0,
+    "iso": 100,
+    "prev": 220906143742,
+    "next": 220907132530,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

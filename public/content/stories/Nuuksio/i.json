@@ -1,0 +1,14 @@
+{
+    "start": "2024-05-09",
+    "duration": 3,
+    "season": "spring",
+    "mapExaggeration": 2,
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        }
+    ]
+}

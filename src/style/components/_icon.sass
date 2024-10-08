@@ -1,0 +1,13 @@
+@import '../base/variables'
+
+img.icon
+    height: 1rem
+
+a.button-icon
+    img.icon
+        filter: $filter-button-background
+        transition: all 0.2s ease-in
+    &:hover,
+    &:focus
+        img.icon
+            filter: $filter-button-background-hover

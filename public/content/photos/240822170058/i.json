@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Between Two Skies",
+        "fi": "Kahden taivaan välissä",
+        "fr": "Entre deux ciels"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Hiking_Lyngen",
+    "dateTaken": "2024-08-22T17:00:58",
+    "focalLength35mm": 50,
+    "exposureTime": "1/160",
+    "fNumber": 6.3,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240822130800,
+    "position": {
+        "lat": 69.80530006,
+        "lon": 20.07962328
+    },
+    "next": 240822172723
+}

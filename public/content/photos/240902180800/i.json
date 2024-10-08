@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Curves",
+        "fi": "Käyrät",
+        "fr": "Courbes"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Hiking_Lyngen",
+    "dateTaken": "2024-09-02T18:08:00",
+    "focalLength35mm": 80,
+    "exposureTime": "1/1000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 240902135322,
+    "position": {
+        "lat": 69.31862639,
+        "lon": 19.78781696
+    },
+    "next": 240903171732
+}

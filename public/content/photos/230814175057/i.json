@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Along The Wide Valley",
+        "fi": "Leveää laaksoa pitkin",
+        "fr": "Le long de la vaste vallée"
+    },
+    "description": {
+        "en": "High dynamic range composed of 3 photos.",
+        "fi": "Korkea dynaaminen alue, joka koostuu 3 valokuvasta.",
+        "fr": "Image à grande gamme dynamique composée de 3 photos."
+    },
+    "position": {
+        "lat": 67.334194,
+        "lon": 17.446556
+    },
+    "story": "Hiking_Sarek",
+    "dateTaken": "2023-08-14T17:50:57",
+    "focalLength35mm": 32,
+    "exposureTime": "1/160",
+    "fNumber": 8,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": null,
+    "prev": 230814123804,
+    "next": 230815123009
+}

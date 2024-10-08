@@ -1,0 +1,3 @@
+# Merveilles
+
+Une promenade très pittoresque de Boréon à Fontan. Les sentiers sont partout avec quelques refuges luxueux comme dans les Pyrénées. J'ai rencontré des trekkeurs sur mon chemin et me suis demandé pourquoi courir quand il n'y a pas d'urgence, comme un escargot dans un coquelicot ! J'arrive parfois à marcher sur une distance étonnamment longue, mais jamais à courir. Pour cette rando, je suis arrivé à Boréon le vendredi en fin d'après-midi, j'ai repéré quelques lucioles et j'ai monté ma tente pour la nuit. Le samedi, j'ai commencé à marcher avant le lever du soleil pour marcher au frais et avoir de beaux clichés. Je me suis arrêté avant Fontan pour faire du stop le dimanche matin.

@@ -1,0 +1,7 @@
+# Vallée des cascades noires
+
+Quand il s'agit de la nature, plus elle est sauvage, mieux c'est. En ce qui concerne la société, plus on est connecté, mieux c'est. Les réseaux sociaux ont tendance à connecter avec des personnes de du même cercle sociale. Par contre, j'ai été dans pas mal de cercles en faisant de l'autostop jusqu'au village de Guillaume : J'ai rencontré une infirmière, un couple d'amis allant faire la fête, quatre Polonais, un apiculteur local.
+
+La diversité sur la route reflétait la diversité sur le chemin. J'ai commencé dans la forêt. La pluie était assez forte, et les éclairs étaient plus stressants qu'excitants, ~3 secondes entre l'éclair et le tonnerre (1 km). Comme d'habitude dans la région, cela n'a pas duré, et j'ai continué jusqu'à 2 232 m d'altitude, où j'ai profité d'un chouette coucher de soleil. La vallée de Barlatte est faite de roche noire brillante et de verdure, avec d'innombrables cascades.
+
+Je me suis réveillé avec un ciel bleu, 5°C dans ma tente rapidement réchauffée par les premiers rayons de soleil, et mon porridge complété par de la confiture de framboises (faite par l'apiculteur). Puis j'ai marché sur des éboulis et des plaques de neige sur la selle de Boulière (2 629 m), descendu vers les lacs de l'Estrop, la forêt, et un champ de fleurs sauvages à Estenc.

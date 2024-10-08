@@ -1,0 +1,3 @@
+# Sentier Caples, lac Réré, Greenstone
+
+Le sentier Greenstone / Caples était tranquil, un sentier facile pour les familles et meme les grands-mères (je dis ça parce que j'en ai croisé). J'ai fait un détour par le lac Réré - reflet parfait tôt le matin, symétrie brisée plus tard par d'innocents canards. Alors que j'ai trouvé de nombreux Fantails et Tomtits sur la route Pyke / Hollyford, les Riflemen et Robins dominaient la forêt de hêtres des vallées de Caples et Greenstone. J'ai terminé le périple en deux jours au lieu de quatre.

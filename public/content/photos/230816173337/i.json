@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Through The Snowy Pass",
+        "fi": "Lumisen solan läpi",
+        "fr": "A travers le col enneigé"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 67.199341,
+        "lon": 17.666420
+    },
+    "story": "Hiking_Sarek",
+    "dateTaken": "2023-08-16T17:33:37",
+    "focalLength35mm": 300,
+    "exposureTime": "1/500",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 230815123009,
+    "next": 230817101201
+}

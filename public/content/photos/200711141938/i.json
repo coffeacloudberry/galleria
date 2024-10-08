@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Morgon Lakes",
+        "fi": "Morgonträsket",
+        "fr": "Les lacs Morgons"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 44.350519,
+        "lon": 6.861291
+    },
+    "story": "Bastille_Tramp",
+    "dateTaken": "2020-07-11T14:19:38",
+    "focalLength35mm": 19,
+    "exposureTime": "1/100",
+    "fNumber": 11.0,
+    "iso": 100,
+    "prev": 200711111712,
+    "next": 200711163304,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

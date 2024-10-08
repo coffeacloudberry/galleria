@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Ylä-Naruskajoki From Sorsatunturi",
+        "fi": "Ylä-Naruskajoki alkaen Sorsatunturi",
+        "fr": "Ylä-Naruskajoki vue de Sorsatunturi"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 67.4058,
+        "lon": 29.626724
+    },
+    "story": "Hiking_Eastern_Lapland",
+    "dateTaken": "2022-08-29T16:21:37",
+    "focalLength35mm": 25,
+    "exposureTime": "1/1000",
+    "fNumber": 4.0,
+    "iso": 100,
+    "prev": 220829113546,
+    "next": 220829162545,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

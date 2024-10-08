@@ -1,0 +1,58 @@
+@import "variables"
+
+body,
+html
+    line-height: $text-line-height
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    font-size: $global-font-size
+    @media (max-width: 1024px)
+        font-size: calc(#{$global-font-size} / 1.15)
+
+h1
+    padding-top: $h1-padding-top
+    padding-bottom: $p-vertical-margin
+    line-height: $h1-line-height
+    font-size: $h1-font-size
+    color: $h1-color
+    border-bottom: $h1-border-bottom-width solid $h1-border-bottom-color
+    @media (max-width: 1024px)
+        padding-top: calc(#{$h1-padding-top} / 2)
+        font-size: calc(#{$h1-font-size} / 1.1)
+
+h3
+    margin-top: 1.1rem
+    margin-bottom: 0.6rem
+    font-size: 1.2rem
+
+p
+    margin: $p-vertical-margin 0
+
+/* list in a text */
+ul.blabla
+    margin: 1rem 0
+    list-style: none
+    @media (max-width: 1024px)
+        margin: 0.5rem 0
+    li::before
+        content: ''
+        display: inline-block
+        height: 16px
+        background-image: url('icons/leaf-outline.svg')
+        background-size: contain
+        background-repeat: no-repeat
+        padding: 0 24px 0 0
+        vertical-align: -2px
+        @media (max-width: 1024px)
+            height: 12px
+            padding: 0 18px 0 0
+
+ul ul
+    list-style: none
+    padding-left: 1rem
+    li::before
+        filter: $filter-grey
+
+.tippy-box ul.blabla li::before,
+.tippy-box img.icon
+    filter: $filter-white

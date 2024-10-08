@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Vens Lakes",
+        "fi": "Vensträsket",
+        "fr": "Les Lacs de Vens"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Bastille_Tramp",
+    "position": {
+        "lat": 44.320534,
+        "lon": 6.938167
+    },
+    "dateTaken": "2020-07-11T16:33:04",
+    "focalLength35mm": 27,
+    "exposureTime": "1/320",
+    "fNumber": 9.0,
+    "iso": 100,
+    "prev": 200711141938,
+    "next": 200712181418,
+    "body": "NIKON D7100",
+    "lens": "Sigma 10-20mm F3.5 EX DC HSM"
+}

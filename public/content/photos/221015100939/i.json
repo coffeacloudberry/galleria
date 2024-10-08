@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Sandy",
+        "fi": "Sandy",
+        "fr": "Sandy"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 63.160501,
+        "lon": 21.55814
+    },
+    "story": "Northern_Vaasa",
+    "dateTaken": "2022-10-15T10:09:39",
+    "focalLength35mm": 450,
+    "exposureTime": "1/15",
+    "fNumber": 5.6,
+    "iso": 320,
+    "prev": 220907193439,
+    "next": 230211114005,
+    "body": "NIKON D7100",
+    "lens": "AF-S DX Nikkor 55-300mm f/4.5-5.6G ED VR"
+}

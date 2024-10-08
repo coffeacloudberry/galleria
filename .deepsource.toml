@@ -1,0 +1,22 @@
+version = 1
+
+test_patterns = ["*/tests/**"]
+
+exclude_patterns = [
+    "public/**,"
+]
+
+[[analyzers]]
+name = "javascript"
+enabled = true
+
+  [analyzers.meta]
+  dialect = "typescript"
+
+[[analyzers]]
+name = "python"
+enabled = true
+
+  [analyzers.meta]
+  max_line_length = 150
+  type_checker = "mypy"

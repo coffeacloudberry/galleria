@@ -1,0 +1,41 @@
+@import '../base/variables'
+
+.container
+    margin: 0 auto
+    padding: 0 $block-space
+    max-width: $container-column-threshold
+    @media (max-width: $container-column-threshold)
+        padding: 0
+    &:last-child
+        /* add nav bar margin to fix cut in Firefox/Chrome mobile */
+        margin-bottom: calc(#{$block-space} + #{$nav-bar-height} / 2)
+
+.row::before,
+.row::after
+    display: table
+    content: ' '
+    clear: both
+
+.one,
+.one-third,
+.two-thirds,
+.half
+    width: 100%
+    padding: 0 $block-space
+    @media (max-width: $container-column-threshold)
+        padding: 0 calc(#{$block-space} / 2)
+
+.container
+    @media (min-width: 1024px)
+        .one
+            width: 100%
+        .half
+            width: calc(100% / 2)
+        .one-third
+            width: 300px
+        .two-thirds
+            width: calc(#{$container-column-threshold} - 300px - 4 * #{$block-space})
+        .column
+            float: left
+        .column-right
+            float: right

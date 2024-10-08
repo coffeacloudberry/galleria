@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Sunset in The Tundra",
+        "fi": "Auringonlasku Tundralla",
+        "fr": "Coucher de soleil dans la toundra"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "position": {
+        "lat": 70.313305,
+        "lon": 30.283105
+    },
+    "story": "Hostile_Heaven",
+    "dateTaken": "2024-02-11T14:41:17",
+    "focalLength35mm": 186,
+    "exposureTime": "1/200",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 231022132657,
+    "next": 240213081802
+}

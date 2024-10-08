@@ -1,0 +1,7 @@
+# Trou de l'Âne
+
+J'ai pris quelques-unes de mes photos préférées dans cette rando, de Saint-Étienne-de-Tinée à Allos en passant par le Trou de l'Âne. Cela ne me dérangerait pas de faire exactement le même parcours chaque saison pour voir la nature changer. Ce jour-là, le ciel était bleu et les feuillages d'automne rougeoyants.
+
+Je me suis demandé pourquoi il n'y a pas de chemin jusqu'au trou de l'âne. Une fois arrivé, je me suis demandé où était l'âne ! Ensuite la météo a changé, et le meilleur moyen que j'ai trouvé pour traverser le col (2 700 m) glissant et raide était de passer par la Sanguinerette - 2 855 m. Le Lac d'Allos est le plus grand lac naturel d'altitude d'Europe (0,6 km² à 2 230 m.) Il était entièrement recouvert de neige durant la nuit, calme et reposant.
+
+Je n'avais que le week-end pour randonner, alors j'essayais de couvrir la plus grande distance possible. J'ai eu un soucis à mi-parcours, une tendinite du fasciae latae. Les conditions étaient idéales pour tester ma tente hivernale d'expédition avant mon aventure *Whitish Dusk*. Pour le retour, la forte pluie a annulé tous les trains et les bus. Je me suis donc retrouvé à faire du stop de nuit, dans une grande ville, trempé, avec mon sac à dos et une tendinite. De retour dans mon lit, j'ai dormi comme un bébé. J'ai bien récupéré ma tendinite avec une crème à base de salicylate de méthyle.

@@ -1,0 +1,17 @@
+# Stewart Island / Rakiura
+
+Pakkasin kaikki retkeilyvarusteeni ja lensin Queenstowniin ATR72:lla ja liftasin Bluffiin lautalle lyhyen kävelyn jälkeen Millenium / Foveaux Walkwaylla ja tauon jälkeen Lighthouse Gallery & Cafessa, 30 Gore St. Tuo paikka on muutakin kuin kiva kahvila, se on hieno näyttelytila, jossa on kuvia ja taidekäsityötä. Saavuttuani Stewart Islandille / Rakiuraan, join kahvit tytön kanssa, jonka tapasin lautalla ja aloitin yksin kulkuni kohti Bungaree Hutia.
+
+Tein kiertotien rannikkoa pitkin ja huomasin pari kākārikia, mutta en päässyt hytille asti, tuli pimeää ja kadotin jäljen. Bushwalkasin tunnin yön yli rannalle ja pystytin teltan. En käyttänyt seuraavana aamuna kuin viisi minuuttia jäljen löytämiseen. Kun lopulta saavuin majalle, tajusin unohtaneeni vaellussauvani ja kävelin takaisin. Oli kuitenkin nousuvesi, enkä päässyt enää telttapaikalleni. Hukkasin upouuden sauvani ensimmäisenä päivänä! Onneksi en ollut vielä saanut tulvaa. Lopulta majalla tapasin Antonin. En tuntenut häntä aiemmin, mutta pysyimme yhdessä koko matkan. Näin henkilökohtaisesta tavoitteesta tuli tiimityötä ja "minusta" tuli "me".
+
+Kiipesimme Hurunuille, 2 kilometrin korkeuserot ylös ja alas Joulukylän majalta. Huipulla avautuva 360°-näkymä oli upea. Näimme Fiordlandin massiiviset vuoret ja kaukaisen etelän tyhjyyden sinisellä taivaalla koko päivän. Vaikka ympärilläsi lentävä Fantail tarkoittaa huonoa onnea māori-kulttuurissa, nuo linnut tekevät sen itse asiassa saadakseen kiinni liikkuvia hyönteisiä. Vaikka se onkin lempilintuni, Anton ja minä hämmästyimme enemmän myöhemmin havaitsemistamme ruskeista kiiveistä. Nämä lentokyvyttömät linnut ovat ujoja, ja niitä voi löytää vain syrjäisistä erämaista, joissa tarvitaan muutaman päivän kävely, kärsivällisyyttä ja onnea.
+
+Sain kiinni Spotted Wrasen (alias Spotty) Freds Camp Hutin laiturilta. Se on pieni kala, jonka liha ei riitä kahdelle, ja vaikea pyydystää. Keitin sen ja lisäsin siihen tikka masalaa. Anton leipoi tuoretta leipää öljystä ja jauhoista, jotka löysimme majalta. Oli hienoa saada tuoretta ruokaa päivien kuivattujen ruokien jälkeen.
+
+Meillä oli hyvä sää suurimman osan aikaa. Jotkin eteläosan osuudet olivat todella mutaisia ja jotkin niin soisia, ettemme voineet kulkea suoraan, vaan kuljimme siksakkia kuin hyönteiset.
+
+Rakiuran kierros oli pisin vaellukseni koskaan, 14 päivää ja yötä. Anton oli nuori, ystävällinen, super motivoitunut ja motivoiva kulkija. Kuntoisempi kuin minä, hän oli supernopea ylämäkeen ja minä olin nopeampi alamäkeen. Työnsimme toisiamme joka päivä. Yhdessä olimme kai vahvempia.
+
+Lensin takaisin Invercargilliin ja tajusin, että maisemalennolla ei ole paljon järkeä. Vaikka maisemasta saa yleiskuvan, useimmat yksityiskohdat jäävät näkemättä: ei lintuja, ei hyönteisiä, ei eläimiä, ei lehtiä. Lämpimiä kiviä, puita ja sammalta ei voi koskettaa. Lintujen laulua, villieläinten huutoja, tuulen puhaltamia lehtiä ja murtuvaa jäätä ei voi kuulla. Murskattuja lehtiä ei voi haistaa. Manukateetä ei voi maistaa. Maisemalennolla on kyse näkymistä nauttimisesta vähemmän ympäristöystävällisellä tavalla.
+
+Huomaa, että kirjoitan sekä brittiläisen että māori-nimen (esim. Stewart Island / Rakiura, Egmont / Taranaki) kunnioittaen māori-nimiä. Itse asiassa "osana Rangitane Tu Mai Ra (Wairarapa Tamaki nui-a-Rua) Waitangin sopimuksen mukaista järjestelyä useille suosituille retkeilykohteille on palautettu niiden alkuperäiset māori-nimet." Lähde: N: FMC:n tiedote 210, marraskuu 2017.

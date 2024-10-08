@@ -1,0 +1,9 @@
+# Eastern Waikaremoana
+
+Hard to get a lift on remote roads like the one north of Waikaremoana. So a lady offered me to stay at her place in Ruatahuna, but I had finally been picked up later on by three hunters: one driving, one ready to shoot anything that worth a $2 bullet, and one dealing with the playlist. They offered me an ice cream and dropped me off at the visitor centre of the park. I intended to do the Great Walk but the lady devoted for tourists asked me to book the expensive huts, forbade me to camp outside DOC facilities and warned me that part of the circuit is currently closed. So I bought my very first Topo50 map and headed to the opposite direction: lake Waikareiti.
+
+The walk to Sandy Bay Hut from the Aniwaniwa waterfall was awesome with a few lakes and grass flats with nice lookout and weather. I found trouts in the Ngawhakarara stream – yeah, I could find myself on the map – The stream was less than 30 cm deep, so I got a wood stick and smashed one fish, put out of the water and smashed it again with a piece of rock to kill it. Once in the hut, I cooked the trout with a vegetable stock cube in boiled water and added some curry. Great dinner after a great walk!
+
+Tramping gives me time to think. Here I was thinking about the strong tie of Māoris to their lands. Contrary to the western culture, there is no identity card in the Māori culture. Tattoos on faces are not used anymore to tell us about ancestors. However, nature is part of each Māori who would say: “this is my mountain, this is my river.” Connection to nature is strong for any Māori living in the backcountry. Not just for the daily life in a Marae – fishing, hunting, farming – but also for their soul. Most Māoris do not have much money to travel, but I don’t think they would if they could since “there is no place like home.” Considering myself, I would rather say: “there is no place like the one you feel good.” 
+
+I've no home anymore but nature.
