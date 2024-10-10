@@ -67,7 +67,13 @@ const LoadingPopupCamComponent: m.Component = {
     },
 };
 
-/** Component in the tooltip displaying a clickable thumbnail. */
+/**
+ * Component in the tooltip displaying a clickable thumbnail.
+ * This component is attached to the map but hidden behind. This component is
+ * cloned as popup and follows the map movements. The DOM copy is to avoid
+ * changing parent that would result in breaking the Mithril redrawing
+ * mechanism.
+ */
 class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
     /** True when the image is cached and ready to be displayed. */
     private ready = false;
@@ -95,17 +101,27 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
     // skipcq: JS-0105
     onupdate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
         hideAllForce();
-        attrs.mapboxPopup.setDOMContent(dom);
+        attrs.mapboxPopup.setDOMContent(dom.cloneNode(true));
     }
 
     // skipcq: JS-0105
     oncreate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
         hideAllForce();
-        attrs.mapboxPopup.setDOMContent(dom);
+        attrs.mapboxPopup.setDOMContent(dom.cloneNode(true));
+    }
+
+    onremove({ attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
+        // remove the copy of the DOM that is visible
+        attrs.mapboxPopup.remove();
+
+        this.currentPhoto = null;
+        this.image = new Image();
     }
 
     view({ attrs }: m.CVnode<PopupCamAttrs>): MaybeLink {
         this.updateImage(attrs.photoId);
+        // Update the image right before checking the `ready` flag.
+        // That is to avoid the previous thumbnail to be displayed.
         if (!this.ready) {
             return m(LoadingPopupCamComponent);
         }
@@ -313,8 +329,9 @@ export default class Map implements m.ClassComponent {
 
     /** Close the photo previews (thumbnails in map): popup and/or slider. */
     closePhotosPreview(): void {
-        if (this.popupCam) {
-            this.popupCam.remove();
+        if (this.popupCamData) {
+            // remove the popup that is invisible but taking space
+            this.popupCamData = undefined;
         }
         if (this.clusterIsOpen) {
             this.clusterIsOpen = false;
@@ -366,7 +383,7 @@ export default class Map implements m.ClassComponent {
             return;
         }
         const trackLength = globalMapState.webtrack.getTrackInfo().length;
-        if (typeof trackLength !== "number" || !globalMapState.lineStrings) {
+        if (!trackLength || !globalMapState.lineStrings) {
             return;
         }
         const minDist = (0.2 * trackLength) / 1000; // 20% in km
@@ -905,26 +922,6 @@ export default class Map implements m.ClassComponent {
                     pitch: 0,
                     bearing: 0,
                     style: config.mapbox.style[story.mapTheme].url,
-                    // style: {
-                    //     'version': 8,
-                    //     'sources': {
-                    //         'raster-tiles': {
-                    //             'type': 'raster',
-                    //             'tiles': ['https://geodata.npolar.no/arcgis/rest/services/Basisdata/NP_Basiskart_Svalbard_WMTS_3857/MapServer/tile/{z}/{y}/{x}?blankTile=false'],
-                    //             'tileSize': 256,
-                    //             'attribution': '&copy; <a href="https://www.npolar.no/">Norwegian Polar Institute</a>'
-                    //         }
-                    //     },
-                    //     'layers': [
-                    //         {
-                    //             'id': 'simple-tiles',
-                    //             'type': 'raster',
-                    //             'source': 'raster-tiles',
-                    //             'minzoom': 0,
-                    //             'maxzoom': 22
-                    //         }
-                    //     ]
-                    // },
                     attributionControl: false, // outside the map widget to control the style and language
                     logoPosition: "bottom-right",
                     cooperativeGestures: isMobile(),
