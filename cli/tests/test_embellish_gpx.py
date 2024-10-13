@@ -14,7 +14,6 @@ FAKE_TIME = datetime.datetime(2024, 4, 20, 0, 0, 0, 0)
 
 @pytest.fixture
 def patch_datetime_today(monkeypatch):
-
     class StaticDatetime(datetime.datetime):
         @classmethod
         def today(cls):

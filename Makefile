@@ -2,28 +2,22 @@
 mypy:
 	python -m mypy --config-file mypy.ini cli/src/
 
-.PHONY: pylint
-pylint:
-	python -m pylint cli/src/
-
 .PHONY: check
-check: mypy pylint
-
-.PHONY: isort
-isort:
-	python -m isort --force-single-line cli/src/ cli/tests/
-
-.PHONY: black
-black:
-	python -m black cli/src/ cli/tests/ --line-length=150
+check: mypy
+	ruff check
 
 .PHONY: format
-format: isort black
+format:
+	ruff format
 
 .PHONY: install
 install:
 	poetry install --with test && \
 	mkdir tests/end_to_end/results
+
+.PHONY: update
+update:
+	poetry update --with test
 
 # coverage here instead of the addopts config to skip coverage and handle
 # breakpoints when running 1 test in PyCharm

@@ -140,7 +140,7 @@ def test_generate_social(tmp_path):
 
 
 def test_decode_webp_output():
-    std_output = "Saving file 'out.webp'\nFile:      /sample_nikon.tif\nDimension: 100 x 40\nOutput:    66 bytes Y-U-V-All-PSNR 64.68 99.00 99.00   66.44 dB\n           (0.13 bpp)\nblock count:  intra4:          0  (0.00%)\n              intra16:        21  (100.00%)\n              skipped:        20  (95.24%)\nbytes used:  header:             14  (21.2%)\n             mode-partition:     13  (19.7%)\n Residuals bytes  |segment 1|segment 2|segment 3|segment 4|  total\n    macroblocks:  |       5%|       0%|       0%|      95%|      21\n      quantizer:  |      15 |      15 |      13 |       8 |\n   filter level:  |       0 |       0 |       0 |       0 |\n"
+    std_output = "Saving file 'out.webp'\nFile:      /sample_nikon.tif\nDimension: 100 x 40\nOutput:    66 bytes Y-U-V-All-PSNR 64.68 99.00 99.00   66.44 dB\n           (0.13 bpp)\nblock count:  intra4:          0  (0.00%)\n              intra16:        21  (100.00%)\n              skipped:        20  (95.24%)\nbytes used:  header:             14  (21.2%)\n             mode-partition:     13  (19.7%)\n Residuals bytes  |segment 1|segment 2|segment 3|segment 4|  total\n    macroblocks:  |       5%|       0%|       0%|      95%|      21\n      quantizer:  |      15 |      15 |      13 |       8 |\n   filter level:  |       0 |       0 |       0 |       0 |\n"  # noqa: E501
     width, height, overview = decode_webp_output(std_output)
     assert width == 100
     assert height == 40

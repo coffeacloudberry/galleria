@@ -27,7 +27,7 @@ def test_guess_activity():
     assert analysis.guess_activity(None) == Activity.UNDEFINED
     texts = [
         "Nice walk with friends. (Webtrack activity: Moderate walk)"
-        '&lt;div>\n&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Nice walk with friends. (Webtrack activity: Moderate walk)&lt;/p>&lt;/div>'
+        '&lt;div>\n&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Nice walk with friends. (Webtrack activity: Moderate walk)&lt;/p>&lt;/div>'  # noqa: E501
     ]
     for entry in texts:
         assert analysis.guess_activity(entry) == Activity.MODERATE_WALK
