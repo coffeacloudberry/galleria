@@ -57,8 +57,7 @@ export default function parse(md, language) {
             /((?:^|\n+)(?:\n---+|\* \*(?: \*)+)\n)|((?:(?:^|\n+)(?:\t|  {2,}).+)+\n*)|((?:(?:^|\n)([>*+-]|\d+\.)\s+.*)+)|!\[([^\]]*?)]\(([^)]+?)\)|(\[)|(](?:\(([^)]+?)\))?)|(?:^|\n+)(#{1,6})\s*(.+)(?:\n+|$)|( {2}\n+|\n{2,}|__|\*\*|[_*]|~~)|({([^{}]*)}="([^"]*)")/gm,
         context = [],
         out = "",
-        last = 0,
-        token;
+        last = 0;
 
     function tag(token) {
         let desc = TAGS[token[1] || ""];
@@ -76,10 +75,10 @@ export default function parse(md, language) {
         return str;
     }
 
-    while ((token = tokenizer.exec(md))) {
+    for (const token of md.matchAll(tokenizer)) {
         const prev = md.substring(last, token.index);
-        last = tokenizer.lastIndex;
         let chunk = token[0];
+        last = token.index + chunk.length;
         if (prev.match(/[^\\](\\\\)*\\$/)) {
             // escaped
         }
