@@ -79,14 +79,14 @@ export default function parse(md, language) {
         const prev = md.substring(last, token.index);
         let chunk = token[0];
         last = token.index + chunk.length;
-        if (prev.match(/[^\\](\\\\)*\\$/)) {
+        if (/[^\\](\\\\)*\\$/.test(prev)) {
             // escaped
         }
         // > Quotes, -* lists:
         else if (token[4]) {
             let t3 = token[3];
             let t4 = token[4];
-            if (t4.match(/\./)) {
+            if (/\./.test(t4)) {
                 t3 = t3.replace(/^\d+/gm, "");
             }
             t3 = outdent(t3.replace(/^\s*[>*+.-]/gm, ""));
@@ -94,7 +94,7 @@ export default function parse(md, language) {
             if (t4 === ">") {
                 t4 = "blockquote";
             } else {
-                t4 = t4.match(/\./) ? "ol" : "ul";
+                t4 = /\./.test(t4) ? "ol" : "ul";
                 inner = inner.replace(/^(.*)(\n|$)/gm, "<li>$1</li>");
             }
             chunk = `<${t4}>${inner}</${t4}>`;
