@@ -33,6 +33,10 @@ class LayerSelectionControlComponent
             return;
         }
         globalMapState.isLoadingLayers = true;
+        if (globalMapState.popupCamData) {
+            // there is no point to keep the popup if there is no map
+            globalMapState.popupCamData = undefined;
+        }
         globalMapState.theme = layer;
         this.map.setStyle(
             config.mapbox.style[

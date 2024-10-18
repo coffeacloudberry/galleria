@@ -6,11 +6,12 @@ import type {
     MapMouseEvent,
     Popup,
 } from "mapbox-gl";
+import type mapboxGlJs from "mapbox-gl";
 import m from "mithril";
 
 import { config } from "../config";
 import CustomLogging, { LogType } from "../CustomLogging";
-import { extraIcons, globalMapState } from "../models/Map";
+import { PopupCamAttrs, extraIcons, globalMapState } from "../models/Map";
 import type { PhotoPosition } from "../models/Photo";
 import { story } from "../models/Story";
 import { t } from "../translate";
@@ -35,11 +36,12 @@ import LayerSelectionControl from "./LayerSelectionControl";
 import Controls from "./StandardControls";
 
 declare const turf: typeof import("@turf/turf");
-declare const mapboxgl: typeof import("mapbox-gl");
+declare const mapboxgl: typeof mapboxGlJs;
 
 const warn = new CustomLogging("warning");
 const error = new CustomLogging("error");
 
+type LngLat = [number, number];
 type MaybeLink = m.Vnode<m.RouteLinkAttrs> | m.Vnode;
 type NearestPointOnLine = Feature<
     Point,
@@ -51,12 +53,6 @@ type NearestPointOnLine = Feature<
         [key: string]: any;
     }
 >;
-
-interface PopupCamAttrs {
-    photoId: number;
-    mapHeight: string;
-    mapboxPopup: Popup;
-}
 
 const LoadingPopupCamComponent: m.Component = {
     view(): m.Vnode {
@@ -182,9 +178,6 @@ export default class Map implements m.ClassComponent {
     /** Popup displayed on mouse hover containing a thumbnail. */
     popupCam: Popup | undefined;
 
-    /** Data used by the popupCam. */
-    popupCamData: PopupCamAttrs | undefined;
-
     /** List of photo IDs of the cluster of photos that is active. */
     clusterContent: ClusterItem[] = [];
 
@@ -212,7 +205,7 @@ export default class Map implements m.ClassComponent {
         if (!globalMapState.map || !e?.features) {
             return;
         }
-        const feature: Feature = e.features[0];
+        const feature = e.features[0];
 
         if (
             feature === null ||
@@ -221,14 +214,12 @@ export default class Map implements m.ClassComponent {
         ) {
             return;
         }
-        const coordinates = feature.geometry.coordinates.slice() as LngLatLike;
+        const coordinates = feature.geometry.coordinates.slice() as LngLat;
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
         // over the copy being pointed to.
-        // @ts-expect-error
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            // @ts-expect-error
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
@@ -266,7 +257,7 @@ export default class Map implements m.ClassComponent {
                 anchor: "center",
             });
         }
-        this.popupCamData = {
+        globalMapState.popupCamData = {
             photoId,
             mapHeight: mapStyle.height,
             mapboxPopup: this.popupCam, // to access from attrs
@@ -329,9 +320,9 @@ export default class Map implements m.ClassComponent {
 
     /** Close the photo previews (thumbnails in map): popup and/or slider. */
     closePhotosPreview(): void {
-        if (this.popupCamData) {
+        if (globalMapState.popupCamData) {
             // remove the popup that is invisible but taking space
-            this.popupCamData = undefined;
+            globalMapState.popupCamData = undefined;
         }
         if (this.clusterIsOpen) {
             this.clusterIsOpen = false;
@@ -897,9 +888,7 @@ export default class Map implements m.ClassComponent {
                     // skipcq: JS-0356
                     const { default: mapboxgl } = await import("mapbox-gl");
                 }
-                // @ts-expect-error
                 mapboxgl.accessToken = String(process.env.MAPBOX_ACCESS_TOKEN);
-                // @ts-expect-error
                 if (!mapboxgl.supported()) {
                     globalMapState.mapLoadFailure = true;
                     m.render(
@@ -1004,8 +993,9 @@ export default class Map implements m.ClassComponent {
                 this.closePhotosPreview();
             },
         };
+        const popup = globalMapState.popupCamData;
         return m("#map", [
-            this.popupCamData && m(PopupCamComponent, this.popupCamData),
+            popup && m(".invisible", m(PopupCamComponent, popup)),
             this.clusterIsOpen && m(ClusterContent, clusterAttrs),
         ]);
     }

@@ -219,8 +219,7 @@ const PhotoMetadataModal: m.Component = {
 export default class PhotoMetadata implements m.ClassComponent<m.Attributes> {
     // skipcq: JS-0105
     view(vnode: m.CVnode<m.Attributes>) {
-        // @ts-expect-error
-        const photoTitle = photo.meta.title[t.getLang()];
+        const photoTitle = photo.meta?.title[t.getLang()];
         return photo.containsExif()
             ? m(
                   "a",

@@ -19,6 +19,9 @@ function setTippy(button: HTMLButtonElement, title: string) {
 }
 
 export type ControlsType = Record<string, mapboxgl.IControl>;
+export declare class MyNavigationControl extends mapboxgl.NavigationControl {
+    enableButtons: (enable: boolean) => void;
+}
 
 /**
  * Wrap the controls into a function to lazy load the class extension.

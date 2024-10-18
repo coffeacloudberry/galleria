@@ -192,8 +192,7 @@ const Footer: m.Component<FooterAttrs> = {
     view({ attrs }: m.Vnode<FooterAttrs>): m.Vnode {
         let photoTitle = null;
         try {
-            // @ts-expect-error
-            photoTitle = photo.meta.title[t.getLang()];
+            photoTitle = photo.meta?.title[t.getLang()];
         } catch {
             // continue regardless of error
         }

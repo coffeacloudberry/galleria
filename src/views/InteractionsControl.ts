@@ -1,15 +1,16 @@
 import type mapboxgl from "mapbox-gl";
 
 import { globalMapState } from "../models/Map";
+import type { MyNavigationControl } from "./StandardControls";
 
-const allInteractions = [
-    "scrollZoom",
-    "boxZoom",
-    "dragRotate",
-    "keyboard",
-    "doubleClickZoom",
-    "touchZoomRotate",
-];
+enum AllInteractions {
+    ScrollZoom = "scrollZoom",
+    BoxZoom = "boxZoom",
+    DragRotate = "dragRotate",
+    Keyboard = "keyboard",
+    DoubleClickZoom = "doubleClickZoom",
+    TouchZoomRotate = "touchZoomRotate",
+}
 
 export function setInteractions(map: mapboxgl.Map, enable: boolean): void {
     const canvasContainer = map
@@ -21,24 +22,22 @@ export function setInteractions(map: mapboxgl.Map, enable: boolean): void {
             // to avoid flying far away with a sensitive mouse
             deceleration: 0,
         });
-        allInteractions.forEach((interaction: string) => {
-            // @ts-expect-error
-            map[interaction].enable();
+        Object.values(AllInteractions).forEach((inter) => {
+            map[inter].enable();
         });
         canvasContainer.classList.add("mapboxgl-interactive");
     } else {
         map.dragPan.disable();
-        allInteractions.forEach((interaction: string) => {
-            // @ts-expect-error
-            map[interaction].disable();
+        Object.values(AllInteractions).forEach((inter) => {
+            map[inter].disable();
         });
         canvasContainer.classList.remove("mapboxgl-interactive");
     }
-    if (
-        "navigation" in globalMapState.controls &&
-        map.hasControl(globalMapState.controls.navigation)
-    ) {
-        // @ts-expect-error
-        globalMapState.controls.navigation.enableButtons(enable);
+    const controls = globalMapState.controls;
+    if ("navigation" in controls) {
+        const nav = controls.navigation as MyNavigationControl;
+        if (map.hasControl(nav)) {
+            nav.enableButtons(enable);
+        }
     }
 }

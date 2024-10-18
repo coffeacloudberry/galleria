@@ -1,6 +1,6 @@
 import type { Chart as TypeChart } from "chart.js";
 import type { Feature, LineString } from "geojson";
-import type { LngLatBounds, LngLatLike, Map, Marker } from "mapbox-gl";
+import type { LngLatBounds, LngLatLike, Map, Marker, Popup } from "mapbox-gl";
 import m from "mithril";
 
 import type { ControlsType } from "../views/StandardControls";
@@ -34,6 +34,12 @@ export const AttribUrls = [
  * https://www.flaticon.com/
  */
 type ExtraIconsStruct = { [key: string]: string };
+
+export interface PopupCamAttrs {
+    photoId: number;
+    mapHeight: string;
+    mapboxPopup: Popup;
+}
 
 // skipcq: JS-0359
 export const extraIcons: ExtraIconsStruct = require("../extra-icons");
@@ -90,6 +96,9 @@ class GlobalMapState {
 
     /** Force hide the moving marker (to highlight something else). */
     public hideMovingMarker = false;
+
+    /** Data used by the popupCam. */
+    public popupCamData: PopupCamAttrs | undefined;
 
     /**
      * When initializing the map component.

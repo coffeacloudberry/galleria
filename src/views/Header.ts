@@ -197,8 +197,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                 break;
             case "photo":
                 try {
-                    // @ts-expect-error
-                    photoTitle = photo.meta.title[t.getLang()];
+                    photoTitle = photo.meta?.title[t.getLang()];
                 } catch {
                     // continue regardless of error
                 }
