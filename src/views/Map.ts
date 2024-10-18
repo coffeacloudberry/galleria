@@ -320,13 +320,11 @@ export default class Map implements m.ClassComponent {
 
     /** Close the photo previews (thumbnails in map): popup and/or slider. */
     closePhotosPreview(): void {
-        if (globalMapState.popupCamData) {
-            // remove the popup that is invisible but taking space
-            globalMapState.popupCamData = undefined;
-        }
-        if (this.clusterIsOpen) {
-            this.clusterIsOpen = false;
-            m.redraw(); // smoothly hide the slider
+        const doRedraw = globalMapState.popupCamData || this.clusterIsOpen;
+        globalMapState.popupCamData = undefined;
+        this.clusterIsOpen = false;
+        if (doRedraw) {
+            m.redraw();
         }
     }
 

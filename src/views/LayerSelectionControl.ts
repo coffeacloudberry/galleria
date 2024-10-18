@@ -32,11 +32,10 @@ class LayerSelectionControlComponent
         if (!this.map) {
             return;
         }
+        // there is no point to keep the geolocated popup if there is no map
+        globalMapState.popupCamData = undefined;
+
         globalMapState.isLoadingLayers = true;
-        if (globalMapState.popupCamData) {
-            // there is no point to keep the popup if there is no map
-            globalMapState.popupCamData = undefined;
-        }
         globalMapState.theme = layer;
         this.map.setStyle(
             config.mapbox.style[
