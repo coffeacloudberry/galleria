@@ -13,7 +13,7 @@ from typing import Optional
 import click
 import exiftool
 import gpxpy
-import gpxpy.gpx  # noqa: PY-W2000
+import gpxpy.gpx  # skipcq: PY-W2000
 from PIL import Image
 
 SOCIAL_FILE = "_to_social.jpg"
