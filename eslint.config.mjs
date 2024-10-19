@@ -39,7 +39,7 @@ export default [
         rules: {
             "@typescript-eslint/no-var-requires": "off",
             "@typescript-eslint/no-require-imports": "off",
-            "@typescript-eslint/ban-ts-comment": "off",
+            "@typescript-eslint/ban-ts-comment": "error",
             "@typescript-eslint/restrict-template-expressions": "error",
 
             "@typescript-eslint/unbound-method": [
