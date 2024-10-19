@@ -1,27 +1,28 @@
 import m from "mithril";
 import tippy, { Instance as TippyInstance } from "tippy.js";
-import { Messages, Options, default as tjs } from "translate.js";
+import { Messages, Options, Translate, default as tjs } from "translate.js";
+
+type languages = "en" | "fi" | "fr";
+type SubKey = string | number;
+type SimpleMessage = Translate<Record<string, string>, Options>;
+type KeyedMessage = Translate<Record<string, Record<SubKey, string>>, Options>;
 
 export interface Language {
     id: number;
-    slug: string;
+    slug: languages;
     name: string;
 }
 
 interface Translatable {
-    getLang(): "en" | "fi" | "fr";
-    init(lang?: string): void;
+    getLang(): languages;
+    init(lang?: languages): void;
     prependLang(path: string): string;
-    replaceLang(lang: string, originHref?: string): string;
+    replaceLang(lang: languages, originHref?: string): string;
     createTippies(): void;
-    (
-        key: string,
-        subKey?: string | number,
-        params?: Record<string, unknown>,
-    ): string;
+    (key: string, subKey?: SubKey, params?: Record<string, unknown>): string;
 }
 
-const translations: Record<string, Messages> = {
+const translations: Record<languages, Messages> = {
     en: require("./locales/en"),
     fi: require("./locales/fi"),
     fr: require("./locales/fr"),
@@ -32,20 +33,23 @@ const options: Options = {
     resolveAliases: true,
 };
 
-let messages: Messages = translations.en;
+let messages = translations.en;
 
 // skipcq: JS-C1002
 const t: Translatable = (key, subKey, params) => {
-    const translate = tjs(messages, options);
-    // false positive on type
-    // @ts-expect-error
-    return subKey ? translate(key, subKey, params) : translate(key);
+    const trs = tjs(messages, options);
+    if (subKey) {
+        const translate = trs as KeyedMessage;
+        return translate(key, subKey, params);
+    } else {
+        const translate = trs as SimpleMessage;
+        return translate(key);
+    }
 };
 
-t.getLang = (): "en" | "fi" | "fr" => {
+t.getLang = (): languages => {
     const inputLang = m.parsePathname(m.route.get()).path.split("/")[1];
-    // @ts-expect-error
-    return inputLang in translations ? inputLang : "en";
+    return inputLang in translations ? (inputLang as languages) : "en";
 };
 
 t.init = (lang) => {

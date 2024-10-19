@@ -55,27 +55,6 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 > To run the debug session from an IntelliJ-based IDE, configure the browser to be Chrome-based (File > Settings... > search for _browser_), and start the local server as usual but press Ctrl+Shift+Click on the local URL.
 
 </details>
-<details>
-  <summary>Run the production build</summary>
-
-```sh
-npm run build
-```
-
-> Note: Install [http-server](https://www.npmjs.com/package/http-server) globally to deploy a simple server locally.
-
-```sh
-npm i --location=global http-server
-```
-
-You can view the deployment by creating a server in `public`.
-
-```sh
-cd public
-http-server
-```
-
-</details>
 
 ### Testing
 

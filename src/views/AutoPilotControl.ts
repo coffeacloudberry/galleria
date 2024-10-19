@@ -97,29 +97,10 @@ class AutoPilotControlComponent
      * https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API#example
      */
     setupOnVisibilityChange(): void {
-        let hidden: string | undefined; // skipcq: JS-0309
-        let visibilityChange: string | undefined; // skipcq: JS-0309
-
-        if (typeof document.hidden !== "undefined") {
-            hidden = "hidden";
-            visibilityChange = "visibilitychange";
-            // @ts-expect-error
-        } else if (typeof document.msHidden !== "undefined") {
-            hidden = "msHidden";
-            visibilityChange = "msvisibilitychange";
-            // @ts-expect-error
-        } else if (typeof document.webkitHidden !== "undefined") {
-            hidden = "webkitHidden";
-            visibilityChange = "webkitvisibilitychange";
-        } else {
-            return;
-        }
-
         document.addEventListener(
-            visibilityChange,
+            "visibilitychange",
             () => {
-                // @ts-expect-error
-                if (this.autoPiloting && document[hidden]) {
+                if (this.autoPiloting && document.hidden) {
                     this.autoPiloting = false;
                     this.changeState();
                     m.redraw();
