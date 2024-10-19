@@ -38,14 +38,14 @@ const TAGS = {
 /** Outdent a string based on the first indented line's leading whitespace. */
 function outdent(str) {
     return str.replace(
-        RegExp("^" + (str.match(/^([\t ])+/) || "")[0], "gm"),
+        RegExp(`^${(str.match(/^([\t ])+/) || "")[0]}`, "gm"),
         "",
     );
 }
 
 /** Encode special attribute characters to HTML entities in a String. */
 function encodeAttr(str) {
-    return (str + "")
+    return (String(str))
         .replace(/"/g, "&quot;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
@@ -116,7 +116,7 @@ export default function parse(md, language) {
                 "<a>",
                 `<a href="${encodeAttr(url)}"${dataStory}>`,
             );
-            chunk = flush() + "</a>";
+            chunk = `${flush()}</a>`;
         } else if (token[7]) {
             chunk = "<a>";
         }
