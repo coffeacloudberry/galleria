@@ -45,7 +45,7 @@ function outdent(str) {
 
 /** Encode special attribute characters to HTML entities in a String. */
 function encodeAttr(str) {
-    return (String(str))
+    return String(str)
         .replace(/"/g, "&quot;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
@@ -55,7 +55,7 @@ function encodeAttr(str) {
 export default function parse(md, language) {
     const tokenizer =
             /((?:^|\n+)(?:\n---+|\* \*(?: \*)+)\n)|((?:(?:^|\n+)(?:\t|  {2,}).+)+\n*)|((?:(?:^|\n)([>*+-]|\d+\.)\s+.*)+)|!\[([^\]]*?)]\(([^)]+?)\)|(\[)|(](?:\(([^)]+?)\))?)|(?:^|\n+)(#{1,6})\s*(.+)(?:\n+|$)|( {2}\n+|\n{2,}|__|\*\*|[_*]|~~)|({([^{}]*)}="([^"]*)")/gm,
-          context = [];
+        context = [];
     let out = "",
         last = 0;
 

@@ -1,5 +1,5 @@
 import type mapboxGlJs from "mapbox-gl";
-import type { NavigationControlOptions, IControl } from "mapbox-gl";
+import type { IControl, NavigationControlOptions } from "mapbox-gl";
 import m from "mithril";
 
 import { globalMapState } from "../models/Map";

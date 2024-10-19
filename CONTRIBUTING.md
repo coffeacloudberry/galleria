@@ -6,7 +6,7 @@ Feel free to open an issue or a discussion.
 
 ## Todo Before Committing
 
--   Lint with `npm run lint` and `npm run stylelint` (based on the [SASS guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines/blob/main/index.js)),
+-   Lint with `npm run lint`,
 -   Test as detailed in the [README.md](README.md) file.
 
 ## Rules of Thumb

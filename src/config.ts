@@ -30,7 +30,7 @@ export const config = {
             /**
              * CDN URL
              */
-            src: "https://unpkg.com/chart.js@4.4.4/dist/chart.umd.js",
+            src: "https://unpkg.com/chart.js@4.4.5/dist/chart.umd.js",
 
             /**
              * Subresource Integrity.
@@ -38,7 +38,7 @@ export const config = {
              * `openssl dgst -sha512 -binary FILENAME.js | openssl base64 -A`
              * More details: https://www.srihash.org/
              */
-            sri: "sha512-7O5t5j7BgmuJwql+4VwBZdMXKhtomkAlymA7wsR8D3VKT4Knxxf2SaJUuySIP34i4m4g7yMApDktTM8ffqq9cg==",
+            sri: "sha512-XNs52BscOKpfZ1almlvP31tb4MXB6j+Y6KQOE3+nWODhP2DsptUifgb3d49vZRxga1yHLGx0b7Z9ezd4b/vUzQ==",
         },
     },
 
@@ -51,11 +51,11 @@ export const config = {
         js: {
             /**
              * Cross-check SRI:
-             * https://www.jsdelivr.com/package/npm/chartjs-plugin-annotation?path=dist
-             * https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.0.1/chartjs-plugin-annotation.min.js
+             * https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js
+             * https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.1.0/chartjs-plugin-annotation.min.js
              */
-            src: "https://unpkg.com/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js",
-            sri: "sha512-Hn1w6YiiFw6p6S2lXv6yKeqTk0PLVzeCwWY9n32beuPjQ5HLcvz5l2QsP+KilEr1ws37rCTw3bZpvfvVIeTh0Q==",
+            src: "https://unpkg.com/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js",
+            sri: "sha512-8MntMizyPIYkcjoDkYqgrQOuWOZsp92zlZ9d7M2RCG0s1Zua8H215p2PdsxS7qg/4hLrHrdPsZgVZpXheHYT+Q==",
         },
     },
 
