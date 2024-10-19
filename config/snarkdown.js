@@ -53,15 +53,15 @@ function encodeAttr(str) {
 
 /** Parse Markdown into an HTML String. */
 export default function parse(md, language) {
-    let tokenizer =
+    const tokenizer =
             /((?:^|\n+)(?:\n---+|\* \*(?: \*)+)\n)|((?:(?:^|\n+)(?:\t|  {2,}).+)+\n*)|((?:(?:^|\n)([>*+-]|\d+\.)\s+.*)+)|!\[([^\]]*?)]\(([^)]+?)\)|(\[)|(](?:\(([^)]+?)\))?)|(?:^|\n+)(#{1,6})\s*(.+)(?:\n+|$)|( {2}\n+|\n{2,}|__|\*\*|[_*]|~~)|({([^{}]*)}="([^"]*)")/gm,
-        context = [],
-        out = "",
+          context = [];
+    let out = "",
         last = 0;
 
     function tag(token) {
-        let desc = TAGS[token[1] || ""];
-        let end = context[context.length - 1] === token;
+        const desc = TAGS[token[1] || ""];
+        const end = context[context.length - 1] === token;
         if (!desc) return token;
         if (!desc[1]) return desc[0];
         if (end) context.pop();
