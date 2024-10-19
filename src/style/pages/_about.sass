@@ -1,16 +1,16 @@
-@import '../base/variables'
+@use '../base/variables'
 
 section#about
-    margin-top: #{$nav-bar-height}
+    margin-top: #{variables.$nav-bar-height}
     overflow-y: auto
-    height: calc(100vh - #{$nav-bar-height})
+    height: calc(100vh - #{variables.$nav-bar-height})
     .me
         position: relative
         margin-bottom: -0.5rem
         img
             max-width: 100%
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
-            border-radius: 0 $border-radius-lg
+            border-radius: 0 variables.$border-radius-lg
 
 .bunch-of-icons
     ul
@@ -18,7 +18,7 @@ section#about
             list-style: none
             display: inline-block
             height: 2rem
-            margin: 0 calc(#{$block-space} / 4) 0 calc(#{$block-space} / 4)
+            margin: 0 calc(#{variables.$block-space} / 4) 0 calc(#{variables.$block-space} / 4)
             &:first-child
                 margin-left: 0
             img.icon

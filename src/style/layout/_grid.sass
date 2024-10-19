@@ -1,14 +1,14 @@
-@import '../base/variables'
+@use '../base/variables'
 
 .container
     margin: 0 auto
-    padding: 0 $block-space
-    max-width: $container-column-threshold
-    @media (max-width: $container-column-threshold)
+    padding: 0 variables.$block-space
+    max-width: variables.$container-column-threshold
+    @media (max-width: variables.$container-column-threshold)
         padding: 0
     &:last-child
         /* add nav bar margin to fix cut in Firefox/Chrome mobile */
-        margin-bottom: calc(#{$block-space} + #{$nav-bar-height} / 2)
+        margin-bottom: calc(#{variables.$block-space} + #{variables.$nav-bar-height} / 2)
 
 .row::before,
 .row::after
@@ -21,9 +21,9 @@
 .two-thirds,
 .half
     width: 100%
-    padding: 0 $block-space
-    @media (max-width: $container-column-threshold)
-        padding: 0 calc(#{$block-space} / 2)
+    padding: 0 variables.$block-space
+    @media (max-width: variables.$container-column-threshold)
+        padding: 0 calc(#{variables.$block-space} / 2)
 
 .container
     @media (min-width: 1024px)
@@ -34,7 +34,7 @@
         .one-third
             width: 300px
         .two-thirds
-            width: calc(#{$container-column-threshold} - 300px - 4 * #{$block-space})
+            width: calc(#{variables.$container-column-threshold} - 300px - 4 * #{variables.$block-space})
         .column
             float: left
         .column-right

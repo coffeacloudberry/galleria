@@ -1,7 +1,7 @@
-@import 'variables'
+@use 'variables'
 
 body
-    color: $body-color
+    color: variables.$body-color
     font-family: 'MyBodyFont', sans-serif
 
 a,
@@ -14,7 +14,7 @@ a:visited
 
 a:hover:not(.nav-item),
 a:focus:not(.nav-item)
-    color: $button-background-hover
+    color: variables.$button-background-hover
     text-decoration: rgba(46, 143, 107, 1) underline
 
 .tippy-box
@@ -66,4 +66,4 @@ abbr
     text-decoration: underline dotted #b4b4b4
 
 hr
-    border: calc(#{$h1-border-bottom-width} / 2) solid $h1-border-bottom-color
+    border: calc(#{variables.$h1-border-bottom-width} / 2) solid variables.$h1-border-bottom-color

@@ -1,6 +1,6 @@
-@import '../base/variables'
+@use '../base/variables'
 
-$border: $h1-border-bottom-width
+$border: variables.$h1-border-bottom-width
 $cluster-thumbnail-small-height: 150px
 
 .period
@@ -18,7 +18,7 @@ $cluster-thumbnail-small-height: 150px
         a, li
             display: inline-flex
             img.cluster-thumbnail
-                border-radius: 0 $border-radius-lg
+                border-radius: 0 variables.$border-radius-lg
                 box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
                 margin: calc(0.5rem - 1px)
                 @media (max-width: 500px), (orientation: portrait)
@@ -39,16 +39,16 @@ $cluster-thumbnail-small-height: 150px
             margin: auto
 
 .story-content
-    margin-bottom: $global-font-size
+    margin-bottom: variables.$global-font-size
     border-width: calc(#{$border} * 2) $border
-    border-color: $h1-border-bottom-color
+    border-color: variables.$h1-border-bottom-color
     border-style: solid
     padding: 0 0.5rem
     @media (min-width: 600px)
         padding: 0 1rem
     a
         /* Same color as text to avoid catching the eye on links, this is not a Wikipedia page. */
-        color: $body-color
+        color: variables.$body-color
         &::after
             content: ' '
             display: inline-block
@@ -65,32 +65,32 @@ $cluster-thumbnail-small-height: 150px
             background-image: url('../icons/open-outline.svg')
 
 section#story
-    margin-top: #{$nav-bar-height}
+    margin-top: #{variables.$nav-bar-height}
     overflow-y: auto
-    height: calc(100vh - #{$nav-bar-height})
+    height: calc(100vh - #{variables.$nav-bar-height})
     .period
-        margin: $p-vertical-margin 0
+        margin: variables.$p-vertical-margin 0
     h1
         border-bottom: 0
     .map-extra
-        margin-top: calc(#{$nav-bar-height} / 4)
-        margin-bottom: calc(#{$block-space} + #{$nav-bar-height} / 2)
+        margin-top: calc(#{variables.$nav-bar-height} / 4)
+        margin-bottom: calc(#{variables.$block-space} + #{variables.$nav-bar-height} / 2)
         #map
-            border-radius: 0 $border-radius-lg
+            border-radius: 0 variables.$border-radius-lg
             box-shadow: 0 0 3px rgba(114, 114, 114, 0.46)
             width: 100%
             /* the map does not load if too small, the minimum should still fit all buttons */
-            height: calc(max(60vh - #{$nav-bar-height} - #{$block-space}, 340px))
+            height: calc(Max(60vh - #{variables.$nav-bar-height} - #{variables.$block-space}, 340px))
             background: #eae8e6 /* for the user to know that something will appear (instead of just a big gap) */
             .mapboxgl-ctrl-group
-                border-radius: 0 $border-radius-lg
+                border-radius: 0 variables.$border-radius-lg
                 button:disabled
                     /* the 'important' is to overwrite the :active */
                     cursor: not-allowed !important
                 button:active
                     box-shadow: none
                     .mapboxgl-ctrl-icon
-                        filter: $filter-button-background
+                        filter: variables.$filter-button-background
             .mapboxgl-canvas-container
                 opacity: 0
                 transition: opacity 0.4s linear
@@ -131,7 +131,7 @@ section#story
                     visibility: hidden /* hide unwanted arrow */
                 .mapboxgl-popup-content
                     padding: 0.5rem
-                    border-radius: 0 $border-radius-lg
+                    border-radius: 0 variables.$border-radius-lg
         p.attributions
             font-size: 0.8rem
             margin-top: 0.4rem
@@ -143,7 +143,7 @@ section#story
             z-index: 2
             margin: 0.5rem
             border: 1px solid #fff
-            border-radius: 0 0 $border-radius-lg
+            border-radius: 0 0 variables.$border-radius-lg
             box-shadow: none !important
             padding: 0.2rem 0.6rem 0.3rem !important
             font-weight: 700
@@ -151,7 +151,7 @@ section#story
             position: absolute
             z-index: 1
             margin: 0.5rem
-            max-height: min(calc(100% - 0.5rem * 2 - 2rem), 50vh)
+            max-height: Min(calc(100% - 0.5rem * 2 - 2rem), 50vh)
             min-height: calc(200px + 0.5rem * 3)
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
             min-width: calc(300px + 0.5rem * 2)
@@ -164,11 +164,11 @@ section#story
     .chart-container
         padding-top: 1rem /* the legend on the bottom adds space that needs to be compensated on the top */
         width: 100%
-        height: calc(max(40vh - 1.5 * #{$block-space} - #{$nav-bar-height} / 2, 200px))
+        height: calc(Max(40vh - 1.5 * #{variables.$block-space} - #{variables.$nav-bar-height} / 2, 200px))
 
 .mapboxgl-map
     /* override Mapbox defaults */
-    font: $global-font-size 'MyBodyFont', sans-serif !important
+    font: variables.$global-font-size 'MyBodyFont', sans-serif !important
 
 .map-thumbnail
     transition: none !important

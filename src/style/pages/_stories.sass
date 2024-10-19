@@ -1,18 +1,18 @@
-@import '../base/variables'
+@use '../base/variables'
 
 #stories
-    margin-top: #{$nav-bar-height}
+    margin-top: #{variables.$nav-bar-height}
     overflow-y: auto
-    height: calc(100vh - #{$nav-bar-height})
+    height: calc(100vh - #{variables.$nav-bar-height})
     .lazy-thumbnail-container
         text-align: center
         img, span
-            margin-top: calc(#{$p-vertical-margin} / 2)
+            margin-top: calc(#{variables.$p-vertical-margin} / 2)
             width: 300px
             height: 200px
             display: inline-block
         img
-            border-radius: 0 $border-radius-lg
+            border-radius: 0 variables.$border-radius-lg
             box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
             /* Only thumbnails are faded-in because animations on large images are not really smooth. */
             animation: fade-in 0.3s ease
@@ -20,9 +20,9 @@
             text-align: right
             img, span
                 /* align to the letters' top */
-                margin-top: calc(#{$p-vertical-margin} * #{$text-line-height})
+                margin-top: calc(#{variables.$p-vertical-margin} * #{variables.$text-line-height})
     .period
-        margin-top: $p-vertical-margin
+        margin-top: variables.$p-vertical-margin
     .appetizer
         font-style: italic
         display: block
@@ -34,7 +34,7 @@
             bottom: 0
             left: 0
             width: 100%
-            height: calc(#{$global-font-size} * 4)
+            height: calc(#{variables.$global-font-size} * 4)
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 100%)
     .total-photo
         margin-top: -0.4rem
@@ -42,4 +42,4 @@
     .story-preview
         height: 450px /* enough space to handle small screens, fixed for helping scroll back */
         @media (min-width: 1024px)
-            height: calc(2 * #{$p-vertical-margin} * #{$text-line-height} + 200px)
+            height: calc(2 * #{variables.$p-vertical-margin} * #{variables.$text-line-height} + 200px)

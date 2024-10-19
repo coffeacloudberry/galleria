@@ -1,10 +1,10 @@
-@import '../base/variables'
+@use '../base/variables'
 
 button:not([class^='mapboxgl-ctrl-']):not(.light-icon-button):not(.toast-close)
-    background: $button-background
+    background: variables.$button-background
     color: #fff !important
     padding: 0.4rem 1rem 0.5rem
-    border-radius: 0 $border-radius-lg
+    border-radius: 0 variables.$border-radius-lg
     cursor: pointer
     display: inline-block
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
@@ -16,22 +16,22 @@ button:not([class^='mapboxgl-ctrl-']):not(.light-icon-button):not(.toast-close)
         background: #979797 !important
         cursor: not-allowed
     img.icon
-        filter: $filter-white
+        filter: variables.$filter-white
         vertical-align: -0.13rem
         display: inline-block
         margin-right: 0.5rem
     &:not([disabled]):hover,
     &:not([disabled]):focus
-        background: $button-background-hover
+        background: variables.$button-background-hover
 
 .light-icon-button
     img.icon
-        filter: $filter-button-background
+        filter: variables.$filter-button-background
         transition: all 0.2s ease-in
     &:hover,
     &:focus
         img.icon
-            filter: $filter-button-background-hover
+            filter: variables.$filter-button-background-hover
 
 input:not([type='radio']):not([type='checkbox'])
     display: block
@@ -39,7 +39,7 @@ input:not([type='radio']):not([type='checkbox'])
     width: 100%
     margin: 0.5rem 0
     border: 1px solid #cdcdcd
-    border-radius: 0 $border-radius-lg
+    border-radius: 0 variables.$border-radius-lg
     box-shadow: 0 0 2px rgba(114, 114, 114, 0.46)
     transition: all 0.2s ease-in
     &.invalid
