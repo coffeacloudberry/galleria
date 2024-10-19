@@ -1,11 +1,12 @@
-// @ts-nocheck
-
-import type mapboxgl from "mapbox-gl";
+import type mapboxGlJs from "mapbox-gl";
+import type { NavigationControlOptions, IControl } from "mapbox-gl";
 import m from "mithril";
 
 import { globalMapState } from "../models/Map";
 import { t } from "../translate";
 import { hideAllForce } from "../utils";
+
+declare const mapboxgl: typeof mapboxGlJs;
 
 /**
  * Force using the tippy instead of the default title.
@@ -13,12 +14,12 @@ import { hideAllForce } from "../utils";
  * @param button The Mapbox GL control button.
  * @param title The tippy content.
  */
-function setTippy(button: HTMLButtonElement, title: string) {
+function setTippy(button: HTMLElement, title: string) {
     button.setAttribute("data-tippy-content", title);
     button.setAttribute("data-tippy-placement", "left");
 }
 
-export type ControlsType = Record<string, mapboxgl.IControl>;
+export type ControlsType = Record<string, IControl>;
 export declare class MyNavigationControl extends mapboxgl.NavigationControl {
     enableButtons: (enable: boolean) => void;
 }
@@ -55,14 +56,14 @@ export default function Controls(): ControlsType {
          * Override the constructor to add a custom button in the group of
          * standard buttons.
          */
-        constructor(options: Options) {
+        constructor(options?: NavigationControlOptions) {
             super(options);
             this._fitButton = this._createButton("mapboxgl-ctrl-fit", () => {
                 // move and reset bearing
                 globalMapState.fitToTrack();
 
                 // reset pitch, i.e. put camera on top
-                this._map.easeTo({
+                this._map?.easeTo({
                     pitch: 0,
                     duration: 0,
                 });
@@ -89,15 +90,15 @@ export default function Controls(): ControlsType {
 
         // override, otherwise the native updater will mess up enableButtons()
         _updateZoomButtons() {
-            const zoom = this._map.getZoom();
+            const zoom = this._map?.getZoom();
 
-            const isMax = zoom === this._map.getMaxZoom();
+            const isMax = zoom === this._map?.getMaxZoom();
             this._zoomInButton.disabled = !this.isEnabled || isMax;
             this._zoomInButton.setAttribute(
                 "aria-disabled",
                 this._zoomInButton.disabled.toString(),
             );
-            const isMin = zoom === this._map.getMinZoom();
+            const isMin = zoom === this._map?.getMinZoom();
             this._zoomOutButton.disabled = !this.isEnabled || isMin;
             this._zoomOutButton.setAttribute(
                 "aria-disabled",
