@@ -54,7 +54,7 @@ class ThumbnailComponent implements m.ClassComponent<OneMetadata> {
                   ),
                   m(".total-photo", t("photos", attrs.totalPhotos)),
               ]
-            : [m("span"), m(".total-photo")];
+            : [m("span"), m(".total-photo", "...")]; // '...' for taking space
         // the `span` is to avoid moving blocks onload
     }
 }
