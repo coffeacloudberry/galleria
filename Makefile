@@ -1,6 +1,6 @@
 .PHONY: mypy
 mypy:
-	python -m mypy --config-file mypy.ini cli/src/
+	python -m mypy cli/src/
 
 .PHONY: check
 check: mypy
