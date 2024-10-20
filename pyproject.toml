@@ -43,7 +43,7 @@ line-length = 150
 [tool.ruff.lint]
 select = ["PL", "C90", "I", "F"]
 extend-select = ["E501"]
-ignore = ["PLR2004"]
+ignore = ["PLR2004", "PLR0912", "PLR0913"]
 
 [tool.ruff.lint.isort]
 force-single-line = true

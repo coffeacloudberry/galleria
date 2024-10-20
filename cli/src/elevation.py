@@ -57,11 +57,7 @@ class EarthDataSession(mod_requests.Session):
         if "Authorization" in headers:
             original_parsed = mod_requests.utils.urlparse(response.request.url)  # type: ignore[attr-defined]
             redirect_parsed = mod_requests.utils.urlparse(url)  # type: ignore[attr-defined]
-            if (
-                (original_parsed.hostname != redirect_parsed.hostname)
-                and redirect_parsed.hostname != self.AUTH_HOST
-                and original_parsed.hostname != self.AUTH_HOST
-            ):
+            if redirect_parsed.hostname != self.AUTH_HOST and original_parsed.hostname not in {self.AUTH_HOST, redirect_parsed.hostname}:
                 del headers["Authorization"]
 
 
