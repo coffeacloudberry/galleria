@@ -18,7 +18,7 @@
         justify-content: center
         align-items: center
         margin-top: calc(#{variables.$nav-bar-height} * 3 / 2)
-        height: calc(100vh - 3 * #{variables.$nav-bar-height} - 1px) /* vertical alignement */
+        height: calc(100vh - 3 * #{variables.$nav-bar-height} - 1px) /* vertical alignment */
         $minimal-photo-margin: calc(#{variables.$nav-bar-height} / 8)
         $photo-description: calc(3 * #{variables.$global-font-size} + 0.4rem) /* 1 line photo title + 1 line story title */
         img
@@ -26,10 +26,11 @@
             max-height: calc(100vh - 3 * #{variables.$nav-bar-height} - 1px)
             border-radius: variables.$border-radius-sm
         @media (max-width: 1024px)
+            margin-top: calc(#{variables.$nav-bar-height} + #{$photo-description})
+            height: calc(100vh - 2 * #{variables.$nav-bar-height} - #{$photo-description} - #{$minimal-photo-margin})
             img
                 max-width: calc(100vw - 2 * #{$minimal-photo-margin})
-                /* add extra nav bar height as quick fix https://stackoverflow.com/a/37113430 */
-                max-height: calc(100vh - 3 * (#{variables.$nav-bar-height} + #{$minimal-photo-margin}) - #{$photo-description})
+                max-height: 100%
         @media (max-width: 1024px) and (orientation: landscape)
             margin-top: $minimal-photo-margin
             height: calc(100vh - #{$photo-description} - 1.5 * #{$minimal-photo-margin})
