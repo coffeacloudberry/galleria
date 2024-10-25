@@ -4,7 +4,6 @@ import frameOutline from "@/icons/frame-outline.svg";
 import InformationCircleOutline from "@/icons/information-circle-outline.svg";
 import locationOutline from "@/icons/location-outline.svg";
 import noFrameOutline from "@/icons/no-frame-outline.svg";
-import ShieldCheckmarkOutline from "@/icons/shield-checkmark-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
@@ -130,9 +129,8 @@ const CopyrightDetails: m.Component = {
     },
 };
 
-function getCloudLink(getSignature: boolean): string {
-    const link = `https://download.explorewilder.com/photos/photo_${photo.id}_from_explorewilder.com.tif`;
-    return getSignature ? `${link}.SHA256.asc` : link;
+function getCloudLink(): string {
+    return `https://download.explorewilder.com/photos/photo_${photo.id}_from_explorewilder.com.tif`;
 }
 
 const DownloadLinks: m.Component = {
@@ -140,11 +138,12 @@ const DownloadLinks: m.Component = {
         if (!photo.meta || photo.meta.downloadable === false) {
             return null;
         }
-        return m("p", [
+        return m(
+            "p",
             m(
                 "a",
                 {
-                    href: getCloudLink(false),
+                    href: getCloudLink(),
                 },
                 [
                     m(Icon, { src: cloudDownloadOutline }),
@@ -152,18 +151,7 @@ const DownloadLinks: m.Component = {
                     t("download"),
                 ],
             ),
-            m(
-                "a.ml-3",
-                {
-                    href: getCloudLink(true),
-                },
-                [
-                    m(Icon, { src: ShieldCheckmarkOutline }),
-                    m("span.mr-3"),
-                    t("download.signature"),
-                ],
-            ),
-        ]);
+        );
     },
 };
 

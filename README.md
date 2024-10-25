@@ -52,6 +52,7 @@ npm start
 
 You can view the development server at [localhost:8080](http://localhost:8080).
 
+> [!NOTE]
 > To run the debug session from an IntelliJ-based IDE, configure the browser to be Chrome-based (File > Settings... > search for _browser_), and start the local server as usual but press Ctrl+Shift+Click on the local URL.
 
 </details>
@@ -63,6 +64,7 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 
 Run `make js-test` and `make py-test`
 
+> [!NOTE]
 > For running specific tests on PyCharm Professional, the Node.js plugin has to be installed.
 
 </details>
