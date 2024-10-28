@@ -52,6 +52,11 @@ input:not([type='radio']):not([type='checkbox'])
         outline: none /* reset */
 
 textarea
-    border: 1px solid #979797
+    border: 1px solid #cdcdcd
+    box-shadow: 0 0 2px rgba(114, 114, 114, 0.46)
     padding: 0.25rem
     min-height: calc(#{variables.$global-font-size} * 3 + 1rem)
+    max-height: 70vh
+    &:focus
+        outline: none /* reset */
+        border-color: variables.$button-background-hover

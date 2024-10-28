@@ -11,8 +11,9 @@
         top: 0
         right: calc(#{variables.$nav-bar-height} + 0.7rem)
     &.open-feedback-block
-        border: 1px solid #000
-        border-radius: 0 variables.$border-radius-lg
+        border-radius: variables.$border-radius-lg 0
+        border: 1px solid #636363
+        box-shadow: 0 0 2px rgba(83, 83, 83, 0.46)
         background: #fff
     form
         padding: 0.5rem
@@ -24,13 +25,19 @@
         font-size: 1.4rem
     .close-feedback
         float: right
+        font-size: 2.2rem
+        line-height: 2.2rem
+        transition: none
     .open-feedback
         border-radius: 50%
         border: 1px solid variables.$button-background
         transition: border-color 0.2s ease-in
         height: 2.5rem
         width: 2.5rem
-        &:hover
+        display: flex
+        align-items: center
+        justify-content: center
+        &:hover, &:focus
             border-color: variables.$button-background-hover
         img
             height: 1.5rem
