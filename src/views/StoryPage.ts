@@ -22,6 +22,7 @@ import { t } from "../translate";
 import { hideAllForce } from "../utils";
 import { InsideCluster, InsideClusterAttrs, Loading } from "./Cluster";
 import { ChartContainer } from "./ElevationProfile";
+import { Feedback } from "./Feedback";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import Map from "./Map";
@@ -353,6 +354,7 @@ export default function StoryPage(): m.Component {
             const photoTitle = meta !== null ? meta.title[lang] : "";
 
             return [
+                m(Feedback),
                 m(Header, {
                     title: photoTitle,
                     refPage: "story",

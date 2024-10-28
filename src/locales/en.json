@@ -166,5 +166,10 @@
     "copy": "Copy address to clipboard",
     "copied": "Address copied to clipboard",
     "can-order-print": "Fine art print",
-    "cannot-order-print": "Fine art print cannot be ordered"
+    "cannot-order-print": "Fine art print cannot be ordered",
+    "feedback.send": "Send Feedback",
+    "feedback.sending": "Sending...",
+    "feedback.failed": "Something went wrong, please try again.",
+    "feedback.text": "What would you like to share?",
+    "feedback.thank-you": "Thank you very much!"
 }

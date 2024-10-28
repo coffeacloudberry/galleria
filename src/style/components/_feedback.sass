@@ -1,0 +1,32 @@
+@use '../base/variables'
+
+#feedback
+    position: absolute
+    top: variables.$nav-bar-height
+    margin-top: 1rem
+    right: 0.5rem
+    z-index: 2
+    &.open-feedback-block
+        border: 1px solid #000
+        border-radius: 0 variables.$border-radius-lg
+        background: #fff
+    form
+        padding: 0.5rem
+    .close-feedback, .open-feedback
+        color: #000 !important
+        background: #fff
+        box-shadow: none
+        padding: 0 0.5rem 0 0.5rem
+        font-size: 1.4rem
+    .close-feedback
+        float: right
+    .open-feedback
+        border-radius: 50%
+        border: 1px solid variables.$button-background
+        transition: border-color 0.2s ease-in
+        height: 2.5rem
+        width: 2.5rem
+        &:hover
+            border-color: variables.$button-background-hover
+        img
+            height: 1.5rem

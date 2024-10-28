@@ -17,6 +17,7 @@ import m from "mithril";
 import { config } from "../config";
 import { t } from "../translate";
 import { hideAllForce, toast } from "../utils";
+import { Feedback } from "./Feedback";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import { modal } from "./Modal";
@@ -342,6 +343,7 @@ export default function AboutPage(): m.Component {
         },
         view(): m.Vnode<HeaderAttrs>[] {
             return [
+                m(Feedback),
                 m(Header, {
                     refPage: "about",
                 }),

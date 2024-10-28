@@ -5,6 +5,7 @@ import type { OneMetadata, OneStory } from "../models/AllStories";
 import { Story } from "../models/Story";
 import { t } from "../translate";
 import { hideAllForce } from "../utils";
+import { Feedback } from "./Feedback";
 import { Header } from "./Header";
 import type { HeaderAttrs } from "./Header";
 import { StorySubTitle } from "./StoryPage";
@@ -202,6 +203,7 @@ export default function StoriesOverviewPage(): m.Component {
         },
         view(): (m.Vnode<HeaderAttrs> | m.Vnode)[] {
             return [
+                m(Feedback),
                 m(Header, {
                     refPage: "stories",
                 }),
