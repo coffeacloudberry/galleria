@@ -2,10 +2,14 @@
 
 #feedback
     position: absolute
-    top: variables.$nav-bar-height
-    margin-top: 0.8rem
-    right: 0.5rem
     z-index: 12
+    margin-top: 0.8rem
+    top: variables.$nav-bar-height
+    right: 0.5rem
+    @media (max-width: 1024px) and (orientation: landscape)
+        margin-top: 0.4rem
+        top: 0
+        right: calc(#{variables.$nav-bar-height} + 0.7rem)
     &.open-feedback-block
         border: 1px solid #000
         border-radius: 0 variables.$border-radius-lg
