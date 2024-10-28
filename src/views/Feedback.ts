@@ -6,6 +6,7 @@ import { t } from "../translate";
 import Icon from "./Icon";
 
 const SubmitButton: m.Component = {
+    // skipcq: JS-0105
     view(): m.Vnode {
         if (feedback.is_sending) {
             return m(
@@ -19,6 +20,7 @@ const SubmitButton: m.Component = {
 };
 
 export class Feedback implements m.ClassComponent {
+    // skipcq: JS-0105
     view(): m.Vnode {
         if (!feedback.is_open) {
             return m(
