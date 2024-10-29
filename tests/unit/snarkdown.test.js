@@ -101,21 +101,21 @@ describe("Links & Images", () => {
     it("parses internal links pointing to a story [EN]", () => {
         assert.strictEqual(
             snarkdown("[Lost](story:Great_Story)", "en"),
-            '<a href="/#!/en/story/Great_Story" data-story="Great_Story">Lost</a>',
+            '<a href="/en/story/Great_Story" data-story="Great_Story">Lost</a>',
         );
     });
 
     it("parses internal links pointing to a story [FI]", () => {
         assert.strictEqual(
             snarkdown("[Lost](story:Great_Story)", "fi"),
-            '<a href="/#!/fi/story/Great_Story" data-story="Great_Story">Lost</a>',
+            '<a href="/fi/story/Great_Story" data-story="Great_Story">Lost</a>',
         );
     });
 
     it("parses internal links pointing to a story [FR]", () => {
         assert.strictEqual(
             snarkdown("[Lost](story:Great_Story)", "fr"),
-            '<a href="/#!/fr/story/Great_Story" data-story="Great_Story">Lost</a>',
+            '<a href="/fr/story/Great_Story" data-story="Great_Story">Lost</a>',
         );
     });
 

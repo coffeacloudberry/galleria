@@ -47,5 +47,19 @@
                 }
             ]
         }
+    ],
+    "rewrites": [
+        {
+            "source": "/en/:path*",
+            "destination": "/"
+        },
+        {
+            "source": "/fi/:path*",
+            "destination": "/"
+        },
+        {
+            "source": "/fr/:path*",
+            "destination": "/"
+        }
     ]
 }

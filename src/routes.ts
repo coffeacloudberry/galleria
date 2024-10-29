@@ -28,6 +28,8 @@ function routeResolver(Component: Page): m.RouteResolver {
     };
 }
 
+m.route.prefix = "";
+
 // All translated pages, the language will be prepended
 const plainRoutes: RoutedComponents = {
     "/photo": PhotoPage /* will load the most recent photo */,

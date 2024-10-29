@@ -25,7 +25,7 @@ Open Browser To Landing Page
     Landing Page Should Be Open
 
 Open Browser To Story With Map
-    Open Browser    ${LANDING URL}/#!/en/story/Hetta_Pyhakero    ${BROWSER}
+    Open Browser    ${LANDING URL}/en/story/Hetta_Pyhakero    ${BROWSER}
 
 Landing Page Should Be Open
     Wait Until Element Is Visible    xpath://div[@id="current-photo"]//img

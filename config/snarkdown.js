@@ -109,7 +109,7 @@ export default function parse(md, language) {
             let dataStory = "";
             if (url.startsWith("story:")) {
                 const story = url.split(":")[1];
-                url = `/#!/${language}/story/${story}`;
+                url = `/${language}/story/${story}`;
                 dataStory = ` data-story="${story}"`;
             }
             out = out.replace(
