@@ -1,13 +1,13 @@
 {
     "title": {
-        "en": "Collared whip snake (Demansia torquata). Venomous!",
-        "fi": "",
-        "fr": ""
+        "en": "Collared Whip Snake",
+        "fi": "Kauluksellinen piiskakäärme",
+        "fr": "Couleuvre à collier"
     },
     "description": {
-        "en": "",
-        "fi": "",
-        "fr": ""
+        "en": "Demansia torquata, venomous.",
+        "fi": "Demansia torquata, myrkyllinen.",
+        "fr": "Demansia torquata, venimeuse."
     },
     "story": "",
     "dateTaken": "2015-10-08T13:19:02",

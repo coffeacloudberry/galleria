@@ -1,13 +1,13 @@
 {
     "title": {
-        "en": "Eastern brown snake (Pseudonaja textilis). Highly venomous!",
-        "fi": "",
-        "fr": ""
+        "en": "Eastern brown snake",
+        "fi": "Itäinen ruskea käärme",
+        "fr": "Serpent brun de l'Est"
     },
     "description": {
-        "en": "",
-        "fi": "",
-        "fr": ""
+        "en": "Pseudonaja textilis, Highly venomous.",
+        "fi": "Pseudonaja textilis, erittäin myrkyllinen.",
+        "fr": "Pseudonaja textilis, très venimeux."
     },
     "story": "",
     "dateTaken": "2015-10-30T10:36:32",

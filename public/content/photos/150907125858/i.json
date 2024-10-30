@@ -1,13 +1,13 @@
 {
     "title": {
         "en": "Ring-tailed Dragon",
-        "fi": "",
-        "fr": ""
+        "fi": "Rengashäntäinen lohikäärme",
+        "fr": "Dragon à queue annelée"
     },
     "description": {
         "en": "The Ring-tailed Dragon changes colour, camouflaging itself among rocks.",
-        "fi": "",
-        "fr": ""
+        "fi": "Rengashäntäinen lohikäärme vaihtaa väriä ja naamioituu kivien välissä.",
+        "fr": "Le dragon à queue annelée change de couleur, se camouflant parmi les rochers."
     },
     "printable": false,
     "story": "",
