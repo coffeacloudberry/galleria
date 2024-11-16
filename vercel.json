@@ -45,6 +45,15 @@
                     "value": "font/otf"
                 }
             ]
+        },
+        {
+            "source": "/dyn/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "no-store"
+                }
+            ]
         }
     ],
     "rewrites": [

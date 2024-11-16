@@ -17,8 +17,7 @@ export function oldestPhotoId() {
 }
 
 export function siteVersion() {
-    return child_process.execSync(
-        "git rev-parse --short HEAD",
-        { encoding: "utf8" },
-    );
+    return child_process
+        .execSync("git rev-parse --short HEAD", { encoding: "utf8" })
+        .trim();
 }

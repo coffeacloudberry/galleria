@@ -8,6 +8,8 @@ import paths from "./paths.js";
 import StoriesPlugin from "./stories-webpack-plugin.js";
 import { mostRecentPhotoId, oldestPhotoId, siteVersion } from "./utils.js";
 
+const ver = siteVersion();
+
 export default {
     // Where webpack looks to start building the bundle
     entry: [`${paths.src}/index.ts`],
@@ -44,7 +46,7 @@ export default {
 
             OLDEST_PHOTO_ID: oldestPhotoId(),
 
-            SITE_VERSION: siteVersion(),
+            SITE_VERSION: ver,
 
             /*
              * Compile-time definitions of environment-specific configuration
@@ -112,6 +114,10 @@ export default {
                 {
                     from: "src/robots.txt",
                     to: `${paths.build}/`,
+                },
+                {
+                    from: "src/empty.json",
+                    to: `${paths.build}/dyn/${ver}.json`,
                 },
             ],
             options: {
