@@ -6,6 +6,8 @@ import "./style/main.sass";
 
 import m from "mithril";
 
+import { config } from "./config";
 import { routes } from "./routes";
 
 m.route(document.body, "/en/photo", routes);
+console.log(`Site version ${config.siteVersion}`);

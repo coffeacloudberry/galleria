@@ -6,7 +6,7 @@ import webpack from "webpack";
 
 import paths from "./paths.js";
 import StoriesPlugin from "./stories-webpack-plugin.js";
-import { mostRecentPhotoId, oldestPhotoId } from "./utils.js";
+import { mostRecentPhotoId, oldestPhotoId, siteVersion } from "./utils.js";
 
 export default {
     // Where webpack looks to start building the bundle
@@ -43,6 +43,8 @@ export default {
             MOST_RECENT_PHOTO_ID: mostRecentPhotoId(),
 
             OLDEST_PHOTO_ID: oldestPhotoId(),
+
+            SITE_VERSION: siteVersion(),
 
             /*
              * Compile-time definitions of environment-specific configuration
