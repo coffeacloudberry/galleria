@@ -6,9 +6,7 @@ import webpack from "webpack";
 
 import paths from "./paths.js";
 import StoriesPlugin from "./stories-webpack-plugin.js";
-import { mostRecentPhotoId, oldestPhotoId, siteVersion } from "./utils.js";
-
-const ver = siteVersion();
+import { mostRecentPhotoId, oldestPhotoId } from "./utils.js";
 
 export default {
     // Where webpack looks to start building the bundle
@@ -45,8 +43,6 @@ export default {
             MOST_RECENT_PHOTO_ID: mostRecentPhotoId(),
 
             OLDEST_PHOTO_ID: oldestPhotoId(),
-
-            SITE_VERSION: ver,
 
             /*
              * Compile-time definitions of environment-specific configuration
@@ -114,10 +110,6 @@ export default {
                 {
                     from: "src/robots.txt",
                     to: `${paths.build}/`,
-                },
-                {
-                    from: "src/empty.json",
-                    to: `${paths.build}/dyn/${ver}.json`,
                 },
             ],
             options: {

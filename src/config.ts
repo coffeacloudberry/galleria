@@ -6,7 +6,6 @@ type StyleType = Record<MapThemeStrings, AttributedUrl>;
 
 const mostRecentPhotoId = parseInt(String(process.env.MOST_RECENT_PHOTO_ID));
 const oldestPhotoId = parseInt(String(process.env.OLDEST_PHOTO_ID));
-const siteVersion = String(process.env.SITE_VERSION);
 
 const openpgp4fpr = "FFD0B3DDAD69CB71BAE13B1DDFFF34860D361C52";
 
@@ -20,9 +19,6 @@ export const config = {
 
     /** Last photo in the content folder. */
     lastPhotoId: oldestPhotoId,
-
-    /** Short git commit hash. */
-    siteVersion,
 
     /**
      * Chart.js prod version.
