@@ -30,6 +30,10 @@
                 {
                     "key": "Access-Control-Allow-Origin",
                     "value": "https://www.explorewilder.com"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "max-age=0, s-maxage=86400"
                 }
             ]
         },
