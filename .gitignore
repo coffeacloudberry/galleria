@@ -32,6 +32,8 @@ fixtures/
 .coverage
 venv/
 poetry.lock
+Cargo.lock
 favicon.svg
+target/
 !_*.sass
 !cli/**/__init__.py

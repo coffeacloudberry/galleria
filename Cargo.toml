@@ -1,0 +1,19 @@
+[package]
+name = "generate-social"
+publish = false
+edition = "2021"
+
+[[bin]]
+name = "generate-social"
+path = "cli/src/generate_social.rs"
+
+[dependencies]
+liquid = "0.26.9"
+resvg = "0.44.0"
+tiny-skia = "0.11.4"
+usvg = "0.44.0"
+walkdir = "2.5.0"
+tempfile = "3.13.0"
+serde_json = "1.0.132"
+serde = { version = "1.0.214", features = ["derive"] }
+image = "0.25.4"

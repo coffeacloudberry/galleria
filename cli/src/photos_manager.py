@@ -173,31 +173,6 @@ def has_valid_export(original_path: str | Path, exported_path: str | Path) -> bo
     return os.path.getmtime(exported_path) > os.path.getmtime(original_path)
 
 
-def generate_social(album_path: str | Path) -> list[str]:
-    generated_social = []
-    all_photos = [dirname for dirname in os.listdir(album_path) if os.path.isdir(os.path.join(album_path, dirname))]
-    all_photos.sort()
-    for photo_id in all_photos:
-        dirname = os.path.join(album_path, photo_id)
-        input_image_path = os.path.join(dirname, guess_original(dirname))
-        output_image_path = os.path.join(dirname, SOCIAL_FILE)
-        if has_valid_export(input_image_path, output_image_path):
-            continue
-        im = Image.open(input_image_path)
-        im = im.convert("RGB")  # type: ignore[assignment]
-        ratio = im.size[1] / im.size[0]
-        output_image_width = 1000
-        output_image_height = int(output_image_width * ratio)
-        if output_image_height > output_image_width:
-            output_image_height = 1000
-            output_image_width = int(output_image_height / ratio)
-        im.thumbnail((output_image_width, output_image_height), Image.Resampling.LANCZOS)
-        im.save(output_image_path, "JPEG", quality=94, xmp=None)
-        click.echo(f"[Photo {photo_id}] Exported to file which can be shared on social platforms")
-        generated_social.append(photo_id)
-    return generated_social
-
-
 def decode_webp_output(std_output: str) -> tuple[int, int, str]:
     dim_out = REGEX_WEBP_DIMENSION.search(std_output, re.MULTILINE | re.IGNORECASE)
     if not dim_out:
@@ -551,7 +526,6 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
     update_neighbor(album_path, photo_id, "prev", next_photo)
 
     # triggers global check and update of generated photos to make sure everything is synced
-    generate_social(album_path)
     generate_webp(album_path)
     click.echo(f"[Photo {photo_id}] Added")
 
