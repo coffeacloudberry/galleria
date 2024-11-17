@@ -192,7 +192,7 @@ def generate_social(album_path: str | Path) -> list[str]:
             output_image_height = 1000
             output_image_width = int(output_image_height / ratio)
         im.thumbnail((output_image_width, output_image_height), Image.Resampling.LANCZOS)
-        im.save(output_image_path, "JPEG", quality=94)
+        im.save(output_image_path, "JPEG", quality=94, xmp=None)
         click.echo(f"[Photo {photo_id}] Exported to file which can be shared on social platforms")
         generated_social.append(photo_id)
     return generated_social
