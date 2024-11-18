@@ -16,7 +16,6 @@ import gpxpy
 import gpxpy.gpx  # skipcq: PY-W2000
 from PIL import Image
 
-SOCIAL_FILE = "_to_social.jpg"
 TESTING = "pytest" in sys.modules
 REGEX_WEBP_DIMENSION = re.compile(r"Dimension: +(\d+) x (\d+)")
 REGEX_WEBP_OVERVIEW = re.compile(r"Output: +(.+)")
@@ -265,7 +264,7 @@ def guess_original(dir_path: str) -> str:
     best_file = None
     for file in os.listdir(dir_path):
         if os.path.isfile(os.path.join(dir_path, file)):
-            if file == SOCIAL_FILE:
+            if file.startswith("_"):
                 continue
             for ext, priority in priorities:
                 if file.lower().endswith("." + ext) and priority > best_priority:

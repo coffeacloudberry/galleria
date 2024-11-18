@@ -1,8 +1,6 @@
 use walkdir::{DirEntry, WalkDir};
 use resvg::render;
 use std::fs;
-use std::io;
-use std::io::{Cursor, Read};
 use std::path::PathBuf;
 use tiny_skia::{Pixmap, Transform};
 use usvg::{Options, Tree};
@@ -10,16 +8,7 @@ use image::{ImageError, ImageFormat, ImageReader};
 use tempfile;
 use serde::Deserialize;
 use tempfile::TempDir;
-use std::collections::HashMap;
-
-/// Width of the image.
-const WIDTH: u32 = 1200;
-
-/// Height of the image.
-const HEIGHT: u32 = 630;
-
-/// Maximum length for a photo title.
-const MAX_TITLE_LENGTH: usize = 38;
+use std::time::Instant;
 
 #[derive(Deserialize, Debug)]
 struct Title {
@@ -29,20 +18,10 @@ struct Title {
 }
 
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct PhotoInfo {
     title: Title,
-}
-
-fn confirm() -> bool {
-    loop {
-        let mut input = [0];
-        let _ = io::stdin().read(&mut input);
-        match input[0] as char {
-            'y' | 'Y' => return true,
-            'n' | 'N' => return false,
-            _ => println!("y/n only please."),
-        }
-    }
+    date_taken: String,
 }
 
 /// Return true if the file extension is .tif. Return false otherwise.
@@ -85,20 +64,21 @@ fn process_dir_entry(path: fs::DirEntry, photos_list: &mut Vec<(u64, PathBuf)>) 
     }
 }
 
-fn get_titles(path_to_photo: &PathBuf) -> Option<Title> {
+fn get_metadata(path_to_photo: &PathBuf) -> Option<PhotoInfo> {
     let info_data = fs::read(path_to_photo.as_path().parent().unwrap().join("i.json"));
     let json: PhotoInfo = serde_json::from_str(&*String::from_utf8_lossy(info_data.unwrap().as_slice())).unwrap();
     if json.title.en.len() == 0 || json.title.fi.len() == 0 || json.title.fr.len() == 0 {
         None
     } else {
-        Some(json.title)
+        Some(json)
     }
 }
 
 fn tif_to_jpg(tif_file: &PathBuf, jpg_file: &PathBuf) -> Result<(), ImageError> {
     let mut reader = ImageReader::open(tif_file)?;
     reader.no_limits();
-    let img = reader.decode()?.to_rgb8();
+    let dyn_img = reader.decode()?;
+    let img = dyn_img.thumbnail(1000, 1000).to_rgb8();
     img.save_with_format(jpg_file, ImageFormat::Jpeg)?;
     Ok(())
 }
@@ -114,19 +94,12 @@ fn get_jpg(photo_id: u64, input_path: &PathBuf, tmp_dir: &TempDir) -> Result<Pat
     }
 }
 
-fn png_to_jpg(png_data: Vec::<u8>, output_path: &PathBuf) -> Result<(), ImageError> {
-    let mut png_img = ImageReader::new(Cursor::new(png_data));
-    png_img.set_format(ImageFormat::Png);
-    let decoded = png_img.decode()?.to_rgb8(); // remove transparency
-    decoded.save_with_format(output_path, ImageFormat::Jpeg)?;
-    Ok(())
-}
-
 fn sanitize_text(text: &String) -> String {
     text.replace("&", "&amp;")
 }
 
-fn generate(photo_id: u64, map_titles: HashMap<&str, String>, jpg: &PathBuf, out_path: &PathBuf) {
+fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: &PathBuf, out_path: &PathBuf) {
+    let now = Instant::now();
     let template = liquid::ParserBuilder::with_stdlib()
         .build()
         .unwrap()
@@ -135,12 +108,13 @@ fn generate(photo_id: u64, map_titles: HashMap<&str, String>, jpg: &PathBuf, out
 
     let globals = liquid::object!({
         "image": jpg.to_str().unwrap(),
-        "text_en": sanitize_text(&map_titles["en"]),
-        "text_fi": sanitize_text(&map_titles["fi"]),
-        "text_fr": sanitize_text(&map_titles["fr"]),
+        "date": metadata.date_taken.to_string().replace("T", " "),
+        "text_en": sanitize_text(&metadata.title.en),
+        "text_fi": sanitize_text(&metadata.title.fi),
+        "text_fr": sanitize_text(&metadata.title.fr),
     });
     let svg = template.render(&globals).unwrap();
-    let mut pixmap = Pixmap::new(WIDTH, HEIGHT).unwrap();
+    let mut pixmap = Pixmap::new(1200, 1300).unwrap();
     let tree = {
         let mut options = Options::default();
         options.fontdb_mut().load_fonts_dir("src/fonts/asap");
@@ -148,13 +122,9 @@ fn generate(photo_id: u64, map_titles: HashMap<&str, String>, jpg: &PathBuf, out
     };
     render(&tree, Transform::default(), &mut pixmap.as_mut());
 
-    let png_data = pixmap.encode_png().expect("Failed to convert SVG to PNG");
-    png_to_jpg(png_data, out_path).expect("Failed to convert PNG to JPG");
-    println!("[{photo_id}] Generated");
-}
-
-fn is_short_title(map_titles: &HashMap<&str, String>) -> bool {
-    map_titles.values().find(|&s| s.len() > MAX_TITLE_LENGTH).is_none()
+    pixmap.save_png(out_path).expect("Failed to save PNG");
+    let elapsed = now.elapsed();
+    println!("[{photo_id}] Generated in {:.1?}", elapsed);
 }
 
 fn process_photos() {
@@ -169,26 +139,13 @@ fn process_photos() {
 
     let tmp_dir = tempfile::tempdir().unwrap();
     for (photo_id, path) in photos_list {
-        if let Some(titles) = get_titles(&path) {
-            let map_titles = HashMap::from([
-                ("en", titles.en),
-                ("fi", titles.fi),
-                ("fr", titles.fr),
-            ]);
-
+        if let Some(metadata) = get_metadata(&path) {
             let out_path = path.as_path().parent().unwrap().join("_to_social.jpg");
             if out_path.exists() {
                 continue;
             }
-
-            if !is_short_title(&map_titles) {
-                println!("[{photo_id}] Title too long! Generate? [y/n]");
-                if !confirm() {
-                    continue;
-                }
-            }
             match get_jpg(photo_id, &path, &tmp_dir) {
-                Ok(jpg) => generate(photo_id, map_titles, &jpg, &out_path),
+                Ok(jpg) => generate(photo_id, &metadata, &jpg, &out_path),
                 Err(err) => eprintln!("[{photo_id}] Failed to convert! {:?}", err),
             }
         } else {
