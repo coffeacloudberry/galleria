@@ -2,9 +2,8 @@
     <rect width="1200" height="1300" fill="#FFF8EF" />
     <image href="{{image}}" x="50%" y="50%" height="1000" width="1000" transform="translate(-500,-500)" preserveAspectRatio="xMidYMid meet" />
 
-    <text x="60" y="80" font-size="24" font-family="Asap" text-anchor="start">ExploreWilder.com</text>
-    <text x="600" y="80" fill="#333333" font-size="24" font-family="Asap" text-anchor="middle">{{ date }}</text>
-    <text x="1140" y="80" font-size="24" font-family="Asap" text-anchor="end">English - Français - Suomi</text>
+    <text x="60" y="80" fill="#333333" font-size="24" font-family="Asap" text-anchor="start">ExploreWilder.com</text>
+    <text x="1140" y="80" fill="#333333" font-size="24" font-family="Asap" text-anchor="end">{{ date }}</text>
 
     <text x="610" y="1200" fill="#333333" font-size="24" font-family="Asap" text-anchor="middle">{{ text_en }}</text>
     <text x="610" y="1230" fill="#333333" font-size="24" font-family="Asap" text-anchor="middle">{{ text_fi }}</text>

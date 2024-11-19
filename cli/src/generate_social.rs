@@ -88,14 +88,16 @@ fn get_jpg(photo_id: u64, input_path: &PathBuf, tmp_dir: &TempDir) -> Result<Pat
         Ok(input_path.to_owned())
     } else {
         let tmp_file_path = tmp_dir.path().join("tmp.jpg");
-        println!("[{photo_id}] Converting {:?}...", input_path);
+        let now = Instant::now();
         tif_to_jpg(input_path, &tmp_file_path)?;
+        let elapsed = now.elapsed();
+        println!("[{photo_id}] Converted {:?} in {:.1?}", input_path, elapsed);
         Ok(tmp_file_path)
     }
 }
 
 fn sanitize_text(text: &String) -> String {
-    text.replace("&", "&amp;")
+    text.replace('&', "&amp;")
 }
 
 fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: &PathBuf, out_path: &PathBuf) {
@@ -108,7 +110,7 @@ fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: &PathBuf, out_path: &PathB
 
     let globals = liquid::object!({
         "image": jpg.to_str().unwrap(),
-        "date": metadata.date_taken.to_string().replace("T", " "),
+        "date": metadata.date_taken.to_string().split('T').next(),
         "text_en": sanitize_text(&metadata.title.en),
         "text_fi": sanitize_text(&metadata.title.fi),
         "text_fr": sanitize_text(&metadata.title.fr),
