@@ -6,13 +6,13 @@ Feel free to open an issue or a discussion.
 
 ## Todo Before Committing
 
--   Lint with `npm run lint`,
--   Test as detailed in the [README.md](README.md) file.
+- Lint with `npm run lint`,
+- Test as detailed in the [README.md](README.md) file.
 
 ## Rules of Thumb
 
--   If a script is fetched from CDN, check with `npm bundle-analysis` that it has not been included in the bundle,
--   The `export` keyword increases the bundle size, `export` only if used outside the file.
+- If a script is fetched from CDN, check with `npm bundle-analysis` that it has not been included in the bundle,
+- The `export` keyword increases the bundle size, `export` only if used outside the file.
 
 ## PyCharm Pro / WebStorm Users
 

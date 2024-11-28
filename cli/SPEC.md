@@ -1,15 +1,15 @@
 # WebTrack Format Spec
 
--   **Name:** WebTrack
--   **Extension:** .webtrack
--   **MIME Type:** application/prs.webtrack
--   **Support:** tracks and/or waypoints
--   **Algorithm Type:** lossy (quantization)
+- **Name:** WebTrack
+- **Extension:** .webtrack
+- **MIME Type:** application/prs.webtrack
+- **Support:** tracks and/or waypoints
+- **Algorithm Type:** lossy (quantization)
 
 **Notes:**
 
--   Part of the file is human-readable (UTF8/ASCII) to ease debugging but most data are in binary for space optimization and modern browsers handle it with the JavaScript [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer "JavaScript ArrayBuffer").
--   Numbers are stored in big-endian “because Internet standards usually require data to be stored big-endian, starting at the standard UNIX socket level and going all the way up to standardized Web binary data structures.” Source: [MDN web docs](https://developer.mozilla.org/en-US/docs/Glossary/Endianness "Endianness").
+- Part of the file is human-readable (UTF8/ASCII) to ease debugging but most data are in binary for space optimization and modern browsers handle it with the JavaScript [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer "JavaScript ArrayBuffer").
+- Numbers are stored in big-endian “because Internet standards usually require data to be stored big-endian, starting at the standard UNIX socket level and going all the way up to standardized Web binary data structures.” Source: [MDN web docs](https://developer.mozilla.org/en-US/docs/Glossary/Endianness "Endianness").
 
 ## Format Information
 
@@ -249,8 +249,8 @@ Information intended to know at the beginning how much data we are dealing with,
 
 **Notes:**
 
--   The above table is repeated as many times as there are segments.
--   The activity is sourced from the `<desc/>` tag in the `<trk/>` track. The description should contain something like `(Webtrack activity: Moderate walk)`. If using Viking, right-click on the track, click Properties > Properties > General > Description. If using QMapShack, right-click on the track, click Edit > Description.
+- The above table is repeated as many times as there are segments.
+- The activity is sourced from the `<desc/>` tag in the `<trk/>` track. The description should contain something like `(Webtrack activity: Moderate walk)`. If using Viking, right-click on the track, click Properties > Properties > General > Description. If using QMapShack, right-click on the track, click Edit > Description.
 
 ## Track Information
 
@@ -498,8 +498,8 @@ Waypoints are all absolutely positioned (no offset). So it's basically a list of
 
 **Notes:**
 
--   The above table is repeated as many times as there are waypoints.
--   The index of the soonest/nearest point is the index of the point that has been logged in the shortest timelaps or closest according the GPX file, if the time is missing, it is using the closest point. The field is discarded if the Webtrack track does not contain any point. The value is 0 if the waypoint is considered too far from the track to be _snapped_. Such information is useful to locate the waypoint on an elevation profile chart.
+- The above table is repeated as many times as there are waypoints.
+- The index of the soonest/nearest point is the index of the point that has been logged in the shortest timelaps or closest according the GPX file, if the time is missing, it is using the closest point. The field is discarded if the Webtrack track does not contain any point. The value is 0 if the waypoint is considered too far from the track to be _snapped_. Such information is useful to locate the waypoint on an elevation profile chart.
 
 ## Example
 

@@ -8,26 +8,26 @@ _Minimalist Blog With Photos, Stories, Maps_
 
 Because:
 
--   I like seeing and sharing content ads-free, with no subscription or paywall or trackers,
--   I want a minimalist / fully-featured / privacy-friendly / user-friendly website,
--   I want both the interface and the content lightweight by design, fast to load, and secure,
--   I want it translated,
--   I want it bug-free,
--   I like receiving feedback without pushing you to sign in a specific social platform.
+- I like seeing and sharing content ads-free, with no subscription or paywall or trackers,
+- I want a minimalist / fully-featured / privacy-friendly / user-friendly website,
+- I want both the interface and the content lightweight by design, fast to load, and secure,
+- I want it translated,
+- I want it bug-free,
+- I like receiving feedback without pushing you to sign in a specific social platform.
 
 I could not find anything cheap complying to the above requirements, and I was interested in learning great web development tools. Therefore, I designed a Single Page Application using the [Mithril framework](https://mithril.js.org/), the TypeScript language, and some awesome libraries. It is deployed as a serverless application thanks to Vercel. To sum up the features:
 
--   [x] Interactive 3D maps,
--   [x] Interactive charts,
--   [x] Home-made track format including elevation profile,
--   [x] Fully translated in English, Finnish, and French,
--   [x] [Privacy by design](https://en.wikipedia.org/wiki/Privacy_by_design),
--   [x] [Humane by design](https://humanebydesign.com/),
--   [x] [Ethical by design](https://ind.ie/ethical-design/),
--   [x] No cookie, no Local Storage, no IndexedDB,
--   [x] Photo viewer with dynamic image optimization,
--   [x] Mobile-friendly,
--   [x] Lazy-loading heavy scripts (with dynamic import expressions).
+- [x] Interactive 3D maps,
+- [x] Interactive charts,
+- [x] Home-made track format including elevation profile,
+- [x] Fully translated in English, Finnish, and French,
+- [x] [Privacy by design](https://en.wikipedia.org/wiki/Privacy_by_design),
+- [x] [Humane by design](https://humanebydesign.com/),
+- [x] [Ethical by design](https://ind.ie/ethical-design/),
+- [x] No cookie, no Local Storage, no IndexedDB,
+- [x] Photo viewer with dynamic image optimization,
+- [x] Mobile-friendly,
+- [x] Lazy-loading heavy scripts (with dynamic import expressions).
 
 The project was not created to be a template or a flexible CMS, but for my own use. Feel free to take whatever inspiration from it that you want.
 
@@ -103,8 +103,8 @@ Also update the lazy-loaded scripts listed in the [configuration file](src/confi
 
 From a new SVG file:
 
--   Generate PNG files of different sizes and generate the .ico with Gimp: File > Open as Layers, File > Export As...,
--   Generate an apple-touch-icon file (PNG, 192x192, without alpha channel).
+- Generate PNG files of different sizes and generate the .ico with Gimp: File > Open as Layers, File > Export As...,
+- Generate an apple-touch-icon file (PNG, 192x192, without alpha channel).
 
 </details>
 <details>
@@ -120,9 +120,9 @@ For editing the font, adding glyphs, ligatures, exotic characters, etc. Have a l
 
 The Mapbox Studio styles are public:
 
--   _Sunny Summer_ theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckp9oa8nw216718o43dskmvsg.html?title=view&access_token=YOURTOKEN&zoomwheel=true&fresh=true#10.26/45.9278/6.9381/120/3), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckp9oa8nw216718o43dskmvsg.html?title=copy&access_token=YOURTOKEN&zoomwheel=true&fresh=true#10.26/45.9278/6.9381/120/3),
--   _Sunny Tundra_ theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/clng3anjs007q01pi6j8zfi7h.html?title=view&access_token=YOURTOKEN&zoomwheel=true&fresh=true#15.12/68.667283/27.535102/-20/66), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/clng3anjs007q01pi6j8zfi7h.html?title=copy&access_token=YOURTOKEN&zoomwheel=true&fresh=true#15.12/68.667283/27.535102/-20/66),
--   _Dark Tundra_ theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr.html?title=view&access_token=YOURTOKEN&zoomwheel=true&fresh=true#12.34/68.42216/27.41957/20.8/63), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr.html?title=copy&access_token=YOURTOKEN&zoomwheel=true&fresh=true#12.34/68.42216/27.41957/20.8/63).
+- _Sunny Summer_ theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckp9oa8nw216718o43dskmvsg.html?title=view&access_token=YOURTOKEN&zoomwheel=true&fresh=true#10.26/45.9278/6.9381/120/3), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckp9oa8nw216718o43dskmvsg.html?title=copy&access_token=YOURTOKEN&zoomwheel=true&fresh=true#10.26/45.9278/6.9381/120/3),
+- _Sunny Tundra_ theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/clng3anjs007q01pi6j8zfi7h.html?title=view&access_token=YOURTOKEN&zoomwheel=true&fresh=true#15.12/68.667283/27.535102/-20/66), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/clng3anjs007q01pi6j8zfi7h.html?title=copy&access_token=YOURTOKEN&zoomwheel=true&fresh=true#15.12/68.667283/27.535102/-20/66),
+- _Dark Tundra_ theme: [view](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr.html?title=view&access_token=YOURTOKEN&zoomwheel=true&fresh=true#12.34/68.42216/27.41957/20.8/63), [copy](https://api.mapbox.com/styles/v1/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr.html?title=copy&access_token=YOURTOKEN&zoomwheel=true&fresh=true#12.34/68.42216/27.41957/20.8/63).
 
 In the above links, replace YOURTOKEN with your token. Use a Mapbox token with the `styles:read` and `fonts:read` scopes.
 

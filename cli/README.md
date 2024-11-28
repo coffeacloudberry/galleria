@@ -16,8 +16,8 @@ No benchmark, but the result is good enough:
 
 ## Prerequisites
 
--   Python 3.11,
--   GDAL for Python - to handle GeoTIFF images from ASTGTM v3.
+- Python 3.11,
+- GDAL for Python - to handle GeoTIFF images from ASTGTM v3.
 
 If GDAL is installed system-wide, configure the virtual environment to also use the global site packages.
 
@@ -98,8 +98,8 @@ I designed the [file format](SPEC.md) to perfectly fit my needs, but maybe not y
 
 Here you have a list of ideas that could be implemented:
 
--   The offset often fits in a single byte. So the value could be stored in two types: 1 or 2 bytes.
--   Handle more than GPX data, like polygons? No. In that case, [Geobuf](https://github.com/mapbox/geobuf) might be a better solution.
+- The offset often fits in a single byte. So the value could be stored in two types: 1 or 2 bytes.
+- Handle more than GPX data, like polygons? No. In that case, [Geobuf](https://github.com/mapbox/geobuf) might be a better solution.
 
 # About the Elevation
 
@@ -161,7 +161,7 @@ Notice that GPS date/time is lost when using the _Save to original_ button in QM
 
 ## Notes
 
--   The WebP converter does not read the Exif orientation metadata, so the image has to be rotated if needed.
--   This tool does not use the [webp](https://pypi.org/project/webp/) Python package, nor the Pillow library, because they do not handle the desired WebP options.
--   WebP lossy option `-sharp_yuv` is not used. That is actually making the lossy compression look sharper, hence more visible.
--   JetBrains users may want to install the [WebP Support plugin](https://plugins.jetbrains.com/plugin/15037-webp-support) to view the photos from inside the IDE.
+- The WebP converter does not read the Exif orientation metadata, so the image has to be rotated if needed.
+- This tool does not use the [webp](https://pypi.org/project/webp/) Python package, nor the Pillow library, because they do not handle the desired WebP options.
+- WebP lossy option `-sharp_yuv` is not used. That is actually making the lossy compression look sharper, hence more visible.
+- JetBrains users may want to install the [WebP Support plugin](https://plugins.jetbrains.com/plugin/15037-webp-support) to view the photos from inside the IDE.

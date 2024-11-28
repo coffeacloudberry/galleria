@@ -10,6 +10,9 @@ use serde::Deserialize;
 use tempfile::TempDir;
 use std::time::Instant;
 
+const PHOTO_BOX_SIZE: u32 = 900;
+const IMAGE_BORDER: u32 = 40;
+
 #[derive(Deserialize, Debug)]
 struct Title {
     en: String,
@@ -28,11 +31,6 @@ struct PhotoInfo {
 fn is_tif(entry: &DirEntry) -> bool {
     let path = entry.path();
     path.is_file() && path.extension().map(|s| s == "tif").unwrap_or(false)
-}
-
-/// Return true if the file extension is .jpg. Panic in case of unexpected result.
-fn is_jpg(path: &PathBuf) -> bool {
-    path.extension().map(|s| s == "jpg").unwrap()
 }
 
 fn process_ok_path(photo_id: u64, curr_path: PathBuf, photos_list: &mut Vec<(u64, PathBuf)>) {
@@ -74,33 +72,37 @@ fn get_metadata(path_to_photo: &PathBuf) -> Option<PhotoInfo> {
     }
 }
 
-fn tif_to_jpg(tif_file: &PathBuf, jpg_file: &PathBuf) -> Result<(), ImageError> {
+/// Convert the photo to JPG and resize to fit in a square box while preserving the aspect ratio.
+fn to_small_jpg(tif_file: &PathBuf, jpg_file: &PathBuf) -> Result<(u32, u32), ImageError> {
     let mut reader = ImageReader::open(tif_file)?;
     reader.no_limits();
     let dyn_img = reader.decode()?;
-    let img = dyn_img.thumbnail(1000, 1000).to_rgb8();
+    let img = dyn_img.thumbnail(PHOTO_BOX_SIZE, PHOTO_BOX_SIZE).to_rgb8();
     img.save_with_format(jpg_file, ImageFormat::Jpeg)?;
-    Ok(())
+    Ok(img.dimensions())
 }
 
-fn get_jpg(photo_id: u64, input_path: &PathBuf, tmp_dir: &TempDir) -> Result<PathBuf, ImageError> {
-    if is_jpg(&input_path) {
-        Ok(input_path.to_owned())
-    } else {
-        let tmp_file_path = tmp_dir.path().join("tmp.jpg");
-        let now = Instant::now();
-        tif_to_jpg(input_path, &tmp_file_path)?;
-        let elapsed = now.elapsed();
-        println!("[{photo_id}] Converted {:?} in {:.1?}", input_path, elapsed);
-        Ok(tmp_file_path)
-    }
+/// Generate a JPG file.
+fn get_jpg(input_path: &PathBuf, tmp_dir: &TempDir) -> Result<(PathBuf, (u32, u32)), ImageError> {
+    let tmp_file_path = tmp_dir.path().join("tmp.jpg");
+    let now = Instant::now();
+    let jpg_dim = to_small_jpg(input_path, &tmp_file_path)?;
+    let elapsed = now.elapsed();
+    println!(
+        "Converted {:?} in {:.1?}; Size: {:?} x {:?} px; Format: JPG",
+        input_path,
+        elapsed,
+        jpg_dim.0,
+        jpg_dim.1,
+    );
+    Ok((tmp_file_path, jpg_dim))
 }
 
 fn sanitize_text(text: &String) -> String {
     text.replace('&', "&amp;")
 }
 
-fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: &PathBuf, out_path: &PathBuf) {
+fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: (PathBuf, (u32, u32)), out_path: &PathBuf) {
     let now = Instant::now();
     let template = liquid::ParserBuilder::with_stdlib()
         .build()
@@ -108,15 +110,34 @@ fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: &PathBuf, out_path: &PathB
         .parse(include_str!("templates/photo_to_social.tpl.svg"))
         .unwrap();
 
+    let image_width = {
+        if jpg.1.0 < 600 {
+            680
+        } else {
+            jpg.1.0 + 2 * IMAGE_BORDER
+        }
+    };
+    let image_height = jpg.1.1 + 2 * IMAGE_BORDER + 24 * 5;
     let globals = liquid::object!({
-        "image": jpg.to_str().unwrap(),
+        "photo": jpg.0.to_str().unwrap(),
+        "photo_width": jpg.1.0,
+        "photo_translate": jpg.1.0 / 2,
+        "photo_height": jpg.1.1,
+        "border": IMAGE_BORDER,
+        "image_width": image_width,
+        "image_height": image_height,
+        "line_1_y": jpg.1.1 + IMAGE_BORDER + 24 * 2,
+        "line_2_y": jpg.1.1 + IMAGE_BORDER + ((24.0 * 3.5) as u32),
+        "line_3_y": jpg.1.1 + IMAGE_BORDER + 24 * 5,
+        "line_1_x_r": image_width - IMAGE_BORDER,
+        "line_2_x": image_width / 2,
         "date": metadata.date_taken.to_string().split('T').next(),
         "text_en": sanitize_text(&metadata.title.en),
         "text_fi": sanitize_text(&metadata.title.fi),
         "text_fr": sanitize_text(&metadata.title.fr),
     });
     let svg = template.render(&globals).unwrap();
-    let mut pixmap = Pixmap::new(1200, 1300).unwrap();
+    let mut pixmap = Pixmap::new(image_width, image_height).unwrap();
     let tree = {
         let mut options = Options::default();
         options.fontdb_mut().load_fonts_dir("src/fonts/asap");
@@ -142,12 +163,12 @@ fn process_photos() {
     let tmp_dir = tempfile::tempdir().unwrap();
     for (photo_id, path) in photos_list {
         if let Some(metadata) = get_metadata(&path) {
-            let out_path = path.as_path().parent().unwrap().join("_to_social.jpg");
+            let out_path = path.as_path().parent().unwrap().join("_to_social.png");
             if out_path.exists() {
                 continue;
             }
-            match get_jpg(photo_id, &path, &tmp_dir) {
-                Ok(jpg) => generate(photo_id, &metadata, &jpg, &out_path),
+            match get_jpg(&path, &tmp_dir) {
+                Ok(jpg) => generate(photo_id, &metadata, jpg, &out_path),
                 Err(err) => eprintln!("[{photo_id}] Failed to convert! {:?}", err),
             }
         } else {

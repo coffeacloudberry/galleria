@@ -10,8 +10,8 @@ The DEM is mainly based on SRTM 3" with a custom voidfill algorithm and the comb
 
 **Bad point**: nothing really.
 
--   File Format: HGT
--   Datum: WGS84/EGM96
+- File Format: HGT
+- Datum: WGS84/EGM96
 
 More information: [3"](http://viewfinderpanoramas.org/dem3.html) (or about 93 meters) and [1"](http://viewfinderpanoramas.org/dem1.html) (or about 31 meters) links.
 
@@ -25,8 +25,8 @@ The world-famous dataset provided by the LP DAAC located at the U.S. DoI, USGS E
 
 **Bad point**: the dataset is limited between 60° N and 56° S latitude, and I found a few artifacts invisible in the Jonathan de Ferranti's dataset.
 
--   File Format: HGT or NetCDF4
--   Datum: WGS84/EGM96
+- File Format: HGT or NetCDF4
+- Datum: WGS84/EGM96
 
 More information: https://lpdaac.usgs.gov/products/srtmgl1v003/
 
@@ -38,22 +38,22 @@ The ASTGTM dataset is a collaborative effort between NASA and Japan's METI. Rele
 
 **Bad point**: there are officially known issues like voids in Greenland, known inaccuracies and artifacts.
 
--   File Format: GeoTIFF
--   Datum: WGS84/EGM96
+- File Format: GeoTIFF
+- Datum: WGS84/EGM96
 
 More information: https://lpdaac.usgs.gov/products/astgtmv003/
 
 # Acronyms
 
--   **DEM**: Digital Elevation Model
--   **GDEM**: Global DEM
--   **ASTGTM**: Aster GDEM
--   **SRTM**: Shuttle Radar Topography Mission
--   **NSIDC**: National Snow and Ice Data Center
--   **LP DAAC**: Land Processes Distributed Active Archive Center
--   **DoI**: Department of the Interior
--   **USGS**: U.S. Geological Survey
--   **EROS**: Earth Resources Observation and Science
--   **NASA**: National Aeronautics and Space Administration
--   **METI**: Ministry of Economy, Trade, and Industry
--   **GeoTIFF**: Georeferenced Tagged Image File Format
+- **DEM**: Digital Elevation Model
+- **GDEM**: Global DEM
+- **ASTGTM**: Aster GDEM
+- **SRTM**: Shuttle Radar Topography Mission
+- **NSIDC**: National Snow and Ice Data Center
+- **LP DAAC**: Land Processes Distributed Active Archive Center
+- **DoI**: Department of the Interior
+- **USGS**: U.S. Geological Survey
+- **EROS**: Earth Resources Observation and Science
+- **NASA**: National Aeronautics and Space Administration
+- **METI**: Ministry of Economy, Trade, and Industry
+- **GeoTIFF**: Georeferenced Tagged Image File Format

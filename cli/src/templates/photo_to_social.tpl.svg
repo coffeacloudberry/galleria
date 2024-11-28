@@ -1,11 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1300">
-    <rect width="1200" height="1300" fill="#FFF8EF" />
-    <image href="{{image}}" x="50%" y="50%" height="1000" width="1000" transform="translate(-500,-500)" preserveAspectRatio="xMidYMid meet" />
-
-    <text x="60" y="80" fill="#333333" font-size="24" font-family="Asap" text-anchor="start">ExploreWilder.com</text>
-    <text x="1140" y="80" fill="#333333" font-size="24" font-family="Asap" text-anchor="end">{{ date }}</text>
-
-    <text x="610" y="1200" fill="#333333" font-size="24" font-family="Asap" text-anchor="middle">{{ text_en }}</text>
-    <text x="610" y="1230" fill="#333333" font-size="24" font-family="Asap" text-anchor="middle">{{ text_fi }}</text>
-    <text x="610" y="1260" fill="#333333" font-size="24" font-family="Asap" text-anchor="middle">{{ text_fr }}</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {{ image_width }} {{ image_height }}">
+    <defs>
+        <linearGradient id="gradient1" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#4c6444" />
+            <stop offset="100%" stop-color="#102821" />
+        </linearGradient>
+    </defs>
+    <defs>
+        <linearGradient id="gradient2" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#102821" />
+            <stop offset="100%" stop-color="#4c6444" />
+        </linearGradient>
+    </defs>
+    <rect width="{{ image_width }}" height="{{ image_height }}" fill="url(#gradient1)" />
+    <image x="50%" y="{{ border }}" transform="translate(-{{ photo_translate }})" width="{{ photo_width }}" height="{{ photo_height }}" href="{{ photo }}" />
+    <rect x="50%" y="{{ border }}" transform="translate(-{{ photo_translate }})" width="{{ photo_width }}" height="{{ photo_height }}" fill="none" stroke="url(#gradient2)" />
+    <text x="{{ border }}" y="{{ line_1_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="start">{{ text_en }}</text>
+    <text x="{{ line_1_x_r }}" y="{{ line_1_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="end">{{ date }}</text>
+    <text x="{{ border }}" y="{{ line_2_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="start">{{ text_fi }}</text>
+    <text x="{{ line_1_x_r }}" y="{{ line_2_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="end">ExploreWilder.com</text>
+    <text x="{{ border }}" y="{{ line_3_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="start">{{ text_fr }}</text>
+    <text x="{{ line_1_x_r }}" y="{{ line_3_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="end">CC BY-NC-SA 4.0</text>
 </svg>
