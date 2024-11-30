@@ -5,6 +5,7 @@ mypy:
 .PHONY: check
 check: mypy
 	ruff check
+	cargo clippy
 
 .PHONY: format
 format:
@@ -19,8 +20,6 @@ install:
 update:
 	poetry update --with test
 
-# coverage here instead of the addopts config to skip coverage and handle
-# breakpoints when running 1 test in PyCharm
 .PHONY: py-test
 py-test:
 	python -m pytest --cov=cli/src --cov-report xml:_coverage.xml --no-cov-on-fail

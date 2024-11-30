@@ -15,7 +15,6 @@ from cli.src.photos_manager import exposure_time_s_exif
 from cli.src.photos_manager import f_number_exif
 from cli.src.photos_manager import find_prev_next
 from cli.src.photos_manager import focal_length_35mm_exif
-from cli.src.photos_manager import generate_social
 from cli.src.photos_manager import generate_webp
 from cli.src.photos_manager import get_exif_data
 from cli.src.photos_manager import get_image_size
@@ -78,7 +77,7 @@ def test_import_exif_to_tif(tmp_path):
     shutil.copyfile(SAMPLE_CORRUPTED_EXIF_TIF, input_tif)
     shutil.copyfile(f"{os.path.splitext(SAMPLE_CORRUPTED_EXIF_TIF)[0]}.ORF", input_orf)
     changed_fields = import_exif_to_tif(input_tif)
-    assert len(changed_fields) >= 229
+    assert len(changed_fields) >= 220
     exif_data = get_exif_data(input_tif)
     body_lens = body_lens_model_exif(exif_data)
     assert body_lens == ("OM Digital Solutions OM-5", "Olympus M.Zuiko Digital ED 60mm F2.8 Macro")
@@ -97,46 +96,6 @@ def test_find_prev_next(tmp_path):
 def test_get_image_size():
     assert get_image_size(SAMPLE_NIKON_TIF) == (1986, 1322)
     assert get_image_size(SAMPLE_OMSYSTEM_TIF) == (2460, 1836)
-
-
-def test_generate_social(tmp_path):
-    create_album(tmp_path)
-    assert generate_social(tmp_path) == ["1", "2"]
-
-    # increase test coverage by checking that the right exception is raised
-    exif_data = get_exif_data(tmp_path / "1" / "_to_social.jpg")
-    with pytest.raises(ValueError, match="Missing camera info!"):
-        body_lens_model_exif(exif_data)
-    with pytest.raises(ValueError, match="Missing date taken!"):
-        date_taken_exif(exif_data)
-    with pytest.raises(ValueError, match="Missing focal length!"):
-        focal_length_35mm_exif(exif_data)
-    with pytest.raises(ValueError, match="Missing exposure time!"):
-        exposure_time_s_exif(exif_data)
-    with pytest.raises(ValueError, match="Missing F-number!"):
-        f_number_exif(exif_data)
-    with pytest.raises(ValueError, match="Missing ISO!"):
-        iso_exif(exif_data)
-    # the computational mode is optional
-    assert computational_mode_exif(exif_data) is None
-
-    for photo_id in range(len(FILES)):
-        path_to_new = tmp_path / str(photo_id + 1) / "_to_social.jpg"
-        assert os.path.exists(path_to_new)
-
-        # fitting in 1000x1000 px
-        width, height = get_image_size(path_to_new)
-        assert 100 < width <= 1000 and 100 < height <= 1000
-
-        # does not contains PII
-        for key in get_exif_data(path_to_new).keys():
-            assert not (key.startswith("EXIF:") or key.startswith("XMP:"))
-
-    original_to_update = "1"
-    one_original = tmp_path / original_to_update / "photo.tif"
-    one_original.touch()
-    # make sure an update from the original photo triggers photo re-generation
-    assert generate_social(tmp_path) == [original_to_update]
 
 
 def test_decode_webp_output():

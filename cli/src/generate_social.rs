@@ -1,11 +1,10 @@
 use walkdir::{DirEntry, WalkDir};
 use resvg::render;
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use tiny_skia::{Pixmap, Transform};
 use usvg::{Options, Tree};
 use image::{ImageError, ImageFormat, ImageReader};
-use tempfile;
 use serde::Deserialize;
 use tempfile::TempDir;
 use std::time::Instant;
@@ -35,7 +34,7 @@ fn is_tif(entry: &DirEntry) -> bool {
 
 fn process_ok_path(photo_id: u64, curr_path: PathBuf, photos_list: &mut Vec<(u64, PathBuf)>) {
     let walker = WalkDir::new(&curr_path).into_iter().filter_map(|e| e.ok());
-    let mut all_tif_files = walker.filter(|e| is_tif(e));
+    let mut all_tif_files = walker.filter(is_tif);
     if let Some(tif_file) = all_tif_files.next() {
         if all_tif_files.next().is_some() {
             eprintln!("[{photo_id}] Found multiple .tif!");
@@ -62,47 +61,47 @@ fn process_dir_entry(path: fs::DirEntry, photos_list: &mut Vec<(u64, PathBuf)>) 
     }
 }
 
-fn get_metadata(path_to_photo: &PathBuf) -> Option<PhotoInfo> {
-    let info_data = fs::read(path_to_photo.as_path().parent().unwrap().join("i.json"));
-    let json: PhotoInfo = serde_json::from_str(&*String::from_utf8_lossy(info_data.unwrap().as_slice())).unwrap();
-    if json.title.en.len() == 0 || json.title.fi.len() == 0 || json.title.fr.len() == 0 {
+fn get_metadata(path_to_photo: &Path) -> Option<PhotoInfo> {
+    let info_data = fs::read(path_to_photo.parent().unwrap().join("i.json"));
+    let json: PhotoInfo = serde_json::from_str(&String::from_utf8_lossy(info_data.unwrap().as_slice())).unwrap();
+    if json.title.en.is_empty() || json.title.fi.is_empty() || json.title.fr.is_empty() {
         None
     } else {
         Some(json)
     }
 }
 
-/// Convert the photo to JPG and resize to fit in a square box while preserving the aspect ratio.
-fn to_small_jpg(tif_file: &PathBuf, jpg_file: &PathBuf) -> Result<(u32, u32), ImageError> {
+/// Convert the photo to PNG and resize to fit in a square box while preserving the aspect ratio.
+fn to_small_png(tif_file: &PathBuf, png_file: &PathBuf) -> Result<(u32, u32), ImageError> {
     let mut reader = ImageReader::open(tif_file)?;
     reader.no_limits();
     let dyn_img = reader.decode()?;
     let img = dyn_img.thumbnail(PHOTO_BOX_SIZE, PHOTO_BOX_SIZE).to_rgb8();
-    img.save_with_format(jpg_file, ImageFormat::Jpeg)?;
+    img.save_with_format(png_file, ImageFormat::Png)?;
     Ok(img.dimensions())
 }
 
-/// Generate a JPG file.
-fn get_jpg(input_path: &PathBuf, tmp_dir: &TempDir) -> Result<(PathBuf, (u32, u32)), ImageError> {
-    let tmp_file_path = tmp_dir.path().join("tmp.jpg");
+/// Generate a PNG file.
+fn get_png(input_path: &PathBuf, tmp_dir: &TempDir) -> Result<(PathBuf, (u32, u32)), ImageError> {
+    let tmp_file_path = tmp_dir.path().join("tmp.png");
     let now = Instant::now();
-    let jpg_dim = to_small_jpg(input_path, &tmp_file_path)?;
+    let png_dim = to_small_png(input_path, &tmp_file_path)?;
     let elapsed = now.elapsed();
     println!(
-        "Converted {:?} in {:.1?}; Size: {:?} x {:?} px; Format: JPG",
+        "Converted {:?} in {:.1?}; Size: {:?} x {:?} px",
         input_path,
         elapsed,
-        jpg_dim.0,
-        jpg_dim.1,
+        png_dim.0,
+        png_dim.1,
     );
-    Ok((tmp_file_path, jpg_dim))
+    Ok((tmp_file_path, png_dim))
 }
 
-fn sanitize_text(text: &String) -> String {
+fn sanitize_text(text: &str) -> String {
     text.replace('&', "&amp;")
 }
 
-fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: (PathBuf, (u32, u32)), out_path: &PathBuf) {
+fn generate(photo_id: u64, metadata: &PhotoInfo, png: (PathBuf, (u32, u32)), out_path: &PathBuf) {
     let now = Instant::now();
     let template = liquid::ParserBuilder::with_stdlib()
         .build()
@@ -111,27 +110,27 @@ fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: (PathBuf, (u32, u32)), out
         .unwrap();
 
     let image_width = {
-        if jpg.1.0 < 600 {
+        if png.1.0 < 600 {
             680
         } else {
-            jpg.1.0 + 2 * IMAGE_BORDER
+            png.1.0 + 2 * IMAGE_BORDER
         }
     };
-    let image_height = jpg.1.1 + 2 * IMAGE_BORDER + 24 * 5;
+    let image_height = png.1.1 + 2 * IMAGE_BORDER + 24 * 5;
     let globals = liquid::object!({
-        "photo": jpg.0.to_str().unwrap(),
-        "photo_width": jpg.1.0,
-        "photo_translate": jpg.1.0 / 2,
-        "photo_height": jpg.1.1,
+        "photo": png.0.to_str().unwrap(),
+        "photo_width": png.1.0,
+        "photo_translate": png.1.0 / 2,
+        "photo_height": png.1.1,
         "border": IMAGE_BORDER,
         "image_width": image_width,
         "image_height": image_height,
-        "line_1_y": jpg.1.1 + IMAGE_BORDER + 24 * 2,
-        "line_2_y": jpg.1.1 + IMAGE_BORDER + ((24.0 * 3.5) as u32),
-        "line_3_y": jpg.1.1 + IMAGE_BORDER + 24 * 5,
+        "line_1_y": png.1.1 + IMAGE_BORDER + 24 * 2,
+        "line_2_y": png.1.1 + IMAGE_BORDER + ((24.0 * 3.5) as u32),
+        "line_3_y": png.1.1 + IMAGE_BORDER + 24 * 5,
         "line_1_x_r": image_width - IMAGE_BORDER,
         "line_2_x": image_width / 2,
-        "date": metadata.date_taken.to_string().split('T').next(),
+        "date": metadata.date_taken.split('T').next(),
         "text_en": sanitize_text(&metadata.title.en),
         "text_fi": sanitize_text(&metadata.title.fi),
         "text_fr": sanitize_text(&metadata.title.fr),
@@ -153,10 +152,8 @@ fn generate(photo_id: u64, metadata: &PhotoInfo, jpg: (PathBuf, (u32, u32)), out
 fn process_photos() {
     let mut photos_list: Vec<(u64, PathBuf)> = Vec::new();
     let photos = "public/content/photos";
-    for entry in fs::read_dir(photos).unwrap() {
-        if let Ok(path) = entry {
-            process_dir_entry(path, &mut photos_list);
-        }
+    for entry in fs::read_dir(photos).unwrap().flatten() {
+        process_dir_entry(entry, &mut photos_list);
     }
     photos_list.sort_by(|a, b| a.0.cmp(&b.0));
 
@@ -167,8 +164,8 @@ fn process_photos() {
             if out_path.exists() {
                 continue;
             }
-            match get_jpg(&path, &tmp_dir) {
-                Ok(jpg) => generate(photo_id, &metadata, jpg, &out_path),
+            match get_png(&path, &tmp_dir) {
+                Ok(png) => generate(photo_id, &metadata, png, &out_path),
                 Err(err) => eprintln!("[{photo_id}] Failed to convert! {:?}", err),
             }
         } else {

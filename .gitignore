@@ -30,7 +30,6 @@ cassettes/
 fixtures/
 *.pyc
 .coverage
-venv/
 poetry.lock
 Cargo.lock
 favicon.svg

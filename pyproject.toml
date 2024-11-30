@@ -1,4 +1,5 @@
 [tool.pytest.ini_options]
+# test coverage is only needed when running the Makefile command
 addopts = "--import-mode=importlib"
 
 [tool.mypy]
@@ -26,12 +27,12 @@ gdal = "==3.9.3.*"
 mypy = "^1.13.0"
 types-requests = "^2.32.0.20241016"
 pytest = "^8.3.3"
-coverage = "^7.6.7"
+coverage = "^7.6.8"
 pytest-vcr = "^1.0.2"
-pytest-cov = "^5.0.0"
+pytest-cov = "^6.0.0"
 robotframework = "^7.1.1"
 robotframework-seleniumlibrary = "^6.6.1"
-ruff = "^0.6.9"
+ruff = "^0.8.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

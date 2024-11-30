@@ -39,7 +39,7 @@ Clone this repo, install Node.js 20, and run `npm i`. For dev, run `make install
 
 ### Add Content
 
-Tracks and photos are transformed with [command line tools](cli) written in Python 3.11. The list of stories and photo metadata fetched by the website are statically generated at build time thanks to a [custom Webpack plugin](config/stories-webpack-plugin.js) and [utilities](config/utils.js). Rebuild or rerun the local server to apply the changes.
+Tracks and photos are transformed with [command line tools](cli) written in Python 3.11 and Rust 2021. The list of stories and photo metadata fetched by the website are statically generated at build time thanks to a [custom Webpack plugin](config/stories-webpack-plugin.js) and [utilities](config/utils.js). Rebuild or rerun the local server to apply the changes.
 
 ### Running
 
@@ -52,9 +52,6 @@ npm start
 
 You can view the development server at [localhost:8080](http://localhost:8080).
 
-> [!NOTE]
-> To run the debug session from an IntelliJ-based IDE, configure the browser to be Chrome-based (File > Settings... > search for _browser_), and start the local server as usual but press Ctrl+Shift+Click on the local URL.
-
 </details>
 
 ### Testing
@@ -62,16 +59,13 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 <details>
   <summary>Unit testing</summary>
 
-Run `make js-test` and `make py-test`
-
-> [!NOTE]
-> For running specific tests on PyCharm Professional, the Node.js plugin has to be installed.
+Run `make js-test` and `make py-test` after `poetry shell` to enter the Python virtual environment.
 
 </details>
 <details>
   <summary>End-to-end testing</summary>
 
-The test uses [Robot Framework](https://github.com/robotframework/robotframework/blob/master/INSTALL.rst) with the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary#installation). Run `npm start` in one shell and `make e2e-test` on another one inside the Python virtual environment (because Robot Framework is installed via Poetry). The tests do not use fake fixtures but the actual website content. The most recent photo should have a story or some tests may fail. An HTML report should have been generated.
+The test uses [Robot Framework](https://github.com/robotframework/robotframework/blob/master/INSTALL.rst) with the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary#installation). Run `npm start` in one shell and `make e2e-test` on another one inside the Python virtual environment (because Robot Framework is installed via Poetry). The tests do not use fake fixtures but the actual website content. The most recent photo should have a story, otherwise some tests may fail. An HTML report should have been generated.
 
 </details>
 
