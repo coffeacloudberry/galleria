@@ -1,9 +1,17 @@
 import apertureOutline from "@/icons/aperture-outline.svg";
+import cameraOutline from "@/icons/camera-outline.svg";
 import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
+import focalOutline from "@/icons/focal-outline.svg";
 import frameOutline from "@/icons/frame-outline.svg";
+import hardwareChipOutline from "@/icons/hardware-chip-outline.svg";
 import InformationCircleOutline from "@/icons/information-circle-outline.svg";
+import isoOutline from "@/icons/iso-outline.svg";
+import latitudeOutline from "@/icons/latitude-outline.svg";
+import lensOutline from "@/icons/lens-outline.svg";
 import locationOutline from "@/icons/location-outline.svg";
+import longitudeOutline from "@/icons/longitude-outline.svg";
 import noFrameOutline from "@/icons/no-frame-outline.svg";
+import timerOutline from "@/icons/timer-outline.svg";
 import m from "mithril";
 
 import { config } from "../config";
@@ -29,20 +37,43 @@ const CameraSetup: m.Component = {
             return null;
         }
         return [
-            m("h4", [
-                m("span.mr-3", m(Icon, { src: apertureOutline })),
-                t("cam.setup"),
-            ]),
-            m("ul.blabla.mt-3.ml-9", [
-                body && m("li", `${t("cam.body")} ${body}`),
-                lens && m("li", [`${t("cam.lens")} `, m("small", lens)]),
-                focal && m("li", `${t("cam.focal")} ${focal} mm`),
-                fNumber && m("li", `${t("cam.f-number")} f/${fNumber}`),
-                exposure && m("li", `${t("cam.exposure")} ${exposure} s`),
-                iso && m("li", `${t("cam.iso")} ISO ${iso}`),
+            m("h4", t("cam.setup")),
+            m("ul.blabla.no-bullets.mt-3.ml-9", [
+                body &&
+                    m("li", [
+                        m(Icon, { src: cameraOutline }),
+                        ` ${t("cam.body")} ${body}`,
+                    ]),
+                lens &&
+                    m("li", [
+                        m(Icon, { src: lensOutline }),
+                        ` ${t("cam.lens")} `,
+                        m("small", lens),
+                    ]),
+                focal &&
+                    m("li", [
+                        m(Icon, { src: focalOutline }),
+                        ` ${t("cam.focal")} ${focal} mm`,
+                    ]),
+                fNumber &&
+                    m("li", [
+                        m(Icon, { src: apertureOutline }),
+                        ` ${t("cam.f-number")} f/${fNumber}`,
+                    ]),
+                exposure &&
+                    m("li", [
+                        m(Icon, { src: timerOutline }),
+                        ` ${t("cam.exposure")} ${exposure} s`,
+                    ]),
+                iso &&
+                    m("li", [
+                        m(Icon, { src: isoOutline }),
+                        ` ${t("cam.iso")} ISO ${iso}`,
+                    ]),
                 mode &&
                     m("li", [
-                        `${t("cam.mode")} `,
+                        m(Icon, { src: hardwareChipOutline }),
+                        ` ${t("cam.mode")} `,
                         m("small", t("cam.mode.value", mode)),
                     ]),
             ]),
@@ -83,14 +114,25 @@ class CameraPosition implements m.ClassComponent {
             appName = "OpenStreetMap";
         }
         return [
-            m("h4", [
-                m("span.mr-3", m(Icon, { src: locationOutline })),
-                t("map.stats.source.pos"),
-            ]),
-            m("ul.blabla.mt-3.ml-9", [
-                m("li", [t("cam.lat"), " ", pos.lat.toFixed(4)]),
-                m("li", [t("cam.lon"), " ", pos.lon.toFixed(4)]),
+            m("h4", t("map.stats.source.pos")),
+            m("ul.blabla.no-bullets.mt-3.ml-9", [
                 m("li", [
+                    m(Icon, { src: latitudeOutline }),
+                    " ",
+                    t("cam.lat"),
+                    " ",
+                    pos.lat.toFixed(4),
+                ]),
+                m("li", [
+                    m(Icon, { src: longitudeOutline }),
+                    " ",
+                    t("cam.lon"),
+                    " ",
+                    pos.lon.toFixed(4),
+                ]),
+                m("li", [
+                    m(Icon, { src: locationOutline }),
+                    " ",
                     t("cam.goto"),
                     " ",
                     m("a.normal-a", { href: appUrl }, appName),
@@ -139,7 +181,7 @@ const DownloadLinks: m.Component = {
             return null;
         }
         return m(
-            "p",
+            "span",
             m(
                 "a",
                 {
@@ -161,25 +203,22 @@ const OrderPrint: m.Component = {
             return null;
         }
         return m(
-            "p",
-            m(
-                "strong",
-                photo.meta.printable !== false
-                    ? m(
-                          "a",
-                          {
-                              href: "https://ko-fi.com/c/e4b824b946",
-                          },
-                          [
-                              m("span.mr-3", m(Icon, { src: frameOutline })),
-                              t("can-order-print"),
-                          ],
-                      )
-                    : [
-                          m("span.mr-3", m(Icon, { src: noFrameOutline })),
-                          t("cannot-order-print"),
+            "span.mr-9",
+            photo.meta.printable !== false
+                ? m(
+                      "a",
+                      {
+                          href: "https://ko-fi.com/c/e4b824b946",
+                      },
+                      [
+                          m("span.mr-3", m(Icon, { src: frameOutline })),
+                          t("can-order-print"),
                       ],
-            ),
+                  )
+                : [
+                      m("span.mr-3", m(Icon, { src: noFrameOutline })),
+                      t("cannot-order-print"),
+                  ],
         );
     },
 };
@@ -197,9 +236,8 @@ const PhotoMetadataModal: m.Component = {
                     m(".half.column.p-0", m(CameraPosition)),
                 ]),
             ),
-            m(OrderPrint),
+            m("p", [m(OrderPrint), m(DownloadLinks)]),
             m(CopyrightDetails),
-            m(DownloadLinks),
         ];
     },
 };

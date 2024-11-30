@@ -8,7 +8,6 @@ button:not([class^='mapboxgl-ctrl-']):not(.light-icon-button):not(.toast-close)
     cursor: pointer
     display: inline-block
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2)
-    transition: all 0.2s ease-in
     @media (max-width: 1024px)
         padding: 0.1rem 0.5rem 0.2rem
     &[disabled],
@@ -27,7 +26,6 @@ button:not([class^='mapboxgl-ctrl-']):not(.light-icon-button):not(.toast-close)
 .light-icon-button
     img.icon
         filter: variables.$filter-button-background
-        transition: all 0.2s ease-in
     &:hover,
     &:focus
         img.icon
@@ -41,7 +39,6 @@ input:not([type='radio']):not([type='checkbox'])
     border: 1px solid #cdcdcd
     border-radius: 0 variables.$border-radius-lg
     box-shadow: 0 0 2px rgba(114, 114, 114, 0.46)
-    transition: all 0.2s ease-in
     &.invalid
         border: 1px solid #de2828
         box-shadow: 0 0 2px rgba(255, 0, 0, 0.36)
