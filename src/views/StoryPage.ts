@@ -7,6 +7,8 @@ import RainyOutline from "@/icons/rainy-outline.svg";
 import SnowOutline from "@/icons/snow-outline.svg";
 import StopwatchOutline from "@/icons/stopwatch-outline.svg";
 import SunnyOutline from "@/icons/sunny-outline.svg";
+import SunnyWinterOutline from "@/icons/sunny-winter-outline.svg";
+import NorthernLightsWinterOutline from "@/icons/northern-lights-winter-outline.svg";
 import m from "mithril";
 import tippy, { Instance as TippyInstance, inlinePositioning } from "tippy.js";
 
@@ -54,14 +56,19 @@ class SeasonComponent implements m.ClassComponent<StorySubTitleAttrs> {
         switch (season) {
             case "winter":
                 return SnowOutline;
+            case "sunny winter":
+                return SunnyWinterOutline;
             case "spring":
                 return FlowerOutline;
             case "summer":
+            case "polar summer":
                 return PartlySunnyOutline;
             case "autumn":
                 return LeafOutline;
             case "rainy":
                 return RainyOutline;
+            case "northern lights winter":
+                return NorthernLightsWinterOutline;
             default:
                 return SunnyOutline;
         }

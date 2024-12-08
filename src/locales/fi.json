@@ -118,7 +118,10 @@
         "summer": "Kesä",
         "autumn": "Syksy",
         "rainy": "Sateinen kausi",
-        "dry": "Kuiva kausi"
+        "dry": "Kuiva kausi",
+        "sunny winter": "Aurinkoinen talvi",
+        "polar summer": "Polaaripäivä",
+        "northern lights winter": "Kaamos"
     },
     "mapbox": {
         "FullscreenControl.Enter": "Siirry koko näyttöön",
