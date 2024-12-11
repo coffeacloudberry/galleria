@@ -21,6 +21,7 @@ I could not find anything cheap complying to the above requirements, and I was i
 - [x] Interactive charts,
 - [x] Home-made track format including elevation profile,
 - [x] Fully translated in English, Finnish, and French,
+- [x] Feedback form,
 - [x] [Privacy by design](https://en.wikipedia.org/wiki/Privacy_by_design),
 - [x] [Humane by design](https://humanebydesign.com/),
 - [x] [Ethical by design](https://ind.ie/ethical-design/),
@@ -29,7 +30,7 @@ I could not find anything cheap complying to the above requirements, and I was i
 - [x] Mobile-friendly,
 - [x] Lazy-loading heavy scripts (with dynamic import expressions).
 
-The project was not created to be a template or a flexible CMS, but for my own use. Feel free to take whatever inspiration from it that you want.
+This is not a template or a flexible CMS.
 
 ## Usage
 

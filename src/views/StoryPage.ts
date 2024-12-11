@@ -2,13 +2,13 @@ import CalendarOutline from "@/icons/calendar-outline.svg";
 import FlowerOutline from "@/icons/flower-outline.svg";
 import ImagesOutline from "@/icons/images-outline.svg";
 import LeafOutline from "@/icons/leaf-outline.svg";
+import NorthernLightsWinterOutline from "@/icons/northern-lights-winter-outline.svg";
 import PartlySunnyOutline from "@/icons/partly-sunny-outline.svg";
 import RainyOutline from "@/icons/rainy-outline.svg";
 import SnowOutline from "@/icons/snow-outline.svg";
 import StopwatchOutline from "@/icons/stopwatch-outline.svg";
 import SunnyOutline from "@/icons/sunny-outline.svg";
 import SunnyWinterOutline from "@/icons/sunny-winter-outline.svg";
-import NorthernLightsWinterOutline from "@/icons/northern-lights-winter-outline.svg";
 import m from "mithril";
 import tippy, { Instance as TippyInstance, inlinePositioning } from "tippy.js";
 

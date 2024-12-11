@@ -30,7 +30,7 @@ export const config = {
             /**
              * CDN URL
              */
-            src: "https://unpkg.com/chart.js@4.4.6/dist/chart.umd.js",
+            src: "https://unpkg.com/chart.js@4.4.7/dist/chart.umd.js",
 
             /**
              * Subresource Integrity.
@@ -38,7 +38,7 @@ export const config = {
              * `openssl dgst -sha512 -binary FILENAME.js | openssl base64 -A`
              * More details: https://www.srihash.org/
              */
-            sri: "sha512-wJDB7E1zSshMFcbf/r3uoCr9kuPnQnqBkxWSLc/yfspSkQQykpdWj8STlxqlpwgEtsMH7VHF8t+EmRrQvyc8CA==",
+            sri: "sha512-0im+NZpDrlsC+p6iSc13cqlMNPqdT6e0hUF8NAaxdaGOmPuV9DdVpWYOCHHrMQNVDb2TByQoDbHx34MT6g16ZA==",
         },
     },
 
