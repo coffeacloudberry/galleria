@@ -75,13 +75,7 @@
     "map.control.finished-autopilot": "Kierros on juuri päättynyt!",
     "map.control.faster": "Nopeammin",
     "map.control.slower": "Hitaammin",
-    "map.control.select-layer": "Vaihda kartan teemaksi: ",
     "warn-canvas": "Salli HTML5-canvas-kuvatietojen käyttö ja päivitä tämä sivu.",
-    "map.theme": {
-        "default": "Aurinkoinen kesä",
-        "whiteSnow": "Aurinkoinen tundra",
-        "darkSnow": "Tumma tundra"
-    },
     "story.start": "Aloituspäivä: ",
     "story.duration": "Kesto: ",
     "photos": {

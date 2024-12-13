@@ -75,13 +75,7 @@
     "map.control.finished-autopilot": "You've just finished the tour!",
     "map.control.faster": "Go faster",
     "map.control.slower": "Go slower",
-    "map.control.select-layer": "Change the map theme to: ",
     "warn-canvas": "Please allow the use of HTML5 canvas image data and refresh this page.",
-    "map.theme": {
-        "default": "Sunny Summer",
-        "whiteSnow": "Sunny Tundra",
-        "darkSnow": "Dark Tundra"
-    },
     "story.start": "Start Date: ",
     "story.duration": "Duration: ",
     "photos": {

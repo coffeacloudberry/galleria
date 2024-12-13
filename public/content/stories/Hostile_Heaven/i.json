@@ -2,7 +2,6 @@
     "start": "2024-02-09",
     "duration": 11,
     "season": "winter",
-    "mapTheme": "whiteSnow",
     "mapExaggeration": 2,
     "gpsConfig": [
         {

@@ -1,9 +1,3 @@
-import { Attribution } from "./models/Map";
-import type { MapThemeStrings } from "./models/Story";
-
-type AttributedUrl = { url: string; attributions: Attribution[] };
-type StyleType = Record<MapThemeStrings, AttributedUrl>;
-
 const mostRecentPhotoId = parseInt(String(process.env.MOST_RECENT_PHOTO_ID));
 const oldestPhotoId = parseInt(String(process.env.OLDEST_PHOTO_ID));
 
@@ -74,30 +68,6 @@ export const config = {
             src: "https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js",
             sri: "sha512-dgLjBtkOIlIS2olgosm5CNDpcLMSoqCGbZ1OjB9tcEqUO6IyNzKtIIj3JXFjBiGzvUQsiKlFz9oYHZp9D/9ilQ==",
         },
-
-        /** Either official Mapbox style or custom style from Mapbox Studio. */
-        style: {
-            default: {
-                url: "mapbox://styles/onvbjzhghu/ckp9oa8nw216718o43dskmvsg",
-                attributions: [
-                    Attribution.OpenStreetMap,
-                    Attribution.Mapbox,
-                    Attribution.Maxar,
-                ],
-            },
-            darkSnow: {
-                url: "mapbox://styles/onvbjzhghu/ckwdyvlrl2gn715su45kulnvr",
-                attributions: [
-                    Attribution.OpenStreetMap,
-                    Attribution.Mapbox,
-                    Attribution.Maxar,
-                ],
-            },
-            whiteSnow: {
-                url: "mapbox://styles/onvbjzhghu/clng3anjs007q01pi6j8zfi7h",
-                attributions: [Attribution.OpenStreetMap, Attribution.Mapbox],
-            },
-        } as StyleType,
     },
 
     /**

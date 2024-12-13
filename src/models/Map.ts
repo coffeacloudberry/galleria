@@ -5,27 +5,8 @@ import m from "mithril";
 
 import type { ControlsType } from "../views/StandardControls";
 import WebTrack, { Activity } from "../webtrack";
-import { MapTheme, story } from "./Story";
 
 declare const mapboxgl: typeof import("mapbox-gl");
-
-/** List of copyrights (depends on the Mapbox style, see config.ts). */
-export enum Attribution {
-    OpenStreetMap,
-    Mapbox,
-    Maxar,
-}
-
-/**
- * Ordered list of attribution URLs.
- * This is separated from the Attribution enum to have both forward and reverse
- * mapping on a string to string structure.
- */
-export const AttribUrls = [
-    "https://www.openstreetmap.org/copyright",
-    "https://www.mapbox.com/about/maps/",
-    "https://www.maxar.com/",
-];
 
 /**
  * Additional icons.
@@ -51,9 +32,6 @@ class GlobalMapState {
 
     /** All controls in the map. */
     public controls: ControlsType = {};
-
-    /** Map layer. */
-    public theme = MapTheme.default;
 
     /** True if the map is loading layers, not ready to handle more changes. */
     public isLoadingLayers = false;
@@ -106,9 +84,6 @@ class GlobalMapState {
     start(): void {
         // Will be populated on map load.
         this.controls = {};
-
-        // Theme could be updated based on the story metadata or layer switch.
-        this.theme = MapTheme[story.mapTheme];
 
         // The next step is to actually load the map and data.
         this.isLoadingLayers = true;

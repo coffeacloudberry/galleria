@@ -27,14 +27,6 @@ enum Season {
 
 export type SeasonStrings = keyof typeof Season;
 
-export enum MapTheme {
-    default,
-    darkSnow,
-    whiteSnow,
-}
-
-export type MapThemeStrings = keyof typeof MapTheme;
-
 export type LinkedPhoto = { id: number; position?: PhotoPosition };
 
 /** GPS model and configuration */
@@ -112,9 +104,6 @@ export interface StoryInfo extends BaseStoryInfo {
     /** True if there is a WebTrack to load. */
     hasGeodata?: boolean;
 
-    /** The theme used for the map if the story has geodata. */
-    mapTheme?: MapThemeStrings;
-
     /** That really depends on the story location. */
     mapExaggeration?: number;
 
@@ -164,9 +153,6 @@ export class Story {
 
     /** True if the story contains a WebTrack, based on the JSON file. */
     hasGeodata = false;
-
-    /** The map theme used if the story has geodata. */
-    mapTheme: MapThemeStrings = "default";
 
     /** Factor intensifying (if > 1) the Mapbox DEM data. */
     mapExaggeration = 1;
@@ -293,11 +279,6 @@ export class Story {
                     this.gpsConfig = result.gpsConfig ?? defaultGpsConfig;
                 } else {
                     this.gpsConfig = null;
-                }
-                if (result.mapTheme && MapTheme[result.mapTheme]) {
-                    this.mapTheme = result.mapTheme;
-                } else {
-                    this.mapTheme = "default";
                 }
                 this.gotStoryMeta = true;
                 this.loadOriginPhotoMeta();

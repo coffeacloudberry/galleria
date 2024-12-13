@@ -32,7 +32,6 @@ import {
     Loading,
 } from "./Cluster";
 import Icon from "./Icon";
-import LayerSelectionControl from "./LayerSelectionControl";
 import Controls from "./StandardControls";
 
 declare const turf: typeof import("@turf/turf");
@@ -908,7 +907,7 @@ export default class Map implements m.ClassComponent {
                     center: [0, 0], // in the ocean (center to the track later on)
                     pitch: 0,
                     bearing: 0,
-                    style: config.mapbox.style[story.mapTheme].url,
+                    style: "mapbox://styles/mapbox/standard-satellite",
                     attributionControl: false, // outside the map widget to control the style and language
                     logoPosition: "bottom-right",
                     cooperativeGestures: isMobile(),
@@ -977,7 +976,6 @@ export default class Map implements m.ClassComponent {
         // language switch is handled by re-instancing
         // the non-Mithril control instances
         Object.assign(globalMapState.controls, Controls());
-        globalMapState.controls.layer = new LayerSelectionControl();
 
         for (const control of Object.keys(globalMapState.controls)) {
             globalMapState.map.addControl(globalMapState.controls[control]);

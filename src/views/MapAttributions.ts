@@ -3,26 +3,24 @@ import m from "mithril";
 import { Placement } from "tippy.js";
 
 import { config } from "../config";
-import { AttribUrls, Attribution, globalMapState } from "../models/Map";
-import { MapTheme, MapThemeStrings } from "../models/Story";
 import { t } from "../translate";
 import { InteractiveTippy } from "../utils";
 import Icon from "./Icon";
 
+/** Ordered list of attribution URLs. */
+const attributions = {
+    OpenStreetMap: "https://www.openstreetmap.org/copyright",
+    Mapbox: "https://www.mapbox.com/about/maps/",
+    Maxar: "https://www.maxar.com/",
+};
+
 const MapAttributionsTippyContent: m.Component = {
     view(): m.Vnode {
-        const theme = MapTheme[globalMapState.theme] as MapThemeStrings;
         return m("span", [
-            config.mapbox.style[theme].attributions.map((keyAttrib: number) => {
-                return [
-                    " © ",
-                    m(
-                        "a",
-                        { href: AttribUrls[keyAttrib] },
-                        Attribution[keyAttrib],
-                    ),
-                ];
-            }),
+            Object.entries(attributions).map(([name, href]) => [
+                " © ",
+                m("a", { href }, name),
+            ]),
             " © ",
             m(
                 "a",

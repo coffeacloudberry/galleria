@@ -75,13 +75,7 @@
     "map.control.finished-autopilot": "Tu viens de terminer ton vol !",
     "map.control.faster": "Aller plus vite",
     "map.control.slower": "Aller plus lentement",
-    "map.control.select-layer": "Changer le thème de la carte en : ",
     "warn-canvas": "Veuillez autoriser l'usage de canvas HTML5 et rafraichir cette page.",
-    "map.theme": {
-        "default": "Été ensoleillé",
-        "whiteSnow": "Toundra ensoleillée",
-        "darkSnow": "Toundra nocturne"
-    },
     "story.start": "Date du départ : ",
     "story.duration": "Durée : ",
     "photos": {
