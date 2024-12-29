@@ -61,12 +61,12 @@ export const config = {
     mapbox: {
         /** Mapbox GL JS from the CDN. */
         css: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.css",
+            src: "https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.css",
             sri: "sha512-+W+PNtw6h9It/dGnnIz41cEo6aQ369pEU6W/5utZ51PZGt+LYCt+vaeYn2ZSvc/GLxZ5K5zvKzr8ayM52MAShw==",
         },
         js: {
-            src: "https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.js",
-            sri: "sha512-2wqvX7JRaf0mKUuHSHxuc1BPxlaYkK1qKOQkQvv1l5/xL4NGu7KpY8F7n7EnpeJgcqXTTc+KsgVx5R0J1iCnHg==",
+            src: "https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.js",
+            sri: "sha512-rIulWrqVxmnlAospyK3y/EjvuW6z7elw36g6hlvRwtMUENPEZWoPrRJsR8cDYy5Q5U+n4kng/csqODJV+KD/sQ==",
         },
     },
 
@@ -77,8 +77,8 @@ export const config = {
      */
     turf: {
         js: {
-            src: "https://unpkg.com/@turf/turf@7.1.0/turf.min.js",
-            sri: "sha512-J8iAUMKv2SQNAQifty/C4fYTjzszpJP3lVbu45lw6ZmJPEnWRgf1QoQxvhFKtj6Gb90xP4MBq0TFh1Ocd5u/AQ==",
+            src: "https://unpkg.com/@turf/turf@7.2.0/turf.min.js",
+            sri: "sha512-3LIXNOiOScvFlGqau6y1qXxcyZxtkAoNJsIF6wrvXtXW9WouirUCbqbmQXLPX/vMpqEW4kpUNshIP22lHGlXYA==",
         },
     },
 
