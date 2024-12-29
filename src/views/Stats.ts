@@ -24,31 +24,22 @@ function gpsFeature(oneConfig: GpsConfig): string {
     if (oneConfig.waasEgnosEnabled) {
         features.push(t("waas-egnos-enabled"));
     }
-    return ` (${features.join(", ")})`;
+    return features.join(", ");
 }
 
 /** List of positioning and tracking tools used in the field. */
-const ListPositioningComponent: m.Component = {
-    view(): m.Vnode | null {
-        if (!(story.gpsConfig instanceof Array)) {
-            return null;
+function positioning(): string {
+    let gpsStr = "";
+    if (story.gpsConfig instanceof Array) {
+        gpsStr = story.gpsConfig
+            .map((oneConfig) => `${oneConfig.model} (${gpsFeature(oneConfig)})`)
+            .join(" + ");
+        if (story.gpsConfig.length > 0) {
+            gpsStr += " + ";
         }
-        return m("li", [
-            t("map.stats.source.pos"),
-            m("ul", [
-                ...story.gpsConfig.map((oneConfig) =>
-                    m(
-                        "li",
-                        m("small", oneConfig.model),
-                        m("br.small-screen"),
-                        m("small", gpsFeature(oneConfig)),
-                    ),
-                ),
-                m("li", m("small", t("topo-maps"))),
-            ]),
-        ]);
-    },
-};
+    }
+    return `${t("map.stats.source.pos")} ${gpsStr}${t("topo-maps")}`;
+}
 
 /** Spin until the data can be displayed. */
 const LoadingStats: m.Component = {
@@ -115,12 +106,13 @@ const LengthDetails: m.Component<EssentialTrackInfo> = {
     },
 };
 
-const AboutElevationLi: m.Component = {
-    view(): m.Vnode | null {
+const AboutElevation: m.Component = {
+    view(): (m.Vnode | string)[] | null {
         if (globalMapState.webtrack === undefined) {
             return null;
         }
-        return m("li", [
+        return [
+            "; ",
             t("map.stats.chart.ele.tooltip"),
             " ",
             m(
@@ -130,7 +122,7 @@ const AboutElevationLi: m.Component = {
                 },
                 globalMapState.webtrack.getElevationSources().join(", "),
             ),
-        ]);
+        ];
     },
 };
 
@@ -218,10 +210,7 @@ export const StatsComponent: m.Component = {
                 m(ExpandDataSourceButton),
             ]),
             story.isDataSourceExpanded &&
-                m("ul.blabla", [
-                    m(ListPositioningComponent),
-                    hasEle && m(AboutElevationLi),
-                ]),
+                m("p", [positioning(), hasEle && m(AboutElevation)]),
         ];
     },
 };

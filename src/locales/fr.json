@@ -63,7 +63,7 @@
     "multi-band": "multi-bande",
     "multi-gnss": "multi-GNSS",
     "waas-egnos-enabled": "WAAS/EGNOS activé",
-    "topo-maps": "Cartes topographiques",
+    "topo-maps": "cartes topographiques",
     "map.stats.chart.ele.label": "{{elevation}} (m)",
     "map.stats.chart.ele.tooltip": "{{elevation}} :",
     "map.stats.chart.dist.label": "{{distance}} (km)",

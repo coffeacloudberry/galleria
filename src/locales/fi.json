@@ -63,7 +63,7 @@
     "multi-band": "monikaistainen",
     "multi-gnss": "moni GNSS",
     "waas-egnos-enabled": "WAAS/EGNOS:n kanssa",
-    "topo-maps": "Maastokartta",
+    "topo-maps": "maastokartta",
     "map.stats.chart.ele.label": "{{elevation}} (m)",
     "map.stats.chart.ele.tooltip": "{{elevation}}:",
     "map.stats.chart.dist.tooltip": "{{distance}}:",
