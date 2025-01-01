@@ -1,6 +1,11 @@
 import addCircleOutline from "@/icons/add-circle-outline.svg";
+import bottomStopOutline from "@/icons/bottom-stop-outline.svg";
 import compassOutline from "@/icons/compass-outline.svg";
+import downUpOutline from "@/icons/down-up-outline.svg";
 import removeCircleOutline from "@/icons/remove-circle-outline.svg";
+import timerOutline from "@/icons/timer-outline.svg";
+import topStopOutline from "@/icons/top-stop-outline.svg";
+import widthOutline from "@/icons/width-outline.svg";
 import m from "mithril";
 
 import { globalMapState } from "../models/Map";
@@ -91,6 +96,8 @@ const LengthDetails: m.Component<EssentialTrackInfo> = {
             return null;
         }
         let allLengths = [
+            m(Icon, { src: widthOutline }),
+            " ",
             t("map.stats.total-length"),
             " ",
             m("strong", msOrKms(attrs.length)),
@@ -132,6 +139,8 @@ const DurationLi: m.Component = {
             return null;
         }
         return m("li", [
+            m(Icon, { src: timerOutline }),
+            " ",
             t("story.duration"),
             " ",
             m("strong", durationString(story.duration)),
@@ -145,6 +154,8 @@ const MinimumAltitudeLi: m.Component<EssentialTrackInfo> = {
             return null;
         }
         return m("li", [
+            m(Icon, { src: bottomStopOutline }),
+            " ",
             t("map.stats.min-alt"),
             " ",
             m(Metres, { value: attrs.min }),
@@ -158,6 +169,8 @@ const MaximumAltitudeLi: m.Component<EssentialTrackInfo> = {
             return null;
         }
         return m("li", [
+            m(Icon, { src: topStopOutline }),
+            " ",
             t("map.stats.max-alt"),
             " ",
             m(Metres, { value: attrs.max }),
@@ -171,6 +184,8 @@ const ElevationLi: m.Component<EssentialTrackInfo> = {
             return null;
         }
         return m("li", [
+            m(Icon, { src: downUpOutline }),
+            " ",
             t("map.stats.total-ele"),
             " ",
             m(Metres, { value: attrs.gain + attrs.loss }),
@@ -198,7 +213,7 @@ export const StatsComponent: m.Component = {
         const hasEle = stats.trackPoints.withEle > 0;
         return [
             m("p.mt-0", m("strong", t("map.stats"))),
-            m("ul.blabla", [
+            m("ul.blabla.no-bullets.ml-9", [
                 m(DurationLi),
                 m(LengthDetails, stats),
                 hasEle && m(MinimumAltitudeLi, stats),
