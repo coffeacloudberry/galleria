@@ -27,6 +27,8 @@
     "not-found.message": "Sivua, jota yrität tarkastella, ei ole olemassa tai en löytänyt sen sisältöä.",
     "not-found.action": "Käy pääsivulla",
     "photo.title": "Valokuvaus",
+    "photo.taken": " Kuva otettu klo ",
+    "on": ", ",
     "photo.open-story.tooltip": "Lue tarina",
     "photo.open-photo.tooltip": "Tietoja kuvasta",
     "open-this-story.tooltip": "{{photo.open-story.tooltip}}:",
@@ -133,7 +135,7 @@
     "cam.exposure": "Valotusaika:",
     "cam.f-number": "Aukkosuhde:",
     "cam.iso": "Valoherkkyys:",
-    "cam.mode": "Laskennallinen kuvaustoimi:",
+    "cam.mode": "Laskennallinen toiminto:",
     "cam.mode.value": {
         "live composite": "elävä komposiitti",
         "live ND2 (1EV)": "elävä ND2 (1EV)",
@@ -147,7 +149,7 @@
         "HDR2": "HDR2 (suuri dynaaminen alue)",
         "tripod high resolution": "korkean res jalustalla",
         "focus-stacked": "tarkennuksen pinoaminen",
-        "hand-held high res": "kädessä pidettävän korkean res"
+        "hand-held high res": "korkean res ilman jalustaa"
     },
     "cam.lat": "Leveysaste:",
     "cam.lon": "Pituusaste:",

@@ -78,10 +78,7 @@ export interface PhotoInfo {
     computationalMode?: string;
 }
 
-/**
- * Model for managing one photo.
- * @notExported
- */
+/** Model for managing one photo. */
 class Photo {
     /** JSON metadata of the photo. */
     meta: PhotoInfo | null = null;
@@ -338,6 +335,20 @@ class Photo {
             /* key to go back to the photo once in the story page */
             from_photo: this.id,
         });
+    }
+
+    /** Convert the ID to a standard local date time without seconds. */
+    dateTaken(): Date | null {
+        if (!this.id) {
+            return null;
+        }
+        const strId = `${this.id}`;
+        const year = 2000 + parseInt(strId.substring(0, 2));
+        const month = parseInt(strId.substring(2, 4));
+        const day = parseInt(strId.substring(4, 6));
+        const hour = parseInt(strId.substring(6, 8));
+        const minute = parseInt(strId.substring(8, 10));
+        return new Date(year, month, day, hour, minute, 0);
     }
 
     /** Reset to defaults / initial state, enough for photo switching. */

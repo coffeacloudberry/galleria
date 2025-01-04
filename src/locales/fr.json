@@ -27,6 +27,8 @@
     "not-found.message": "La page que t'essaies de voir n'existe pas ou je n'ai pas réussi à trouver son contenu.",
     "not-found.action": "Visites la page principale",
     "photo.title": "Photographie",
+    "photo.taken": " Photo prise à ",
+    "on": " le ",
     "photo.open-story.tooltip": "Lire l'aventure",
     "photo.open-photo.tooltip": "À propos de la photo",
     "open-this-story.tooltip": "{{photo.open-story.tooltip}} :",
@@ -147,7 +149,7 @@
         "HDR2": "HDR2 (grande plage dynamique)",
         "tripod high resolution": "haute rés avec trépied",
         "focus-stacked": "empilement de mises au point",
-        "hand-held high res": "haute rés tenue à la main"
+        "hand-held high res": "haute rés sans trépied"
     },
     "cam.lat": "Latitude :",
     "cam.lon": "Longitude :",

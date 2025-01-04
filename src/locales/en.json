@@ -27,6 +27,8 @@
     "not-found.message": "The page you try to see does not exist or I failed to find its content.",
     "not-found.action": "Visit the main page",
     "photo.title": "Photography",
+    "photo.taken": " Photo taken at ",
+    "on": " on ",
     "photo.open-story.tooltip": "Read the story",
     "photo.open-photo.tooltip": "About the photo",
     "open-this-story.tooltip": "{{photo.open-story.tooltip}}:",

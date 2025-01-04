@@ -1,4 +1,5 @@
 import apertureOutline from "@/icons/aperture-outline.svg";
+import CalendarOutline from "@/icons/calendar-outline.svg";
 import cameraOutline from "@/icons/camera-outline.svg";
 import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
 import focalOutline from "@/icons/focal-outline.svg";
@@ -225,10 +226,31 @@ const OrderPrint: m.Component = {
 
 const PhotoMetadataModal: m.Component = {
     view() {
-        if (!photo.meta || typeof photo.id !== "number") {
+        const dateTaken = photo.dateTaken();
+        if (!photo.meta || !dateTaken) {
             return null;
         }
         return [
+            m(
+                ".container",
+                m(".row", [
+                    m(
+                        ".one.column.p-0",
+                        m("p", [
+                            m(Icon, { src: CalendarOutline }),
+                            t("photo.taken"),
+                            dateTaken.getHours(),
+                            ":",
+                            dateTaken.getMinutes().toString().padStart(2, "0"),
+                            t("on"),
+                            t("date", dateTaken.getMonth(), {
+                                day: dateTaken.getDate(),
+                                year: dateTaken.getFullYear(),
+                            }),
+                        ]),
+                    ),
+                ]),
+            ),
             m(
                 ".container",
                 m(".row", [
