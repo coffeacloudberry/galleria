@@ -115,7 +115,7 @@
         "dry": "Dry season",
         "sunny winter": "Sunny Winter",
         "polar summer": "Polar Summer",
-        "northern lights winter": "Northern Lights Winter"
+        "dark winter": "Dark Winter"
     },
     "mapbox": {
         "FullscreenControl.Enter": "Enter fullscreen",

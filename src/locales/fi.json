@@ -115,7 +115,7 @@
         "dry": "Kuiva kausi",
         "sunny winter": "Aurinkoinen talvi",
         "polar summer": "Polaaripäivä",
-        "northern lights winter": "Kaamos"
+        "dark winter": "Pimeä talvi"
     },
     "mapbox": {
         "FullscreenControl.Enter": "Siirry koko näyttöön",

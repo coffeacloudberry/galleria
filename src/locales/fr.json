@@ -115,7 +115,7 @@
         "dry": "Saison sèche",
         "sunny winter": "Hiver clair",
         "polar summer": "Été polair",
-        "northern lights winter": "Nuit polaire"
+        "dark winter": "Nuit polaire"
     },
     "mapbox": {
         "FullscreenControl.Enter": "Entrer en mode plein écran",

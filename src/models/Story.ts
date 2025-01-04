@@ -22,7 +22,7 @@ enum Season {
     dry,
     "sunny winter", // 1 March – 16 May
     "polar summer", // 17 May – 30 September
-    "northern lights winter", // 1 October – 28 February
+    "dark winter", // 1 October – 28 February
 }
 
 export type SeasonStrings = keyof typeof Season;

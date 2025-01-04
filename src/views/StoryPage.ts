@@ -67,7 +67,7 @@ class SeasonComponent implements m.ClassComponent<StorySubTitleAttrs> {
                 return LeafOutline;
             case "rainy":
                 return RainyOutline;
-            case "northern lights winter":
+            case "dark winter":
                 return NorthernLightsWinterOutline;
             default:
                 return SunnyOutline;
