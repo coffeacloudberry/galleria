@@ -278,7 +278,10 @@ const CopyrightNotice: m.Component = {
     },
 };
 
-/** Link to donation platforms. */
+/**
+ * Link to donation platforms.
+ * Update a QR code: qrencode -s 6 -o sth.png 'sth:addr'
+ */
 const Donate: m.Component = {
     view(): m.Vnode[] {
         const allItems = [
@@ -289,7 +292,9 @@ const Donate: m.Component = {
             },
             {
                 tooltip: t("donate-zcash"),
-                link: "https://free2z.com/explorewilder",
+                link: "#",
+                address:
+                    "zcash:t1M7Ybfezx9VZ5ToDi3vZVpjUZ2PewzN6Vr",
                 logo: logoZcash,
             },
             {
