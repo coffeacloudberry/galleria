@@ -293,8 +293,7 @@ const Donate: m.Component = {
             {
                 tooltip: t("donate-zcash"),
                 link: "#",
-                address:
-                    "zcash:t1M7Ybfezx9VZ5ToDi3vZVpjUZ2PewzN6Vr",
+                address: "zcash:t1M7Ybfezx9VZ5ToDi3vZVpjUZ2PewzN6Vr",
                 logo: logoZcash,
             },
             {
