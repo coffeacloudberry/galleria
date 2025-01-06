@@ -66,6 +66,7 @@ const RewindButton: m.Component = {
 
 const NextButton: m.Component = {
     view(): m.Vnode<m.RouteLinkAttrs> {
+        const lastInStory = photo.meta?.storyPhotoIncrement === 1;
         return m(
             m.route.Link,
             {
@@ -79,7 +80,10 @@ const NextButton: m.Component = {
                     t("next.tooltip") +
                     (!isMobile() ? ` (${t("keystroke")} ➡)` : ""),
             },
-            m(Icon, { src: chevronForwardOutline }),
+            [
+                lastInStory && !photo.isPreloading && m("span.next-photo-next-story", t("photo.next.story")),
+                m(Icon, { src: chevronForwardOutline }),
+            ],
         );
     },
 };

@@ -31,6 +31,7 @@
     "on": " le ",
     "photo.open-story.tooltip": "Lire l'aventure",
     "photo.open-photo.tooltip": "À propos de la photo",
+    "photo.next.story": "Aventure suivante",
     "open-this-story.tooltip": "{{photo.open-story.tooltip}} :",
     "stories": "Aventures",
     "stories.title": "Toutes les aventures publiées",

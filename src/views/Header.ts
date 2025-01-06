@@ -202,6 +202,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                     // continue regardless of error
                 }
                 centeredNav = m("span", [
+                    // small screen:
                     photoTitle &&
                         m(".photo-page-header", [
                             m(PhotoMetadata),
@@ -216,6 +217,7 @@ export class Header implements m.ClassComponent<HeaderAttrs> {
                                 ),
                             ],
                         ]),
+                    // big screen:
                     m(OpenStory, {
                         title: String(attrs.title),
                     }),

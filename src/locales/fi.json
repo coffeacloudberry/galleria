@@ -31,6 +31,7 @@
     "on": ", ",
     "photo.open-story.tooltip": "Lue tarina",
     "photo.open-photo.tooltip": "Tietoja kuvasta",
+    "photo.next.story": "Seuraava seikkailu",
     "open-this-story.tooltip": "{{photo.open-story.tooltip}}:",
     "stories": "Seikkailut",
     "stories.title": "Kaikki julkaistut seikkailut",
