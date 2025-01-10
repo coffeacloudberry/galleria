@@ -1,0 +1,84 @@
+@use "variables";
+
+body,
+html {
+    line-height: variables.$text-line-height;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: variables.$global-font-size;
+
+    @media (width <= 1024px) {
+        font-size: calc(#{variables.$global-font-size} / 1.15);
+    }
+}
+
+h1 {
+    padding-top: variables.$h1-padding-top;
+    padding-bottom: variables.$p-vertical-margin;
+    line-height: variables.$h1-line-height;
+    font-size: variables.$h1-font-size;
+    color: variables.$h1-color;
+    border-bottom: variables.$h1-border-bottom-width solid variables.$h1-border-bottom-color;
+
+    @media (width <= 1024px) {
+        padding-top: calc(#{variables.$h1-padding-top} / 2);
+        font-size: calc(#{variables.$h1-font-size} / 1.1);
+    }
+}
+
+h3 {
+    margin-top: 1.1rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.2rem;
+}
+
+p {
+    margin: variables.$p-vertical-margin 0;
+}
+
+ul {
+    ul {
+        list-style: none;
+        padding-left: 1rem;
+
+        li::before {
+            filter: variables.$filter-grey;
+        }
+    }
+
+    /* list in a text */
+    &.blabla {
+        margin: 1rem 0;
+        list-style: none;
+
+        @media (width <= 1024px) {
+            margin: 0.5rem 0;
+        }
+
+        li::before {
+            content: "";
+            display: inline-block;
+            height: 16px;
+            background-image: url("icons/leaf-outline.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            padding: 0 24px 0 0;
+            vertical-align: -2px;
+
+            @media (width <= 1024px) {
+                height: 12px;
+                padding: 0 18px 0 0;
+            }
+        }
+    }
+
+    &.no-bullets li::before {
+        background-image: none;
+        padding: 0;
+    }
+}
+
+.tippy-box ul.blabla li::before,
+.tippy-box img.icon {
+    filter: variables.$filter-white;
+}

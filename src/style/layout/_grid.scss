@@ -1,0 +1,62 @@
+@use "../base/variables";
+
+/* outside container in case only padding logic is desired */
+.one,
+.one-third,
+.two-thirds,
+.half {
+    width: 100%;
+    padding: 0 variables.$block-space;
+
+    @media (max-width: variables.$container-column-threshold) {
+        padding: 0 calc(#{variables.$block-space} / 2);
+    }
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 variables.$block-space;
+    max-width: variables.$container-column-threshold;
+
+    @media (max-width: variables.$container-column-threshold) {
+        padding: 0;
+    }
+
+    &:last-child {
+        /* add nav bar margin to fix cut in Firefox/Chrome mobile */
+        margin-bottom: calc(#{variables.$block-space} + #{variables.$nav-bar-height} / 2);
+    }
+
+    @media (width >= 1024px) {
+        .one {
+            width: 100%;
+        }
+
+        .half {
+            width: calc(100% / 2);
+        }
+
+        .one-third {
+            width: 300px;
+        }
+
+        .two-thirds {
+            width: calc(#{variables.$container-column-threshold} - 300px - 4 * #{variables.$block-space});
+        }
+
+        .column {
+            float: left;
+        }
+
+        .column-right {
+            float: right;
+        }
+    }
+
+    .row::before,
+    .row::after {
+        display: table;
+        content: " ";
+        clear: both;
+    }
+}

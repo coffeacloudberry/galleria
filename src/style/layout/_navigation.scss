@@ -1,0 +1,241 @@
+@use "../base/variables";
+
+header,
+footer {
+    nav {
+        box-shadow: 0 0 3px rgba(51 51 51 / 46%);
+        position: absolute;
+        background-color: variables.$nav-bg-color;
+        z-index: 10;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .flex-sides {
+            flex: 1 1 0;
+            width: 0;
+            min-width: max-content;
+        }
+
+        &.nav-photo {
+            .photo-page-header {
+                display: none;
+            }
+
+            @media (width <= 1024px) {
+                .photo-page-header {
+                    display: block;
+                    margin-top: variables.$nav-item-space;
+                    position: absolute;
+                    text-align: center;
+                    color: #000;
+
+                    a {
+                        color: #000 !important;
+                        text-decoration: rgba(0 0 0 / 40%) underline;
+
+                        &:hover,
+                        &:focus {
+                            background-color: inherit;
+                            text-decoration: #000 underline;
+                        }
+                    }
+                }
+
+                @media (orientation: landscape) {
+                    top: 0;
+                    width: calc(#{variables.$nav-bar-height} + 2px);
+                    flex-direction: column;
+                    height: 100vh;
+
+                    .photo-page-header {
+                        bottom: 0.3rem;
+                        left: calc(
+                            #{variables.$nav-bar-height} + 4px
+                        ); /* 4px to keep distance from the shadow on the nav bar */
+
+                        width: calc(100vw - 2 * (#{variables.$nav-bar-height} + 4px));
+                        padding-bottom: 0.2rem;
+                    }
+                }
+
+                @media (orientation: portrait) {
+                    .photo-page-header {
+                        top: variables.$nav-bar-height;
+                        left: 0;
+                        width: 100vw;
+                    }
+                }
+            }
+
+            .flex-sides {
+                @media (width <= 1024px) and (orientation: landscape) {
+                    flex: inherit;
+                    min-width: inherit;
+                }
+            }
+        }
+
+        .flex-right {
+            text-align: right;
+        }
+
+        .long-item {
+            display: inherit;
+        }
+
+        .short-item {
+            display: none;
+        }
+
+        @media (width <= 1024px) {
+            .long-item {
+                display: none !important;
+            }
+
+            .short-item {
+                display: inherit;
+            }
+        }
+
+        .nav-item {
+            margin: variables.$nav-item-space;
+            padding: variables.$nav-item-space calc(#{variables.$nav-item-space} * 3 / 2);
+            display: inline-block;
+            font-size: variables.$nav-font-size;
+            align-items: center;
+
+            &.must-fit {
+                @media (width <= 1024px) {
+                    /* padding and margin to minimum to avoid flex wrap */
+                    padding: 0 0.4rem;
+                    margin: calc(#{variables.$nav-item-space} * 2 * 1.25) 0 0 0;
+                    font-size: calc(#{variables.$nav-font-size} / 1.25);
+                }
+            }
+
+            .icon {
+                filter: variables.$filter-body-color;
+                height: variables.$nav-icon-size;
+                vertical-align: calc(#{variables.$nav-font-size} - #{variables.$nav-icon-size} + 1.5px);
+            }
+
+            &[tabindex="0"] {
+                cursor: default;
+                border-radius: 0 variables.$border-radius-lg;
+
+                &:focus {
+                    outline: 1px solid variables.$nav-hover-bg-color;
+                }
+            }
+        }
+
+        .menu-item {
+            @media (width <= 1024px) and (orientation: landscape) {
+                display: inline-block;
+                width: variables.$nav-bar-height;
+            }
+        }
+
+        .album-pagination {
+            cursor: help;
+            text-align: center;
+
+            @media (width <= 1024px) and (orientation: landscape) {
+                font-size: 0.9rem;
+                margin: 0;
+                padding: 0;
+            }
+
+            .separator {
+                display: inline-block;
+                margin-left: 0.3rem;
+                margin-right: 0.3rem;
+
+                @media (width <= 1024px) and (orientation: landscape) {
+                    font-size: 0.7rem;
+                    display: block;
+                }
+            }
+        }
+
+        a:not(.normal-a) {
+            text-decoration: #2e8f6b underline;
+            color: variables.$body-color !important;
+            border-radius: 0 variables.$border-radius-lg;
+
+            &:hover,
+            &:focus {
+                background-color: variables.$nav-hover-bg-color;
+                text-decoration: rgba(255 255 255 / 37%) underline;
+            }
+        }
+    }
+}
+
+.tippy-box[data-theme~="dropdown-list"] ul {
+    list-style: none;
+
+    li {
+        .menu-item {
+            font-size: 1rem;
+            padding: 5px 9px; /* same as the tippy style */
+            margin: 5px 0;
+
+            $mute-color: #6d6d6d;
+
+            border: 1px solid $mute-color;
+
+            /* no border radius due to artifacts in Brave */
+            color: $mute-color;
+        }
+
+        a.menu-item {
+            color: #fff !important;
+            display: block;
+            text-decoration: none;
+            border: 1px solid variables.$body-color;
+
+            &:hover,
+            &:focus {
+                background-color: variables.$body-color;
+                border: 1px solid #fff;
+            }
+        }
+    }
+}
+
+header nav {
+    top: 0;
+}
+
+footer nav {
+    bottom: 0;
+
+    &.nav-photo {
+        @media (width <= 1024px) and (orientation: landscape) {
+            /* avoid scroll bar to appear */
+            right: 2px;
+
+            .next-photo-next-story {
+                writing-mode: vertical-rl;
+            }
+
+            /* to fit the vertical text */
+            .nav-item:not(:first-child) {
+                margin-top: 0;
+            }
+
+            .nav-item:not(:last-child) {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (width <= 1024px) {
+            .next-photo-next-story {
+                font-size: calc(#{variables.$nav-font-size} / 1.4);
+            }
+        }
+    }
+}

@@ -81,7 +81,9 @@ const NextButton: m.Component = {
                     (!isMobile() ? ` (${t("keystroke")} ➡)` : ""),
             },
             [
-                lastInStory && !photo.isPreloading && m("span.next-photo-next-story", t("photo.next.story")),
+                lastInStory &&
+                    !photo.isPreloading &&
+                    m("span.next-photo-next-story", t("photo.next.story")),
                 m(Icon, { src: chevronForwardOutline }),
             ],
         );

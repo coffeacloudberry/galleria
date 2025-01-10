@@ -2,7 +2,7 @@ import "ress/dist/ress.min.css";
 import "toastify-js/src/toastify.css";
 import "tippy.js/dist/tippy.css";
 
-import "./style/main.sass";
+import "./style/main.scss";
 
 import m from "mithril";
 

@@ -36,7 +36,7 @@ This is not a template or a flexible CMS.
 
 ### Install Dependencies
 
-Clone this repo, install Node.js 20, and run `npm i`. For dev, run `make install`.
+Clone this repo, install Node.js 22, and run `npm i`. For dev, run `make install`.
 
 ### Add Content
 
@@ -105,7 +105,7 @@ From a new SVG file:
 <details>
   <summary>The font</summary>
 
-The [main SASS file](src/style/main.sass) should point to the font file.
+The [main SASS file](src/style/main.scss) should point to the font file.
 
 For editing the font, adding glyphs, ligatures, exotic characters, etc. Have a look at this [README file](src/fonts/asap/README.md).
 

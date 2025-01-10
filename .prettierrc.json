@@ -10,6 +10,12 @@
             "options": {
                 "parser": "babel-flow"
             }
+        },
+        {
+            "files": ["**/*.scss"],
+            "options": {
+                "printWidth": 120
+            }
         }
     ]
 }

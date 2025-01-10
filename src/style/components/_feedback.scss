@@ -1,0 +1,61 @@
+@use "../base/variables";
+
+#feedback {
+    position: absolute;
+    z-index: 12;
+    margin-top: 0.8rem;
+    top: variables.$nav-bar-height;
+    right: 0.5rem;
+
+    @media (width <= 1024px) and (orientation: landscape) {
+        margin-top: 0.4rem;
+        top: 0;
+        right: calc(#{variables.$nav-bar-height} + 0.7rem);
+    }
+
+    &.open-feedback-block {
+        border-radius: variables.$border-radius-lg 0;
+        border: 1px solid #636363;
+        box-shadow: 0 0 2px rgba(83 83 83 / 46%);
+        background: #fff;
+    }
+
+    form {
+        padding: 0.5rem;
+    }
+
+    .close-feedback,
+    .open-feedback {
+        color: #000 !important;
+        background: #fff;
+        box-shadow: none;
+        padding: 0 0.5rem;
+        font-size: 1.4rem;
+    }
+
+    .close-feedback {
+        float: right;
+        font-size: 2.2rem;
+        line-height: 2.2rem;
+        transition: none;
+    }
+
+    .open-feedback {
+        border-radius: 50%;
+        border: 1px solid variables.$button-background;
+        height: 2.5rem;
+        width: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover,
+        &:focus {
+            border-color: variables.$button-background-hover;
+        }
+
+        img {
+            height: 1.5rem;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+@use "../base/variables";
+
+img.icon {
+    height: 1rem;
+}
+
+a.button-icon {
+    img.icon {
+        filter: variables.$filter-button-background;
+    }
+
+    &:hover,
+    &:focus {
+        img.icon {
+            filter: variables.$filter-button-background-hover;
+        }
+    }
+}

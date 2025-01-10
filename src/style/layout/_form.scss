@@ -1,0 +1,83 @@
+@use "../base/variables";
+
+button:not([class^="mapboxgl-ctrl-"], .light-icon-button, .toast-close) {
+    background: variables.$button-background;
+    color: #fff !important;
+    padding: 0.4rem 1rem 0.5rem;
+    border-radius: 0 variables.$border-radius-lg;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 1px 2px 3px rgba(0 0 0 / 20%);
+
+    @media (width <= 1024px) {
+        padding: 0.1rem 0.5rem 0.2rem;
+    }
+
+    &[disabled],
+    &.disabled {
+        background: #979797 !important;
+        cursor: not-allowed;
+    }
+
+    img.icon {
+        filter: variables.$filter-white;
+        vertical-align: -0.13rem;
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+
+    &:not([disabled]):hover,
+    &:not([disabled]):focus {
+        background: variables.$button-background-hover;
+    }
+}
+
+button.light-icon-button {
+    img.icon {
+        filter: variables.$filter-button-background;
+    }
+
+    &:hover,
+    &:focus {
+        img.icon {
+            filter: variables.$filter-button-background-hover;
+        }
+    }
+}
+
+input:not([type="radio"], [type="checkbox"]) {
+    display: block;
+    padding: 0.5rem;
+    width: 100%;
+    margin: 0.5rem 0;
+    border: 1px solid #cdcdcd;
+    border-radius: 0 variables.$border-radius-lg;
+    box-shadow: 0 0 2px rgba(114 114 114 / 46%);
+
+    &.invalid {
+        border: 1px solid #de2828;
+        box-shadow: 0 0 2px rgba(255 0 0 / 36%);
+    }
+
+    &:focus {
+        outline: none; /* reset */
+    }
+
+    &:not(.invalid):focus {
+        border: 1px solid #636363;
+        box-shadow: 0 0 2px rgba(83 83 83 / 46%);
+    }
+}
+
+textarea {
+    border: 1px solid #cdcdcd;
+    box-shadow: 0 0 2px rgba(114 114 114 / 46%);
+    padding: 0.25rem;
+    min-height: calc(#{variables.$global-font-size} * 3 + 1rem);
+    max-height: 70vh;
+
+    &:focus {
+        outline: none; /* reset */
+        border-color: variables.$button-background-hover;
+    }
+}

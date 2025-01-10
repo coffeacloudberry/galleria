@@ -34,5 +34,5 @@ poetry.lock
 Cargo.lock
 favicon.svg
 target/
-!_*.sass
+!_*.scss
 !cli/**/__init__.py
