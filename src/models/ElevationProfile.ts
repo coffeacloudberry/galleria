@@ -9,7 +9,7 @@ import { extraIcons, globalMapState } from "./Map";
 
 type xyLonLatPoint = { x: number; y: number; lon: number; lat: number };
 
-interface ChartWaypoint {
+export interface ChartWaypoint {
     point: Position;
     label?: string;
 }
@@ -31,9 +31,9 @@ function createAnnotations(
         image.src = `/assets/map/${source}.png`;
         annotations[wpt.label + String(idx)] = {
             type: "label",
-            xValue: wpt.point[2] / 1000,
+            xValue: wpt.point[2] / 1000, // distance from start
             xScaleID: "x",
-            yValue: wpt.point[3],
+            yValue: wpt.point[3], // elevation
             yScaleID: "y",
             content: image,
         };

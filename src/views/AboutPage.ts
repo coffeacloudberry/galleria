@@ -36,6 +36,13 @@ interface SocialNetworkItemAttrs {
     logo: string;
 }
 
+/** Copy a given address to the clipboard and open a toast on success only. */
+function copyToClipboard(address: string): void {
+    navigator.clipboard.writeText(address).then((): void => {
+        toast(t("copied"));
+    });
+}
+
 /** Wallet information. */
 const CryptoCode: m.Component<SocialNetworkItemAttrs> = {
     view({ attrs }: m.Vnode<SocialNetworkItemAttrs>): m.Vnode | null {
@@ -54,13 +61,7 @@ const CryptoCode: m.Component<SocialNetworkItemAttrs> = {
                         "data-tippy-placement": "right",
                         onclick: (e: Event): void => {
                             e.preventDefault();
-                            if (address) {
-                                navigator.clipboard
-                                    .writeText(address)
-                                    .then((): void => {
-                                        toast(t("copied"));
-                                    });
-                            }
+                            copyToClipboard(address);
                         },
                     },
                     m(Icon, { src: copyOutline }),
@@ -69,6 +70,18 @@ const CryptoCode: m.Component<SocialNetworkItemAttrs> = {
         ]);
     },
 };
+
+/** Open the modal with the crypto address. */
+function showCryptoAddress(metadata: SocialNetworkItemAttrs): void {
+    modal({
+        title: metadata.tooltip,
+        content: {
+            view: () => {
+                return m(CryptoCode, metadata);
+            },
+        },
+    });
+}
 
 /** One social platform. */
 export const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
@@ -86,14 +99,7 @@ export const SocialNetworkItem: m.Component<SocialNetworkItemAttrs> = {
                     onclick: (e: Event): void => {
                         if (attrs.address) {
                             e.preventDefault();
-                            modal({
-                                title: attrs.tooltip,
-                                content: {
-                                    view: () => {
-                                        return m(CryptoCode, attrs);
-                                    },
-                                },
-                            });
+                            showCryptoAddress(attrs);
                         }
                     },
                 },
@@ -119,7 +125,6 @@ const ShieldLink: m.Component = {
 };
 
 export class Contact implements m.ClassComponent {
-    // skipcq: JS-0105
     view(): m.Vnode[] {
         const domain = location.hostname.split(".").slice(1).join(".");
         const contactItems = [
@@ -200,8 +205,7 @@ export class Contact implements m.ClassComponent {
     }
 }
 
-/** The big title and text about me. */
-class Intro implements m.ClassComponent {
+class AsyncPhotoMe implements m.ClassComponent {
     /** True when the image is cached and ready to be displayed. */
     private ready = false;
 
@@ -217,6 +221,13 @@ class Intro implements m.ClassComponent {
         this.image.src = "/content/me.webp";
     }
 
+    view(): m.Vnode | false {
+        return this.ready && m(".me", m("img", { src: this.image.src }));
+    }
+}
+
+/** The big title and text about me. */
+class Intro implements m.ClassComponent {
     view(): m.Vnode[] {
         return [
             m(
@@ -228,8 +239,7 @@ class Intro implements m.ClassComponent {
                 m(".row", [
                     m(".one.column", [
                         m("p", t("about.me")),
-                        this.ready &&
-                            m(".me", m("img", { src: this.image.src })),
+                        m(AsyncPhotoMe),
                         m("p", t("about.pledge")),
                     ]),
                 ]),
@@ -259,8 +269,8 @@ const CopyrightNotice: m.Component = {
             m("p", `© ${config.contentLicense.holder}`),
             m(
                 "p",
-                myCopyrightList.map((license) => {
-                    return m("p", [
+                myCopyrightList.map((license) =>
+                    m("p", [
                         t(`copyright.${license.what}`),
                         " ",
                         m(
@@ -271,8 +281,8 @@ const CopyrightNotice: m.Component = {
                             license.short,
                         ),
                         ".",
-                    ]);
-                }),
+                    ]),
+                ),
             ),
         ];
     },
