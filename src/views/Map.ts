@@ -382,10 +382,10 @@ export default class Map implements m.ClassComponent {
         let activity = Activity.WALK;
         // loop over lines to find out which one is the closest
         globalMapState.lineStrings.forEach((path, idx) => {
-            const nearestPoint = turf.nearestPointOnLine(
-                turf.lineString(path.geometry.coordinates),
-                currentPos,
-            );
+            const durtyLine = turf.lineString(path.geometry.coordinates);
+            // remove redundant points that could raise an exception:
+            const cleanLine = turf.cleanCoords(durtyLine);
+            const nearestPoint = turf.nearestPointOnLine(cleanLine, currentPos);
             if (
                 nearestPoint.properties.index !== undefined &&
                 nearestPoint.properties.dist &&
