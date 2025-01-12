@@ -5,13 +5,26 @@ import type { Position } from "geojson";
 import { t } from "../translate";
 import { isMobile, msOrKms } from "../utils";
 import { Activity, Segment } from "../webtrack";
-import { extraIcons, globalMapState } from "./Map";
+import { extraIcons, globalMapState, mapIcons } from "./Map";
 
 type xyLonLatPoint = { x: number; y: number; lon: number; lat: number };
 
 export interface ChartWaypoint {
     point: Position;
     label?: string;
+}
+
+/**
+ * True if the icon would probably touch the very top of the chart.
+ * Assuming that the top is static.
+ * However, the top can change when switching from landscape to portrait.
+ * The actual top is only known after the chart is loaded.
+ */
+function tooHigh(currEle: number, maxEle: number | undefined): boolean {
+    if (maxEle === undefined) {
+        return false;
+    }
+    return currEle / maxEle > 0.8;
 }
 
 type Annotations = Record<string, AnnotationOptions<"label" | "line">>;
@@ -21,21 +34,25 @@ function createAnnotations(
     lines: Position[],
 ): Annotations {
     const annotations: Annotations = {};
+    const maxEle = globalMapState.webtrack?.getTrackInfo().max;
     waypoints.forEach((wpt, idx) => {
         if (wpt.label === undefined || !(wpt.label in extraIcons)) {
             return;
         }
-        const source = extraIcons[wpt.label];
         const iconSize = isMobile() ? 20 : 28; // px
-        const image = new Image(iconSize, iconSize);
-        image.src = `/assets/map/${source}.png`;
+        const elevation = wpt.point[3];
         annotations[wpt.label + String(idx)] = {
             type: "label",
-            xValue: wpt.point[2] / 1000, // distance from start
+            // distance from start:
+            xValue: wpt.point[2] / 1000,
             xScaleID: "x",
-            yValue: wpt.point[3], // elevation
+            yValue: elevation,
             yScaleID: "y",
-            content: image,
+            height: iconSize,
+            width: iconSize,
+            content: mapIcons.getIcon(wpt.label),
+            // move up so that the building is touching the ground:
+            yAdjust: tooHigh(elevation, maxEle) ? 0 : -iconSize / 2,
         };
     });
     for (let idx = 0; idx < lines.length - 1; idx++) {

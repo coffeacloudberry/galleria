@@ -5,13 +5,27 @@ import { config } from "../config";
 import CustomLogging from "../CustomLogging";
 import { myChartConfig } from "../models/ElevationProfile";
 import type { ChartWaypoint } from "../models/ElevationProfile";
-import { globalMapState } from "../models/Map";
+import { globalMapState, mapIcons } from "../models/Map";
 import { injectCode } from "../utils";
 import type { Segment } from "../webtrack";
 
 declare const Chart: typeof import("chart.js");
 
 const error = new CustomLogging("error");
+
+/** Load all needed chart icons in parallel. */
+async function loadSyms(): Promise<void> {
+    if (!globalMapState.webtrack) {
+        return;
+    }
+    await Promise.all(
+        globalMapState.webtrack.getWaypoints().map(async (wpt) => {
+            if (wpt.sym) {
+                await mapIcons.loadIcon(wpt.sym);
+            }
+        }),
+    );
+}
 
 /**
  * Get every valid points into a single list.
@@ -86,6 +100,7 @@ function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
                 const Chart = await import("chart.js");
             }
             await injectCode(config.chartPluginAnnotation.js);
+            await loadSyms();
         })
         .then(() => {
             newChart(canvasContainer);

@@ -218,5 +218,41 @@ class GlobalMapState {
     }
 }
 
-/** This is a shared instance. */
+/**
+ * Chart and map icon handler.
+ * The browser cache takes care of the unintentional image reloads.
+ * However, this simplify the assets management and deduplicate inits.
+ */
+class MapIcons {
+    /** All loaded images. */
+    private _allImages: { [label: string]: HTMLImageElement } = {};
+
+    /** Call this to load an icon. */
+    public loadIcon(label: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (
+                !(label in extraIcons) ||
+                Object.keys(this._allImages).includes(label)
+            ) {
+                resolve();
+                return; // already available
+            }
+            const img = new Image();
+            this._allImages[label] = img;
+            img.onerror = reject;
+            img.onload = () => {
+                resolve();
+            };
+            img.src = `/assets/map/${extraIcons[label]}.png`;
+        });
+    }
+
+    /** Get the image element. */
+    public getIcon(label: string): HTMLImageElement {
+        return this._allImages[label];
+    }
+}
+
+/** Those are shared instances. */
 export const globalMapState = new GlobalMapState();
+export const mapIcons = new MapIcons();

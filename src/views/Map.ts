@@ -470,6 +470,7 @@ export default class Map implements m.ClassComponent {
             this.decrementRemainingLayers();
             return;
         }
+        // mapIcons cannot be used because loadImage converts to ImageBitmap
         globalMapState.map.loadImage(
             `/assets/map/${source}.png`,
             (err, image): void => {
