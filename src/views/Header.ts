@@ -165,7 +165,6 @@ class MainMenu extends InteractiveTippy<MainMenuAttrs> {
     placement = "bottom" as Placement;
     arrow = true;
 
-    // skipcq: JS-0105
     view({ attrs }: m.CVnode<MainMenuAttrs>): m.Vnode {
         return m("span[tabindex=0].nav-item#rf-menu", [
             m(Icon, { src: listOutline }), // actually displayed
@@ -179,55 +178,65 @@ export interface HeaderAttrs {
     refPage: string;
 }
 
+const StoryHeaderMiddle: m.Component<HeaderAttrs> = {
+    view({ attrs }: m.Vnode<HeaderAttrs>): m.Vnode {
+        return m(
+            "span.limit-width",
+            m(OpenPhoto, {
+                title: String(attrs.title),
+            }),
+        );
+    },
+};
+
+const PhotoHeaderMiddle: m.Component<HeaderAttrs> = {
+    view({ attrs }: m.Vnode<HeaderAttrs>): m.Vnode | null {
+        try {
+            return m("span", [
+                // small screen:
+                m(".photo-page-header", [
+                    m(PhotoMetadata),
+                    photo.storyTitle && [
+                        m("br"),
+                        m(
+                            m.route.Link,
+                            {
+                                href: photo.getStoryPath() ?? "",
+                            },
+                            attrs.title,
+                        ),
+                    ],
+                ]),
+                // big screen:
+                m(OpenStory, {
+                    title: String(attrs.title),
+                }),
+            ]);
+        } catch {
+            return null;
+        }
+    },
+};
+
+const AboutHeaderMiddle: m.Component = {
+    view(): m.Vnode {
+        return m(".nav-item.must-fit", m("strong", t("about.title")));
+    },
+};
+
 export class Header implements m.ClassComponent<HeaderAttrs> {
-    // skipcq: JS-0105
     view({ attrs }: m.CVnode<HeaderAttrs>): m.Vnode {
-        // skipcq: JS-0309
-        let centeredNav: m.Vnode<OpenAttrs> | null;
-        let photoTitle = null;
+        let centeredNav: m.Vnode<HeaderAttrs> | m.Vnode | null = null;
 
         switch (attrs.refPage) {
             case "story":
-                centeredNav = m(
-                    "span.limit-width",
-                    m(OpenPhoto, {
-                        title: String(attrs.title),
-                    }),
-                );
+                centeredNav = m(StoryHeaderMiddle, attrs);
                 break;
             case "photo":
-                try {
-                    photoTitle = photo.meta?.title[t.getLang()];
-                } catch {
-                    // continue regardless of error
-                }
-                centeredNav = m("span", [
-                    // small screen:
-                    photoTitle &&
-                        m(".photo-page-header", [
-                            m(PhotoMetadata),
-                            photo.storyTitle && [
-                                m("br"),
-                                m(
-                                    m.route.Link,
-                                    {
-                                        href: photo.getStoryPath() ?? "",
-                                    },
-                                    attrs.title,
-                                ),
-                            ],
-                        ]),
-                    // big screen:
-                    m(OpenStory, {
-                        title: String(attrs.title),
-                    }),
-                ]);
+                centeredNav = m(PhotoHeaderMiddle, attrs);
                 break;
             default:
-                centeredNav = m(
-                    ".nav-item.must-fit",
-                    m("strong", t("about.title")),
-                );
+                centeredNav = m(AboutHeaderMiddle);
         }
         return m(
             "header",
