@@ -1,44 +1,27 @@
 import apertureOutline from "@/icons/aperture-outline.svg";
 import type { Feature, LineString, Point, Position } from "geojson";
-import type {
-    GeoJSONSource,
-    LngLatLike,
-    MapMouseEvent,
-    Popup,
-} from "mapbox-gl";
+import type { GeoJSONSource, LngLatLike } from "mapbox-gl";
+import type { MapMouseEvent, Popup } from "mapbox-gl";
 import type mapboxGlJs from "mapbox-gl";
 import m from "mithril";
 
 import { config } from "../config";
-import CustomLogging, { LogType } from "../CustomLogging";
 import { PopupCamAttrs, extraIcons, globalMapState } from "../models/Map";
 import type { PhotoPosition } from "../models/Photo";
 import { story } from "../models/Story";
 import { t } from "../translate";
-import {
-    hideAllForce,
-    injectCode,
-    isCanvasBlocked,
-    isMobile,
-    toast,
-} from "../utils";
+import { hideAllForce, injectCode, isCanvasBlocked } from "../utils";
+import { LogType, isMobile, toast } from "../utils";
 import type { WebTrackGeoJson, WebTrackGeoJsonFeature } from "../webtrack";
 import WebTrack, { Activity } from "../webtrack";
 import AutoPilotControl from "./AutoPilotControl";
-import {
-    ClusterItem,
-    InsideCluster,
-    InsideClusterAttrs,
-    Loading,
-} from "./Cluster";
+import { ClusterItem, InsideCluster } from "./Cluster";
+import { InsideClusterAttrs, Loading } from "./Cluster";
 import Icon from "./Icon";
 import Controls from "./StandardControls";
 
 declare const turf: typeof import("@turf/turf");
 declare const mapboxgl: typeof mapboxGlJs;
-
-const warn = new CustomLogging("warning");
-const error = new CustomLogging("error");
 
 type LngLat = [number, number];
 type MaybeLink = m.Vnode<m.RouteLinkAttrs> | m.Vnode;
@@ -453,10 +436,6 @@ export default class Map implements m.ClassComponent {
         const sym = String(feature.properties.sym);
         const notClustered = "notClustered" in feature.properties;
         if (!(sym in extraIcons)) {
-            warn.log(
-                // eslint-disable-next-line max-len
-                `symbol '${sym}' from the WebTrack not available in the icon set. It won't be displayed.`,
-            );
             this.decrementRemainingLayers();
             return;
         }
@@ -583,28 +562,26 @@ export default class Map implements m.ClassComponent {
             return;
         } // else: continue setting up the map
 
-        injectCode(config.turf.js)
-            .then(async () => {
-                if (typeof turf === "undefined") {
-                    // skipcq: JS-0356
-                    const turf = await import("@turf/turf");
+        injectCode(config.turf.js).then(async () => {
+            if (typeof turf === "undefined") {
+                // skipcq: JS-0356
+                const turf = await import("@turf/turf");
+            }
+            if (globalMapState.map !== undefined) {
+                if (!("autoPilot" in globalMapState.controls)) {
+                    globalMapState.controls.autoPilot = new AutoPilotControl(
+                        data,
+                        story.duration,
+                    );
+                    globalMapState.map.addControl(
+                        globalMapState.controls.autoPilot,
+                    );
                 }
-                if (globalMapState.map !== undefined) {
-                    if (!("autoPilot" in globalMapState.controls)) {
-                        globalMapState.controls.autoPilot =
-                            new AutoPilotControl(data, story.duration);
-                        globalMapState.map.addControl(
-                            globalMapState.controls.autoPilot,
-                        );
-                    }
-                    if (hasElevation) {
-                        globalMapState.map.on("mousemove", Map.mouseMove);
-                    }
+                if (hasElevation) {
+                    globalMapState.map.on("mousemove", Map.mouseMove);
                 }
-            })
-            .catch((err) => {
-                error.log(err);
-            });
+            }
+        });
 
         // get the latitude of the first point of the first line of the track
         const firstLine = lines[0].geometry.coordinates as Position[];
@@ -613,9 +590,6 @@ export default class Map implements m.ClassComponent {
         // poor DEM in Finland, good DEM in France and New Zealand
         // The SRTM limits are [-56;60]
         const hasPreciseDem = Math.abs(latitude) < 56;
-        if (!hasPreciseDem) {
-            warn.log("Degrading Mapbox DEM for smoothing the terrain.");
-        }
 
         globalMapState.map.addSource("mapbox-dem", {
             type: "raster-dem",
@@ -721,18 +695,9 @@ export default class Map implements m.ClassComponent {
                 storyId: story.folderName,
             },
             responseType: "arraybuffer",
-        })
-            .then((webtrackBytes: ArrayBuffer) => {
-                this.addWebTrack(webtrackBytes);
-            })
-            .catch((err: Error) => {
-                error.log(
-                    `Failed to fetch WebTrack from story '${
-                        story.folderName ? story.folderName : "???"
-                    }'`,
-                    err,
-                );
-            });
+        }).then((webtrackBytes: ArrayBuffer) => {
+            this.addWebTrack(webtrackBytes);
+        });
         this.addPhotos();
     }
 
@@ -941,9 +906,8 @@ export default class Map implements m.ClassComponent {
                     this.firstLoad = false;
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 globalMapState.mapLoadFailure = true;
-                error.log(err);
                 m.render(
                     dom,
                     m(

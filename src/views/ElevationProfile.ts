@@ -2,7 +2,6 @@ import type { Position } from "geojson";
 import m from "mithril";
 
 import { config } from "../config";
-import CustomLogging from "../CustomLogging";
 import { myChartConfig } from "../models/ElevationProfile";
 import type { ChartWaypoint } from "../models/ElevationProfile";
 import { globalMapState, mapIcons } from "../models/Map";
@@ -10,8 +9,6 @@ import { injectCode } from "../utils";
 import type { Segment } from "../webtrack";
 
 declare const Chart: typeof import("chart.js");
-
-const error = new CustomLogging("error");
 
 /** Load all needed chart icons in parallel. */
 async function loadSyms(): Promise<void> {
@@ -104,9 +101,6 @@ function createChart(canvasContainer: HTMLCanvasElement): Promise<void> {
         })
         .then(() => {
             newChart(canvasContainer);
-        })
-        .catch((err) => {
-            error.log(err);
         });
 }
 

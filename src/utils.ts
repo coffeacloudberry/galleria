@@ -3,8 +3,13 @@ import tippy, { Placement, Instance as TippyInstance } from "tippy.js";
 import Toastify from "toastify-js";
 
 import { config } from "./config";
-import { LogType } from "./CustomLogging";
 import { injector } from "./models/Injector";
+
+export enum LogType {
+    info,
+    warning,
+    error,
+}
 
 /** Deselect text. */
 export function clearSelection(): void {

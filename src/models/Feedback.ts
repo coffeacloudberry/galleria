@@ -1,8 +1,7 @@
 import m from "mithril";
 
-import { LogType } from "../CustomLogging";
 import { t } from "../translate";
-import { toast } from "../utils";
+import { LogType, toast } from "../utils";
 
 class Feedback {
     text_content = "";

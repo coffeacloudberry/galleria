@@ -2,7 +2,6 @@ import type { Feature, LineString, Point, Position } from "geojson";
 import type { IControl, Map } from "mapbox-gl";
 import m from "mithril";
 
-import CustomLogging from "../CustomLogging";
 import { t } from "../translate";
 import { toast } from "../utils";
 import type { WebTrackGeoJson } from "../webtrack";
@@ -10,7 +9,6 @@ import { setInteractions } from "./InteractionsControl";
 
 declare const turf: typeof import("@turf/turf");
 declare const mapboxgl: typeof import("mapbox-gl");
-const error = new CustomLogging("error");
 
 interface AutoPilotControlAttrs {
     cameraRoute: Feature<LineString>;
@@ -194,7 +192,6 @@ class AutoPilotControlComponent
                 this.play();
             }
             if (elevation === null) {
-                error.log("Failed to acquire terrain.");
                 this.isPause = true;
             } else {
                 const camera = this.map.getFreeCameraOptions();

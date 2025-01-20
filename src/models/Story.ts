@@ -1,11 +1,8 @@
 import m from "mithril";
 
 import { config } from "../config";
-import CustomLogging from "../CustomLogging";
 import { t } from "../translate";
 import { PhotoInfo, PhotoPosition } from "./Photo";
-
-const error = new CustomLogging("error");
 
 export interface EasyDate {
     day: number;
@@ -258,7 +255,6 @@ export class Story {
                     if (Season[result.season] !== undefined) {
                         this.season = result.season;
                     } else {
-                        error.log(`Unknown season '${String(result.season)}'`);
                         this.season = null;
                     }
                 } else {
