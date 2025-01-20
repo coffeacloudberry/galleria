@@ -164,7 +164,6 @@ Notice that GPS date/time is lost when using the _Save to original_ button in QM
 - The WebP converter does not read the Exif orientation metadata, so the image has to be rotated if needed.
 - This tool does not use the [webp](https://pypi.org/project/webp/) Python package, nor the Pillow library, because they do not handle the desired WebP options.
 - WebP lossy option `-sharp_yuv` is not used. That is actually making the lossy compression look sharper, hence more visible.
-- JetBrains users may want to install the [WebP Support plugin](https://plugins.jetbrains.com/plugin/15037-webp-support) to view the photos from inside the IDE.
 
 # Share For Social Platforms
 
