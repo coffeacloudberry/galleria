@@ -419,7 +419,7 @@ export default class Map implements m.ClassComponent {
             this.remainingPointsLayer--;
             if (this.remainingPointsLayer === 0) {
                 globalMapState.isLoadingLayers = false;
-                m.redraw(); // enable the layer button
+                m.redraw(); // show the map
             }
         }
     }
@@ -564,7 +564,6 @@ export default class Map implements m.ClassComponent {
 
         injectCode(config.turf.js).then(async () => {
             if (typeof turf === "undefined") {
-                // skipcq: JS-0356
                 const turf = await import("@turf/turf");
             }
             if (globalMapState.map !== undefined) {
@@ -658,12 +657,6 @@ export default class Map implements m.ClassComponent {
 
         globalMapState.fitToTrack();
 
-        // show the map now that it is centered
-        const mapCanvas = document.querySelector(".mapboxgl-canvas-container");
-        if (mapCanvas) {
-            mapCanvas.classList.add("full-opacity");
-        }
-
         this.remainingPointsLayer = data.features.length;
         data.features.forEach((feature: WebTrackGeoJsonFeature) => {
             this.addPointsLayer(feature);
@@ -701,7 +694,6 @@ export default class Map implements m.ClassComponent {
         this.addPhotos();
     }
 
-    // skipcq: JS-0105
     onremove(): void {
         if (globalMapState.map) {
             try {
@@ -848,7 +840,6 @@ export default class Map implements m.ClassComponent {
         ])
             .then(async () => {
                 if (typeof mapboxgl === "undefined") {
-                    // skipcq: JS-0356
                     const { default: mapboxgl } = await import("mapbox-gl");
                 }
                 mapboxgl.accessToken = String(process.env.MAPBOX_ACCESS_TOKEN);

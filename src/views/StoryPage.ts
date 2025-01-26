@@ -14,12 +14,8 @@ import tippy, { Instance as TippyInstance, inlinePositioning } from "tippy.js";
 
 import { globalMapState } from "../models/Map";
 import { story } from "../models/Story";
-import type {
-    EasyDate,
-    LinkedPhoto,
-    SeasonStrings,
-    StoryInfo,
-} from "../models/Story";
+import type { EasyDate, LinkedPhoto } from "../models/Story";
+import type { SeasonStrings, StoryInfo } from "../models/Story";
 import { t } from "../translate";
 import { hideAllForce } from "../utils";
 import { InsideCluster, InsideClusterAttrs, Loading } from "./Cluster";
@@ -240,11 +236,14 @@ const StoryTitle: m.Component = {
 
 const GeoData: m.Component = {
     view(): m.Vnode[] {
+        const extraClassMap = globalMapState.isLoadingLayers ? "" : "full-opacity";
         return [
             m(".container", m(".row", m(".one.column", m(StatsComponent)))),
             m(".one.column", [
                 globalMapState.hasElevation && m(ChartContainer),
-                m(".map-extra", [
+                m("div", {
+                    class: `map-extra ${extraClassMap}`,
+                }, [
                     m(Map),
                     !globalMapState.mapLoadFailure && m(MapAttributions),
                 ]),

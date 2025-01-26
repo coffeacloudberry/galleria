@@ -176,7 +176,7 @@ class GlobalMapState {
         }
     }
 
-    /** Fit the map view to the track and reset bearing. */
+    /** Fit the map view to the track. */
     fitToTrack(): void {
         if (!this.lineStrings || !this.map) {
             return;

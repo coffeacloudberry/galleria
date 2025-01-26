@@ -114,6 +114,13 @@ section#story {
     .map-extra {
         margin-top: calc(#{variables.$nav-bar-height} / 4);
         margin-bottom: calc(#{variables.$block-space} + #{variables.$nav-bar-height} / 2);
+        opacity: 0;
+        transition: opacity 0 linear;
+
+        &.full-opacity {
+            opacity: 1;
+            transition: opacity 1s linear;
+        }
 
         #map {
             border-radius: 0 variables.$border-radius-lg;
@@ -141,17 +148,8 @@ section#story {
                 }
             }
 
-            .mapboxgl-canvas-container {
-                opacity: 0;
-                transition: opacity 0.4s linear;
-
-                &.full-opacity {
-                    opacity: 1;
-                }
-
-                &:not(.mapboxgl-interactive) {
-                    cursor: not-allowed;
-                }
+            .mapboxgl-canvas-container:not(.mapboxgl-interactive) {
+                cursor: not-allowed;
             }
 
             .mapboxgl-ctrl-scale {
