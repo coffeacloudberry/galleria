@@ -25,16 +25,18 @@ declare const mapboxgl: typeof mapboxGlJs;
 
 type LngLat = [number, number];
 type MaybeLink = m.Vnode<m.RouteLinkAttrs> | m.Vnode;
-type NearestPointOnLine = Feature<
-    Point,
-    {
-        dist: number;
-        index: number;
-        location: number;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [key: string]: any;
-    }
->;
+type MetadataPoint = {
+    dist: number;
+    index: number;
+    location: number;
+    multiFeatureIndex: number;
+};
+type NearestPointOnLine = Feature<Point, MetadataPoint>;
+type GuessedNearestPoint = {
+    activity: Activity;
+    actualIdx: number;
+    actualNearestPoint: NearestPointOnLine;
+};
 
 const LoadingPopupCamComponent: m.Component = {
     view(): m.Vnode {
@@ -76,13 +78,11 @@ class PopupCamComponent implements m.ClassComponent<PopupCamAttrs> {
     }
 
     /** Add the ready DOM to the map via the Mapbox API. */
-    // skipcq: JS-0105
     onupdate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
         hideAllForce();
         attrs.mapboxPopup.setDOMContent(dom.cloneNode(true));
     }
 
-    // skipcq: JS-0105
     oncreate({ dom, attrs }: m.CVnodeDOM<PopupCamAttrs>): void {
         hideAllForce();
         attrs.mapboxPopup.setDOMContent(dom.cloneNode(true));
@@ -126,7 +126,6 @@ interface ClusterContentAttrs extends InsideClusterAttrs {
 }
 
 class ClusterContent implements m.ClassComponent<ClusterContentAttrs> {
-    // skipcq: JS-0105
     view({ attrs }: m.CVnode<ClusterContentAttrs>): m.Vnode[] {
         const showPhotos = attrs.photos.some((item) => item.ready);
         return [
@@ -340,16 +339,7 @@ export default class Map implements m.ClassComponent {
         }
     }
 
-    /**
-     * When the mouse is moving anywhere in the map.
-     * The hiker is displayed on the map, the tooltip is triggered on the
-     * chart. Nothing is triggered if the mouse is too far away from the path.
-     * The complexity of this procedure is in nearestPointOnLine.
-     * The chart might not be ready when calling this procedure.
-     * This procedure has no effect if the chart is not loaded, i.e. if the
-     * track has no elevation profile.
-     */
-    static mouseMove(e: MapMouseEvent): void {
+    static findNearestPoint(e: MapMouseEvent): GuessedNearestPoint | undefined {
         if (!(globalMapState.webtrack instanceof WebTrack)) {
             return;
         }
@@ -359,15 +349,19 @@ export default class Map implements m.ClassComponent {
         }
         const minDist = (0.2 * trackLength) / 1000; // 20% in km
         const currentPos = e.lngLat.toArray();
+
+        // init
         let minDistNearestPoint = Infinity;
         let actualNearestPoint = null as NearestPointOnLine | null;
         let actualIdx = 0;
         let activity = Activity.WALK;
+
         // loop over lines to find out which one is the closest
         globalMapState.lineStrings.forEach((path, idx) => {
             const durtyLine = turf.lineString(path.geometry.coordinates);
             // remove redundant points that could raise an exception:
             const cleanLine = turf.cleanCoords(durtyLine);
+
             const nearestPoint = turf.nearestPointOnLine(cleanLine, currentPos);
             if (
                 nearestPoint.properties.index !== undefined &&
@@ -385,15 +379,41 @@ export default class Map implements m.ClassComponent {
                 }
             }
         });
-        const chart = globalMapState.chart;
-        if (
-            !actualNearestPoint ||
-            actualNearestPoint.properties.index === undefined ||
-            chart === undefined ||
-            chart.tooltip === undefined
-        ) {
+
+        if (!actualNearestPoint) {
             return;
         }
+
+        return {
+            activity,
+            actualIdx,
+            actualNearestPoint
+        }
+    }
+
+    /**
+     * When the mouse is moving anywhere in the map.
+     * The hiker is displayed on the map, the tooltip is triggered on the
+     * chart. Nothing is triggered if the mouse is too far away from the path.
+     * The complexity of this procedure is in nearestPointOnLine.
+     * The chart might not be ready when calling this procedure.
+     * This procedure has no effect if the chart is not loaded, i.e. if the
+     * track has no elevation profile.
+     */
+    static mouseMove(e: MapMouseEvent): void {
+        if (!(globalMapState.webtrack instanceof WebTrack)) {
+            return;
+        }
+        const chart = globalMapState.chart;
+        if (chart === undefined || chart.tooltip === undefined) {
+            return;
+        }
+        const nearestPoint = Map.findNearestPoint(e);
+        if (nearestPoint === undefined) {
+            return;
+        }
+
+        const {activity, actualIdx, actualNearestPoint} = nearestPoint;
         const index = actualNearestPoint.properties.index;
         const [lon, lat] = actualNearestPoint.geometry.coordinates;
         globalMapState.moveHiker(lon, lat, activity);
