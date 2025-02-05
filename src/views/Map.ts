@@ -339,13 +339,13 @@ export default class Map implements m.ClassComponent {
         }
     }
 
-    static findNearestPoint(e: MapMouseEvent): GuessedNearestPoint | undefined {
+    static findNearestPoint(e: MapMouseEvent): GuessedNearestPoint | null {
         if (!(globalMapState.webtrack instanceof WebTrack)) {
-            return;
+            return null;
         }
         const trackLength = globalMapState.webtrack.getTrackInfo().length;
         if (!trackLength || !globalMapState.lineStrings) {
-            return;
+            return null;
         }
         const minDist = (0.2 * trackLength) / 1000; // 20% in km
         const currentPos = e.lngLat.toArray();
@@ -364,7 +364,7 @@ export default class Map implements m.ClassComponent {
 
             const nearestPoint = turf.nearestPointOnLine(cleanLine, currentPos);
             if (
-                nearestPoint.properties.index !== undefined &&
+                typeof nearestPoint.properties.index === "number" &&
                 nearestPoint.properties.dist &&
                 nearestPoint.properties.dist < minDistNearestPoint &&
                 nearestPoint.properties.dist < minDist // close enough
@@ -381,7 +381,7 @@ export default class Map implements m.ClassComponent {
         });
 
         if (!actualNearestPoint) {
-            return;
+            return null;
         }
 
         return {
@@ -409,11 +409,11 @@ export default class Map implements m.ClassComponent {
             return;
         }
         const nearestPoint = Map.findNearestPoint(e);
-        if (nearestPoint === undefined) {
+        if (typeof nearestPoint === "object") {
             return;
         }
 
-        const {activity, actualIdx, actualNearestPoint} = nearestPoint;
+        const {activity, actualIdx, actualNearestPoint} = nearestPoint as GuessedNearestPoint;
         const index = actualNearestPoint.properties.index;
         const [lon, lat] = actualNearestPoint.geometry.coordinates;
         globalMapState.moveHiker(lon, lat, activity);
