@@ -409,11 +409,11 @@ export default class Map implements m.ClassComponent {
             return;
         }
         const nearestPoint = Map.findNearestPoint(e);
-        if (typeof nearestPoint === "object") {
+        if (nearestPoint === null) {
             return;
         }
 
-        const {activity, actualIdx, actualNearestPoint} = nearestPoint as GuessedNearestPoint;
+        const {activity, actualIdx, actualNearestPoint} = nearestPoint;
         const index = actualNearestPoint.properties.index;
         const [lon, lat] = actualNearestPoint.geometry.coordinates;
         globalMapState.moveHiker(lon, lat, activity);

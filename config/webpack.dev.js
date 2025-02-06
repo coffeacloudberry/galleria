@@ -20,7 +20,6 @@ export default merge(common, {
         static: paths.build,
         open: false, // set to true to open the default browser on startup
         compress: false,
-        hot: true,
         port: 8080,
         client: {
             overlay: {
@@ -33,7 +32,7 @@ export default merge(common, {
         rules: [
             // Styles: Inject CSS into the head with source maps
             {
-                test: /\.(?:s[ac]ss|css)$/,
+                test: /\.(?:scss|css)$/,
                 use: [
                     "style-loader",
                     {
