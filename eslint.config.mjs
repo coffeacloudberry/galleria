@@ -85,6 +85,7 @@ export default [
 
         rules: {
             "no-regex-spaces": "off",
+            complexity: ["error", { max: 13, variant: "modified" }],
         },
     },
     {

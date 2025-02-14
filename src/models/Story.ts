@@ -10,19 +10,16 @@ export interface EasyDate {
     year: number;
 }
 
-enum Season {
-    winter,
-    spring,
-    summer,
-    autumn,
-    rainy,
-    dry,
-    "sunny winter", // 1 March – 16 May
-    "polar summer", // 17 May – 30 September
-    "dark winter", // 1 October – 28 February
-}
-
-export type SeasonStrings = keyof typeof Season;
+export type SeasonStrings =
+    | "winter"
+    | "spring"
+    | "summer"
+    | "autumn"
+    | "rainy"
+    | "dry"
+    | "sunny winter" // 1 March – 16 May
+    | "polar summer" // 17 May – 30 September
+    | "dark winter"; // 1 October – 28 February;
 
 export type LinkedPhoto = { id: number; position?: PhotoPosition };
 
@@ -232,6 +229,37 @@ export class Story {
         }
     }
 
+    /** Process the story metadata file that has been successfully fetched. */
+    loadThen(result: StoryInfo): void {
+        this.start = result.start ? Story.strToEasyDate(result.start) : null;
+        this.season = result.season ?? null;
+        this.title = result.title ?? null;
+        this.content = result.content ?? null;
+        this.duration = result.duration ?? null;
+        this.hasGeodata = result.hasGeodata ?? false;
+        this.mostRecentPhoto = result.mostRecentPhoto ?? null;
+        this.totalPhotos = result.totalPhotos ?? null;
+        this.photos = result.photos ?? null;
+        this.mapExaggeration = result.mapExaggeration ?? 1;
+        if (this.hasGeodata) {
+            this.gpsConfig = result.gpsConfig ?? defaultGpsConfig;
+        } else {
+            this.gpsConfig = null;
+        }
+        this.gotStoryMeta = true;
+        this.loadOriginPhotoMeta();
+    }
+
+    /** Handle the exception in case the metadata failed to be fetched. */
+    loadCatch(error: Error & { code: number }): void {
+        if (error.code === 404) {
+            this.notFound = true;
+        }
+        this.start = null;
+        this.gotStoryMeta = true;
+        this.hasGeodata = false;
+    }
+
     /** Load a story from a specific folder (fields are null if not found). */
     load(folderName: string): void {
         this.notFound = false;
@@ -246,43 +274,10 @@ export class Story {
             params: { folderName, lang: t.getLang() },
         })
             .then((result) => {
-                if (result.start) {
-                    this.start = Story.strToEasyDate(result.start);
-                } else {
-                    this.start = null;
-                }
-                if (result.season !== undefined) {
-                    if (Season[result.season] !== undefined) {
-                        this.season = result.season;
-                    } else {
-                        this.season = null;
-                    }
-                } else {
-                    this.season = null;
-                }
-                this.title = result.title ?? null;
-                this.content = result.content ?? null;
-                this.duration = result.duration ?? null;
-                this.hasGeodata = result.hasGeodata ?? false;
-                this.mostRecentPhoto = result.mostRecentPhoto ?? null;
-                this.totalPhotos = result.totalPhotos ?? null;
-                this.photos = result.photos ?? null;
-                this.mapExaggeration = result.mapExaggeration ?? 1;
-                if (this.hasGeodata) {
-                    this.gpsConfig = result.gpsConfig ?? defaultGpsConfig;
-                } else {
-                    this.gpsConfig = null;
-                }
-                this.gotStoryMeta = true;
-                this.loadOriginPhotoMeta();
+                this.loadThen(result);
             })
             .catch((error: Error & { code: number }) => {
-                if (error.code === 404) {
-                    this.notFound = true;
-                }
-                this.start = null;
-                this.gotStoryMeta = true;
-                this.hasGeodata = false;
+                this.loadCatch(error);
             });
     }
 

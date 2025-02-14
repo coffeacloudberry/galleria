@@ -236,17 +236,23 @@ const StoryTitle: m.Component = {
 
 const GeoData: m.Component = {
     view(): m.Vnode[] {
-        const extraClassMap = globalMapState.isLoadingLayers ? "" : "full-opacity";
+        const extraClassMap = globalMapState.isLoadingLayers
+            ? ""
+            : "full-opacity";
         return [
             m(".container", m(".row", m(".one.column", m(StatsComponent)))),
             m(".one.column", [
                 globalMapState.hasElevation && m(ChartContainer),
-                m("div", {
-                    class: `map-extra ${extraClassMap}`,
-                }, [
-                    m(Map),
-                    !globalMapState.mapLoadFailure && m(MapAttributions),
-                ]),
+                m(
+                    "div",
+                    {
+                        class: `map-extra ${extraClassMap}`,
+                    },
+                    [
+                        m(Map),
+                        !globalMapState.mapLoadFailure && m(MapAttributions),
+                    ],
+                ),
             ]),
         ];
     },

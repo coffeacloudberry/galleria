@@ -387,8 +387,8 @@ export default class Map implements m.ClassComponent {
         return {
             activity,
             actualIdx,
-            actualNearestPoint
-        }
+            actualNearestPoint,
+        };
     }
 
     /**
@@ -413,7 +413,7 @@ export default class Map implements m.ClassComponent {
             return;
         }
 
-        const {activity, actualIdx, actualNearestPoint} = nearestPoint;
+        const { activity, actualIdx, actualNearestPoint } = nearestPoint;
         const index = actualNearestPoint.properties.index;
         const [lon, lat] = actualNearestPoint.geometry.coordinates;
         globalMapState.moveHiker(lon, lat, activity);

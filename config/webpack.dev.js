@@ -18,7 +18,6 @@ export default merge(common, {
     devServer: {
         historyApiFallback: true,
         static: paths.build,
-        open: false, // set to true to open the default browser on startup
         compress: false,
         port: 8080,
         client: {
