@@ -157,7 +157,7 @@ Information intended to know at the beginning how much data we are dealing with,
             <td>O?</td>
         </tr>
         <tr>
-            <td>Snow mobile</td>
+            <td><img src="../src/icons/map/snowmobile-outline.svg" width="32" alt="icon on map"/> Snow mobile</td>
             <td>Q?</td>
         </tr>
         <tr>
@@ -177,11 +177,11 @@ Information intended to know at the beginning how much data we are dealing with,
             <td>V?</td>
         </tr>
         <tr>
-            <td>Sailing boat</td>
+            <td><img src="../src/icons/map/sailing-boat-outline.svg" width="32" alt="icon on map"/> Sailing boat</td>
             <td>W?</td>
         </tr>
         <tr>
-            <td>Snow shoes</td>
+            <td><img src="../src/icons/map/snowshoes-outline.svg" width="32" alt="icon on map"/> Snow shoes</td>
             <td>X?</td>
         </tr>
         <tr>
@@ -189,7 +189,7 @@ Information intended to know at the beginning how much data we are dealing with,
             <td>Y?</td>
         </tr>
         <tr>
-            <td>Via ferrata</td>
+            <td><img src="../src/icons/map/via-ferrata-outline.svg" width="32" alt="icon on map"/> Via ferrata</td>
             <td>Z?</td>
         </tr>
         <tr>

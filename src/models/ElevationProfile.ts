@@ -74,6 +74,7 @@ function activityBackground(activity: string): Color {
     switch (mappedActivity) {
         case Activity.MOTORED_BOAT:
         case Activity.ROWING_BOAT:
+        case Activity.SAILING_BOAT:
         case Activity.PACKRAFT:
             return "rgba(0,0,255,0.63)";
         default:
