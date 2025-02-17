@@ -266,7 +266,6 @@ class AutoPilotControlComponent
         this.reset();
     }
 
-    // skipcq: JS-0105
     onupdate(): void {
         t.createTippies();
     }

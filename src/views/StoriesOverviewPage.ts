@@ -61,7 +61,6 @@ class ThumbnailComponent implements m.ClassComponent<OneMetadata> {
 }
 
 class StoryAppetizer implements m.ClassComponent<OneMetadata> {
-    // skipcq: JS-0105
     view({ attrs }: m.CVnode<OneMetadata>): m.Vnode {
         return m("span.appetizer", [attrs.appetizer, m(".gradient-white")]);
     }
@@ -127,7 +126,6 @@ const OneStoryComponent: m.Component<OneStory> = {
 class AllStoriesComponent implements m.ClassComponent {
     hasScrolled = false;
 
-    // skipcq: JS-0105
     oncreate({ dom }: m.CVnodeDOM): void {
         this.hasScrolled = false;
         const element = dom as HTMLElement;
@@ -137,7 +135,6 @@ class AllStoriesComponent implements m.ClassComponent {
         };
     }
 
-    // skipcq: JS-0105
     onremove({ dom }: m.CVnodeDOM): void {
         this.hasScrolled = false;
         if (dom) {
@@ -151,7 +148,6 @@ class AllStoriesComponent implements m.ClassComponent {
      * That is to go straight to the previous position in the story list
      * so that the user does not have to scroll again all the way down.
      */
-    // skipcq: JS-0105
     onupdate({ dom }: m.CVnodeDOM): void {
         if (allStories.fullList && allStories.scrollTop && !this.hasScrolled) {
             const element = dom as HTMLElement;
@@ -160,7 +156,6 @@ class AllStoriesComponent implements m.ClassComponent {
         }
     }
 
-    // skipcq: JS-0105
     view(): m.Vnode {
         return m(
             "section#stories",

@@ -83,7 +83,6 @@ export default function Controls(): ControlsType {
         }
 
         // override
-        // skipcq: JS-0105
         _setButtonTitle(button: HTMLButtonElement, title: string) {
             setTippy(button, t("mapbox", `NavigationControl.${title}`));
         }

@@ -32,7 +32,7 @@ footer {
                     color: #000;
 
                     a {
-                        color: #000 !important;
+                        color: #000;
                         text-decoration: rgba(0 0 0 / 40%) underline;
 
                         &:hover,
@@ -81,24 +81,6 @@ footer {
             text-align: right;
         }
 
-        .long-item {
-            display: inherit;
-        }
-
-        .short-item {
-            display: none;
-        }
-
-        @media (width <= 1024px) {
-            .long-item {
-                display: none !important;
-            }
-
-            .short-item {
-                display: inherit;
-            }
-        }
-
         .nav-item {
             margin: variables.$nav-item-space;
             padding: variables.$nav-item-space calc(#{variables.$nav-item-space} * 3 / 2);
@@ -128,6 +110,24 @@ footer {
                 &:focus {
                     outline: 1px solid variables.$nav-hover-bg-color;
                 }
+            }
+        }
+
+        .long-item {
+            display: inherit;
+        }
+
+        .short-item {
+            display: none;
+        }
+
+        @media (width <= 1024px) {
+            .long-item {
+                display: none;
+            }
+
+            .short-item {
+                display: inherit;
             }
         }
 
@@ -162,7 +162,7 @@ footer {
 
         a:not(.normal-a) {
             text-decoration: #2e8f6b underline;
-            color: variables.$body-color !important;
+            color: variables.$body-color;
             border-radius: 0 variables.$border-radius-lg;
 
             &:hover,
@@ -192,7 +192,7 @@ footer {
         }
 
         a.menu-item {
-            color: #fff !important;
+            color: #fff;
             display: block;
             text-decoration: none;
             border: 1px solid variables.$body-color;

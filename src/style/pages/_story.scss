@@ -123,6 +123,10 @@ section#story {
         }
 
         #map {
+            /* Override Mapbox default font. ID has higher specificity than Mapbox class. */
+            font:
+                variables.$global-font-size MyBodyFont,
+                sans-serif;
             border-radius: 0 variables.$border-radius-lg;
             box-shadow: 0 0 3px rgba(114 114 114 / 46%);
             width: 100%;
@@ -135,8 +139,7 @@ section#story {
                 border-radius: 0 variables.$border-radius-lg;
 
                 button:disabled {
-                    /* the 'important' is to overwrite the :active */
-                    cursor: not-allowed !important;
+                    cursor: not-allowed;
                 }
 
                 button:active {
@@ -158,10 +161,9 @@ section#story {
             }
 
             .mapboxgl-ctrl button.mapboxgl-ctrl-my-autopilot .mapboxgl-ctrl-icon,
-            .mapboxgl-ctrl button.mapboxgl-ctrl-my-layer .mapboxgl-ctrl-icon,
             .mapboxgl-ctrl button.mapboxgl-ctrl-fit .mapboxgl-ctrl-icon {
-                width: 80% !important;
-                height: 80% !important;
+                width: 80%;
+                height: 80%;
                 margin: auto;
 
                 &.play-autopilot {
@@ -191,10 +193,6 @@ section#story {
 
                 &.slower {
                     background-image: url("../icons/map/snail.svg");
-                }
-
-                &.select-layer {
-                    background-image: url("../icons/layers.svg");
                 }
             }
 
@@ -227,8 +225,8 @@ section#story {
             margin: 0.5rem;
             border: 1px solid #fff;
             border-radius: 0 0 variables.$border-radius-lg;
-            box-shadow: none !important;
-            padding: 0.2rem 0.6rem 0.3rem !important;
+            box-shadow: none;
+            padding: 0.2rem 0.6rem 0.3rem;
             font-weight: 700;
         }
 
@@ -260,15 +258,8 @@ section#story {
     }
 }
 
-.mapboxgl-map {
-    /* override Mapbox defaults */
-    font:
-        variables.$global-font-size MyBodyFont,
-        sans-serif !important;
-}
-
 .map-thumbnail {
-    transition: none !important;
+    transition: none;
     min-width: 3rem;
     min-height: 3rem;
     text-align: center;
@@ -288,10 +279,11 @@ section#story {
     }
 }
 
+/* Override the native Mapbox style of the popup containing the moving thumbnail. */
 button.mapboxgl-popup-close-button {
     margin: 1px;
-    padding: 0.1rem 0.5rem 0.3rem !important;
-    box-shadow: none !important;
-    transition: none !important;
+    padding: 0.1rem 0.5rem 0.3rem;
+    box-shadow: none;
+    transition: none;
     border: 1px solid #fff;
 }

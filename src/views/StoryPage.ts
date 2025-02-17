@@ -74,7 +74,6 @@ class SeasonComponent implements m.ClassComponent<StorySubTitleAttrs> {
         return attrs.season !== null;
     }
 
-    // skipcq: JS-0105
     view({ attrs }: m.CVnode<StorySubTitleAttrs>): m.Vnode | null {
         return (
             attrs.season &&
@@ -92,7 +91,6 @@ class StartDateComponent implements m.ClassComponent<StorySubTitleAttrs> {
         return attrs.start !== null;
     }
 
-    // skipcq: JS-0105
     view({ attrs }: m.CVnode<StorySubTitleAttrs>): m.Vnode | null {
         return (
             attrs.start &&
@@ -114,7 +112,6 @@ class DurationComponent implements m.ClassComponent<StorySubTitleAttrs> {
         return typeof attrs.duration === "number";
     }
 
-    // skipcq: JS-0105
     view({ attrs }: m.CVnode<StorySubTitleAttrs>): m.Vnode | null {
         if (typeof attrs.duration === "number") {
             return m("span", [
@@ -134,7 +131,6 @@ class TotalPhotoComponent implements m.ClassComponent<StorySubTitleAttrs> {
         return typeof attrs.totalPhotos === "number";
     }
 
-    // skipcq: JS-0105
     view({ attrs }: m.CVnode<StorySubTitleAttrs>): m.Vnode | null {
         if (typeof attrs.totalPhotos === "number") {
             return m("span", [

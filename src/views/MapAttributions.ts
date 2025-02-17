@@ -46,7 +46,6 @@ class MapAttributionsIcon extends InteractiveTippy<void> {
     placement = "top" as Placement;
     arrow = false;
 
-    // skipcq: JS-0105
     view(): m.Vnode {
         return m("span.vat", [
             m(Icon, { src: informationCircleOutline }), // actually displayed

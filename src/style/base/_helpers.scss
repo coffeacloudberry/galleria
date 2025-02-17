@@ -1,5 +1,7 @@
 @use "../base/variables";
 
+/* stylelint-disable declaration-no-important */
+
 .mr-3 {
     margin-right: 0.3rem !important;
 }
@@ -40,9 +42,7 @@
     padding-left: 0 !important;
 }
 
-.hide {
-    display: none !important;
-}
+/* stylelint-enable declaration-no-important */
 
 .invisible {
     visibility: hidden;

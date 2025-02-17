@@ -2,7 +2,7 @@
 
 button:not([class^="mapboxgl-ctrl-"], .light-icon-button, .toast-close) {
     background: variables.$button-background;
-    color: #fff !important;
+    color: #fff;
     padding: 0.4rem 1rem 0.5rem;
     border-radius: 0 variables.$border-radius-lg;
     cursor: pointer;
@@ -15,7 +15,7 @@ button:not([class^="mapboxgl-ctrl-"], .light-icon-button, .toast-close) {
 
     &[disabled],
     &.disabled {
-        background: #979797 !important;
+        background: #979797;
         cursor: not-allowed;
     }
 

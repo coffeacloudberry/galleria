@@ -97,7 +97,6 @@ class CameraPosition implements m.ClassComponent {
         return `${baseUrl}?${params}`;
     }
 
-    // skipcq: JS-0105
     view(): m.Vnode[] | null {
         if (!photo.meta) {
             return null;
@@ -265,7 +264,6 @@ const PhotoMetadataModal: m.Component = {
 };
 
 export default class PhotoMetadata implements m.ClassComponent<m.Attributes> {
-    // skipcq: JS-0105
     view(vnode: m.CVnode<m.Attributes>) {
         const photoTitle = photo.meta?.title[t.getLang()];
         return photo.containsExif()

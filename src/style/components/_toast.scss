@@ -1,26 +1,26 @@
 @use "../base/variables";
 
 .toastify {
-    padding: 2px 8px !important; /* override */
-    max-width: calc(100% - 20px) !important; /* override */
-    color: variables.$body-color !important; /* override */
+    padding: 2px 8px;
+    max-width: calc(100% - 20px);
+    color: variables.$body-color;
     border-radius: 0 variables.$border-radius-lg;
 
     .toast-close {
-        padding: 0 0 0 8px !important; /* override */
-        color: #000 !important; /* override */
+        padding: 0 0 0 8px;
+        color: #000;
     }
-}
 
-.custom-toast-info {
-    background: #fff;
-}
+    &.custom-toast-info {
+        background: #fff;
+    }
 
-.custom-toast-error {
-    background: #973737;
-    color: #fff !important; /* override */
+    &.custom-toast-error {
+        background: #973737;
+        color: #fff;
 
-    .toast-close {
-        color: #fff !important; /* override */
+        .toast-close {
+            color: #fff;
+        }
     }
 }

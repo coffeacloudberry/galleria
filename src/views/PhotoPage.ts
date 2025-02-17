@@ -181,7 +181,6 @@ class LoadingSpinner implements m.ClassComponent {
         }
     }
 
-    // skipcq: JS-0105
     view(): m.Vnode {
         return m(
             "span.loading-icon.nav-item",
