@@ -68,19 +68,11 @@
     vertical-align: text-bottom;
 }
 
-.large-screen {
-    display: inline;
-}
-
 .small-screen {
     display: none;
 }
 
 @media (width <= 768px) {
-    .large-screen {
-        display: none;
-    }
-
     .small-screen {
         display: inline;
     }

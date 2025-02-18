@@ -1,6 +1,6 @@
 @use "../base/variables";
 
-#feedback {
+.feedback {
     position: absolute;
     z-index: 12;
     margin-top: 0.8rem;
@@ -24,8 +24,8 @@
         padding: 0.5rem;
     }
 
-    .close-feedback,
-    .open-feedback {
+    button.close-feedback,
+    button.open-feedback {
         color: #000;
         background: #fff;
         box-shadow: none;
@@ -33,14 +33,23 @@
         font-size: 1.4rem;
     }
 
-    .close-feedback {
+    button.close-feedback {
         float: right;
         font-size: 2.2rem;
         line-height: 2.2rem;
         transition: none;
+
+        &:not([disabled]):hover {
+            color: variables.$button-background;
+        }
+
+        &:not([disabled]):hover,
+        &:not([disabled]):focus {
+            background: inherit;
+        }
     }
 
-    .open-feedback {
+    button.open-feedback {
         border-radius: 50%;
         border: 1px solid variables.$button-background;
         height: 2.5rem;
@@ -49,8 +58,7 @@
         align-items: center;
         justify-content: center;
 
-        &:hover,
-        &:focus {
+        &:hover {
             border-color: variables.$button-background-hover;
         }
 

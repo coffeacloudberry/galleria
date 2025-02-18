@@ -51,10 +51,9 @@ footer {
 
                     .photo-page-header {
                         bottom: 0.3rem;
-                        left: calc(
-                            #{variables.$nav-bar-height} + 4px
-                        ); /* 4px to keep distance from the shadow on the nav bar */
 
+                        /* 4px to keep distance from the shadow on the nav bar */
+                        left: calc(#{variables.$nav-bar-height} + 4px);
                         width: calc(100vw - 2 * (#{variables.$nav-bar-height} + 4px));
                         padding-bottom: 0.2rem;
                     }

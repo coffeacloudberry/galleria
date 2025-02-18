@@ -22,7 +22,7 @@ export class Feedback implements m.ClassComponent {
     view(): m.Vnode {
         if (!feedback.is_open) {
             return m(
-                "#feedback",
+                ".feedback",
                 m(
                     "button.open-feedback.light-icon-button",
                     {
@@ -34,7 +34,7 @@ export class Feedback implements m.ClassComponent {
                 ),
             );
         }
-        return m("#feedback.open-feedback-block", [
+        return m(".feedback.open-feedback-block", [
             m(
                 "button.close-feedback",
                 {
