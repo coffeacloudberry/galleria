@@ -1,48 +1,40 @@
 @use "../base/variables";
 
-/* stylelint-disable declaration-no-important */
-
 .mr-3 {
-    margin-right: 0.3rem !important;
+    margin-right: 0.3rem;
 }
 
 .mr-9 {
-    margin-right: 0.9rem !important;
+    margin-right: 0.9rem;
 }
 
 .ml-3 {
-    margin-left: 0.3rem !important;
-}
-
-.ml-9 {
-    margin-left: 0.9rem !important;
+    margin-left: 0.3rem;
 }
 
 .mt-3 {
-    margin-top: 0.3rem !important;
+    margin-top: 0.3rem;
 }
 
 .m-30 {
-    margin: 3rem !important;
+    margin: 3rem;
 }
 
 .mt-0 {
-    margin-top: 0 !important;
+    margin-top: 0;
 }
 
 .mb-0 {
-    margin-bottom: 0 !important;
+    margin-bottom: 0;
 }
 
 .p-0 {
-    padding: 0 !important;
+    padding: 0;
 }
 
 .pl-0 {
-    padding-left: 0 !important;
+    padding-left: 0;
 }
-
-/* stylelint-enable declaration-no-important */
 
 .invisible {
     visibility: hidden;

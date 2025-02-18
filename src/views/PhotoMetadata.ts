@@ -39,7 +39,7 @@ const CameraSetup: m.Component = {
         }
         return [
             m("h4", t("cam.setup")),
-            m("ul.blabla.no-bullets.mt-3.ml-9", [
+            m("ul.mt-3", [
                 body &&
                     m("li", [
                         m(Icon, { src: cameraOutline }),
@@ -115,7 +115,7 @@ class CameraPosition implements m.ClassComponent {
         }
         return [
             m("h4", t("map.stats.source.pos")),
-            m("ul.blabla.no-bullets.mt-3.ml-9", [
+            m("ul.mt-3", [
                 m("li", [
                     m(Icon, { src: latitudeOutline }),
                     " ",

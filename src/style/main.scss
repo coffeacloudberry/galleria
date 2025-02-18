@@ -1,5 +1,4 @@
 @use "base/base";
-@use "base/helpers";
 @use "base/typography";
 @use "base/variables";
 @use "components/feedback";
@@ -14,6 +13,7 @@
 @use "pages/photo";
 @use "pages/story";
 @use "pages/stories";
+@use "base/helpers";
 
 /* Read ../fonts/asap/README.md */
 @font-face {

@@ -5,7 +5,7 @@
     z-index: 12;
     margin-top: 0.8rem;
     top: variables.$nav-bar-height;
-    right: 0.5rem;
+    right: 1rem;
 
     @media (width <= 1024px) and (orientation: landscape) {
         margin-top: 0.4rem;

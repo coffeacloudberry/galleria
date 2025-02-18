@@ -213,7 +213,7 @@ export const StatsComponent: m.Component = {
         const hasEle = stats.trackPoints.withEle > 0;
         return [
             m("p.mt-0", m("strong", t("map.stats"))),
-            m("ul.blabla.no-bullets.ml-9", [
+            m("ul", [
                 m(DurationLi),
                 m(LengthDetails, stats),
                 hasEle && m(MinimumAltitudeLi, stats),

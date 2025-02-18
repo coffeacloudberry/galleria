@@ -37,48 +37,9 @@ p {
 }
 
 ul {
-    ul {
-        list-style: none;
-        padding-left: 1rem;
-
-        li::before {
-            filter: variables.$filter-grey;
-        }
-    }
-
-    /* list in a text */
-    &.blabla {
-        margin: 1rem 0;
-        list-style: none;
-
-        @media (width <= 1024px) {
-            margin: 0.5rem 0;
-        }
-
-        li::before {
-            content: "";
-            display: inline-block;
-            height: 16px;
-            background-image: url("icons/leaf-outline.svg");
-            background-size: contain;
-            background-repeat: no-repeat;
-            padding: 0 24px 0 0;
-            vertical-align: -2px;
-
-            @media (width <= 1024px) {
-                height: 12px;
-                padding: 0 18px 0 0;
-            }
-        }
-    }
-
-    &.no-bullets li::before {
-        background-image: none;
-        padding: 0;
-    }
+    list-style: none;
 }
 
-.tippy-box ul.blabla li::before,
 .tippy-box img.icon {
     filter: variables.$filter-white;
 }
