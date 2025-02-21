@@ -235,7 +235,7 @@ const PhotoMetadataModal: m.Component = {
                 m(".row", [
                     m(
                         ".one.column.p-0",
-                        m("p", [
+                        m("p.mt-0.mb-0", [
                             m(Icon, { src: CalendarOutline }),
                             t("photo.taken"),
                             dateTaken.getHours(),

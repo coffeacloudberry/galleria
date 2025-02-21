@@ -112,7 +112,7 @@ footer {
             }
         }
 
-        .short-item {
+        span.short-item {
             display: none;
         }
 
@@ -121,8 +121,8 @@ footer {
                 display: none;
             }
 
-            .short-item {
-                display: inline-block;
+            span.short-item {
+                display: inline;
             }
         }
 
