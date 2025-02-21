@@ -1,6 +1,6 @@
 @use "../base/variables";
 
-#stories {
+.stories {
     margin-top: #{variables.$nav-bar-height};
     overflow-y: auto;
     height: calc(100vh - #{variables.$nav-bar-height});

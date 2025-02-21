@@ -21,7 +21,7 @@ const Gallery: m.Component = {
     view(): m.Vnode {
         const hideNext = photo.isPreloading;
         const hidePrev = photo.isFirst() || hideNext;
-        return m("section#gallery", [
+        return m("section.gallery", [
             m(".goto-photo-screen-nav.goto-prev-photo", {
                 class: hidePrev ? "invisible" : "",
                 onclick: (): void => {
@@ -29,7 +29,7 @@ const Gallery: m.Component = {
                 },
             }),
             m(
-                "#current-photo",
+                ".current-photo",
                 m("img", {
                     src: photo.currentImageSrc,
                 }),

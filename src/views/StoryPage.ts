@@ -368,7 +368,7 @@ export default function StoryPage(): m.Component {
                     refPage: "story",
                 }),
                 story.isLoaded() &&
-                    m("section#story", [
+                    m("section.story", [
                         m(
                             ".container",
                             m(

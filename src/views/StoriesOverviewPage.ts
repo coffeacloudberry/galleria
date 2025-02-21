@@ -158,7 +158,7 @@ class AllStoriesComponent implements m.ClassComponent {
 
     view(): m.Vnode {
         return m(
-            "section#stories",
+            "section.stories",
             m(
                 ".container",
                 m(

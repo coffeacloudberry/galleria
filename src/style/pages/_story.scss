@@ -98,7 +98,7 @@ $cluster-thumbnail-small-height: 150px;
     }
 }
 
-section#story {
+section.story {
     margin-top: #{variables.$nav-bar-height};
     overflow-y: auto;
     height: calc(100vh - #{variables.$nav-bar-height});
@@ -122,7 +122,7 @@ section#story {
             transition: opacity 1s linear;
         }
 
-        #map {
+        .map {
             /* Override Mapbox default font. ID has higher specificity than Mapbox class. */
             font:
                 variables.$global-font-size MyBodyFont,

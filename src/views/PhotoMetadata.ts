@@ -20,7 +20,7 @@ import { photo } from "../models/Photo";
 import { t } from "../translate";
 import { isMobile } from "../utils";
 import Icon from "./Icon";
-import { modal } from "./Modal";
+import { openModal } from "./Modal";
 
 const CameraSetup: m.Component = {
     view(): m.Vnode[] | null {
@@ -275,7 +275,7 @@ export default class PhotoMetadata implements m.ClassComponent<m.Attributes> {
                       "data-tippy-content": t("photo.open-photo.tooltip"),
                       onclick: (e: Event): void => {
                           e.preventDefault();
-                          modal({
+                          openModal({
                               title: t("about.photo"),
                               content: {
                                   view: () => {

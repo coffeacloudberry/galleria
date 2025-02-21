@@ -4,24 +4,16 @@ import m from "mithril";
 import { hideAllForce } from "../utils";
 import Icon from "./Icon";
 
-function scrollableBody(scrollable: boolean) {
-    const scrollableEl = document.getElementById("about");
-    if (scrollableEl) {
-        scrollableEl.style.overflow = scrollable ? "auto" : "hidden";
-    }
-}
-
 interface ModalOptions {
     title: string | m.Vnode;
     content: m.Component;
 }
 
-export function modal({ title, content }: ModalOptions): void {
+export function openModal({ title, content }: ModalOptions): void {
     const modalContainer = document.createElement("div");
 
     const closeModal = () => {
         modalContainer.remove();
-        scrollableBody(true);
     };
 
     /** Close all modals on escape. */
@@ -68,5 +60,4 @@ export function modal({ title, content }: ModalOptions): void {
             );
         },
     });
-    scrollableBody(false);
 }

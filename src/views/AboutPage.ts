@@ -20,7 +20,7 @@ import { hideAllForce, toast } from "../utils";
 import { Feedback } from "./Feedback";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
-import { modal } from "./Modal";
+import { openModal } from "./Modal";
 
 interface SocialNetworkItemAttrs {
     /** Translated tooltip content as text. */
@@ -73,7 +73,7 @@ const CryptoCode: m.Component<SocialNetworkItemAttrs> = {
 
 /** Open the modal with the crypto address. */
 function showCryptoAddress(metadata: SocialNetworkItemAttrs): void {
-    modal({
+    openModal({
         title: metadata.tooltip,
         content: {
             view: () => {
@@ -361,7 +361,7 @@ export default function AboutPage(): m.Component {
                 m(Header, {
                     refPage: "about",
                 }),
-                m("section#about", [
+                m("section.about", [
                     m(Intro),
                     m(
                         ".container",

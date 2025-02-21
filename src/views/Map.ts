@@ -966,7 +966,7 @@ export default class Map implements m.ClassComponent {
             },
         };
         const popup = globalMapState.popupCamData;
-        return m("#map", [
+        return m(".map", [
             popup && m(".invisible", m(PopupCamComponent, popup)),
             this.clusterIsOpen && m(ClusterContent, clusterAttrs),
         ]);

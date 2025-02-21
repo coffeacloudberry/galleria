@@ -16,7 +16,7 @@ export default function NotFoundPage(): m.Component {
         view(): m.Vnode {
             const url = `/?reload${m.route.prefix}${t.prependLang("/photo")}`;
             return m(
-                "section#not-found",
+                "section.not-found",
                 m(".content", [
                     m("p", t("not-found.message")),
                     m("p", m("a", { href: url }, t("not-found.action"))),
