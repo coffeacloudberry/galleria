@@ -1,6 +1,7 @@
 use walkdir::{DirEntry, WalkDir};
 use resvg::render;
 use std::fs;
+use std::cmp;
 use std::path::{Path, PathBuf};
 use tiny_skia::{Pixmap, Transform};
 use usvg::{Options, Tree};
@@ -10,7 +11,7 @@ use tempfile::TempDir;
 use std::time::Instant;
 
 const PHOTO_BOX_SIZE: u32 = 900;
-const IMAGE_BORDER: u32 = 40;
+const IMAGE_BORDER: u32 = 100; // big enough to avoid the Mastodon buttons in the photo
 
 #[derive(Deserialize, Debug)]
 struct Title {
@@ -109,13 +110,7 @@ fn generate(photo_id: u64, metadata: &PhotoInfo, png: (PathBuf, (u32, u32)), out
         .parse(include_str!("templates/photo_to_social.tpl.svg"))
         .unwrap();
 
-    let image_width = {
-        if png.1.0 < 600 {
-            680
-        } else {
-            png.1.0 + 2 * IMAGE_BORDER
-        }
-    };
+    let image_width = cmp::max(png.1.0, 600) + 2 * IMAGE_BORDER;
     let image_height = png.1.1 + 2 * IMAGE_BORDER + 24 * 5;
     let globals = liquid::object!({
         "photo": png.0.to_str().unwrap(),

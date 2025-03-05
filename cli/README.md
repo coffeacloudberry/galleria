@@ -41,10 +41,6 @@ NASA_USERNAME="..."
 NASA_PASSWORD="..."
 ```
 
-## Install
-
-Run `make install`
-
 ## Usage
 
 ```sh

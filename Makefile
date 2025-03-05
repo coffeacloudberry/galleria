@@ -15,10 +15,15 @@ format:
 install:
 	poetry install --with test && \
 	mkdir tests/end_to_end/results
+	npm i npm-check-updates --location=global
+	npm install
 
 .PHONY: update
 update:
 	poetry update --with test
+	cargo update # Update Cargo.lock. No need to update Cargo.toml.
+	ncu -u
+	npm install
 
 .PHONY: py-test
 py-test:

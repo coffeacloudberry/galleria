@@ -1,23 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {{ image_width }} {{ image_height }}">
     <defs>
         <linearGradient id="gradient1" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="#4c6444" />
-            <stop offset="100%" stop-color="#102821" />
-        </linearGradient>
-    </defs>
-    <defs>
-        <linearGradient id="gradient2" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="#102821" />
-            <stop offset="100%" stop-color="#4c6444" />
+            <stop offset="0%" stop-color="#f7f0e4" />
+            <stop offset="100%" stop-color="#ece2ce" />
         </linearGradient>
     </defs>
     <rect width="{{ image_width }}" height="{{ image_height }}" fill="url(#gradient1)" />
-    <image x="50%" y="{{ border }}" transform="translate(-{{ photo_translate }})" width="{{ photo_width }}" height="{{ photo_height }}" href="{{ photo }}" />
-    <rect x="50%" y="{{ border }}" transform="translate(-{{ photo_translate }})" width="{{ photo_width }}" height="{{ photo_height }}" fill="none" stroke="url(#gradient2)" />
-    <text x="{{ border }}" y="{{ line_1_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="start">{{ text_en }}</text>
-    <text x="{{ line_1_x_r }}" y="{{ line_1_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="end">{{ date }}</text>
-    <text x="{{ border }}" y="{{ line_2_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="start">{{ text_fi }}</text>
-    <text x="{{ line_1_x_r }}" y="{{ line_2_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="end">ExploreWilder.com</text>
-    <text x="{{ border }}" y="{{ line_3_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="start">{{ text_fr }}</text>
-    <text x="{{ line_1_x_r }}" y="{{ line_3_y }}" fill="#c4cac2" font-size="24" font-family="Asap" text-anchor="end">CC BY-NC-SA 4.0</text>
+    <image
+        x="50%"
+        y="{{ border }}"
+        transform="translate(-{{ photo_translate }})"
+        width="{{ photo_width }}"
+        height="{{ photo_height }}"
+        href="{{ photo }}"
+    />
+    <rect
+        x="50%"
+        y="{{ border }}"
+        transform="translate(-{{ photo_translate }})"
+        width="{{ photo_width }}"
+        height="{{ photo_height }}"
+        fill="none"
+        stroke="#b38832"
+        stroke-width="2"
+    />
+    <text x="{{ border }}" y="{{ line_1_y }}" fill="#281f0e" font-size="24" font-family="Asap" text-anchor="start">{{ text_en }}</text>
+    <text x="{{ line_1_x_r }}" y="{{ line_1_y }}" fill="#281f0e" font-size="24" font-family="Asap" text-anchor="end">{{ date }}</text>
+    <text x="{{ border }}" y="{{ line_2_y }}" fill="#281f0e" font-size="24" font-family="Asap" text-anchor="start">{{ text_fi }}</text>
+    <text x="{{ line_1_x_r }}" y="{{ line_2_y }}" fill="#281f0e" font-size="24" font-family="Asap" text-anchor="end">explorewilder.com</text>
+    <text x="{{ border }}" y="{{ line_3_y }}" fill="#281f0e" font-size="24" font-family="Asap" text-anchor="start">{{ text_fr }}</text>
+    <text x="{{ line_1_x_r }}" y="{{ line_3_y }}" fill="#281f0e" font-size="24" font-family="Asap" text-anchor="end">CC BY-NC-SA 4.0</text>
 </svg>

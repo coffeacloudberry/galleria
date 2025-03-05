@@ -60,7 +60,7 @@ You can view the development server at [localhost:8080](http://localhost:8080).
 <details>
   <summary>Unit testing</summary>
 
-Run `make js-test` and `make py-test` after `poetry shell` to enter the Python virtual environment.
+Run `poetry shell` to enter the Python virtual environment, then `make js-test` and `make py-test`.
 
 </details>
 <details>
@@ -84,11 +84,7 @@ Run `npm bundle-analysis` to generate the prod bundle and start a local server w
 <details>
   <summary>The dependencies</summary>
 
-```sh
-# run `npm i npm-check-updates --location=global` only once
-ncu -u
-npm install
-```
+Run `poetry shell`, then `make update`.
 
 Also update the lazy-loaded scripts listed in the [configuration file](src/config.ts).
 
