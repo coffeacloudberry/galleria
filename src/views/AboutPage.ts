@@ -4,7 +4,7 @@ import logoMastodon from "@/icons/logo-mastodon.svg";
 import logoMatrix from "@/icons/logo-matrix.svg";
 import logoMonero from "@/icons/logo-monero.svg";
 import logoNano from "@/icons/logo-nano.svg";
-import logoOdysee from "@/icons/logo-odysee.svg";
+import logoPeertube from "@/icons/logo-peertube.svg";
 import logoRss from "@/icons/logo-rss.svg";
 import logoThreema from "@/icons/logo-threema.svg";
 import logoXmpp from "@/icons/logo-xmpp.svg";
@@ -161,9 +161,9 @@ export class Contact implements m.ClassComponent {
                 logo: logoRss,
             },
             {
-                tooltip: "Odysee",
-                link: "https://odysee.com/@ExploreWilder:b",
-                logo: logoOdysee,
+                tooltip: "PeerTube",
+                link: "https://lone.earth/c/explorewilder/videos",
+                logo: logoPeertube,
             },
             {
                 tooltip: t("blog"),
