@@ -75,29 +75,42 @@ export default function parse(md, language) {
         return str;
     }
 
+    function replaceQuotesLists(token) {
+        let t3 = token[3];
+        let t4 = token[4];
+        if (/\./.test(t4)) {
+            t3 = t3.replace(/^\d+/gm, "");
+        }
+        t3 = outdent(t3.replace(/^\s*[>*+.-]/gm, ""));
+        let inner = parse(t3, language);
+        if (t4 === ">") {
+            t4 = "blockquote";
+        } else {
+            t4 = /\./.test(t4) ? "ol" : "ul";
+            inner = inner.replace(/^(.*)(\n|$)/gm, "<li>$1</li>");
+        }
+        return `<${t4}>${inner}</${t4}>`;
+    }
+
+    function replaceStoryLinks(token) {
+        let url = token[9];
+        let dataStory = "";
+        if (url.startsWith("story:")) {
+            const story = url.split(":")[1];
+            url = `/${language}/story/${story}`;
+            dataStory = ` data-story="${story}"`;
+        }
+        out = out.replace("<a>", `<a href="${encodeAttr(url)}"${dataStory}>`);
+        return `${flush()}</a>`;
+    }
+
     for (const token of md.matchAll(tokenizer)) {
         const prev = md.substring(last, token.index);
         let chunk = token[0];
         last = token.index + chunk.length;
-        if (/[^\\](\\\\)*\\$/.test(prev)) {
-            // escaped
-        }
         // > Quotes, -* lists:
-        else if (token[4]) {
-            let t3 = token[3];
-            let t4 = token[4];
-            if (/\./.test(t4)) {
-                t3 = t3.replace(/^\d+/gm, "");
-            }
-            t3 = outdent(t3.replace(/^\s*[>*+.-]/gm, ""));
-            let inner = parse(t3, language);
-            if (t4 === ">") {
-                t4 = "blockquote";
-            } else {
-                t4 = /\./.test(t4) ? "ol" : "ul";
-                inner = inner.replace(/^(.*)(\n|$)/gm, "<li>$1</li>");
-            }
-            chunk = `<${t4}>${inner}</${t4}>`;
+        if (token[4]) {
+            chunk = replaceQuotesLists(token);
         }
         // Images:
         else if (token[6]) {
@@ -105,18 +118,7 @@ export default function parse(md, language) {
         }
         // Links:
         else if (token[8] && token[9]) {
-            let url = token[9];
-            let dataStory = "";
-            if (url.startsWith("story:")) {
-                const story = url.split(":")[1];
-                url = `/${language}/story/${story}`;
-                dataStory = ` data-story="${story}"`;
-            }
-            out = out.replace(
-                "<a>",
-                `<a href="${encodeAttr(url)}"${dataStory}>`,
-            );
-            chunk = `${flush()}</a>`;
+            chunk = replaceStoryLinks(token);
         } else if (token[7]) {
             chunk = "<a>";
         }
@@ -129,7 +131,7 @@ export default function parse(md, language) {
         else if (token[12] || token[1]) {
             chunk = tag(token[12] || "--");
         }
-        // Abbreviation
+        // Abbreviations:
         else if (token[14] && token[15]) {
             chunk = `<abbr data-tippy-content="${token[15]}">${token[14]}</abbr>`;
         }
