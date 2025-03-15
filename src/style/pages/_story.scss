@@ -99,16 +99,12 @@ $cluster-thumbnail-small-height: 150px;
 }
 
 section.story {
-    margin-top: #{variables.$nav-bar-height};
+    margin-top: variables.$nav-bar-height;
     overflow-y: auto;
     height: calc(100vh - #{variables.$nav-bar-height});
 
     .period {
         margin: variables.$p-vertical-margin 0;
-    }
-
-    h1 {
-        border-bottom: 0;
     }
 
     .map-extra {
@@ -286,4 +282,51 @@ button.mapboxgl-popup-close-button {
     box-shadow: none;
     transition: none;
     border: 1px solid #fff;
+}
+
+.story-header {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: calc(#{variables.$h1-padding-top} / 2);
+
+    @media (width <= 1024px) {
+        margin-top: 0;
+    }
+
+    &:not(:first-child) {
+        margin-top: 1.5rem;
+        border-top: variables.$h1-border-bottom-width solid variables.$h1-border-bottom-color;
+    }
+
+    h1 {
+        padding: calc(#{variables.$h1-padding-top} / 2) 0;
+        border-bottom: none;
+    }
+
+    .activities {
+        margin-inline-start: auto;
+
+        .tag {
+            display: inline-block;
+            border: variables.$h1-border-bottom-width solid variables.$h1-border-bottom-color;
+            border-radius: 0 variables.$border-radius-lg;
+            background-color: variables.$h1-border-bottom-color;
+            padding: 0 0.5rem;
+
+            &:not(:last-child) {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    @media (width <= 450px) {
+        flex-direction: column;
+        align-items: start;
+
+        .activities {
+            margin-inline-start: 0;
+            padding-top: 0;
+        }
+    }
 }

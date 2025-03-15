@@ -39,6 +39,14 @@
     "story.title": "The Story Behind the Photography",
     "story-to-photo": "See photos from this trip",
     "story-to-gallery": "Discover the gallery",
+    "activity": {
+        "walk": "hiking",
+        "packraft": "packrafting",
+        "ski": "skiing",
+        "snow_shoes": "snowshoeing",
+        "wwoof": "wwoofing",
+        "sailing_boat": "sailing"
+    },
     "photo": "Photos",
     "blog": "Blog",
     "story.open-any-photo.tooltip": "See the gallery",

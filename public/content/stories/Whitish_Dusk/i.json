@@ -1,5 +1,6 @@
 {
     "start": "2019-12-24",
     "duration": 10,
-    "season": "winter"
+    "season": "winter",
+    "activities": ["snow_shoes"]
 }

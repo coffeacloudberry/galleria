@@ -16,5 +16,6 @@
             "multiGNSSEnabled": true,
             "waasEgnosEnabled": true
         }
-    ]
+    ],
+    "activities": ["ski"]
 }

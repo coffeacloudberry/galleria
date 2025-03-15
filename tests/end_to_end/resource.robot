@@ -28,13 +28,13 @@ Open Browser To Story With Map
     Open Browser    ${LANDING URL}/en/story/Hetta_Pyhakero    ${BROWSER}
 
 Landing Page Should Be Open
-    Wait Until Element Is Visible    xpath://div[@id="current-photo"]//img
+    Wait Until Element Is Visible    xpath://div[@class="current-photo"]//img
 
 About Page Should Be Open
-    Wait Until Element Is Visible    id:about
+    Wait Until Element Is Visible    class:about
 
 Story Page Should Be Open
-    Wait Until Element Is Visible    id:story
+    Wait Until Element Is Visible    class:story
 
 Wait For Loading Content
     Wait Until Element Is Not Visible   class:loading-icon

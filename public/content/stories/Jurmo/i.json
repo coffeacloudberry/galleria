@@ -9,5 +9,6 @@
             "multiGNSSEnabled": true,
             "waasEgnosEnabled": false
         }
-    ]
+    ],
+    "activities": ["walk", "packraft"]
 }

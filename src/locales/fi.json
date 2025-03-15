@@ -39,6 +39,14 @@
     "story.title": "Tarina valokuvauksen takana",
     "story-to-photo": "Katso kuvia tältä matkalta",
     "story-to-gallery": "Tutustu galleriaan",
+    "activity": {
+        "walk": "vaellus",
+        "packraft": "packraftaus",
+        "ski": "maastohiihto",
+        "snow_shoes": "lumikenkäily",
+        "wwoof": "wwoofing",
+        "sailing_boat": "purjehdus"
+    },
     "photo": "Kuvat",
     "blog": "Blogi",
     "story.open-any-photo.tooltip": "Katso galleria",

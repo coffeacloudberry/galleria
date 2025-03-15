@@ -14,7 +14,7 @@ import tippy, { Instance as TippyInstance, inlinePositioning } from "tippy.js";
 
 import { globalMapState } from "../models/Map";
 import { story } from "../models/Story";
-import type { EasyDate, LinkedPhoto } from "../models/Story";
+import type { EasyDate, LinkedPhoto, StoryActivity } from "../models/Story";
 import type { SeasonStrings, StoryInfo } from "../models/Story";
 import { t } from "../translate";
 import { hideAllForce } from "../utils";
@@ -37,6 +37,10 @@ interface StorySubTitleAttrs {
     season: SeasonStrings | null;
     duration: number | null;
     totalPhotos?: number | null;
+}
+
+interface StoryActivitiesAttrs {
+    activities?: StoryActivity[] | null;
 }
 
 export function durationString(durationNumber: number): string | null {
@@ -162,6 +166,18 @@ export const StorySubTitle: m.Component<StorySubTitleAttrs> = {
     },
 };
 
+export const StoryActivities: m.Component<StoryActivitiesAttrs> = {
+    view({ attrs }: m.Vnode<StoryActivitiesAttrs>): m.Vnode {
+        const activities = attrs.activities || ["walk"];
+        return m(
+            ".activities",
+            activities.map((activity) =>
+                m("span.tag", t("activity", activity)),
+            ),
+        );
+    },
+};
+
 class PhotosPreview implements m.ClassComponent {
     clusterContent: InsideClusterAttrs = { photos: [] };
     allPhotos: LinkedPhoto[] = [];
@@ -218,7 +234,10 @@ const StoryTitle: m.Component = {
     view() {
         const hasPhotos = typeof story.totalPhotos === "number" && story.photos;
         return [
-            m("h1", story.title),
+            m(".story-header", [
+                m("h1", story.title),
+                m(StoryActivities, { activities: story.activities }),
+            ]),
             m(StorySubTitle, {
                 start: story.start,
                 season: story.season,

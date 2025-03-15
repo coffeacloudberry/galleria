@@ -160,6 +160,7 @@ export default class StoriesPlugin {
                     start: metadata.start,
                     totalPhotos: metadata.totalPhotos,
                     mostRecentPhoto: metadata.mostRecentPhoto,
+                    activities: metadata.activities,
                     title,
                     appetizer,
                 },
@@ -172,6 +173,7 @@ export default class StoriesPlugin {
                 season: metadata.season,
                 start: metadata.start,
                 totalPhotos: 0,
+                activities: metadata.activities,
                 title,
                 appetizer,
             },
@@ -253,8 +255,20 @@ export default class StoriesPlugin {
         }
     }
 
+    /** Log the list of activities from all stories. */
+    static printActivities(storyList) {
+        const unique_activities = new Set([
+            "walk",
+            ...storyList.flatMap((entry) => entry.metadata.activities),
+        ]);
+        const all_activities = [...unique_activities]
+            .filter((e) => e)
+            .join(", ");
+        console.info(`All activities are: ${all_activities}`);
+    }
+
     apply(compiler) {
-        compiler.hooks.compilation.tap(this.plugin, (compilation) => {
+        compiler.hooks.thisCompilation.tap(this.plugin, (compilation) => {
             const genPhotos = {};
             this.storyMetadata = {};
             this.compilation = compilation;
@@ -313,8 +327,9 @@ export default class StoriesPlugin {
                 this.generateStoryInfoFile(storyId);
             }
 
+            let storyList = [];
             for (const { slug } of languages) {
-                const storyList = [];
+                storyList = [];
                 // skipcq: JS-D008, JS-0042
                 Object.entries(this.storyMetadata).map(
                     ([storyId, metadata]) => {
@@ -331,6 +346,7 @@ export default class StoriesPlugin {
                 const path = `content/stories/_/all_stories.${slug}.json`;
                 this.emitFile(path, storyList);
             }
+            StoriesPlugin.printActivities(storyList);
         });
     }
 }

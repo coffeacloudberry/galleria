@@ -4,7 +4,8 @@ import type { Position } from "geojson";
 
 import { t } from "../translate";
 import { isMobile, msOrKms } from "../utils";
-import { Activity, Segment } from "../webtrack";
+import { Activity } from "../webtrack";
+import type { Segment } from "../webtrack";
 import { extraIcons, globalMapState, mapIcons } from "./Map";
 
 type xyLonLatPoint = { x: number; y: number; lon: number; lat: number };

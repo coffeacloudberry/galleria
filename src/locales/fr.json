@@ -39,6 +39,14 @@
     "story.title": "L'aventure de la photographie",
     "story-to-photo": "Voir les photos de ce voyage",
     "story-to-gallery": "Découvrir la galerie",
+    "activity": {
+        "walk": "rando",
+        "packraft": "packrafting",
+        "ski": "ski de rando",
+        "snow_shoes": "raquettes à neige",
+        "wwoof": "wwoofing",
+        "sailing_boat": "voile"
+    },
     "photo": "Photos",
     "blog": "Blog",
     "story.open-any-photo.tooltip": "Voir la galerie photo",

@@ -1,5 +1,6 @@
 {
     "start": "2016-02-25",
     "duration": 18,
-    "season": "rainy"
+    "season": "rainy",
+    "activities": ["wwoof"]
 }

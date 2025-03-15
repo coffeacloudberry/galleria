@@ -8,7 +8,7 @@ import { hideAllForce } from "../utils";
 import { Feedback } from "./Feedback";
 import { Header } from "./Header";
 import type { HeaderAttrs } from "./Header";
-import { StorySubTitle } from "./StoryPage";
+import { StoryActivities, StorySubTitle } from "./StoryPage";
 
 /** Clickable thumbnail. */
 class ThumbnailComponent implements m.ClassComponent<OneMetadata> {
@@ -113,7 +113,10 @@ const OneStoryComponent: m.Component<OneStory> = {
             attrs.metadata.title,
         );
         return [
-            m("h1.one-story", loadedLink),
+            m(".story-header", [
+                m("h1", loadedLink),
+                m(StoryActivities, { activities: attrs.metadata.activities }),
+            ]),
             m(
                 ".container.p-0.story-preview",
                 m(".row", m(OneStoryRow, attrs.metadata)),
