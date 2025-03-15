@@ -438,22 +438,27 @@ def guess_position_from_gpx(gpx_path: str | Path | None, date_taken: datetime.da
     date_taken_timezone_aware = date_taken.replace(tzinfo=datetime.datetime.strptime(timezone, "%z").tzinfo)
     smallest_diff_ms = float("inf")
     best_match: tuple[float, float] | None = None
+    gpx_missing_datetime = True
     with open(gpx_path, "r", encoding="utf-8") as input_gpx_file:
         gpx = gpxpy.parse(input_gpx_file)
         for track in gpx.tracks:
             for segment in track.segments:
                 for point in segment.points:
                     if point.time:  # this time is UTC
+                        gpx_missing_datetime = False
                         diff_ms = abs(date_taken_timezone_aware - point.time) / datetime.timedelta(milliseconds=1)
                         if diff_ms < smallest_diff_ms:
                             smallest_diff_ms = diff_ms
                             best_match = (point.longitude, point.latitude)
         for waypoint in gpx.waypoints:
             if waypoint.time:
+                gpx_missing_datetime = False
                 diff_ms = abs(date_taken_timezone_aware - waypoint.time) / datetime.timedelta(milliseconds=1)
                 if diff_ms < smallest_diff_ms:
                     smallest_diff_ms = diff_ms
                     best_match = (waypoint.longitude, waypoint.latitude)
+    if gpx_missing_datetime:
+        raise ValueError("GPX file does not contain any date/time!")
     click.echo(f"Position guessed with the following time delta: {datetime.timedelta(seconds=smallest_diff_ms / 1000)}")
     return best_match
 
