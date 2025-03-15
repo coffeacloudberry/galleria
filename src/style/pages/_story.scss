@@ -309,13 +309,26 @@ button.mapboxgl-popup-close-button {
 
         .tag {
             display: inline-block;
-            border: variables.$h1-border-bottom-width solid variables.$h1-border-bottom-color;
             border-radius: 0 variables.$border-radius-lg;
-            background-color: variables.$h1-border-bottom-color;
             padding: 0 0.5rem;
 
             &:not(:last-child) {
                 margin-right: 0.5rem;
+            }
+
+            &.tag-walk {
+                background-color: #a3ff90;
+            }
+            &.tag-packraft,
+            &.tag-sailing_boat {
+                background-color: #55cfea;
+            }
+            &.tag-ski,
+            &.tag-snow_shoes {
+                background-color: #d6a4ff;
+            }
+            &.tag-wwoof {
+                background-color: #d7ac42;
             }
         }
     }

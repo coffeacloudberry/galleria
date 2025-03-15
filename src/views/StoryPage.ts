@@ -172,7 +172,7 @@ export const StoryActivities: m.Component<StoryActivitiesAttrs> = {
         return m(
             ".activities",
             activities.map((activity) =>
-                m("span.tag", t("activity", activity)),
+                m(`span.tag.tag-${activity}`, t("activity", activity)),
             ),
         );
     },
