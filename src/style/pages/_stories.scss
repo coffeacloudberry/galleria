@@ -1,7 +1,35 @@
 @use "../base/variables";
 
+.select-activity {
+    position: absolute;
+    z-index: 11;
+    top: calc(0.7rem + #{variables.$nav-bar-height});
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: fit-content;
+    background-color: variables.$nav-bg-color;
+    box-shadow: 1px 1px 3px rgba(51 51 51 / 46%);
+    padding: 0.3rem 0.6rem;
+    border-radius: variables.$border-radius-lg;
+}
+
+form.activity-selector {
+    margin: 0.3rem;
+    font-size: calc(#{variables.$global-font-size} / 1.15);
+
+    div {
+        margin: 0.15rem 0;
+
+        input {
+            margin-right: 0.3rem;
+        }
+    }
+}
+
 .stories {
-    margin-top: #{variables.$nav-bar-height};
+    margin-top: variables.$nav-bar-height;
+    padding-top: 2.1rem;
     overflow-y: auto;
     height: calc(100vh - #{variables.$nav-bar-height});
 

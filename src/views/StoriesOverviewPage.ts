@@ -1,13 +1,14 @@
 import m from "mithril";
+import type { Placement } from "tippy.js";
 
 import { allStories } from "../models/AllStories";
 import type { OneMetadata, OneStory } from "../models/AllStories";
-import { Story } from "../models/Story";
+import { Story, TupleStoryActivity } from "../models/Story";
+import type { StoryActivity } from "../models/Story";
 import { t } from "../translate";
-import { hideAllForce } from "../utils";
+import { InteractiveTippy, hideAllForce } from "../utils";
 import { Feedback } from "./Feedback";
 import { Header } from "./Header";
-import type { HeaderAttrs } from "./Header";
 import { StoryActivities, StorySubTitle } from "./StoryPage";
 
 /** Clickable thumbnail. */
@@ -18,17 +19,38 @@ class ThumbnailComponent implements m.ClassComponent<OneMetadata> {
     /** The preloaded thumbnail. */
     private image = new Image();
 
+    private photoId: string | null = null;
+
     /** Cache the image to display a link only when the image is ready. */
     constructor({ attrs }: m.CVnode<OneMetadata>) {
+        const photoId = this.getPhotoId(attrs);
+        if (photoId) {
+            this.forceLoad(photoId);
+        }
+    }
+
+    onupdate({ attrs }: m.CVnode<OneMetadata>): void {
+        const photoId = this.getPhotoId(attrs);
+        if (photoId && photoId !== this.photoId) {
+            this.forceLoad(photoId);
+        }
+    }
+
+    getPhotoId(attrs: OneMetadata): undefined | string {
         if (!attrs.mostRecentPhoto) {
             return;
         }
-        const photoId = String(attrs.mostRecentPhoto);
+        return String(attrs.mostRecentPhoto);
+    }
+
+    forceLoad(photoId: string): void {
+        this.photoId = photoId;
+        this.ready = false;
         this.image.onload = () => {
             this.ready = true;
             m.redraw();
         };
-        this.image.src = `/content/photos/${photoId}/f.webp`;
+        this.image.src = `/content/photos/${this.photoId}/f.webp`;
     }
 
     /** Display a clickable thumbnail or an empty space. */
@@ -125,9 +147,49 @@ const OneStoryComponent: m.Component<OneStory> = {
     },
 };
 
+class ActivitySelection extends InteractiveTippy<void> {
+    placement = "bottom" as Placement;
+    arrow = true;
+
+    onSelection(activity: "all" | StoryActivity): void {
+        if (this.tippyInstance) {
+            this.tippyInstance.hide();
+        }
+        allStories.selectedFilter = activity;
+    }
+
+    view(): m.Vnode {
+        return m("div[tabindex=0].select-activity", [
+            m("div", t("activity.select")), // actually displayed
+            m(
+                "form.activity-selector",
+                ["all", ...TupleStoryActivity].map((activity) =>
+                    m("div", [
+                        m("input", {
+                            type: "radio",
+                            name: "filter",
+                            id: `filter_${activity}`,
+                            checked: allStories.selectedFilter === activity,
+                            value: activity,
+                            onchange: () => {
+                                this.onSelection(activity);
+                            },
+                        }),
+                        m(
+                            `label[for=filter_${activity}]`,
+                            t("activity", activity),
+                        ),
+                    ]),
+                ),
+            ),
+        ]);
+    }
+}
+
 /** The body content containing all stories if any. */
 class AllStoriesComponent implements m.ClassComponent {
-    hasScrolled = false;
+    private hasScrolled = false;
+    private currentFilter = allStories.selectedFilter;
 
     oncreate({ dom }: m.CVnodeDOM): void {
         this.hasScrolled = false;
@@ -152,10 +214,16 @@ class AllStoriesComponent implements m.ClassComponent {
      * so that the user does not have to scroll again all the way down.
      */
     onupdate({ dom }: m.CVnodeDOM): void {
-        if (allStories.fullList && allStories.scrollTop && !this.hasScrolled) {
+        const isBackAfterRemove = allStories.scrollTop && !this.hasScrolled;
+        const isNewFilter = allStories.selectedFilter !== this.currentFilter;
+        if (allStories.fullList && (isBackAfterRemove || isNewFilter)) {
             const element = dom as HTMLElement;
+            if (isNewFilter) {
+                allStories.scrollTop = 0;
+            }
             element.scroll({ top: allStories.scrollTop });
             this.hasScrolled = true;
+            this.currentFilter = allStories.selectedFilter;
         }
     }
 
@@ -181,7 +249,6 @@ class AllStoriesComponent implements m.ClassComponent {
 /** The list of stories. */
 export default function StoriesOverviewPage(): m.Component {
     t.init();
-    let currentLang = t.getLang();
     allStories.loadFullList();
     return {
         oncreate(): void {
@@ -192,19 +259,16 @@ export default function StoriesOverviewPage(): m.Component {
             hideAllForce();
         },
         onupdate(): void {
-            const futureLang = t.getLang();
-            if (currentLang !== futureLang) {
-                allStories.loadFullList();
-                currentLang = futureLang;
-            }
+            allStories.loadFullList();
             t.createTippies();
         },
-        view(): (m.Vnode<HeaderAttrs> | m.Vnode)[] {
+        view() {
             return [
                 m(Feedback),
                 m(Header, {
                     refPage: "stories",
                 }),
+                m(ActivitySelection),
                 m(AllStoriesComponent),
             ];
         },

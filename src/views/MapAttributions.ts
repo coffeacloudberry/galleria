@@ -1,6 +1,6 @@
 import informationCircleOutline from "@/icons/information-circle-outline.svg";
 import m from "mithril";
-import { Placement } from "tippy.js";
+import type { Placement } from "tippy.js";
 
 import { config } from "../config";
 import { t } from "../translate";

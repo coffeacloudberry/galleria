@@ -5,5 +5,6 @@ export default {
         // avoid specificity anti-patterns
         "declaration-no-important": true,
         "selector-max-id": 0,
+        "selector-class-pattern": null,
     },
 };

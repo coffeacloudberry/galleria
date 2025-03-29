@@ -22,14 +22,16 @@ export type SeasonStrings =
     | "dark winter"; // 1 October – 28 February;
 
 /** Very similar with the WebTrack activity. */
-export type StoryActivity =
-    | "walk"
-    | "packraft"
-    | "ski"
-    | "snow_shoes"
-    | "wwoof"
-    | "sailing_boat";
+export const TupleStoryActivity = [
+    "walk",
+    "packraft",
+    "ski",
+    "snow_shoes",
+    "wwoof",
+    "sailing_boat",
+];
 
+export type StoryActivity = (typeof TupleStoryActivity)[number];
 export type LinkedPhoto = { id: number; position?: PhotoPosition };
 
 /** GPS model and configuration */

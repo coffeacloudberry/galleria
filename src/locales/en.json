@@ -39,7 +39,9 @@
     "story.title": "The Story Behind the Photography",
     "story-to-photo": "See photos from this trip",
     "story-to-gallery": "Discover the gallery",
+    "activity.select": "Select Activity",
     "activity": {
+        "all": "all",
         "walk": "hiking",
         "packraft": "packrafting",
         "ski": "skiing",

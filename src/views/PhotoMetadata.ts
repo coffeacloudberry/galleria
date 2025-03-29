@@ -147,7 +147,7 @@ const CopyrightDetails: m.Component = {
         return m("p", [
             `${t("copyright")} © ${config.contentLicense.holder}`,
             m("br"),
-            m("span.cap", `${t("from")} `),
+            m("span", `${t("from")} `),
             m(
                 m.route.Link,
                 {
@@ -159,7 +159,7 @@ const CopyrightDetails: m.Component = {
                 "explorewilder.com",
             ),
             m("br"),
-            m("span.cap", `${t("copyright.under")} `),
+            m("span", `${t("copyright.under")} `),
             m(
                 "a",
                 {

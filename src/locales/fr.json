@@ -39,7 +39,9 @@
     "story.title": "L'aventure de la photographie",
     "story-to-photo": "Voir les photos de ce voyage",
     "story-to-gallery": "Découvrir la galerie",
+    "activity.select": "Choisir une activité",
     "activity": {
+        "all": "toutes",
         "walk": "rando",
         "packraft": "packrafting",
         "ski": "ski de rando",

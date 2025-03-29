@@ -18,17 +18,35 @@ export interface OneStory {
 
 /** Model for listing stories. */
 class AllStories {
+    private currentLang: string | undefined;
     protected _fullList: OneStory[] = [];
-    public scrollTop = NaN;
+    public scrollTop = 0;
+    public selectedFilter = "all";
 
     /** Get all stories and application states. */
     get fullList(): OneStory[] {
-        return this._fullList;
+        const filter = this.selectedFilter;
+        if (filter === "all") {
+            return this._fullList;
+        } else {
+            return this._fullList.filter((entry) => {
+                const activities = entry.metadata.activities;
+                return activities
+                    ? activities.includes(filter)
+                    : filter === "walk";
+            });
+        }
     }
 
     /** Load the JSON file containing the metadata of all stories. */
     loadFullList(): void {
+        const futureLang = t.getLang();
+        const isNewLang = this.currentLang !== futureLang;
+        if (this._fullList.length && !isNewLang) {
+            return;
+        }
         this._fullList = [];
+        this.currentLang = futureLang;
         m.request<OneStory[]>({
             method: "GET",
             url: "/content/stories/_/all_stories.:lang.json",

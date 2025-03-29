@@ -39,7 +39,9 @@
     "story.title": "Tarina valokuvauksen takana",
     "story-to-photo": "Katso kuvia tältä matkalta",
     "story-to-gallery": "Tutustu galleriaan",
+    "activity.select": "Valitse aktiviteetti",
     "activity": {
+        "all": "kaikki",
         "walk": "vaellus",
         "packraft": "packraftaus",
         "ski": "maastohiihto",
