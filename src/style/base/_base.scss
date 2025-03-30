@@ -32,13 +32,13 @@ a:focus:not(.nav-item) {
 
     a:not(.nav-item),
     a:visited:not(.nav-item) {
-        color: #fff;
+        color: inherit;
         text-decoration: rgba(255 255 255 / 37%) underline;
     }
 
     a:hover:not(.nav-item),
     a:focus:not(.nav-item) {
-        color: #fff;
+        color: inherit;
         text-decoration: #fff underline;
     }
 }
