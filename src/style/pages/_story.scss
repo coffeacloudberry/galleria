@@ -119,10 +119,8 @@ section.story {
         }
 
         .map {
-            /* Override Mapbox default font. ID has higher specificity than Mapbox class. */
-            font:
-                variables.$global-font-size MyBodyFont,
-                sans-serif;
+            /* Override Mapbox default font. */
+            font-family: inherit;
             border-radius: 0 variables.$border-radius-lg;
             box-shadow: 0 0 3px rgba(114 114 114 / 46%);
             width: 100%;
