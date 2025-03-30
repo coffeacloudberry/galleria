@@ -83,7 +83,10 @@ def focal_length_35mm_exif(d) -> int:
     """Find out the focal length in 35mm format.
     Use the `EXIF:FocalLengthIn35mmFormat` tag if existing. Otherwise, use the `EXIF:FocalLength` alongside
     the `MakerNotes:FocalPlaneDiagonal`. The `Composite:FocalLength35efl` is not used because that field
-    is determined/computed using the aforementioned fields.
+    is determined/computed using the aforementioned fields. Notice that the focal length does not depend
+    on the sensor size, e.g. 30mm MFT is 30mm full frame. What changes with the sensor crop is the field
+    of view. It is however common in the photography community to take the sensor crop into account when
+    talking about focal length.
     """
     try:
         return round(d["EXIF:FocalLengthIn35mmFormat"])
