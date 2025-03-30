@@ -19,6 +19,7 @@ class ThumbnailComponent implements m.ClassComponent<OneMetadata> {
     /** The preloaded thumbnail. */
     private image = new Image();
 
+    /** The current photo ID. */
     private photoId: string | null = null;
 
     /** Cache the image to display a link only when the image is ready. */
@@ -36,11 +37,8 @@ class ThumbnailComponent implements m.ClassComponent<OneMetadata> {
         }
     }
 
-    getPhotoId(attrs: OneMetadata): undefined | string {
-        if (!attrs.mostRecentPhoto) {
-            return;
-        }
-        return String(attrs.mostRecentPhoto);
+    getPhotoId(attrs: OneMetadata): string | null {
+        return attrs.mostRecentPhoto ? String(attrs.mostRecentPhoto) : null;
     }
 
     forceLoad(photoId: string): void {
