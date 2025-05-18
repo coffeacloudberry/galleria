@@ -165,7 +165,9 @@ def generate_info_json(prev_photo: Optional[str], next_photo: Optional[str], exi
 
 
 def get_exif_data(tif_path: str | Path):
-    return exiftool.ExifToolHelper().get_metadata(tif_path)[0]
+    exif_data = exiftool.ExifToolHelper().get_metadata(tif_path)[0]
+    # discard lists that are not hashable and causing issues
+    return {k: v for k, v in exif_data.items() if not isinstance(v, list)}
 
 
 def has_valid_export(original_path: str | Path, exported_path: str | Path) -> bool:
@@ -389,13 +391,13 @@ def import_exif_to_tif(tif_path: str | Path) -> set[tuple[str, str | int | float
         The list of added or modified metadata fields (MakerNotes, EXIF, Composite).
     """
     found_cam = False
-    for raw_ext in ("ORF", "NEF"):
+    for raw_ext in ("ORF", "NEF", "dng"):
         cam_path = f"{os.path.splitext(tif_path)[0]}.{raw_ext}"
         if os.path.exists(cam_path):
             found_cam = True
             break
     if not found_cam:
-        raise ValueError("Failed to find RAW file!")
+        cam_path = click.prompt("Failed to find RAW file. Enter manually")
     exif_data_before = set(get_exif_data(tif_path).items())
     completed_process = subprocess.run(
         [
