@@ -1,0 +1,23 @@
+{
+    "title": {
+        "en": "Black Bird",
+        "fi": "Musta lintu",
+        "fr": "L'oiseau noir"
+    },
+    "description": {
+        "en": "The optical effect is made by a handheld split diopter lens.",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Corsica",
+    "dateTaken": "2025-04-18T20:49:43",
+    "focalLength35mm": 180,
+    "exposureTime": "1/320",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250414132352,
+    "next": 250420161608
+}
