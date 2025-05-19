@@ -281,7 +281,8 @@ class GeoElevationData:
     def _download_tile(self, tilename: str) -> bytes:
         filename = f"{tilename}_{self.version}"
         if "JdF" in self.version:
-            raise NotImplementedError(f"Please download `{filename}.hgt' and retry.")
+            srtm_dir = GeoElevationData.get_srtm_dir()
+            raise NotImplementedError(f"Please download `{filename}.hgt' to {srtm_dir} and retry.")
         url = GeoElevationData.build_url(tilename, self.version)
         data = GeoElevationData.unzip(self._fetch(url))
         return GeoElevationData.file_write(f"{filename}.{self.extension}", data)
