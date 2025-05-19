@@ -96,6 +96,8 @@ def gpx_to_webtrack(gpx: str, simplify: bool, dem: str, fallback: bool, not_flat
 class Analysis:
     ACTIVITY_PATTERN = r".*\(webtrack activity: ([a-z ]+)\).*"
     ACTIVITY_RE = re.compile(ACTIVITY_PATTERN, re.IGNORECASE | re.DOTALL)
+    ORDERED_TRACK_PATTERN = r"^(\d+)\. "
+    ORDERED_TRACK_RE = re.compile(ORDERED_TRACK_PATTERN)
 
     # Distance where the position is approaching the track closely
     CLOSE_ENOUGH_METERS = 500
@@ -219,6 +221,19 @@ class Analysis:
             pt2.longitude,
         )
 
+    def order_tracks(self):
+        """Re-ordering tracks if their names are enumerated, f.i. 1. First, 2. Second"""
+        positioned_tracks = []
+        for track in self.gpx.tracks:
+            match = self.ORDERED_TRACK_RE.match(track.name)
+            if match:
+                position = int(match.group(1))
+                positioned_tracks.append((position, track))
+            else:
+                click.echo("At least one track is not numbered. Using order as saved in GPX.", err=True)
+                return
+        self.gpx.tracks = [track[1] for track in sorted(positioned_tracks, key=lambda entry: entry[0])]
+
 
 class AnalysisWithoutElevation(Analysis):
     def __init__(self, *args, **kwargs):
@@ -263,6 +278,7 @@ class AnalysisWithoutElevation(Analysis):
             self.gpx = gpxpy.parse(input_gpx_file)
             if self.simplify:
                 self.gpx.simplify()
+            self.order_tracks()
             self.process_tracks()
 
             waypoints = []
@@ -366,6 +382,7 @@ class AnalysisWithElevation(Analysis):
             self.gpx = gpxpy.parse(input_gpx_file)
             if self.simplify:
                 self.gpx.simplify()
+            self.order_tracks()
             elevation_data.add_elevations(self.gpx, smooth=True)
             self.process_tracks()
             elevation_source = self.get_webtrack_source()
