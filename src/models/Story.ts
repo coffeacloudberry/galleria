@@ -29,6 +29,7 @@ export const TupleStoryActivity = [
     "snow_shoes",
     "wwoof",
     "sailing_boat",
+    "ice_climbing", // not in Webtrack because it is vertical
 ];
 
 export type StoryActivity = (typeof TupleStoryActivity)[number];

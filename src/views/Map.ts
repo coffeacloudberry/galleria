@@ -652,6 +652,8 @@ export default class Map implements m.ClassComponent {
                 "line-color": [
                     "match",
                     ["get", "activity"],
+                    "SNOW_MOBILE",
+                    "#7878f3",
                     "MOTORED_BOAT",
                     "#00F",
                     "ROWING_BOAT",

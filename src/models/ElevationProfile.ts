@@ -73,6 +73,8 @@ function createAnnotations(
 function activityBackground(activity: string): Color {
     const mappedActivity = Activity[activity as keyof typeof Activity];
     switch (mappedActivity) {
+        case Activity.SNOW_MOBILE:
+            return "rgba(47,47,95,0.63)";
         case Activity.MOTORED_BOAT:
         case Activity.ROWING_BOAT:
         case Activity.SAILING_BOAT:
