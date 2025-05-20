@@ -7,7 +7,7 @@ button:not([class^="mapboxgl-ctrl-"], .light-icon-button, .toast-close) {
     border-radius: 0 variables.$border-radius-lg;
     cursor: pointer;
     display: inline-block;
-    box-shadow: 1px 2px 3px rgba(0 0 0 / 20%);
+    box-shadow: 1px 2px 3px rgb(0 0 0 / 20%);
 
     @media (width <= 1024px) {
         padding: 0.1rem 0.5rem 0.2rem;
@@ -52,11 +52,11 @@ input:not([type="radio"], [type="checkbox"]) {
     margin: 0.5rem 0;
     border: 1px solid #cdcdcd;
     border-radius: 0 variables.$border-radius-lg;
-    box-shadow: 0 0 2px rgba(114 114 114 / 46%);
+    box-shadow: 0 0 2px rgb(114 114 114 / 46%);
 
     &.invalid {
         border: 1px solid #de2828;
-        box-shadow: 0 0 2px rgba(255 0 0 / 36%);
+        box-shadow: 0 0 2px rgb(255 0 0 / 36%);
     }
 
     &:focus {
@@ -65,13 +65,13 @@ input:not([type="radio"], [type="checkbox"]) {
 
     &:not(.invalid):focus {
         border: 1px solid #636363;
-        box-shadow: 0 0 2px rgba(83 83 83 / 46%);
+        box-shadow: 0 0 2px rgb(83 83 83 / 46%);
     }
 }
 
 textarea {
     border: 1px solid #cdcdcd;
-    box-shadow: 0 0 2px rgba(114 114 114 / 46%);
+    box-shadow: 0 0 2px rgb(114 114 114 / 46%);
     padding: 0.25rem;
     min-height: calc(#{variables.$global-font-size} * 3 + 1rem);
     max-height: 70vh;

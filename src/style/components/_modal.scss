@@ -15,8 +15,8 @@
     }
 
     .modal-box {
-        box-shadow: 0 0 3px rgba(0 0 0 / 20%);
-        background-color: rgba(255 255 255 / 100%);
+        box-shadow: 0 0 3px rgb(0 0 0 / 20%);
+        background-color: rgb(255 255 255 / 100%);
         border-radius: 0 variables.$border-radius-lg;
         padding: 1rem;
         max-width: calc(min(930px, 100vw - 1rem));

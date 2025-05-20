@@ -398,6 +398,8 @@ def import_exif_to_tif(tif_path: str | Path) -> set[tuple[str, str | int | float
             break
     if not found_cam:
         cam_path = click.prompt("Failed to find RAW file. Enter manually")
+    if not cam_path:
+        raise ValueError("Failed to find RAW file!")
     exif_data_before = set(get_exif_data(tif_path).items())
     completed_process = subprocess.run(
         [

@@ -3,7 +3,7 @@
 header,
 footer {
     nav {
-        box-shadow: 0 0 3px rgba(51 51 51 / 46%);
+        box-shadow: 0 0 3px rgb(51 51 51 / 46%);
         position: absolute;
         background-color: variables.$nav-bg-color;
         z-index: 10;
@@ -33,7 +33,7 @@ footer {
 
                     a {
                         color: #000;
-                        text-decoration: rgba(0 0 0 / 40%) underline;
+                        text-decoration: rgb(0 0 0 / 40%) underline;
 
                         &:hover,
                         &:focus {
@@ -163,7 +163,7 @@ footer {
             &:hover,
             &:focus {
                 background-color: variables.$nav-hover-bg-color;
-                text-decoration: rgba(255 255 255 / 37%) underline;
+                text-decoration: rgb(255 255 255 / 37%) underline;
             }
         }
     }

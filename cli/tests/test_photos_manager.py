@@ -1,6 +1,7 @@
 import os
 import shutil
 from datetime import datetime
+from unittest.mock import patch
 
 import pytest
 from PIL import Image
@@ -68,7 +69,9 @@ def test_corrupted_exif():
         body_lens_model_exif(exif_data)
 
 
-def test_import_exif_to_tif(tmp_path):
+@patch("click.prompt")
+def test_import_exif_to_tif(mock_click, tmp_path):
+    mock_click.return_value = ""
     orphan_tif = tmp_path / "orphan.tif"
     shutil.copyfile(SAMPLE_OMSYSTEM_TIF, orphan_tif)
     with pytest.raises(ValueError, match="Failed to find RAW file!"):
