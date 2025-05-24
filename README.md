@@ -24,7 +24,7 @@ I could not find anything cheap complying to the above requirements, and I was i
 - [x] Feedback form,
 - [x] [Privacy by design](https://en.wikipedia.org/wiki/Privacy_by_design),
 - [x] [Humane by design](https://humanebydesign.com/),
-- [x] [Ethical by design](https://ind.ie/ethical-design/),
+- [x] [Ethical](https://www.w3.org/TR/ethical-web-principles/) [by design](https://ind.ie/ethical-design/),
 - [x] No cookie, no Local Storage, no IndexedDB,
 - [x] Photo viewer with dynamic image optimization,
 - [x] Mobile-friendly,

@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "High Latitude",
+        "fi": "Korkea leveysaste",
+        "fr": "Haute latitude"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Ice_Climbing_Hyperittfossen",
+    "dateTaken": "2025-04-28T14:35:57",
+    "focalLength35mm": 16,
+    "exposureTime": "1/640",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250421200234,
+    "position": {
+        "lat": 78.3347480278,
+        "lon": 16.2859468348
+    }
+}
