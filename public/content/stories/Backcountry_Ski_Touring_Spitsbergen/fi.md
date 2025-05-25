@@ -1,0 +1,3 @@
+# Länsimaanin maastohiihtoretki
+
+Tulossa pian...
