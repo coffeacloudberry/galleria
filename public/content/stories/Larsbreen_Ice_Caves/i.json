@@ -1,0 +1,13 @@
+{
+    "start": "2025-04-27",
+    "duration": 1,
+    "season": "winter",
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        }
+    ]
+}
