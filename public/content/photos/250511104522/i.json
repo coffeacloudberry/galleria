@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Svalbard Reindeer",
+        "fi": "Huippuvuorten porot",
+        "fr": "Renne du Spitzberg"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-11T10:45:22",
+    "focalLength35mm": 373,
+    "exposureTime": "1/400",
+    "fNumber": 8,
+    "iso": 250,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko 100-400mm F5.0-6.3",
+    "computationalMode": null,
+    "prev": 250508212558,
+    "position": {
+        "lat": 78.211565,
+        "lon": 15.601101
+    }
+}
