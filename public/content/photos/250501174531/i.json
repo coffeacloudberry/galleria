@@ -1,8 +1,8 @@
 {
     "title": {
-        "en": "Flat Glacier, Sharp Mountains",
-        "fi": "Tasainen jäätikkö, jyrkät vuoret",
-        "fr": "Glacier plat, montagnes acérées"
+        "en": "Curves",
+        "fi": "Käyrät",
+        "fr": "Courbes"
     },
     "description": {
         "en": "",
@@ -10,18 +10,18 @@
         "fr": ""
     },
     "story": "Backcountry_Ski_Touring_Spitsbergen",
-    "dateTaken": "2025-05-04T15:35:06",
-    "focalLength35mm": 132,
-    "exposureTime": "1/6400",
+    "dateTaken": "2025-05-01T17:45:31",
+    "focalLength35mm": 244,
+    "exposureTime": "1/5000",
     "fNumber": 4,
     "iso": 200,
     "body": "OM Digital Solutions OM-5",
     "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
     "computationalMode": "hand-held high res",
-    "prev": 250501174531,
-    "next": 250508212558,
+    "prev": 250428143557,
+    "next": 250504153506,
     "position": {
-        "lat": 79.0105466824,
-        "lon": 17.4914930854
+        "lat": 78.8596653845,
+        "lon": 17.3670421913
     }
 }
