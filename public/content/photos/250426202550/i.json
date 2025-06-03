@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Love at First Sight",
+        "fi": "Rakkaus ensi silmäyksellä",
+        "fr": "Amour au premier regard"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-04-26T20:25:50",
+    "focalLength35mm": 300,
+    "exposureTime": "1/2000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250421200234,
+    "next": 250427143658,
+    "position": {
+        "lat": 78.24681,
+        "lon": 15.49615
+    }
+}
