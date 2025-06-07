@@ -1,8 +1,8 @@
 {
     "title": {
-        "en": "Svalbard Reindeer",
-        "fi": "Huippuvuorten porot",
-        "fr": "Renne du Spitzberg"
+        "en": "Svalbard Rock Ptarmigans",
+        "fi": "Kiirunat",
+        "fr": "Lagopèdes alpins"
     },
     "description": {
         "en": "",
@@ -10,15 +10,16 @@
         "fr": ""
     },
     "story": "Backcountry_Ski_Touring_Spitsbergen",
-    "dateTaken": "2025-05-11T10:45:22",
-    "focalLength35mm": 373,
-    "exposureTime": "1/400",
-    "fNumber": 8,
-    "iso": 250,
+    "dateTaken": "2025-05-11T10:07:33",
+    "focalLength35mm": 800,
+    "exposureTime": "1/640",
+    "fNumber": 6.3,
+    "iso": 200,
     "body": "OM Digital Solutions OM-5",
     "lens": "Olympus M.Zuiko 100-400mm F5.0-6.3",
     "computationalMode": null,
-    "prev": 250511102411,
+    "prev": 250510093643,
+    "next": 250511102411,
     "position": {
         "lat": 78.211565,
         "lon": 15.601101
