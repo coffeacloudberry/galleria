@@ -1,25 +1,26 @@
 {
     "title": {
-        "en": "Northern Fulmar",
-        "fi": "Myrskylintu",
-        "fr": "Fulmar boréal"
+        "en": "Guillemots",
+        "fi": "Etelänkiislat",
+        "fr": "Guillemots"
     },
     "description": {
         "en": "",
         "fi": "",
         "fr": ""
     },
+    "downloadable": false,
     "story": "Backcountry_Ski_Touring_Spitsbergen",
-    "dateTaken": "2025-05-10T09:36:43",
+    "dateTaken": "2025-05-10T09:39:31",
     "focalLength35mm": 300,
-    "exposureTime": "1/1000",
+    "exposureTime": "1/640",
     "fNumber": 5.6,
     "iso": 200,
     "body": "OM Digital Solutions OM-5",
     "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
     "computationalMode": null,
-    "prev": 250508212558,
-    "next": 250510093931,
+    "prev": 250510093643,
+    "next": 250511100733,
     "position": {
         "lat": 78.5817111656,
         "lon": 16.4397364855
