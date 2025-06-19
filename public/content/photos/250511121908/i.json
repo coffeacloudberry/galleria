@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "King Eider",
+        "fi": "Kyhmyhaahka",
+        "fr": "Eider à tête grise"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-11T12:19:08",
+    "focalLength35mm": 800,
+    "exposureTime": "1/800",
+    "fNumber": 8,
+    "iso": 400,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko 100-400mm F5.0-6.3",
+    "computationalMode": null,
+    "prev": 250511104522,
+    "position": {
+        "lat": 78.2281582989,
+        "lon": 15.6058223639
+    }
+}
