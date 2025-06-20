@@ -213,10 +213,6 @@ footer nav {
             /* avoid scroll bar to appear */
             right: 2px;
 
-            .next-photo-next-story {
-                writing-mode: vertical-rl;
-            }
-
             /* to fit the vertical text */
             .nav-item:not(:first-child) {
                 margin-top: 0;
@@ -224,12 +220,6 @@ footer nav {
 
             .nav-item:not(:last-child) {
                 margin-bottom: 0;
-            }
-        }
-
-        @media (width <= 1024px) {
-            .next-photo-next-story {
-                font-size: calc(#{variables.$nav-font-size} / 1.4);
             }
         }
     }

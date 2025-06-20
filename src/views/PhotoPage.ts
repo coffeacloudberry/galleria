@@ -1,9 +1,10 @@
 import apertureOutline from "@/icons/aperture-outline.svg";
-import chevronBackOutline from "@/icons/chevron-back-outline.svg";
-import chevronForwardOutline from "@/icons/chevron-forward-outline.svg";
-import playBackOutline from "@/icons/play-back-outline.svg";
-import playForwardOutline from "@/icons/play-forward-outline.svg";
-import returnUpBackOutline from "@/icons/return-up-back-outline.svg";
+import timeFutureOutline from "@/icons/time-future-outline.svg";
+import timeFutureStop from "@/icons/time-future-stop.svg";
+import timeFuture from "@/icons/time-future.svg";
+import timePastOutline from "@/icons/time-past-outline.svg";
+import timePastStop from "@/icons/time-past-stop.svg";
+import timePast from "@/icons/time-past.svg";
 import m from "mithril";
 import tippy, { Instance as TippyInstance } from "tippy.js";
 
@@ -44,29 +45,18 @@ const Gallery: m.Component = {
     },
 };
 
-const RewindButton: m.Component = {
-    view(): m.Vnode<m.RouteLinkAttrs> {
-        return m(
-            m.route.Link,
-            {
-                href: "",
-                onclick: (e: Event): void => {
-                    e.preventDefault();
-                    photo.loadNext();
-                },
-                class: `nav-item ${photo.isPreloading ? "invisible" : ""}`,
-                "data-tippy-content":
-                    t("rewind.tooltip") +
-                    (!isMobile() ? ` (${t("keystroke")} ➡)` : ""),
-            },
-            m(Icon, { src: returnUpBackOutline }),
-        );
-    },
-};
-
+/** Next photo is the older photo. */
 const NextButton: m.Component = {
     view(): m.Vnode<m.RouteLinkAttrs> {
-        const lastInStory = photo.meta?.storyPhotoIncrement === 1;
+        const notInStory = photo.meta?.storyPhotoIncrement === undefined;
+        const lastInStory =
+            !notInStory && photo.meta?.storyPhotoIncrement === 1;
+        let tippyContent = lastInStory
+            ? t("photo.next.story")
+            : t("next.tooltip");
+        if (!isMobile()) {
+            tippyContent += ` (${t("keystroke")} ➡)`;
+        }
         return m(
             m.route.Link,
             {
@@ -76,20 +66,14 @@ const NextButton: m.Component = {
                     photo.loadNext();
                 },
                 class: `nav-item ${photo.isPreloading ? "invisible" : ""}`,
-                "data-tippy-content":
-                    t("next.tooltip") +
-                    (!isMobile() ? ` (${t("keystroke")} ➡)` : ""),
+                "data-tippy-content": tippyContent,
             },
-            [
-                lastInStory &&
-                    !photo.isPreloading &&
-                    m("span.next-photo-next-story", t("photo.next.story")),
-                m(Icon, { src: chevronForwardOutline }),
-            ],
+            m(Icon, { src: lastInStory ? timePastOutline : timePast }),
         );
     },
 };
 
+/** Last photo is the oldest photo. */
 const LastButton: m.Component = {
     view(): m.Vnode<m.RouteLinkAttrs> {
         return m(
@@ -104,11 +88,12 @@ const LastButton: m.Component = {
                 }`,
                 "data-tippy-content": t("last.tooltip"),
             },
-            m(Icon, { src: playForwardOutline }),
+            m(Icon, { src: timePastStop }),
         );
     },
 };
 
+/** First photo is the newest, most recently published photo. */
 const FirstButton: m.Component = {
     view(): m.Vnode<m.RouteLinkAttrs> {
         return m(
@@ -122,13 +107,24 @@ const FirstButton: m.Component = {
                 }`,
                 "data-tippy-content": t("first.tooltip"),
             },
-            m(Icon, { src: playBackOutline }),
+            m(Icon, { src: timeFutureStop }),
         );
     },
 };
 
+/** Previous photo is the newer, more recently published photo. */
 const PrevButton: m.Component = {
     view(): m.Vnode<m.RouteLinkAttrs> {
+        const notInStory = photo.meta?.storyPhotoIncrement === undefined;
+        const firstInStory =
+            !notInStory &&
+            photo.meta?.storyPhotoIncrement === photo.meta?.photosInStory;
+        let tippyContent = firstInStory
+            ? t("photo.previous.story")
+            : t("previous.tooltip");
+        if (!isMobile()) {
+            tippyContent += ` (${t("keystroke")} ⬅)`;
+        }
         return m(
             m.route.Link,
             {
@@ -140,11 +136,9 @@ const PrevButton: m.Component = {
                 class: `nav-item ${
                     photo.isFirst() || photo.isPreloading ? "invisible" : ""
                 }`,
-                "data-tippy-content":
-                    t("previous.tooltip") +
-                    (!isMobile() ? ` (${t("keystroke")} ⬅)` : ""),
+                "data-tippy-content": tippyContent,
             },
-            m(Icon, { src: chevronBackOutline }),
+            m(Icon, { src: firstInStory ? timeFutureOutline : timeFuture }),
         );
     },
 };
@@ -217,7 +211,7 @@ const Footer: m.Component<FooterAttrs> = {
                         photoTitle &&
                         m(PhotoMetadata, { class: "nav-item long-item" }),
                     m("span", [
-                        photo.isLast() ? m(RewindButton) : m(NextButton),
+                        photo.isLast() ? m(FirstButton) : m(NextButton),
                         m(LastButton),
                     ]),
                 ],
