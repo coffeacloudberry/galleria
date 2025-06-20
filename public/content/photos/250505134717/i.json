@@ -1,8 +1,8 @@
 {
     "title": {
-        "en": "White Summit",
-        "fi": "Valkoinen huippukokous",
-        "fr": "Sommet blanc"
+        "en": "Veteranen",
+        "fi": "Veteranen",
+        "fr": "Veteranen"
     },
     "description": {
         "en": "",
@@ -11,18 +11,18 @@
     },
     "downloadable": false,
     "story": "Backcountry_Ski_Touring_Spitsbergen",
-    "dateTaken": "2025-05-08T12:56:21",
-    "focalLength35mm": 144,
+    "dateTaken": "2025-05-05T13:47:17",
+    "focalLength35mm": 140,
     "exposureTime": "1/6400",
     "fNumber": 4,
     "iso": 200,
     "body": "OM Digital Solutions OM-5",
     "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
     "computationalMode": "hand-held high res",
-    "prev": 250505134717,
-    "next": 250508162119,
+    "prev": 250504160237,
+    "next": 250508125621,
     "position": {
-        "lat": 78.9551066794,
-        "lon": 16.3788769953
+        "lat": 79.0253696591,
+        "lon": 17.2247589659
     }
 }
