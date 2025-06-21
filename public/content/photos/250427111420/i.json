@@ -1,27 +1,28 @@
 {
     "title": {
-        "en": "Inside a Glacier",
-        "fi": "Jäätikön sisällä",
-        "fr": "Dans un glacier"
+        "en": "Stratum",
+        "fi": "Kerrostuma",
+        "fr": "Strate"
     },
     "description": {
         "en": "",
         "fi": "",
         "fr": ""
     },
+    "downloadable": false,
     "story": "Larsbreen_Ice_Caves",
-    "dateTaken": "2025-04-27T14:36:58",
-    "focalLength35mm": 42,
-    "exposureTime": "1/60",
+    "dateTaken": "2025-04-27T11:14:20",
+    "focalLength35mm": 50,
+    "exposureTime": "1/4000",
     "fNumber": 4,
     "iso": 200,
     "body": "OM Digital Solutions OM-5",
     "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
     "computationalMode": "hand-held high res",
-    "prev": 250427111420,
-    "next": 250428143557,
+    "prev": 250426202550,
+    "next": 250427143658,
     "position": {
-        "lat": 78.1913862191,
-        "lon": 15.5866120476
+        "lat": 78.1905544829,
+        "lon": 15.583168678
     }
 }
