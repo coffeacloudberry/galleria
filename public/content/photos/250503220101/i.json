@@ -1,8 +1,8 @@
 {
     "title": {
-        "en": "Through Titan Pass",
-        "fi": "Titan Passin kautta",
-        "fr": "Par le col du Titan"
+        "en": "Tan Rocks",
+        "fi": "Kellanruskeat kalliot",
+        "fr": "Roches de feu"
     },
     "description": {
         "en": "",
@@ -11,18 +11,18 @@
     },
     "downloadable": false,
     "story": "Backcountry_Ski_Touring_Spitsbergen",
-    "dateTaken": "2025-05-03T19:27:45",
-    "focalLength35mm": 24,
-    "exposureTime": "1/2500",
+    "dateTaken": "2025-05-03T22:01:01",
+    "focalLength35mm": 50,
+    "exposureTime": "1/2000",
     "fNumber": 4,
     "iso": 200,
     "body": "OM Digital Solutions OM-5",
     "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
     "computationalMode": "hand-held high res",
-    "prev": 250501174531,
-    "next": 250503220101,
+    "prev": 250503192745,
+    "next": 250504032347,
     "position": {
-        "lat": 78.9081866294,
-        "lon": 17.3504808918
+        "lat": 78.9535331447,
+        "lon": 17.5693132728
     }
 }
