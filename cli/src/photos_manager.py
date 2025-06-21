@@ -420,9 +420,9 @@ def import_exif_to_tif(tif_path: str | Path) -> set[tuple[str, str | int | float
     return changed_exif_data
 
 
-def import_and_get_exif_data(err: str, tif_path: str, abort: bool):
+def import_and_get_exif_data(err: str, tif_path: str):
     click.echo(err, err=True)
-    if not TESTING and click.confirm("Do you want to import from RAW (ORF or NEF)?", default=True, abort=abort):
+    if not TESTING:
         import_exif_to_tif(tif_path)
     return get_exif_data(tif_path)
 
@@ -478,7 +478,7 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
     try:
         body_model, lens_model = body_lens_model_exif(d)
     except ValueError as err:
-        d = import_and_get_exif_data(str(err), tif_path, True)
+        d = import_and_get_exif_data(str(err), tif_path)
         body_model, lens_model = body_lens_model_exif(d)
     dir_format = "%y%m%d%H%M%S"
 
@@ -490,7 +490,7 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
         if timezone:
             click.echo(f"Timezone is {timezone}")
         else:
-            d = import_and_get_exif_data("Missing timezone!", tif_path, False)
+            d = import_and_get_exif_data("Missing timezone!", tif_path)
             date_taken, timezone = date_taken_exif(d)
             if timezone:
                 click.echo(f"Timezone is {timezone}")
