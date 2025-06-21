@@ -890,7 +890,7 @@ export default class Map implements m.ClassComponent {
                     attributionControl: false, // outside the map widget to control the style and language
                     logoPosition: "bottom-right",
                     cooperativeGestures: isMobile(),
-                    projection: { name: "globe" },
+                    projection: { name: "mercator" },
                 });
 
                 globalMapState.controls.scale = new mapboxgl.ScaleControl({
