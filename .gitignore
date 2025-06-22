@@ -37,3 +37,4 @@ target/
 !_*.scss
 !cli/**/__init__.py
 !_redirects
+!_headers

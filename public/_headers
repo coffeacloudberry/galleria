@@ -1,0 +1,9 @@
+*
+    X-Content-Type-Options: nosniff
+    X-Frame-Options: DENY
+    X-Robots-Tag: none
+    Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://api.mapbox.com https://unpkg.com; connect-src 'self' https://api.mapbox.com https://api.explorewilder.com; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://api.mapbox.com; font-src 'self' data:; worker-src blob:; child-src blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'none'
+    Permissions-Policy: geolocation=(), camera=(), microphone=()
+    Referrer-Policy: strict-origin
+    Access-Control-Allow-Origin: https://www.explorewilder.com
+    Cache-Control: max-age=0, s-maxage=86400

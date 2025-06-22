@@ -61,6 +61,7 @@ export default {
                 "!content/**",
                 "!.well-known/**",
                 "!_redirects",
+                "!_headers",
             ],
         }),
 
