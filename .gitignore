@@ -36,3 +36,4 @@ favicon.svg
 target/
 !_*.scss
 !cli/**/__init__.py
+!_redirects
