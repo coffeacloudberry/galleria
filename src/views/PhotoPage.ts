@@ -12,7 +12,6 @@ import { config } from "../config";
 import { photo } from "../models/Photo";
 import { t } from "../translate";
 import { getPhotoId, hideAllForce, isMobile } from "../utils";
-import { Feedback } from "./Feedback";
 import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import PhotoMetadata from "./PhotoMetadata";
@@ -403,9 +402,8 @@ export default function PhotoPage(): m.Component {
             }
             t.createTippies();
         },
-        view(): [m.Vnode, m.Vnode<HeaderAttrs>, m.Vnode, m.Vnode<FooterAttrs>] {
+        view(): [m.Vnode<HeaderAttrs>, m.Vnode, m.Vnode<FooterAttrs>] {
             return [
-                m(Feedback),
                 m(Header, {
                     title: pageTitle(),
                     refPage: "photo",

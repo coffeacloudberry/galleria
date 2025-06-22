@@ -177,12 +177,5 @@
     "copy": "Kopioi osoite leikepöydälle",
     "copied": "Osoite kopioitu leikepöydälle",
     "can-order-print": "Kuvataidepainatus",
-    "cannot-order-print": "Kuvataidetulostetta ei voi tilata",
-    "can-download-gpx": "Lataa GPX-tiedosto",
-    "cannot-download-gpx": "Ei GPX-tiedostoa ladattavissa",
-    "feedback.send": "Lähetä palautetta",
-    "feedback.sending": "Lähettää...",
-    "feedback.failed": "Jokin meni pieleen, yritä uudelleen.",
-    "feedback.text": "Mitä haluaisit jakaa?",
-    "feedback.thank-you": "Kiitos paljon!"
+    "cannot-order-print": "Kuvataidetulostetta ei voi tilata"
 }

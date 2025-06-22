@@ -177,12 +177,5 @@
     "copy": "Copier l'adresse dans le presse-papiers",
     "copied": "Adresse copiée dans le presse-papiers",
     "can-order-print": "Tirage d'art",
-    "cannot-order-print": "Tirage d'art indisponible",
-    "can-download-gpx": "Télécharger le fichier GPX",
-    "cannot-download-gpx": "Fichier GPX indisponible en téléchargement",
-    "feedback.send": "Commenter",
-    "feedback.sending": "Envoi...",
-    "feedback.failed": "Un problème est survenu, veuillez réessayer.",
-    "feedback.text": "Que souhaitez-vous partager ?",
-    "feedback.thank-you": "Merci beaucoup !"
+    "cannot-order-print": "Tirage d'art indisponible"
 }

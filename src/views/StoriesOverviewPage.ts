@@ -7,7 +7,6 @@ import { Story, TupleStoryActivity } from "../models/Story";
 import type { StoryActivity } from "../models/Story";
 import { t } from "../translate";
 import { InteractiveTippy, hideAllForce } from "../utils";
-import { Feedback } from "./Feedback";
 import { Header } from "./Header";
 import { StoryActivities, StorySubTitle } from "./StoryPage";
 
@@ -262,7 +261,6 @@ export default function StoriesOverviewPage(): m.Component {
         },
         view() {
             return [
-                m(Feedback),
                 m(Header, {
                     refPage: "stories",
                 }),

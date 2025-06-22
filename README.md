@@ -21,7 +21,6 @@ I could not find anything cheap complying to the above requirements, and I was i
 - [x] Interactive charts,
 - [x] Home-made track format including elevation profile,
 - [x] Fully translated in English, Finnish, and French,
-- [x] Feedback form,
 - [x] [Privacy by design](https://en.wikipedia.org/wiki/Privacy_by_design),
 - [x] [Humane by design](https://humanebydesign.com/),
 - [x] [Ethical](https://www.w3.org/TR/ethical-web-principles/) [by design](https://ind.ie/ethical-design/),
