@@ -15,7 +15,7 @@ Because:
 - I want it bug-free,
 - I like receiving feedback without pushing you to sign in a specific social platform.
 
-I could not find anything cheap complying to the above requirements, and I was interested in learning great web development tools. Therefore, I designed a Single Page Application using the [Mithril framework](https://mithril.js.org/), the TypeScript language, and some awesome libraries. It is deployed as a serverless application thanks to Vercel. To sum up the features:
+I could not find anything cheap complying to the above requirements, and I was interested in learning great web development tools. Therefore, I designed a Single Page Application using the [Mithril framework](https://mithril.js.org/), the TypeScript language, and some awesome libraries. To sum up the features:
 
 - [x] Interactive 3D maps,
 - [x] Interactive charts,

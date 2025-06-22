@@ -101,34 +101,6 @@ Here you have a list of ideas that could be implemented:
 
 This project includes a customized Python parser for [HGT elevation data](DEM.md). Contributors include [Tomo Krajina](http://github.com/tkrajina) and [Nick Wagers](https://github.com/nawagers). The parser is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). The original parser is not maintained anymore and does not handle GeoTIFF. Therefore, the parser has been imported and modified.
 
-# Server Compression
-
-## Apache Configuration
-
-[Enable](./man/mod_deflate.md "Enable Apache mod_deflate With cPanel") the mod_deflate for the WebTrack MIME type.
-
-## Vercel Configuration
-
-The compression is only available for [specific MIME types](https://vercel.com/docs/concepts/edge-network/compression#mime-types--compress), the Content-Type can be set to _font/otf_ to enable compression:
-
-[vercel.json](https://vercel.com/docs/cli#project-configuration/headers):
-
-```json
-{
-    "headers": [
-        {
-            "source": "/(.*).webtrack",
-            "headers": [
-                {
-                    "key": "Content-Type",
-                    "value": "font/otf"
-                }
-            ]
-        }
-    ]
-}
-```
-
 # Embellish GPX
 
 This tool adds an elevation profile to a GPX file, handy for planning your next trip. This tool is optional and not used for the website.

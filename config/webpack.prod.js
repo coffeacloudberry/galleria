@@ -44,9 +44,6 @@ export default merge(common, {
         new HtmlWebpackPlugin({
             template: `${paths.src}/template.html`, // template file
             filename: "index.html", // output file
-            templateParameters: {
-                prod: true,
-            },
             minify: {
                 minifyCSS: true,
                 minifyJS: true,

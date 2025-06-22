@@ -1,5 +1,4 @@
 node_modules/
-.vercel/
 .env
 *.gpx
 *.NEF
@@ -17,7 +16,6 @@ public/content/photos/**/*.rtc
 _*
 *_original
 tests/end_to_end/results
-.vercel
 .scannerwork/
 .idea
 *.trash.local
