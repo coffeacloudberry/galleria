@@ -1,3 +1,5 @@
 # Larsbreenin jääluolat
 
-Tulossa pian...
+Pyrkiessäni matkustamaan mahdollisimman kauas pohjoiseen kävin Huippuvuorten saaristossa sijaitsevalla Huippuvuorten saarella. Oli yllättävää nähdä siellä niin paljon elämää, kun otetaan huomioon, että siellä ei ole puita, ei istutuksia ja talvet ovat hyvin pitkiä. Kaikki täällä on tuotua. Rakennukset näyttävät ulkoapäin yksinkertaisilta. Arkkitehtuuri on minimalistista, mutta sisätilat voivat olla melko hienostuneita ja ylellisiä. Longyearbyen on kaupunki, jossa ihmiset voivat nauttia äärimmäisestä ilmastosta poistumatta mukavuusalueeltaan.
+
+Kun kävin saarella [maastohiihtoretkellä](story:Backcountry_Ski_Touring_Spitsbergen), halusin tehdä enemmän, joten ensimmäisenä päivänä vierailin jääluolassa. Kaupungin ulkopuolelle ei saa mennä yksin ja aseettomana, joten liityin kuuden hengen ryhmään ja oppaaseen. Tämä oli elämäni ensimmäinen opastettu kävelyretki. Kävelimme yhdessä Larsbreenin jäätikön päällä. Syvää lunta ei ollut, joten emme tarvinneet lumikenkiä - vain joustavat jalansijat. Kävely ryhmässä oli hauskaa, kun tapasi ihmisiä, joilla oli erilainen tausta, ja oppaalta oppi jäätikön muodostumisesta ja liikkeistä samalla kun ihaili luolien sisällä olevia yllättäviä kuvioita, värejä ja kiteitä.

@@ -1,3 +1,5 @@
 # Grottes de glace de Larsbreen
 
-Bientôt disponible...
+Dans l'objectif de voyager le plus au nord possible, j'ai visité le Spitzberg, une île de l'archipel du Svalbard. J'ai été surpris de voir autant de vie dans la ville, étant donné qu'il n'y a pas d'arbres, pas de plantations et que les hivers sont très longs. Ici, tout est importé. De l'extérieur, les bâtiments paraissent simples. L'architecture est minimaliste, mais les intérieurs peuvent être assez sophistiqués et luxueux. Longyearbyen est une ville où les gens peuvent profiter du climat extrême sans quitter leur zone de confort.
+
+Alors que j'ai visité l'île pour une [expédition](story:Backcountry_Ski_Touring_Spitsbergen), j'ai voulu en faire plus, et le premier jour, j'ai visité une grotte de glace. Il est interdit de sortir de la ville seul et sans arme, alors j'ai rejoint un groupe de six personnes et un guide. C'était la première marche guidée de ma vie ! Ensemble, nous avons marché sur le glacier Larsbreen. Comme il n'y avait pas de neige profonde, nous n'avons pas eu besoin de raquettes, mais seulement de crampons souples. La marche en groupe était chouette, car nous avons rencontré des personnes d'horizons différents et appris du guide à propos de la formation et du mouvement des glaciers, tout en admirant les motifs, les couleurs et les cristaux surprenants à l'intérieur des grottes.

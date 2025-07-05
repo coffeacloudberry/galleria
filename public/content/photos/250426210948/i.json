@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Never Ending Sunset",
+        "fi": "Loputon auringonlasku",
+        "fr": "Crépuscule sans fin"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Larsbreen_Ice_Caves",
+    "dateTaken": "2025-04-26T21:09:48",
+    "focalLength35mm": 80,
+    "exposureTime": "1/2000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250426202550,
+    "next": 250427103618,
+    "position": {
+        "lat": 78.223463,
+        "lon": 15.667915
+    }
+}

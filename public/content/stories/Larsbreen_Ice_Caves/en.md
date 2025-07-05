@@ -1,3 +1,5 @@
 # Larsbreen Ice Caves
 
-Coming soon...
+In pursuit of my goal to travel as far north as possible, I visited Spitsbergen, an island in the Svalbard archipelago. It was surprising to see so much life in the town, given that there are no trees, no plantations and the winters are very long. Everything here is imported. Buildings look simple from the outside. The architecture is minimalist, but the interiors can be rather sophisticated and luxurious. Longyearbyen is a town where people can enjoy the extreme climate without leaving their comfort zone.
+
+Whereas I visited the island for a [backcountry skiing expedition](story:Backcountry_Ski_Touring_Spitsbergen), I wanted to do more, so on my first day I visited an ice cave. It is forbidden to go outside the city alone and unarmed, so I joined a group of six and a guide. This was my very first guided walk of my life. Together, we walked on the Larsbreen glacier. There was no deep snow, so we didn't need snowshoes — just flexible crampons. Walking with a group was fun, meeting people with different backgrounds, and learning from the guide about glacier formation and movement while admiring the surprising patterns, colours, and crystals inside the caves.
