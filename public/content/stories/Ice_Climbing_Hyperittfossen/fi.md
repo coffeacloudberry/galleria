@@ -1,3 +1,7 @@
 # Hyperittfossenin jääkiipeily
 
-Tulossa pian...
+Päivänä [jääluolassa vierailun](story:Larsbreen_Ice_Caves) jälkeen ja ennen [retkikuntaa](story:Backcountry_Ski_Touring_Spitsbergen), pari kiipeilijää, opas ja minä suuntasimme moottorikelkalla vesiputoukselle. Näkymä oli yllättävä, pystyin näkemään kauas, hyvin kauas tasaisen maan yli, kunnes korkea pystysuora vuori pysäyttää horisontin. Mikä kontrasti topografiassa! Maisema ei ole eläväinen, mutta niin kirkas sinisen taivaan alla.
+
+Koska olimme lähellä vettä, jääkarhun kohtaamisen todennäköisyys oli suhteellisen suuri. Opettelimme karhun säikyttämisen perusasiat: pidä kovaa ääntä, käytä punaista soihtua, pamauta ammuksia soihtupistoolilla, kiväärillä. Lisäksi saimme vinkkejä ja temppuja, kuten moottorikelkan pysäköinti oikeaan suuntaan, jotta voisimme paeta mahdollisimman nopeasti. Monet ihmiset käyvät Huippuvuorilla nähdäkseen jääkarhuja. Minä toivoin, etten näkisi karhuja, koska en halunnut vahingoittaa yhtään. Onneksi näimme vain merilintuja.
+
+Olen harrastanut nuorempana paljon sisäkiipeilyä ja kalliokiipeilyä, mutta tämä oli ensimmäinen kertani jääkiipeilyä. Se on täysin erilaista, kosketus seinään piikkien kautta, tunteet käsillä ja jaloilla, hauras jää. Tämä vesiputous oli aika yksinkertainen ja turvallinen. Opas asetti kentät niin, että pääsimme kiipeämään yläköyden avulla. Varmistimme toisiamme muutaman kiipeilyn ajan 12 metriä korkealla vesiputouksella.

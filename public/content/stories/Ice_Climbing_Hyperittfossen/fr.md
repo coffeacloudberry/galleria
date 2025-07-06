@@ -1,3 +1,7 @@
 # Escalade de Hyperittfossen
 
-Bientôt disponible...
+Le lendemain de [la visite d'une grotte de glace](story:Larsbreen_Ice_Caves), et avant [l'expédition](story:Backcountry_Ski_Touring_Spitsbergen), un couple, un guide et moi-même sommes rendus à la chute de glace en motoneige. La vue était surprenante, je pouvais voir loin, très loin sur le terrain plat, jusqu'à ce qu'une haute montagne verticale arrête l'horizon. Quel contraste topographique ! Le paysage n'est pas éclatant de couleurs, mais il est si lumineux sous le ciel bleu.
+
+Comme nous étions près de l'eau, la probabilité de rencontrer un ours polaire était relativement élevée. Nous avons appris les techniques de base pour effrayer un ours : faire du bruit, utiliser la fusée éclairante rouge, le bang du revolver, le fusil. Nous avons également appris des trucs et astuces tels que garer la motoneige dans la bonne direction afin de pouvoir nous enfuir le plus vite possible. Beaucoup de gens visitent le Svalbard pour voir des ours polaires. J'espérais ne pas en voir car je ne voulais pas en blesser. Heureusement, nous n'avons vu que des oiseaux de mer.
+
+J'ai fait beaucoup d'escalade en salle et d'escalade sur rocher quand j'étais plus jeune, mais c'était la première fois sur glace. C'est complètement différent, le contact avec la paroi avec les crampons, les sensations aux mains et aux pieds, la glace cassante. Cette cascade était assez simple et sûre. Le guide a préparé les longueurs de manière à ce que nous puissions grimper en moulinette. Nous nous sommes assurés mutuellement pour quelques grimpes sur la cascade de 12 mètres de haut.

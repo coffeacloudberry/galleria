@@ -1,3 +1,7 @@
 # Ice Climbing Hyperittfossen
 
-Coming soon...
+The day after [visiting an ice cave](story:Larsbreen_Ice_Caves), and before [the expedition](story:Backcountry_Ski_Touring_Spitsbergen), a couple of climbers, a guide and I headed to the waterfall by snowmobile. The view was surprising, I could see far, very far over the flat land, until a tall vertical mountain stops the horizon. What a contrast in topography! The landscape is not vibrant, but so bright under the blue sky.
+
+As we were near the water, the probability of encountering a polar bear was relatively high. We learnt the basic of scaring a bear: make loud noise, use the red flare, bang ammunition with the flare gun, rifle. There was also tips and tricks such as parking the snowmobile in the right direction so that we could run away as fast as possible. Many people visit Svalbard to see polar bears. I hoped not to see bears because I didn't want to harm any. Luckily, we only saw seabirds.
+
+I've done a lot of indoor climbing and rock climbing when I was younger, but this was my very first time ice climbing. That is completely different, the contact with the wall through spikes, the feelings with the hands and feet, the brittle ice. This waterfall was quite simple and safe. The guide set up the pitches so that we could climb with a top rope. We belayed each other for a few climbs on the 12-metre-high waterfall.
