@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Mystic Arctic",
+        "fi": "Mystinen arktinen",
+        "fr": "Arctique mystique"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-01T16:16:20",
+    "focalLength35mm": 156,
+    "exposureTime": "1/6400",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250430193807,
+    "next": 250501174531,
+    "position": {
+        "lat": 78.8417194784,
+        "lon": 17.4056012928
+    }
+}

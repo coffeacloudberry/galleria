@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Treeless",
+        "fi": "Puuton",
+        "fr": "Sans arbre"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-07T14:50:31",
+    "focalLength35mm": 132,
+    "exposureTime": "1/3200",
+    "fNumber": 6.3,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250506204834,
+    "next": 250507153302,
+    "position": {
+        "lat": 79.0451896749,
+        "lon": 16.2890368234
+    }
+}

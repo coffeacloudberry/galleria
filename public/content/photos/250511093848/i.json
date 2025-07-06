@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "What?!",
+        "fi": "Mitä?!",
+        "fr": "Quoi ?!"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-11T09:38:48",
+    "focalLength35mm": 800,
+    "exposureTime": "1/1250",
+    "fNumber": 6.3,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko 100-400mm F5.0-6.3",
+    "computationalMode": null,
+    "prev": 250510093931,
+    "next": 250511100733,
+    "position": {
+        "lat": 78.20715,
+        "lon": 15.59604
+    }
+}

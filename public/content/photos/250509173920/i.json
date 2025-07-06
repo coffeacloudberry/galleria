@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Spike",
+        "fi": "Piikki",
+        "fr": "Épine"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-09T17:39:20",
+    "focalLength35mm": 300,
+    "exposureTime": "1/5000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250509171442,
+    "next": 250510084229,
+    "position": {
+        "lat": 78.7161902525,
+        "lon": 16.5792239271
+    }
+}

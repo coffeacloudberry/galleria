@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Kvitbreen",
+        "fi": "Kvitbreen",
+        "fr": "Kvitbreen"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-05T09:09:01",
+    "focalLength35mm": 80,
+    "exposureTime": "1/8000",
+    "fNumber": 4,
+    "iso": 160,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250504160237,
+    "next": 250505120323,
+    "position": {
+        "lat": 78.9710420184,
+        "lon": 17.5889962446
+    }
+}

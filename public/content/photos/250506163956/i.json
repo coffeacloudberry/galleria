@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Moraine",
+        "fi": "Moreeni",
+        "fr": "Moraine"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-06T16:39:56",
+    "focalLength35mm": 80,
+    "exposureTime": "1/1600",
+    "fNumber": 8,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250506153859,
+    "next": 250506170230,
+    "position": {
+        "lat": 79.0372401942,
+        "lon": 16.5602950752
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Ice Wall",
+        "fi": "Jääseinä",
+        "fr": "Mur de glace"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-06T17:02:30",
+    "focalLength35mm": 150,
+    "exposureTime": "1/160",
+    "fNumber": 9,
+    "iso": 640,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250506163956,
+    "next": 250506204834,
+    "position": {
+        "lat": 79.0369973704,
+        "lon": 16.5514169633
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Gliding",
+        "fi": "Liukuva",
+        "fr": "Glisse"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Backcountry_Ski_Touring_Spitsbergen",
+    "dateTaken": "2025-05-10T09:38:56",
+    "focalLength35mm": 280,
+    "exposureTime": "1/640",
+    "fNumber": 5.6,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250510093643,
+    "next": 250510093931,
+    "position": {
+        "lat": 78.5817111656,
+        "lon": 16.4397364855
+    }
+}
