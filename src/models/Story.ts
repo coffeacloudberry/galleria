@@ -25,6 +25,7 @@ export type SeasonStrings =
 export const TupleStoryActivity = [
     "walk",
     "packraft",
+    "kayak",
     "ski",
     "snow_shoes",
     "wwoof",
