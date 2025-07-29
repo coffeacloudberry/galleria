@@ -1,0 +1,3 @@
+# Kayak dans le Saïmaa
+
+Saïmaa est un grand lac avec de nombreuses îles à explorer. Nous avons participé à un cours de deux jours pour apprendre les bases du kayak, y compris pagayer dans le marais, tomber dans l'eau froide et remonter à bord. Nous avons essayé des kayaks de différentes formes et caractéristiques. Le premier jour, nous avons pris des coups de soleil et le deuxième jour, nous avons eu droit à une pluie intermittente. Nous nous sommes tellement amusés que nous avons loué un kayak double pour une journée supplémentaire. La direction à l'aide de pédales aux pieds exigeait de la concentration pour être précis tout en pagayant. C'était un entraînement pour tout le corps. Dans un pays qui compte des milliers de lacs, le kayak est un moyen d'aller plus loin !

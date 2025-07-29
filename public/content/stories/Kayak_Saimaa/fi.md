@@ -1,0 +1,3 @@
+# Kajakki Saimaalla
+
+Saimaa on suuri järvi, jossa on monia saaria, joihin voi tutustua. Osallistuimme kaksipäiväiselle kurssille, jossa opimme melonnan perusteet, kuten melonnan suolla, kylmään veteen putoamisen ja takaisin laivaan nousemisen. Kokeilimme erimuotoisia ja -näköisiä kajakkeja. Ensimmäisenä päivänä paloimme auringossa, ja toisena päivänä satoi paikoitellen. Meillä oli niin hauskaa, että vuokrasimme tuplakajakin lisäpäiväksi. Ohjaaminen jaloissa olevilla polkimilla vaati tarkkaa keskittymistä meloessa. Se oli kokovartaloharjoittelua. Maassa, jossa on tuhansia järviä, kajakilla pääsee pidemmälle!

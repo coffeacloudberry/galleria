@@ -16,6 +16,7 @@ import gpxpy
 import gpxpy.gpx  # skipcq: PY-W2000
 from PIL import Image
 
+DIR_FORMAT = "%y%m%d%H%M%S"
 TESTING = "pytest" in sys.modules
 REGEX_WEBP_DIMENSION = re.compile(r"Dimension: +(\d+) x (\d+)")
 REGEX_WEBP_OVERVIEW = re.compile(r"Output: +(.+)")
@@ -161,6 +162,9 @@ def generate_info_json(prev_photo: Optional[str], next_photo: Optional[str], exi
         data["next"] = int(next_photo)
     if position is not None:
         data["position"] = {"lat": position[1], "lon": position[0]}
+    film = exif[8]
+    if film:
+        data["film"] = film
     return data
 
 
@@ -480,7 +484,6 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
     except ValueError as err:
         d = import_and_get_exif_data(str(err), tif_path)
         body_model, lens_model = body_lens_model_exif(d)
-    dir_format = "%y%m%d%H%M%S"
 
     # Find the date taken that will be the folder name.
     # In case the timezone is unexpected, fix it:
@@ -496,10 +499,10 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
                 click.echo(f"Timezone is {timezone}")
             else:
                 click.echo("Really, missing timezone!", err=True)
-        photo_id = date_taken.strftime(dir_format)
+        photo_id = date_taken.strftime(DIR_FORMAT)
     except KeyError:
         photo_id = click.prompt("When the photo has been taken? (format=YYMMDDhhmmss)")
-        date_taken, timezone = datetime.datetime.strptime(photo_id, dir_format), None
+        date_taken, timezone = datetime.datetime.strptime(photo_id, DIR_FORMAT), None
 
     click.echo(f"Adding photo {photo_id}...")
     exif = [
@@ -511,6 +514,7 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
         body_model,
         lens_model,
         computational_mode_exif(d),
+        None,
     ]
 
     prev_photo, next_photo = find_prev_next(album_path, photo_id)
@@ -541,6 +545,36 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
     click.echo(f"[Photo {photo_id}] Added")
 
 
+def add_film_to_album(album_path: str | Path, film_path: str, iso: int, film: str) -> None:
+    if not os.path.exists(film_path):
+        raise ValueError("Film file does not exist!")
+    photo_id = click.prompt("What is the local time when the photo has been taken? (format=YYMMDDhhmmss)")
+    prev_photo, next_photo = find_prev_next(album_path, photo_id)
+    date_taken, _ = datetime.datetime.strptime(photo_id, DIR_FORMAT), None
+    click.echo(f"Adding photo {photo_id}...")
+    exif = [
+        date_taken,
+        37,
+        None,
+        None,
+        iso,
+        "Pentax 17",
+        None,
+        None,
+        film,
+    ]
+    new_info_data = json.dumps(generate_info_json(prev_photo, next_photo, exif, None), indent=4, ensure_ascii=False)
+    new_dir_path = os.path.join(album_path, photo_id)
+    os.mkdir(new_dir_path)
+    with open(os.path.join(new_dir_path, "i.json"), "w", encoding="utf-8") as json_file:
+        json_file.write(new_info_data + "\n")
+    copy_all_related_files(film_path, new_dir_path)
+    update_neighbor(album_path, photo_id, "next", prev_photo)
+    update_neighbor(album_path, photo_id, "prev", next_photo)
+    generate_webp(album_path)
+    click.echo(f"[Photo {photo_id}] Added")
+
+
 @click.command()
 @click.option(
     "--album-path",
@@ -550,17 +584,39 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
 )
 @click.option(
     "--tif-path",
-    required=True,
-    prompt="Path to TIF file",
     help="Path to TIF file. Other files starting with the same name will be copied.",
+)
+@click.option(
+    "--film-path",
+    help="Path to film file. Other files starting with the same name will be copied.",
+)
+@click.option(
+    "--iso",
+    help="ISO of the film.",
+)
+@click.option(
+    "--film",
+    help="Film name.",
 )
 @click.option(
     "--gpx-path",
     help="Path to the GPX file used to geotag the photo by comparing GPS/EXIF date/time.",
 )
-def add_photo(album_path: str, tif_path: str, gpx_path: str | None = None) -> None:
+def add_photo(
+    album_path: str,
+    tif_path: str | None = None,
+    film_path: str | None = None,
+    iso: int | None = None,
+    film: str | None = None,
+    gpx_path: str | None = None,
+) -> None:
     try:
-        add_photo_to_album(album_path, tif_path, gpx_path)
+        if tif_path:
+            add_photo_to_album(album_path, tif_path, gpx_path)
+        elif film_path and iso and film:
+            add_film_to_album(album_path, film_path, iso, film)
+        else:
+            generate_webp(album_path)
     except ValueError as err:
         click.echo(err, err=True)
 

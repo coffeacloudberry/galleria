@@ -147,6 +147,7 @@
     "cam.focal": "Focal length (35mm eq.):",
     "cam.exposure": "Exposure time:",
     "cam.f-number": "Focal ratio:",
+    "cam.film": "Film:",
     "cam.iso": "Film speed:",
     "cam.mode": "Computational mode:",
     "cam.mode.value": {

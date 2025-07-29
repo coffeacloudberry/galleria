@@ -48,3 +48,7 @@ ignore = ["PLR2004", "PLR0912", "PLR0913"]
 
 [tool.ruff.lint.isort]
 force-single-line = true
+
+[tool.ruff.lint.mccabe]
+# same value for Python, TypeScript, JavaScript
+max-complexity = 13

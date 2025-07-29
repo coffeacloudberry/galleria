@@ -1,0 +1,14 @@
+{
+    "start": "2025-06-28",
+    "duration": 3,
+    "season": "summer",
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        }
+    ],
+    "activities": ["kayak"]
+}

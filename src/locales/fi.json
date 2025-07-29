@@ -147,6 +147,7 @@
     "cam.focal": "Fokaalipituus (35mm ekv.):",
     "cam.exposure": "Valotusaika:",
     "cam.f-number": "Aukkosuhde:",
+    "cam.film": "Filmi:",
     "cam.iso": "Valoherkkyys:",
     "cam.mode": "Laskennallinen toiminto:",
     "cam.mode.value": {

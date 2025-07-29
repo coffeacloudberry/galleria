@@ -1,0 +1,25 @@
+{
+    "title": {
+        "en": "Marsh",
+        "fi": "Suo",
+        "fr": "Marais"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kayak_Saimaa",
+    "dateTaken": "2025-06-29T18:00:00",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "400",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250511122127,
+    "next": 250630120000,
+    "film": "Ilford HP5+"
+}

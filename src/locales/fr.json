@@ -147,6 +147,7 @@
     "cam.focal": "Longueur focale (eq. 35mm) :",
     "cam.exposure": "Temps d'exposition :",
     "cam.f-number": "Ouverture géométrique :",
+    "cam.film": "Pellicule :",
     "cam.iso": "Sensibilité :",
     "cam.mode": "Mode photographie assistée :",
     "cam.mode.value": {

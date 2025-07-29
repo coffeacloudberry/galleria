@@ -44,6 +44,9 @@ export interface PhotoInfo {
     /** F-number, f.i. 15.4 */
     fNumber?: number;
 
+    /** Film name, f.i. Ilford HP5+ */
+    film?: string;
+
     /** ISO number. */
     iso?: number;
 
@@ -132,6 +135,7 @@ class Photo {
                   this.meta.focalLength35mm ??
                       this.meta.exposureTime ??
                       this.meta.fNumber ??
+                      this.meta.film ??
                       this.meta.iso ??
                       this.meta.position ??
                       this.meta.body ??
