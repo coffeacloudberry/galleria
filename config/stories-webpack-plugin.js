@@ -268,7 +268,11 @@ export default class StoriesPlugin {
     }
 
     apply(compiler) {
-        compiler.hooks.thisCompilation.tap(this.plugin, (compilation) => {
+        compiler.hooks.compilation.tap(this.plugin, (compilation, compilationParams) => {
+            // keep watching for updates to stories or photo metadata
+            compilation.contextDependencies.add(this.rootDir);
+        });
+        compiler.hooks.thisCompilation.tap(this.plugin, (compilation, compilationParams) => {
             const genPhotos = {};
             this.storyMetadata = {};
             this.compilation = compilation;

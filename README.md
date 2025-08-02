@@ -39,7 +39,7 @@ Clone this repo, install Node.js 22, and run `npm i`. For dev, run `make install
 
 ### Add Content
 
-Tracks and photos are transformed with [command line tools](cli) written in Python 3.11 and Rust 2021. The list of stories and photo metadata fetched by the website are statically generated at build time thanks to a [custom Webpack plugin](config/stories-webpack-plugin.js) and [utilities](config/utils.js). Rebuild or rerun the local server to apply the changes.
+Tracks and photos are transformed with [command line tools](cli) written in Python 3.11 and Rust 2021. The list of stories and photo metadata fetched by the website are statically generated at build time thanks to a [custom Webpack plugin](config/stories-webpack-plugin.js) and [utilities](config/utils.js). The app will automatically refresh on file update.
 
 ### Running
 
