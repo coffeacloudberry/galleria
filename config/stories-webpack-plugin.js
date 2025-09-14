@@ -268,89 +268,101 @@ export default class StoriesPlugin {
     }
 
     apply(compiler) {
-        compiler.hooks.compilation.tap(this.plugin, (compilation, compilationParams) => {
-            // keep watching for updates to stories or photo metadata
-            compilation.contextDependencies.add(this.rootDir);
-        });
-        compiler.hooks.thisCompilation.tap(this.plugin, (compilation, compilationParams) => {
-            const genPhotos = {};
-            this.storyMetadata = {};
-            this.compilation = compilation;
-            let prevStory = "";
-            let lastStory = null;
-            for (const photoId of this.getAllPhotos()) {
-                const id = parseInt(photoId, 10);
-                const photoMetadata = this.readInfoFile("photos", photoId);
-                const storyId = photoMetadata.story;
-                if (storyId) {
-                    const storyMetadata = this.readInfoFile("stories", storyId);
-                    if (prevStory !== storyId) {
+        compiler.hooks.compilation.tap(
+            this.plugin,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            (compilation, compilationParams) => {
+                // keep watching for updates to stories or photo metadata
+                compilation.contextDependencies.add(this.rootDir);
+            },
+        );
+        compiler.hooks.thisCompilation.tap(
+            this.plugin,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            (compilation, compilationParams) => {
+                const genPhotos = {};
+                this.storyMetadata = {};
+                this.compilation = compilation;
+                let prevStory = "";
+                let lastStory = null;
+                for (const photoId of this.getAllPhotos()) {
+                    const id = parseInt(photoId, 10);
+                    const photoMetadata = this.readInfoFile("photos", photoId);
+                    const storyId = photoMetadata.story;
+                    if (storyId) {
+                        const storyMetadata = this.readInfoFile(
+                            "stories",
+                            storyId,
+                        );
+                        if (prevStory !== storyId) {
+                            this.addGeodataState(storyId);
+                            lastStory = {
+                                ...storyMetadata,
+                                lang: this.processMd(storyId),
+                                hasGeodata: this.geodataPerStory[storyId],
+                                totalPhotos: 1,
+                                mostRecentPhoto: id,
+                                photos: [],
+                            };
+                        } else if (lastStory) {
+                            // update
+                            lastStory.totalPhotos += 1;
+                            lastStory.mostRecentPhoto = id;
+                        }
+                        if (typeof photoMetadata.position === "object") {
+                            lastStory.photos.push({
+                                id,
+                                position: photoMetadata.position,
+                            });
+                        } else {
+                            lastStory.photos.push({
+                                id,
+                            });
+                        }
+                        this.storyMetadata[storyId] = lastStory;
+                        prevStory = storyId;
+                        photoMetadata.storyPhotoIncrement =
+                            lastStory.totalPhotos;
+                    }
+                    genPhotos[photoId] = photoMetadata;
+                }
+                this.generatePhotoInfoFiles(genPhotos);
+
+                for (const storyId of this.getAllStories()) {
+                    if (!this.storyMetadata[storyId]) {
+                        // In case a story has no photo
                         this.addGeodataState(storyId);
-                        lastStory = {
-                            ...storyMetadata,
+                        this.storyMetadata[storyId] = {
+                            ...this.readInfoFile("stories", storyId),
                             lang: this.processMd(storyId),
                             hasGeodata: this.geodataPerStory[storyId],
-                            totalPhotos: 1,
-                            mostRecentPhoto: id,
-                            photos: [],
+                            totalPhotos: 0,
                         };
-                    } else if (lastStory) {
-                        // update
-                        lastStory.totalPhotos += 1;
-                        lastStory.mostRecentPhoto = id;
                     }
-                    if (typeof photoMetadata.position === "object") {
-                        lastStory.photos.push({
-                            id,
-                            position: photoMetadata.position,
-                        });
-                    } else {
-                        lastStory.photos.push({
-                            id,
-                        });
-                    }
-                    this.storyMetadata[storyId] = lastStory;
-                    prevStory = storyId;
-                    photoMetadata.storyPhotoIncrement = lastStory.totalPhotos;
+                    this.generateStoryInfoFile(storyId);
                 }
-                genPhotos[photoId] = photoMetadata;
-            }
-            this.generatePhotoInfoFiles(genPhotos);
 
-            for (const storyId of this.getAllStories()) {
-                if (!this.storyMetadata[storyId]) {
-                    // In case a story has no photo
-                    this.addGeodataState(storyId);
-                    this.storyMetadata[storyId] = {
-                        ...this.readInfoFile("stories", storyId),
-                        lang: this.processMd(storyId),
-                        hasGeodata: this.geodataPerStory[storyId],
-                        totalPhotos: 0,
-                    };
+                let storyList = [];
+                for (const { slug } of languages) {
+                    storyList = [];
+                    // skipcq: JS-D008, JS-0042
+                    Object.entries(this.storyMetadata).map(
+                        ([storyId, metadata]) => {
+                            storyList.push(
+                                StoriesPlugin.essentialStoryMetadata(
+                                    storyId,
+                                    metadata,
+                                    slug,
+                                ),
+                            );
+                        },
+                    );
+                    storyList.sort(StoriesPlugin.sortTwoStories);
+                    const path = `content/stories/_/all_stories.${slug}.json`;
+                    this.emitFile(path, storyList);
                 }
-                this.generateStoryInfoFile(storyId);
-            }
-
-            let storyList = [];
-            for (const { slug } of languages) {
-                storyList = [];
-                // skipcq: JS-D008, JS-0042
-                Object.entries(this.storyMetadata).map(
-                    ([storyId, metadata]) => {
-                        storyList.push(
-                            StoriesPlugin.essentialStoryMetadata(
-                                storyId,
-                                metadata,
-                                slug,
-                            ),
-                        );
-                    },
-                );
-                storyList.sort(StoriesPlugin.sortTwoStories);
-                const path = `content/stories/_/all_stories.${slug}.json`;
-                this.emitFile(path, storyList);
-            }
-            StoriesPlugin.printActivities(storyList);
-        });
+                StoriesPlugin.printActivities(storyList);
+            },
+        );
     }
 }

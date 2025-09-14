@@ -3,7 +3,6 @@ import CalendarOutline from "@/icons/calendar-outline.svg";
 import cameraOutline from "@/icons/camera-outline.svg";
 import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
 import filmOutline from "@/icons/film-outline.svg";
-import scanOutline from "@/icons/scan-outline.svg";
 import focalOutline from "@/icons/focal-outline.svg";
 import frameOutline from "@/icons/frame-outline.svg";
 import hardwareChipOutline from "@/icons/hardware-chip-outline.svg";
@@ -14,6 +13,7 @@ import lensOutline from "@/icons/lens-outline.svg";
 import locationOutline from "@/icons/location-outline.svg";
 import longitudeOutline from "@/icons/longitude-outline.svg";
 import noFrameOutline from "@/icons/no-frame-outline.svg";
+import scanOutline from "@/icons/scan-outline.svg";
 import timerOutline from "@/icons/timer-outline.svg";
 import m from "mithril";
 
