@@ -148,6 +148,7 @@
     "cam.exposure": "Exposure time:",
     "cam.f-number": "Focal ratio:",
     "cam.film": "Film:",
+    "cam.scanner": "Scanner:",
     "cam.iso": "Film speed:",
     "cam.mode": "Computational mode:",
     "cam.mode.value": {

@@ -148,6 +148,7 @@
     "cam.exposure": "Temps d'exposition :",
     "cam.f-number": "Ouverture géométrique :",
     "cam.film": "Pellicule :",
+    "cam.scanner": "Scanner :",
     "cam.iso": "Sensibilité :",
     "cam.mode": "Mode photographie assistée :",
     "cam.mode.value": {

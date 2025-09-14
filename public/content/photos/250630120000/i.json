@@ -9,7 +9,6 @@
         "fi": "",
         "fr": ""
     },
-    "downloadable": false,
     "story": "Kayak_Saimaa",
     "dateTaken": "2025-06-30T12:00:00",
     "focalLength35mm": 37,
@@ -21,5 +20,6 @@
     "computationalMode": null,
     "prev": 250629180000,
     "film": "Ilford HP5+",
+    "scanner": "Plustek OpticFilm 8100",
     "next": 250630190902
 }

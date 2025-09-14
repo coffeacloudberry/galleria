@@ -47,6 +47,9 @@ export interface PhotoInfo {
     /** Film name, f.i. Ilford HP5+ */
     film?: string;
 
+    /** Scanner name, f.i. Plustek OpticFilm 8100 */
+    scanner?: string;
+
     /** ISO number. */
     iso?: number;
 
@@ -136,6 +139,7 @@ class Photo {
                       this.meta.exposureTime ??
                       this.meta.fNumber ??
                       this.meta.film ??
+                      this.meta.scanner ??
                       this.meta.iso ??
                       this.meta.position ??
                       this.meta.body ??

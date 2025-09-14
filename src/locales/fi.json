@@ -148,6 +148,7 @@
     "cam.exposure": "Valotusaika:",
     "cam.f-number": "Aukkosuhde:",
     "cam.film": "Filmi:",
+    "cam.scanner": "Skanneri:",
     "cam.iso": "Valoherkkyys:",
     "cam.mode": "Laskennallinen toiminto:",
     "cam.mode.value": {

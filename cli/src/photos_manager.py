@@ -66,6 +66,12 @@ def body_lens_model_exif(d) -> tuple[str, str]:
     return body_model, lens_model
 
 
+def scanner_model_exif(d) -> str:
+    maker = d["EXIF:Make"]
+    scanner_model = d["EXIF:Model"]
+    return f"{maker} {scanner_model}"
+
+
 def date_taken_exif(d) -> tuple[datetime.datetime, Optional[str]]:
     """Find out the date and time when the photo has been taken. The datetime is naive local time.
     Use the `EXIF:DateTimeOriginal`. `EXIF:CreateDate` is another useful field but unused because the
@@ -165,6 +171,9 @@ def generate_info_json(prev_photo: Optional[str], next_photo: Optional[str], exi
     film = exif[8]
     if film:
         data["film"] = film
+    scanner = exif[9]
+    if scanner:
+        data["scanner"] = scanner
     return data
 
 
@@ -515,6 +524,7 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
         lens_model,
         computational_mode_exif(d),
         None,
+        None,
     ]
 
     prev_photo, next_photo = find_prev_next(album_path, photo_id)
@@ -551,6 +561,7 @@ def add_film_to_album(album_path: str | Path, film_path: str, iso: int, film: st
     photo_id = click.prompt("What is the local time when the photo has been taken? (format=YYMMDDhhmmss)")
     prev_photo, next_photo = find_prev_next(album_path, photo_id)
     date_taken, _ = datetime.datetime.strptime(photo_id, DIR_FORMAT), None
+    scanner = scanner_model_exif(d)
     click.echo(f"Adding photo {photo_id}...")
     exif = [
         date_taken,
@@ -562,6 +573,7 @@ def add_film_to_album(album_path: str | Path, film_path: str, iso: int, film: st
         None,
         None,
         film,
+        scanner,
     ]
     new_info_data = json.dumps(generate_info_json(prev_photo, next_photo, exif, None), indent=4, ensure_ascii=False)
     new_dir_path = os.path.join(album_path, photo_id)

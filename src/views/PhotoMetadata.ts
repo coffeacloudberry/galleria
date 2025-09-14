@@ -3,6 +3,7 @@ import CalendarOutline from "@/icons/calendar-outline.svg";
 import cameraOutline from "@/icons/camera-outline.svg";
 import cloudDownloadOutline from "@/icons/cloud-download-outline.svg";
 import filmOutline from "@/icons/film-outline.svg";
+import scanOutline from "@/icons/scan-outline.svg";
 import focalOutline from "@/icons/focal-outline.svg";
 import frameOutline from "@/icons/frame-outline.svg";
 import hardwareChipOutline from "@/icons/hardware-chip-outline.svg";
@@ -34,6 +35,7 @@ const CameraSetup: m.Component = {
         const exposure = photo.meta.exposureTime;
         const fNumber = photo.meta.fNumber;
         const film = photo.meta.film;
+        const scanner = photo.meta.scanner;
         const iso = photo.meta.iso;
         const mode = photo.meta.computationalMode;
         if (!body) {
@@ -83,6 +85,11 @@ const CameraSetup: m.Component = {
                         m(Icon, { src: hardwareChipOutline }),
                         ` ${t("cam.mode")} `,
                         m("small", t("cam.mode.value", mode)),
+                    ]),
+                scanner &&
+                    m("li", [
+                        m(Icon, { src: scanOutline }),
+                        ` ${t("cam.scanner")} ${scanner}`,
                     ]),
             ]),
         ];
