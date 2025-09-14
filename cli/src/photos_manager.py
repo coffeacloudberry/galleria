@@ -561,6 +561,7 @@ def add_film_to_album(album_path: str | Path, film_path: str, iso: int, film: st
     photo_id = click.prompt("What is the local time when the photo has been taken? (format=YYMMDDhhmmss)")
     prev_photo, next_photo = find_prev_next(album_path, photo_id)
     date_taken, _ = datetime.datetime.strptime(photo_id, DIR_FORMAT), None
+    d = get_exif_data(film_path)
     scanner = scanner_model_exif(d)
     click.echo(f"Adding photo {photo_id}...")
     exif = [
