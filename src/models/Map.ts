@@ -79,9 +79,9 @@ class GlobalMapState {
     public popupCamData: PopupCamAttrs | undefined;
 
     /**
-     * When initializing the map component.
+     * When initializing or removing the map component.
      */
-    start(): void {
+    reset(): void {
         // Will be populated on map load.
         this.controls = {};
 

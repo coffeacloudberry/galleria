@@ -173,7 +173,7 @@ export default class Map implements m.ClassComponent {
 
     constructor() {
         this.currentLang = t.getLang();
-        globalMapState.start();
+        globalMapState.reset();
     }
 
     /** Get the photo ID from the GeoJSON feature. */
@@ -728,6 +728,7 @@ export default class Map implements m.ClassComponent {
                 // continue regardless of error
             }
         }
+        globalMapState.reset();
     }
 
     /** Add an icon where the selected photo has been taken. */
