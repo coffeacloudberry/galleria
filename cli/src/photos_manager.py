@@ -1,4 +1,5 @@
 import datetime
+import time
 import json
 import os
 import re
@@ -272,21 +273,27 @@ def convert_to_webp(
 
 def guess_original(dir_path: str) -> str:
     """Find out the original photo (most probably TIF, but could also be other formats)
-    File name with at least one dot (f.i. DSC_9102.sth.tif) is skipped."""
-    priorities = (
-        ("tif", 100),
-        ("png", 60),
-        ("jpg", 30),
-    )
+    File name with at least one dot (f.i. DSC_9102.sth.tif) is skipped.
+    If multiple files of the same extension are found, the last modified is selected."""
+    priorities = [
+        ("tif", 10),
+        ("png", 6),
+        ("jpg", 3),
+    ]
+    current_timestamp = time.time()
+    computed_priorities = [(ext, prio * current_timestamp) for ext, prio in priorities]
     best_priority = -1
     best_file = None
     for file in os.listdir(dir_path):
-        if os.path.isfile(os.path.join(dir_path, file)):
+        path_to_file = os.path.join(dir_path, file)
+        if os.path.isfile(path_to_file):
             if file.startswith("_"):
                 continue
-            for ext, priority in priorities:
-                if file.lower().endswith("." + ext) and priority > best_priority:
-                    best_priority, best_file = priority, file
+            modification_timestamp = os.path.getmtime(path_to_file)
+            for ext, priority in computed_priorities:
+                current_priority = priority + modification_timestamp
+                if file.lower().endswith("." + ext) and current_priority > best_priority:
+                    best_priority, best_file = current_priority, file
     if best_file:
         return best_file
     raise FileNotFoundError(f"Missing original photo in `{dir_path}'")
@@ -479,7 +486,11 @@ def guess_position_from_gpx(gpx_path: str | Path | None, date_taken: datetime.da
                     best_match = (waypoint.longitude, waypoint.latitude)
     if gpx_missing_datetime:
         raise ValueError("GPX file does not contain any date/time!")
-    click.echo(f"Position guessed with the following time delta: {datetime.timedelta(seconds=smallest_diff_ms / 1000)}")
+    smallest_diff_s = smallest_diff_ms / 1000
+    click.echo(f"Position guessed with the following time delta: {datetime.timedelta(seconds=smallest_diff_s)}")
+    if smallest_diff_s > (60 * 30):
+        click.echo("Too much delta to be accurate!", err=True)
+        return None
     return best_match
 
 
@@ -555,12 +566,23 @@ def add_photo_to_album(album_path: str | Path, tif_path: str, gpx_path: str | Pa
     click.echo(f"[Photo {photo_id}] Added")
 
 
-def add_film_to_album(album_path: str | Path, film_path: str, iso: int, film: str) -> None:
+def add_film_to_album(album_path: str | Path, film_path: str, iso: int, film: str, gpx_path: str | Path | None) -> None:
     if not os.path.exists(film_path):
         raise ValueError("Film file does not exist!")
     photo_id = click.prompt("What is the local time when the photo has been taken? (format=YYMMDDhhmmss)")
     prev_photo, next_photo = find_prev_next(album_path, photo_id)
-    date_taken, _ = datetime.datetime.strptime(photo_id, DIR_FORMAT), None
+    date_taken = datetime.datetime.strptime(photo_id, DIR_FORMAT)
+    if gpx_path:
+        # the time zone is only needed if a story is provided, assuming the story contains a GPX file
+        timezone = click.prompt("What is the UTC offset of the photo? (format=±hh:mm)")
+    if gpx_path and timezone:
+        position = guess_position_from_gpx(gpx_path, date_taken, timezone)
+        if position:
+            click.echo("The photo is most likely located here:")
+            click.echo(map_link(position))
+    else:
+        position = None
+
     d = get_exif_data(film_path)
     scanner = scanner_model_exif(d)
     click.echo(f"Adding photo {photo_id}...")
@@ -576,7 +598,7 @@ def add_film_to_album(album_path: str | Path, film_path: str, iso: int, film: st
         film,
         scanner,
     ]
-    new_info_data = json.dumps(generate_info_json(prev_photo, next_photo, exif, None), indent=4, ensure_ascii=False)
+    new_info_data = json.dumps(generate_info_json(prev_photo, next_photo, exif, position), indent=4, ensure_ascii=False)
     new_dir_path = os.path.join(album_path, photo_id)
     os.mkdir(new_dir_path)
     with open(os.path.join(new_dir_path, "i.json"), "w", encoding="utf-8") as json_file:
@@ -627,7 +649,7 @@ def add_photo(
         if tif_path:
             add_photo_to_album(album_path, tif_path, gpx_path)
         elif film_path and iso and film:
-            add_film_to_album(album_path, film_path, iso, film)
+            add_film_to_album(album_path, film_path, iso, film, gpx_path)
         else:
             generate_webp(album_path)
     except ValueError as err:

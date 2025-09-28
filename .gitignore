@@ -9,6 +9,7 @@ node_modules/
 *.tif
 *.xcf
 *.dng
+*.DNG
 public/content/photos/**/*.jpg
 public/content/photos/**/*.JPG
 public/content/photos/**/*.pto
