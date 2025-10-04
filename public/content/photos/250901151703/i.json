@@ -1,0 +1,29 @@
+{
+    "title": {
+        "en": "Jågåsjgaskatjåhkå",
+        "fi": "Jågåsjgaskatjåhkå",
+        "fr": "Jågåsjgaskatjåhkå"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-09-01T15:17:03",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "400",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250901142142,
+    "position": {
+        "lat": 67.30640603,
+        "lon": 17.78267487
+    },
+    "film": "Kodak Portra 400",
+    "scanner": "Plustek OpticFilm 8100"
+}

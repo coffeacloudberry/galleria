@@ -1,0 +1,14 @@
+{
+    "start": "2025-08-09",
+    "duration": 12,
+    "season": "summer",
+    "gpsConfig": [
+        {
+            "model": "Garmin 66sr",
+            "multiBandEnabled": true,
+            "multiGNSSEnabled": true,
+            "waasEgnosEnabled": false
+        }
+    ],
+    "activities": ["walk", "packraft"]
+}

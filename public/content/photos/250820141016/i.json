@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Guollejávri",
+        "fi": "Guollejávri",
+        "fr": "Guollejávri"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-20T14:10:16",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "400",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250819143131,
+    "next": 250825080000,
+    "position": {
+        "lat": 68.454667,
+        "lon": 19.106050
+    },
+    "film": "Kodak Portra 400",
+    "scanner": "Plustek OpticFilm 8100"
+}

@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Unbalanced",
+        "fi": "Epätasapainoinen",
+        "fr": "Déséquilibré"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-12T11:13:09",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "400",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250630190902,
+    "next": 250813120000,
+    "film": "Kodak UltraMax 400",
+    "scanner": "Plustek OpticFilm 8100"
+}

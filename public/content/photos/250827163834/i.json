@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Reindeer",
+        "fi": "Peura",
+        "fr": "Renne"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-27T16:38:34",
+    "focalLength35mm": 300,
+    "exposureTime": "1/400",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250827145448,
+    "position": {
+        "lat": 67.32526942,
+        "lon": 18.10336255
+    },
+    "next": 250828120010
+}

@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Snávvajávrre",
+        "fi": "Snávvajávrre",
+        "fr": "Snávvajávrre"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-09-01T14:21:42",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "400",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250828120010,
+    "next": 250901151703,
+    "position": {
+        "lat": 67.29242569,
+        "lon": 17.80583734
+    },
+    "film": "Kodak Portra 400",
+    "scanner": "Plustek OpticFilm 8100"
+}

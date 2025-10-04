@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Ruopsokjiegŋa",
+        "fi": "Ruopsokjiegŋa",
+        "fr": "Ruopsokjiegŋa"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-26T13:58:48",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "400",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250826131647,
+    "next": 250827145448,
+    "position": {
+        "lat": 67.40650984,
+        "lon": 17.94651057
+    },
+    "film": "Kodak Portra 400",
+    "scanner": "Plustek OpticFilm 8100"
+}

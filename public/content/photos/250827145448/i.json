@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Lulep Basstajåhkå",
+        "fi": "Lulep Basstajåhkå",
+        "fr": "Lulep Basstajåhkå"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-27T14:54:48",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "400",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250826135848,
+    "next": 250827163834,
+    "position": {
+        "lat": 67.32121367,
+        "lon": 18.04762314
+    },
+    "film": "Kodak Portra 400",
+    "scanner": "Plustek OpticFilm 8100"
+}

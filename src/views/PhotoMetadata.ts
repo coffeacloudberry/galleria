@@ -111,6 +111,12 @@ class CameraPosition implements m.ClassComponent {
         return `${baseUrl}?${params}`;
     }
 
+    /** Fixed point without any trailing zeros. */
+    static toAlmostFixed(n: number): string {
+        const v = n.toFixed(4);
+        return (v.slice(-1) === "0") ? n.toString() : v;
+    }
+
     view(): m.Vnode[] | null {
         if (!photo.meta) {
             return null;
@@ -135,14 +141,14 @@ class CameraPosition implements m.ClassComponent {
                     " ",
                     t("cam.lat"),
                     " ",
-                    pos.lat.toFixed(4),
+                    CameraPosition.toAlmostFixed(pos.lat),
                 ]),
                 m("li", [
                     m(Icon, { src: longitudeOutline }),
                     " ",
                     t("cam.lon"),
                     " ",
-                    pos.lon.toFixed(4),
+                    CameraPosition.toAlmostFixed(pos.lon),
                 ]),
                 m("li", [
                     m(Icon, { src: locationOutline }),
