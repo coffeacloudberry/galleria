@@ -33,13 +33,15 @@ fn is_tif(entry: &DirEntry) -> bool {
     path.is_file() && path.extension().map(|s| s == "tif").unwrap_or(false)
 }
 
+/// Order to get the most recent file first.
+fn sort_by_modified(a: &DirEntry, b: &DirEntry) -> cmp::Ordering {
+    b.metadata().unwrap().modified().unwrap().cmp(&a.metadata().unwrap().modified().unwrap())
+}
+
 fn process_ok_path(photo_id: u64, curr_path: PathBuf, photos_list: &mut Vec<(u64, PathBuf)>) {
-    let walker = WalkDir::new(&curr_path).into_iter().filter_map(|e| e.ok());
+    let walker = WalkDir::new(&curr_path).sort_by(sort_by_modified).into_iter().filter_map(|e| e.ok());
     let mut all_tif_files = walker.filter(is_tif);
     if let Some(tif_file) = all_tif_files.next() {
-        if all_tif_files.next().is_some() {
-            eprintln!("[{photo_id}] Found multiple .tif!");
-        }
         photos_list.push((photo_id, tif_file.clone().into_path()));
     } else {
         eprintln!("[{photo_id}] Missing .tif!");
