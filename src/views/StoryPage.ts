@@ -195,7 +195,8 @@ class PhotosPreview implements m.ClassComponent {
         }
         this.allPhotos = story.photos || [];
         this.clusterContent = {
-            photos: this.allPhotos.map((photo) => {
+            // reverse to have the last photo taken to be first like in the gallery
+            photos: this.allPhotos.reverse().map((photo) => {
                 return {
                     id: photo.id,
                     image: new Image(),
@@ -206,7 +207,10 @@ class PhotosPreview implements m.ClassComponent {
         this.loadClusterPhotos();
     }
 
-    /** Load one photo at a time to avoid glitch. */
+    /**
+     * Load one photo at a time to avoid glitch.
+     * @param latestLoad Pointer in the list of photos incrementing on every load.
+     */
     loadClusterPhotos(latestLoad = 0) {
         if (this.clusterContent.photos.length === latestLoad) {
             return;
