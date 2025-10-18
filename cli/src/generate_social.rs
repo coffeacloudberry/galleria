@@ -114,6 +114,9 @@ fn generate(photo_id: u64, metadata: &PhotoInfo, png: (PathBuf, (u32, u32)), out
 
     let image_width = cmp::max(png.1.0, 600) + 2 * IMAGE_BORDER;
     let image_height = png.1.1 + 2 * IMAGE_BORDER + 24 * 5;
+    let has_one_title = metadata.title.en == metadata.title.fi && metadata.title.fi == metadata.title.fr;
+    let text_fi = if has_one_title { String::from("") } else { sanitize_text(&metadata.title.fi) };
+    let text_fr = if has_one_title { String::from("") } else { sanitize_text(&metadata.title.fr) };
     let globals = liquid::object!({
         "photo": png.0.to_str().unwrap(),
         "photo_width": png.1.0,
@@ -129,8 +132,8 @@ fn generate(photo_id: u64, metadata: &PhotoInfo, png: (PathBuf, (u32, u32)), out
         "line_2_x": image_width / 2,
         "date": metadata.date_taken.split('T').next(),
         "text_en": sanitize_text(&metadata.title.en),
-        "text_fi": sanitize_text(&metadata.title.fi),
-        "text_fr": sanitize_text(&metadata.title.fr),
+        "text_fi": text_fi,
+        "text_fr": text_fr,
     });
     let svg = template.render(&globals).unwrap();
     let mut pixmap = Pixmap::new(image_width, image_height).unwrap();
