@@ -1,10 +1,10 @@
 import datetime
-import time
 import json
 import os
 import re
 import subprocess
 import sys
+import time
 from fractions import Fraction
 from math import sqrt
 from pathlib import Path
@@ -282,7 +282,7 @@ def guess_original(dir_path: str) -> str:
     ]
     current_timestamp = time.time()
     computed_priorities = [(ext, prio * current_timestamp) for ext, prio in priorities]
-    best_priority = -1
+    best_priority = -1.0
     best_file = None
     for file in os.listdir(dir_path):
         path_to_file = os.path.join(dir_path, file)

@@ -4,7 +4,7 @@ mypy:
 
 .PHONY: check
 check: mypy
-	ruff check
+	ruff check --fix
 	cargo clippy
 
 .PHONY: format
