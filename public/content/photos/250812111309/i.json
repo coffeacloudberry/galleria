@@ -19,7 +19,11 @@
     "lens": null,
     "computationalMode": null,
     "prev": 250630190902,
-    "next": 250813120000,
+    "next": 250813122735,
     "film": "Kodak UltraMax 400",
-    "scanner": "Plustek OpticFilm 8100"
+    "scanner": "Plustek OpticFilm 8100",
+    "position": {
+        "lat": 68.792820,
+        "lon": 20.682288
+    }
 }

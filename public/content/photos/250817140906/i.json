@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Black Bird",
+        "fi": "Musta lintu",
+        "fr": "Oiseau noir"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-17T14:09:06",
+    "focalLength35mm": 80,
+    "exposureTime": "1/2000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250817103511,
+    "next": 250819143131,
+    "position": {
+        "lat": 68.701650,
+        "lon": 19.457477
+    }
+}

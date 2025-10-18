@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Heavy Clouds",
+        "fi": "Raskaita pilviä",
+        "fr": "Nuages lourds"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-09-02T12:59:16",
+    "focalLength35mm": 34,
+    "exposureTime": "1/500",
+    "fNumber": 8,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": null,
+    "prev": 250901190754,
+    "next": 250902164406,
+    "position": {
+        "lat": 67.38732342,
+        "lon": 17.95580844
+    }
+}

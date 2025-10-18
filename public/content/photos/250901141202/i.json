@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Calf",
+        "fi": "Vasa",
+        "fr": "Jeune renne"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-09-01T14:12:02",
+    "focalLength35mm": 300,
+    "exposureTime": "1/2000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250901133303,
+    "next": 250901142142,
+    "position": {
+        "lat": 67.29094503,
+        "lon": 17.80494483
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "meep meep",
+        "fi": "beep beep",
+        "fr": "bip bip"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-09-02T16:44:06",
+    "focalLength35mm": 300,
+    "exposureTime": "1/125",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250902125916,
+    "position": {
+        "lat": 67.41297187,
+        "lon": 18.04534578
+    }
+}

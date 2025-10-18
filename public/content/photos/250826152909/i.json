@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Bierikjåhkå",
+        "fi": "Bierikjåhkå",
+        "fr": "Bierikjåhkå"
+    },
+    "description": {
+        "en": "HDR combining 4 photos. The star effect is caused by the 7 aperture blades.",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-26T15:29:09",
+    "focalLength35mm": 28,
+    "exposureTime": "1/1000",
+    "fNumber": 13,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": null,
+    "prev": 250826135848,
+    "next": 250826174232,
+    "position": {
+        "lat": 67.39102269,
+        "lon": 17.91878474
+    }
+}

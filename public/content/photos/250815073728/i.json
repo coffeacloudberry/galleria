@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Morning Mist",
+        "fi": "Aamukaste",
+        "fr": "Brume matinale"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-15T07:37:28",
+    "focalLength35mm": 88,
+    "exposureTime": "1/640",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250813125700,
+    "next": 250815141553,
+    "position": {
+        "lat": 68.785977,
+        "lon": 19.650108
+    }
+}

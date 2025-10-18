@@ -1,0 +1,29 @@
+{
+    "title": {
+        "en": "Gierkav",
+        "fi": "Gierkav",
+        "fr": "Gierkav"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-25T08:00:00",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "400",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250820141016,
+    "next": 250824175045,
+    "position": {
+        "lat": 67.489,
+        "lon": 18.328
+    },
+    "film": "Kodak Portra 400",
+    "scanner": "Plustek OpticFilm 8100"
+}

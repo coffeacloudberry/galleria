@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Tiny Mountains",
+        "fi": "Pienet vuoret",
+        "fr": "Petites montagnes"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-20T13:28:26",
+    "focalLength35mm": 98,
+    "exposureTime": "1/1250",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250820100915,
+    "next": 250820141016,
+    "position": {
+        "lat": 68.460413,
+        "lon": 19.126862
+    }
+}

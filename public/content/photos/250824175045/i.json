@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "1 Location, 2 Weathers",
+        "fi": "1 paikka, 2 säätä",
+        "fr": "1 lieu, 2 climats"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-24T17:50:45",
+    "focalLength35mm": 118,
+    "exposureTime": "1/1250",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250824080000,
+    "next": 250825151208,
+    "position": {
+        "lat": 67.49629537,
+        "lon": 18.15211203
+    }
+}

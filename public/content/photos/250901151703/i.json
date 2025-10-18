@@ -1,8 +1,8 @@
 {
     "title": {
-        "en": "Jågåsjgaskatjåhkå",
-        "fi": "Jågåsjgaskatjåhkå",
-        "fr": "Jågåsjgaskatjåhkå"
+        "en": "Ålkatj",
+        "fi": "Ålkatj",
+        "fr": "Ålkatj"
     },
     "description": {
         "en": "",
@@ -24,5 +24,6 @@
         "lon": 17.78267487
     },
     "film": "Kodak Portra 400",
-    "scanner": "Plustek OpticFilm 8100"
+    "scanner": "Plustek OpticFilm 8100",
+    "next": 250901160449
 }

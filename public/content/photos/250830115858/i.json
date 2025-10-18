@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Fall",
+        "fi": "Syksy",
+        "fr": "Automne"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-30T11:58:58",
+    "focalLength35mm": 108,
+    "exposureTime": "1/80",
+    "fNumber": 9,
+    "iso": 3200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250829150000,
+    "next": 250831162901,
+    "position": {
+        "lat": 67.16405089,
+        "lon": 18.09974793
+    }
+}

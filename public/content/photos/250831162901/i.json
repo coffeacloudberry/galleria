@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Tiny Frog",
+        "fi": "Pieni sammakko",
+        "fr": "Petite grenouille"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-31T16:29:01",
+    "focalLength35mm": 300,
+    "exposureTime": "1/200",
+    "fNumber": 9,
+    "iso": 3200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250830115858,
+    "next": 250901133303,
+    "position": {
+        "lat": 67.26091845,
+        "lon": 17.8616609
+    }
+}

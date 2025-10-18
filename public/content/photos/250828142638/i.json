@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Rinim",
+        "fi": "Rinim",
+        "fr": "Rinim"
+    },
+    "description": {
+        "en": "HDR combining 3 photos",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-08-28T14:26:38",
+    "focalLength35mm": 50,
+    "exposureTime": "1/3200",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": null,
+    "prev": 250828134116,
+    "next": 250829145711,
+    "position": {
+        "lat": 67.28415183,
+        "lon": 18.16574285
+    }
+}

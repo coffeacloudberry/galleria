@@ -1,0 +1,29 @@
+{
+    "title": {
+        "en": "Storrostavatnet",
+        "fi": "Storrostavatnet",
+        "fr": "Storrostavatnet"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "printable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-13T12:27:35",
+    "focalLength35mm": 80,
+    "exposureTime": "1/2000",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": null,
+    "prev": 250812111309,
+    "next": 250813125700,
+    "position": {
+        "lat": 68.801359,
+        "lon": 20.334007
+    }
+}

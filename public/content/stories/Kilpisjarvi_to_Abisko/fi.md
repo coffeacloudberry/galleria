@@ -1,3 +1,3 @@
-# Kilpisjärvi kohteeseen Abisko
+# Kilpisjärveltä Abiskoon
 
 Tarina ei ole vielä valmis. Tulossa pian...

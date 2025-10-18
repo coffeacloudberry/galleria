@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Suddenly Sharp",
+        "fi": "Yhtäkkiä terävä",
+        "fr": "Soudainement tranchant"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-16T16:01:50",
+    "focalLength35mm": 26,
+    "exposureTime": "1/500",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250815141553,
+    "next": 250816173106,
+    "position": {
+        "lat": 68.767227,
+        "lon": 19.374784
+    }
+}

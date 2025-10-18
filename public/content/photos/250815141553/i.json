@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Contrasty Environment",
+        "fi": "Kontrastinen ympäristö",
+        "fr": "Environnement contrasté"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-15T14:15:53",
+    "focalLength35mm": 122,
+    "exposureTime": "1/500",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250815073728,
+    "next": 250816160150,
+    "position": {
+        "lat": 68.818925,
+        "lon": 19.461752
+    }
+}

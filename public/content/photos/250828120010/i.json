@@ -1,8 +1,8 @@
 {
     "title": {
-        "en": "Glacier Stream",
-        "fi": "Jäätikkövirta",
-        "fr": "Ruisseau glaciaire"
+        "en": "Rinimjågåsj",
+        "fi": "Rinimjågåsj",
+        "fr": "Rinimjågåsj"
     },
     "description": {
         "en": "",
@@ -18,8 +18,8 @@
     "body": "Pentax 17",
     "lens": null,
     "computationalMode": null,
-    "prev": 250827163834,
-    "next": 250901142142,
+    "prev": 250828091041,
+    "next": 250828134116,
     "position": {
         "lat": 67.29510413,
         "lon": 18.14577757

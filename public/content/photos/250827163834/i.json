@@ -1,7 +1,7 @@
 {
     "title": {
         "en": "Reindeer",
-        "fi": "Peura",
+        "fi": "Poro",
         "fr": "Renne"
     },
     "description": {
@@ -23,5 +23,5 @@
         "lat": 67.32526942,
         "lon": 18.10336255
     },
-    "next": 250828120010
+    "next": 250828091041
 }

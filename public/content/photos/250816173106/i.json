@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Reindeer",
+        "fi": "Poro",
+        "fr": "Renne"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Kilpisjarvi_to_Abisko",
+    "dateTaken": "2025-08-16T17:31:06",
+    "focalLength35mm": 122,
+    "exposureTime": "1/800",
+    "fNumber": 4,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 40-150mm F4.0 Pro",
+    "computationalMode": "hand-held high res",
+    "prev": 250816160150,
+    "next": 250817103511,
+    "position": {
+        "lat": 68.754270,
+        "lon": 19.338832
+    }
+}

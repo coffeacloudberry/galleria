@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Rapaselet",
+        "fi": "Rapaselet",
+        "fr": "Rapaselet"
+    },
+    "description": {
+        "en": "HDR combining 4 photos",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-09-01T13:33:03",
+    "focalLength35mm": 16,
+    "exposureTime": "1/800",
+    "fNumber": 9,
+    "iso": 200,
+    "body": "OM Digital Solutions OM-5",
+    "lens": "Olympus M.Zuiko Digital ED 8-25mm F4 Pro",
+    "computationalMode": null,
+    "prev": 250831162901,
+    "next": 250901141202,
+    "position": {
+        "lat": 67.2849114,
+        "lon": 17.79720817
+    }
+}
