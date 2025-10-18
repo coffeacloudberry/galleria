@@ -114,7 +114,7 @@ class CameraPosition implements m.ClassComponent {
     /** Fixed point without any trailing zeros. */
     static toAlmostFixed(n: number): string {
         const v = n.toFixed(4);
-        return (v.slice(-1) === "0") ? n.toString() : v;
+        return v.slice(-1) === "0" ? n.toString() : v;
     }
 
     view(): m.Vnode[] | null {

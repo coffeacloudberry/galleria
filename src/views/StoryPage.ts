@@ -189,13 +189,13 @@ class PhotosPreview implements m.ClassComponent {
         this.loadPhotosIfNeeded();
     }
 
+    /** The last photo taken is the first, like in the gallery. */
     loadPhotosIfNeeded() {
         if (this.allPhotos === story.photos) {
             return;
         }
         this.allPhotos = story.photos || [];
         this.clusterContent = {
-            // reverse to have the last photo taken to be first like in the gallery
             photos: this.allPhotos.reverse().map((photo) => {
                 return {
                     id: photo.id,
@@ -209,7 +209,7 @@ class PhotosPreview implements m.ClassComponent {
 
     /**
      * Load one photo at a time to avoid glitch.
-     * @param latestLoad Pointer in the list of photos incrementing on every load.
+     * @param latestLoad Pointer in the list of photos.
      */
     loadClusterPhotos(latestLoad = 0) {
         if (this.clusterContent.photos.length === latestLoad) {

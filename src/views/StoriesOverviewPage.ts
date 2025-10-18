@@ -153,6 +153,7 @@ class ActivitySelection extends InteractiveTippy<void> {
             this.tippyInstance.hide();
         }
         allStories.selectedFilter = activity;
+        m.route.set("/:lang/stories", { lang: t.getLang(), activity });
     }
 
     view(): m.Vnode {
@@ -186,7 +187,12 @@ class ActivitySelection extends InteractiveTippy<void> {
 /** The body content containing all stories if any. */
 class AllStoriesComponent implements m.ClassComponent {
     private hasScrolled = false;
-    private currentFilter = allStories.selectedFilter;
+    private currentFilter;
+
+    constructor() {
+        allStories.selectedFilter = m.route.param("activity") || "all";
+        this.currentFilter = allStories.selectedFilter;
+    }
 
     oncreate({ dom }: m.CVnodeDOM): void {
         this.hasScrolled = false;
