@@ -136,12 +136,14 @@ export default class StoriesPlugin {
      * to one line by replacing paragraph jumps into whitespaces.
      */
     static cleanUpText(longText) {
-        const result = StoriesPlugin.cutText(
-            longText
-                .replace(/<h\d>[^<]*<\/h\d>/g, "")
-                .replace(/<\/p>\n*<p>/g, " ")
-                .replace(/<[^<>]*>/g, ""),
-        ).trim();
+        const cleanText = longText
+            .replace(/<h\d>[^<]*<\/h\d>/g, "")
+            .replace(/<\/p>\n*<p>/g, " ")
+            .replace(/<[^<>]*>/g, "");
+        if (cleanText.length < 80) {
+            return cleanText;
+        }
+        const result = StoriesPlugin.cutText(cleanText).trim();
         return result + "...";
     }
 
