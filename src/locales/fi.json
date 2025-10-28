@@ -24,7 +24,7 @@
     "keystroke": "näppäinpainallus",
     "first.tooltip": "Viimeisin valokuva",
     "last.tooltip": "Ensimmäinen valokuvaus",
-    "previous.tooltip": "Myöhemmin valokuva",
+    "previous.tooltip": "Myöhempi valokuva",
     "loading.tooltip": "Kuormaus",
     "not-found.message": "Sivua, jota yrität tarkastella, ei ole olemassa tai en löytänyt sen sisältöä.",
     "not-found.action": "Käy pääsivulla",
