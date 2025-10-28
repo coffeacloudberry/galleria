@@ -16,6 +16,32 @@ import { Header, HeaderAttrs } from "./Header";
 import Icon from "./Icon";
 import PhotoMetadata from "./PhotoMetadata";
 
+/** Photo with potential overlay on transitions. */
+const CurrentPhoto: m.Component = {
+    view(): m.Vnode {
+        const dimNext =
+            photo.transitionOnNext ||
+            (photo.isPreloading && photo.nextIsLeavingCurrentStory);
+        const dimPrev =
+            photo.transitionOnPrev ||
+            (photo.isPreloading && photo.prevIsLeavingCurrentStory);
+
+        return m(".current-photo", [
+            m("img", {
+                src: photo.currentImageSrc,
+                class: dimNext || dimPrev ? "dim" : "",
+            }),
+            (dimNext || dimPrev) &&
+                m("p.end-of-album", [
+                    t("transition"),
+                    m("br"),
+                    dimNext && t("transition.next"),
+                    dimPrev && t("transition.prev"),
+                ]),
+        ]);
+    },
+};
+
 /** Prev, current, and next photo components. */
 const Gallery: m.Component = {
     view(): m.Vnode {
@@ -28,12 +54,7 @@ const Gallery: m.Component = {
                     photo.loadPrev();
                 },
             }),
-            m(
-                ".current-photo",
-                m("img", {
-                    src: photo.currentImageSrc,
-                }),
-            ),
+            m(CurrentPhoto),
             m(".goto-photo-screen-nav.goto-next-photo", {
                 class: hideNext ? "invisible" : "",
                 onclick: (): void => {
@@ -227,6 +248,7 @@ function onEventRight() {
     if (!photo.isPreloading) {
         hideAllForce();
         photo.loadNext();
+        m.redraw(); // transition when leaving the story if any
     }
 }
 
@@ -238,6 +260,7 @@ function onEventLeft() {
     if (!photo.isFirst() && !photo.isPreloading) {
         hideAllForce();
         photo.loadPrev();
+        m.redraw(); // transition when leaving the story if any
     }
 }
 
@@ -389,7 +412,9 @@ export default function PhotoPage(): m.Component {
                 selectedPhotoId &&
                 selectedPhotoId <= config.firstPhotoId &&
                 photo.id !== null &&
-                selectedPhotoId !== photo.id
+                selectedPhotoId !== photo.id &&
+                !photo.transitionOnNext &&
+                !photo.transitionOnPrev
             ) {
                 void photo.load(selectedPhotoId);
             }

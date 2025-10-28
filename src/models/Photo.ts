@@ -130,6 +130,11 @@ class Photo {
     /** True if fetching the photo metadata returned 404. */
     notFound = false;
 
+    transitionOnNext = false;
+    nextIsLeavingCurrentStory = false;
+    transitionOnPrev = false;
+    prevIsLeavingCurrentStory = false;
+
     /** Return true if the photo has any metadata available. */
     containsExif(): boolean {
         return this.meta === null
@@ -299,15 +304,32 @@ class Photo {
      * or the first one if the previous one is not linked.
      */
     loadPrev(): void {
-        this.isPreloading = true;
-        const prevFolderId = !this.meta?.next
-            ? config.firstPhotoId
-            : this.meta.next;
+        this.nextIsLeavingCurrentStory = false;
+        if (this.transitionOnNext) {
+            this.transitionOnNext = false;
+            return;
+        }
 
-        m.route.set("/:lang/photo/:title", {
-            lang: t.getLang(),
-            title: prevFolderId,
-        });
+        this.transitionOnNext = false;
+        const currentBelongsToStory =
+            this.meta?.storyPhotoIncrement !== undefined;
+        this.prevIsLeavingCurrentStory =
+            currentBelongsToStory &&
+            this.meta?.storyPhotoIncrement === this.meta?.photosInStory;
+        this.transitionOnPrev =
+            !this.transitionOnPrev && this.prevIsLeavingCurrentStory;
+
+        if (!this.transitionOnPrev) {
+            this.isPreloading = true;
+            const prevFolderId = !this.meta?.next
+                ? config.firstPhotoId
+                : this.meta.next;
+
+            m.route.set("/:lang/photo/:title", {
+                lang: t.getLang(),
+                title: prevFolderId,
+            });
+        }
     }
 
     /**
@@ -315,21 +337,34 @@ class Photo {
      * or the first one if the next one is not linked.
      */
     loadNext(replaceHistory = false): void {
-        this.isPreloading = true;
-        const nextFolderId = !this.meta?.prev
-            ? config.firstPhotoId
-            : this.meta.prev;
+        this.prevIsLeavingCurrentStory = false;
+        if (this.transitionOnPrev) {
+            this.transitionOnPrev = false;
+            return;
+        }
 
-        m.route.set(
-            "/:lang/photo/:title",
-            {
-                lang: t.getLang(),
-                title: nextFolderId,
-            },
-            {
-                replace: replaceHistory,
-            },
-        );
+        this.transitionOnPrev = false;
+        this.nextIsLeavingCurrentStory = this.meta?.storyPhotoIncrement === 1;
+        this.transitionOnNext =
+            !this.transitionOnNext && this.nextIsLeavingCurrentStory;
+
+        if (!this.transitionOnNext) {
+            this.isPreloading = true;
+            const nextFolderId = !this.meta?.prev
+                ? config.firstPhotoId
+                : this.meta.prev;
+
+            m.route.set(
+                "/:lang/photo/:title",
+                {
+                    lang: t.getLang(),
+                    title: nextFolderId,
+                },
+                {
+                    replace: replaceHistory,
+                },
+            );
+        }
     }
 
     /** Path to the story of the loaded photo or null if not available. */

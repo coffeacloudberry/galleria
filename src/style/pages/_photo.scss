@@ -28,6 +28,15 @@ $photo-description: calc(3 * #{variables.$global-font-size} + 0.4rem); /* 1 line
 
         img {
             border-radius: variables.$border-radius-sm;
+
+            &.dim {
+                opacity: 0.25;
+            }
+        }
+
+        .end-of-album {
+            position: absolute;
+            text-align: center;
         }
     }
 
