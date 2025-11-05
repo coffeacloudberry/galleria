@@ -1,8 +1,8 @@
 {
     "title": {
-        "en": "meep meep",
-        "fi": "beep beep",
-        "fr": "bip bip"
+        "en": "Meep Meep",
+        "fi": "Beep beep",
+        "fr": "Bip bip"
     },
     "description": {
         "en": "",
@@ -22,5 +22,6 @@
     "position": {
         "lat": 67.41297187,
         "lon": 18.04534578
-    }
+    },
+    "next": 251004114603
 }
