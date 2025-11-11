@@ -47,7 +47,13 @@ export default class StoriesPlugin {
             console.error(`Info file missing for ${docId}`);
             throw new Error("Create info file or delete folder.");
         }
-        return JSON.parse(fs.readFileSync(file).toString());
+        try {
+            return JSON.parse(fs.readFileSync(file).toString());
+        } catch (e) {
+            if (e instanceof SyntaxError) {
+                throw new Error(`Failed to parse JSON file for ${docId}: ${e.message}`);
+            }
+        }
     }
 
     /**
