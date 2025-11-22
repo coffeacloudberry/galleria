@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Tree",
+        "fi": "Puu",
+        "fr": "Arbre"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-09-03T15:03:11",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "200",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250902164406,
+    "next": 251004114603,
+    "film": "Kodak Gold 200",
+    "scanner": "Plustek OpticFilm 8100",
+    "position": {
+        "lat": 67.482135,
+        "lon": 18.156481
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Rock",
+        "fi": "Kivi",
+        "fr": "Rocher"
+    },
+    "description": {
+        "en": "",
+        "fi": "",
+        "fr": ""
+    },
+    "downloadable": false,
+    "story": "Sarek_Together",
+    "dateTaken": "2025-10-03T12:05:37",
+    "focalLength35mm": 37,
+    "exposureTime": null,
+    "fNumber": null,
+    "iso": "200",
+    "body": "Pentax 17",
+    "lens": null,
+    "computationalMode": null,
+    "prev": 250902125916,
+    "next": 250902164406,
+    "film": "Kodak Gold 200",
+    "scanner": "Plustek OpticFilm 8100",
+    "position": {
+        "lat": 67.406065,
+        "lon": 17.978981
+    }
+}

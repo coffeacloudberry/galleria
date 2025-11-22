@@ -5,6 +5,7 @@ node_modules/
 *.ORF
 *.ORI
 *.pp3
+*.xmp
 *.arp
 *.tif
 *.xcf
